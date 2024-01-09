@@ -20,7 +20,7 @@ const VideoPlayer = () => {
       className={`${
         isCentered
           ? "absolute max-w-full w-full bg-black bg-opacity-40 h-screen flex justify-center  items-center"
-          : "fixed bottom-[1rem] right-0 w-36"
+          : "fixed bottom-[-0.1rem] right-0 w-36 z-[2]"
       }`}
       sx={{
         // display: "none",
@@ -39,6 +39,7 @@ const VideoPlayer = () => {
             borderRadius: "2px 0 0 1px",
             cursor: "pointer",
           }}
+          className="items-center pl-[0.2em] flex"
           onClick={() => {
             setIsShow(!isShow);
           }}

@@ -48,7 +48,7 @@ const NeosSelect=(props) => {
                         fontSize: "14px",
 
                         "&& .MuiList-root": {
-                            backgroundColor: "#FBFCFD",
+                            backgroundColor: "#fff",
                             fontSize: "14px",
                             color: "#000",
                         },
@@ -61,14 +61,14 @@ const NeosSelect=(props) => {
                             padding: "14px",
                         },
                         "&& .Mui-selected": {
-                            backgroundColor: "#FD7C7C",
+                            backgroundColor: "#FD7C7C !important",
                             color: "#fff",
                             fontSize: "14px",
                         },
                         "&& .Mui-selected:hover": {
                             backgroundColor: "#FD7C7C",
                             color: "#fff",
-                            opacity: .5,
+                            opacity: 1,
                             fontSize: "14px",
                         },
                         "&& .css-6hp17o-MuiList-root-MuiMenu-list":{

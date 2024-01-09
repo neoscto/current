@@ -10,11 +10,15 @@ import MainContainer from "@/components/sharedComponents/MainContainer";
 import GetOffer from "./GetOffer";
 import ContractDetail from "../contractDetail/page";
 import Success from "../success/page";
-import jsPDF from "jspdf";
 import { pdfGenerate } from "./pdfGenerator";
 import { setUserData } from "@/features/common/commonSlice";
-import { AppDispatch } from "@/store/store";
-import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import useHandleForm from "@/hooks/useHandleForm";
+import { offerStep1Schema } from "@/utils/validations/offers.validation";
+import { useRouter } from "next/navigation";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const steps = ["Receive Offer", "Sign Contract", "Enjoy Solar"];
 
@@ -29,10 +33,34 @@ interface FormData {
 
 const HorizontalLinearStepper = () => {
   const dispath = useDispatch<AppDispatch>();
+  const router = useRouter();
+  const formikInitialValues = {
+    offerType: "",
+    numberOfPeople: "",
+    cups: "",
+    firstName: "",
+    lastName: "",
+    emailAddress: "",
+    phoneNumber: "",
+    numberofpeopleAdditionValue: 1,
+  };
+
+  const handleSuccessResponce = (res: any) => {};
+  const [formik, isLoading]: any = useHandleForm({
+    method: "POST",
+    apiEndpoint: "/api/users-offers",
+    formikInitialValues,
+    validationSchema: offerStep1Schema,
+    handleSuccessResponce,
+  });
 
   const [skipped, setSkipped] = useState<Set<number>>(new Set<number>());
   const [activeStep, setActiveStep] = useState(0);
   const [showForm, setShowForm] = useState<string>("allOffers");
+  const { formBack }: any = useSelector(
+    (state: RootState) => state.commonSlice
+  );
+  const { t } = useTranslation();
 
   const isStepOptional = (step: number): boolean => {
     return step === 1;
@@ -103,12 +131,45 @@ const HorizontalLinearStepper = () => {
   }, [formData]);
 
   const generatePDF = () => {
-    pdfGenerate(formData);
+    pdfGenerate(formik.values);
+  };
+  const handleFormBack = () => {
+    if (showForm === "poffer" || showForm === "soffer") {
+      setShowForm("allOffers");
+      return;
+    }
+    if (showForm === "paymentForm") {
+      setActiveStep(1);
+      setShowForm("emailSuccess");
+      return;
+    }
+    if (showForm === "yourOffer") {
+      setShowForm(formBack === "backpoffer" ? "poffer" : "soffer");
+      return;
+    }
+    if (showForm === "yourDetails") {
+      setActiveStep(0);
+      setShowForm("yourOffer");
+      return;
+    }
+    if (showForm === "emailSuccess" && formBack === "emailDetails") {
+      setShowForm("yourDetails");
+      return;
+    }
+    router.back();
   };
 
   return (
     <MainContainer>
-      <div className="rounded-[30px] bg-[#01092299] max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white overflow-hidden">
+      <div className="relative rounded-[30px] bg-[#01092299] max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white overflow-hidden">
+        <div className="flex items-center gap-x-[12px] absolute top-[2.1em] left-[2em]">
+          <span onClick={() => handleFormBack()}>
+            <ArrowBackIcon
+              className=" cursor-pointer "
+              sx={{ fontSize: "30px" }}
+            />
+          </span>
+        </div>
         <Box sx={{ width: "100%" }}>
           <div className=" w-[90%] md:w-[80%] lg:w-[60%] mx-auto py-6 md:py-9 lg:py-9">
             <Stepper activeStep={activeStep}>
@@ -143,7 +204,7 @@ const HorizontalLinearStepper = () => {
                       },
                     }}
                   >
-                    <StepLabel {...labelProps}>{label}</StepLabel>
+                    <StepLabel {...labelProps}>{t(label)}</StepLabel>
                   </Step>
                 );
               })}
@@ -163,7 +224,7 @@ const HorizontalLinearStepper = () => {
             <React.Fragment>
               {activeStep == 0 && (
                 <GetOffer
-                  formData={formData}
+                  formik={formik}
                   handleChange={handleChange}
                   handleNext={handleNext}
                   showForm={showForm}
@@ -171,11 +232,22 @@ const HorizontalLinearStepper = () => {
                 />
               )}
               {activeStep == 1 && (
-                <ContractDetail handleNext={handleNext} formData={formData} />
+                <ContractDetail
+                  handleNext={handleNext}
+                  formik={formik}
+                  showForm={showForm}
+                  setShowForm={setShowForm}
+                />
               )}
-              {activeStep == 2 && <Success generatePDF={generatePDF} />}
+              {activeStep == 2 && (
+                <Success
+                  generatePDF={generatePDF}
+                  setShowForm={setShowForm}
+                  showForm={showForm}
+                />
+              )}
               {/* <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                <Button
+                <Button 
                   color="inherit"
                   disabled={activeStep === 0}
                   onClick={handleBack}

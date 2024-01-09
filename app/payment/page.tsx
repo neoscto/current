@@ -6,6 +6,7 @@ import NeosTextField from "@/components/NeosTextField";
 import NeosButton from "@/components/NeosButton";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { useTranslation } from "react-i18next";
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -36,6 +37,7 @@ const CheckoutForm = () => {
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>
@@ -48,14 +50,12 @@ const CheckoutForm = () => {
       const cardElement = elements?.getElement(CardElement);
 
       if (!cardElement) {
-        throw new Error("Card element not found");
+        throw new Error(t("Payment.element-not-found-err"));
       }
 
       const { token, error } = await stripe!.createToken(cardElement);
       if (error?.code === "insufficient_funds") {
-        alert(
-          "Insufficient funds. Please use a different card or check your balance."
-        );
+        alert(t("Payment.insufficient-fund-err"));
       } else {
         alert(`Error: ${error?.message}`);
       }
@@ -78,27 +78,30 @@ const CheckoutForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <h1 className="text-lg md:2xl lg:text-3xl font-bold  mt-2 mb-8 text-center">
-        Price to Pay: €{displayValue}
+        {t("Your-offer.title")}: €{displayValue}
       </h1>
       <div className="rounded-3xl border border-[#E0E0E0] p-6">
-        <p className="text-lg font-medium text-black">Update payment method</p>
-        <p className="text-[#667085] text-sm mb-8">Update your card details.</p>
+        <p className="text-lg font-medium text-black">{t("Payment.title")}</p>
+        <p className="text-[#667085] text-sm mb-8">{t("Payment.desc")}</p>
         <Grid container rowSpacing={3} columnSpacing={3}>
           <Grid item xs={12} sm={12} md={12}>
-            <NeosTextField placeholder="Olivia Rhye" label="Name on card" />
+            <NeosTextField
+              placeholder="Olivia Rhye"
+              label={t("Payment.card-name")}
+            />
           </Grid>
 
           <Grid item xs={12} sm={12} md={12}>
             <div className="flex justify-between">
               <label className="text-sm text-black  font-medium mb-1.5 block">
-                Card Number
+                {t("Payment.card-number")}
               </label>
               <span className="flex">
                 <label className="text-sm text-black  font-medium mb-1.5 ">
-                  Expiry
+                  {t("Payment.expiry")}
                 </label>
                 <label className="text-sm text-black  font-medium mb-1.5 ms-5 pe-4">
-                  CVV
+                  {t("Payment.cvv")}
                 </label>
               </span>
             </div>

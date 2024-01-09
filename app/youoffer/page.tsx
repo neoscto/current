@@ -5,10 +5,12 @@ import Image from "next/image";
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { useTranslation } from "react-i18next";
 
 const YourOffer = ({ handleNext }: any) => {
   const { userData } = useSelector((state: RootState) => state.commonSlice);
   const displayValue = Number(userData?.numberOfPeople) + 1;
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -19,10 +21,10 @@ const YourOffer = ({ handleNext }: any) => {
               <img src="description.png" alt="Description image" />
               <div className="-mt-12 text-center">
                 <h1 className="text-lg md:2xl lg:text-3xl font-bold">
-                  Price to Pay: €{displayValue}
+                  {t("Your-offer.title")}: €{displayValue}
                 </h1>
                 <p className="text-sm md:text-base lg:text-base mt-1 text-[#828282] font-medium mt-0">
-                  for 25 years of solar power
+                  {t("Your-offer.desc")}
                 </p>
               </div>
             </div>
@@ -30,28 +32,29 @@ const YourOffer = ({ handleNext }: any) => {
           <div className="flex justify-center items-center w-full md:w-3/6">
             <div className="max-w-full md:max-w-[320px] w-full md:ps-5 pt-4 md:pt-0">
               <h1 className="text-lg md:2xl lg:text-3xl font-bold ">
-                Your Offer
+                {t("Your-offer.offer-title")}
               </h1>
               <p className="text-sm md:text-base lg:text-base mt-1 text-[#828282] font-medium mt-0">
-                {displayValue} Panels (Equivalent to {displayValue}KWp)
+                {displayValue} {t("Your-offer.offer-option1")} {displayValue}
+                {t("Your-offer.offer-option1-unit")}
                 {/* {(displayValue * 3.2).toFixed(2)}KWp) */}
               </p>
               <div className="my-2 md:my-5">
                 <p className="text-base text-black font-normal">
-                  • €{displayValue} yearly savings (€{displayValue} total
-                  savings)
+                  • €{displayValue} {t("Your-offer.offer-saving-1")} (€
+                  {displayValue} {t("Your-offer.offer-saving-2")})
                 </p>
                 <p className="text-base text-black font-normal my-2 md:my-2.5">
-                  • {displayValue} years payback
+                  • {displayValue} {t("Your-offer.offer-payback")}
                 </p>
                 <p className="text-base text-black font-normal">
-                  • {displayValue}% of consumption covered by
+                  • {displayValue}% {t("Your-offer.offer-consumption")}
                 </p>
               </div>
               <NeosButton
                 sx={{ width: "100%", mt: 1 }}
                 category="colored"
-                title="generate contract"
+                title={t("Your-offer.contract-btn-txt")}
                 onClick={handleNext}
               />
             </div>
@@ -60,7 +63,7 @@ const YourOffer = ({ handleNext }: any) => {
         <div className="max-w-full lg:max-w-[508px] w-full border border-[#E0E0E0] p-4 my-3 lg:mt-2 rounded-3xl mx-auto lg:mx-0 lg:ml-auto">
           <div className="flex justify-center md:justify-between items-center md:items-start flex-1 flex-col md:flex-row">
             <p className="text-base text-black font-medium me-4 lg:me-11 whitespace-nowrap">
-              Licensed by
+              {t("Footer.license")}
             </p>
             <div className="flex align-center flex-wrap">
               <img
@@ -84,12 +87,12 @@ const YourOffer = ({ handleNext }: any) => {
         <div className="flex flex-col md:flex-row mb-7">
           <div className="md:w-3/6 border border-[#E0E0E0] rounded-3xl px-4 py-7 md:mr-3">
             <h1 className="text-base md:2xl  font-bold text-center mb-7">
-              How it works?
+              {t("How-it-work.title")}
             </h1>
             <ul className="ps-4 work-list-marker">
               {HowItWorksList.map((item, index) => (
                 <li key={index} className="text-sm text-black mb-4 list-disc">
-                  {item}
+                  {t(`How-it-work.${Object.keys(item)[0]}`)}
                 </li>
               ))}
             </ul>
@@ -97,19 +100,21 @@ const YourOffer = ({ handleNext }: any) => {
           <div className="ms-1 md:w-3/6">
             <div className="w-full border border-[#E0E0E0] rounded-3xl px-4 py-7 mt-5 md:mt-0">
               <h1 className="text-base md:2xl  font-bold text-center mb-7">
-                Compare Our Offer
+                {t("Compare-our-offer.title")}
               </h1>
               <ul className="ps-4 work-list-marker">
                 {CompareOfferList.map((item, index) => (
                   <li key={index} className="text-sm text-black mb-4 list-disc">
-                    {`${displayValue}% ${item}`}
+                    {`${displayValue}% ${t(
+                      `Compare-our-offer.${Object.keys(item)[0]}`
+                    )}`}
                   </li>
                 ))}
               </ul>
             </div>
             <div className="flex justify-center flex-col items-center bg-[#E7F5FA]  rounded-3xl pt-5 mt-5 pb-7 px-5">
               <h1 className="text-base md:2xl  font-bold text-center w-[220px]">
-                Review your proposal with your Solar Expert
+                {t("Get-offer.review-expert-txt")}
               </h1>
               <div className="w-12 h-12 relative my-4">
                 <Image src="/user_demo.png" alt="user image" fill />
@@ -119,7 +124,7 @@ const YourOffer = ({ handleNext }: any) => {
               <NeosButton
                 sx={{ mt: 2 }}
                 category="colored"
-                title="TALK TO YOUE EXPERT"
+                title={t("Get-offer.book-expert-txt")}
               />
             </div>
           </div>

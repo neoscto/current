@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <>
       <div className="px-4 md:px-18 lg:px-28 py-4  flex justify-between align-center bg-white">
@@ -10,11 +12,11 @@ const Footer = () => {
           href="/faq"
           className="text-black font-medium  hidden md:flex items-center me-3"
         >
-          Copyright © 2023 Neos
+          {t("Footer.copyright")} 2023 Neos
         </Link>
         <div className="flex justify-between align-center flex-1 md:flex-none lg:flex-none">
           <p className="text-base text-black font-medium me-4 lg:me-11 whitespace-nowrap flex items-center">
-            Licensed by
+            {t("Footer.license")}
           </p>
           <div className="flex align-center flex-wrap">
             <img
@@ -39,22 +41,27 @@ const Footer = () => {
             href="/privacyPolicy"
             className="text-base text-black font-medium  hidden md:block lg:block md:mx-2 lg:mx-5"
           >
-            Privacy Policy
+            {t("Footer.policy")}
           </Link>
           <Link
             href="/termsOfUse"
             className="text-base text-black font-medium  hidden md:block lg:block"
           >
-            Terms Of Use
+            {t("Footer.terms")}
           </Link>
         </div>
       </div>
       <div className="px-4 md:px-18 lg:px-28 py-4 flex justify-between align-center bg-white block md:hidden lg:hidden border-t-2 border-inherit">
         <Link href="/faq" className="text-base text-black font-medium">
-          Copyright © 2023 Neos
+          {t("Footer.copyright")} 2023 Neos
         </Link>
-        <p className="text-base text-black font-medium mx-3">Terms Of Use</p>
-        <p className="text-base text-black font-medium">Privacy Policy</p>
+        <p className="text-base text-black font-medium mx-3">
+          {t("Footer.terms")}
+        </p>
+        <p className="text-base text-black font-medium">
+          {" "}
+          {t("Footer.policy")}
+        </p>
       </div>
     </>
   );

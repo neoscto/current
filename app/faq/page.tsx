@@ -77,9 +77,14 @@ const faq = () => {
                 overflowY: "scroll",
                 padding: "0.5rem",
               }}
+              className="flex flex-wrap"
             >
               {faqData?.map((faq, index) => (
-                <Accordion key={index} sx={accorSyle}>
+                <Accordion
+                  key={index}
+                  sx={accorSyle}
+                  className="lg:max-w-[50%] md:max-w-[50%] sm:max-w-[100%]"
+                >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls={`panel${index + 1}a-content`}

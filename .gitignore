@@ -1,0 +1,11 @@
+# Ignore node_modules
+node_modules/
+
+# Ignore .next/ folder
+.next/
+
+# Ignore .env file
+.env
+
+# Ignore next-env.d.ts file
+next-env.d.ts

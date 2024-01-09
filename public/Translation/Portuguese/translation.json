@@ -1,0 +1,144 @@
+{
+  "Home": {
+    "nav": {
+      "faqs": "Perguntas frequentes"
+    },
+    "title": "Bem-vindo ao Futuro",
+    "description": "Descubra o Solar Virtual. Sem instalação. Energia barata. Conexão instantânea.",
+    "btn1txt": "SAIBA MAIS",
+    "btn2txt": "OBTER COTAÇÃO"
+  },
+
+  "Description": {
+    "title": "O que é Solar Virtual?",
+    "description": "Compre painéis dentro de parques solares. Receba eletricidade através do sistema de rede.",
+    "point1": "⚡ &nbsp; 80% de redução na conta de eletricidade",
+    "point2": "💸 &nbsp; 35% mais barato que a energia solar no telhado",
+    "point3": "⏱ &nbsp; Conexão instantânea",
+    "point4": "🌆 &nbsp; Sem necessidade de telhado",
+    "point5": "🔄 &nbsp; Pagamento em 4.5 anos",
+    "point6": "&nbsp; 25 anos de vida útil",
+    "point7": "🌱  &nbsp; 100% renovável"
+  },
+
+  "Calculate-saving-btn": "CALCULAR SUAS ECONOMIAS",
+  "Receive Offer": "Receber Oferta",
+  "Sign Contract": "Assinar Contrato",
+  "Enjoy Solar": "Desfrutar do Solar",
+  "Get-offer": {
+    "Standard Offer": "Oferta Padrão",
+    "Personalised Offer": "Oferta Personalizada",
+    "You will not need anything else to get the offer": "Você não precisará de mais nada para obter a oferta",
+    "You will need your latest electricity bill to get the offer": "Você precisará da sua última conta de eletricidade para obter a oferta",
+    "Instant Calculation": "Cálculo Instantâneo",
+    "Answer 4 Questions": "Responder 4 Perguntas",
+    "100% Accurate": "100% Preciso",
+    "85% Accurate": "85% Preciso",
+    "btn": "OBTER OFERTA",
+    "review-expert-txt": "Revise sua proposta com seu Especialista Solar",
+    "book-expert-txt": "FALE COM SEU ESPECIALISTA"
+  },
+  "Get-offer-form": {
+    "form-placeholder": "Insira aqui",
+    "first-name": "Nome",
+    "last-name": "Sobrenome",
+    "email": "Endereço de Email",
+    "phone": "Número de Telefone",
+    "cups": "CUPS",
+    "address": "Endereço",
+    "postcode": "Código Postal",
+    "city": "Cidade",
+    "field-label1": "Número de pessoas que vivem na casa",
+    "field-label2": "CUPS",
+    "field-desc": "Você pode encontrar seu número de CUPS em qualquer uma de suas contas de eletricidade",
+    "form-t&c": "Ao marcar, você confirma que leu, entendeu e concorda",
+    "form-t&c-txt": "Termos e Condições",
+    "view-contract-txt": "VER CONTRATO"
+  },
+  "Your-offer": {
+    "title": "Preço a Pagar",
+    "desc": "por 25 anos de energia solar",
+    "offer-title": "Sua Oferta",
+    "offer-option1": "Painéis (Equivalentes a",
+    "offer-option1-unit": "KWp",
+    "offer-saving-1": "economia anual",
+    "offer-saving-2": "economia total",
+    "offer-payback": "anos de retorno",
+    "offer-consumption": "de consumo coberto por",
+    "contract-btn-txt": "gerar contrato"
+  },
+  "offer": {
+    "validation": {
+      "firstName": {
+        "required": "Nome é obrigatório"
+      },
+      "lastName": {
+        "required": "Sobrenome é obrigatório"
+      },
+      "email": {
+        "required": "E-mail é obrigatório",
+        "valid": "E-mail deve ser válido"
+      },
+      "phoneNumber": {
+        "required": "Número de telefone é obrigatório",
+        "valid": "Número de telefone deve ser válido"
+      },
+      "cups": {
+        "required": "Campo é obrigatório"
+      },
+      "numberOfPeople": {
+        "required": "Campo é obrigatório"
+      }
+    }
+  },
+
+  "How-it-work": {
+    "title": "Como funciona?",
+    "point1": "A Neos se torna sua revendedora e utiliza o sistema de rede para transportar a eletricidade gerada pelos seus painéis solares para a sua casa.",
+    "point2": "Durante as horas de produção solar, você pagará €0.00 pela energia que consome.",
+    "point3": "Se houver produção excessiva, a Neos venderá 100% do excedente para o mercado de eletricidade.",
+    "point4": "Fora das horas de produção solar, você pagará o preço de mercado da eletricidade, com uma margem de €0.01 por KWh.",
+    "point5": "Você precisará pagar pedágios e custos associados ao uso da rede, estimados em €0.02 por KWh.",
+    "point6": "Se decidir que não quer a Neos como sua revendedora, não há compromisso de permanecer conosco, e você pode escolher outro revendedor a qualquer momento.",
+    "point7": "Se escolher outro revendedor, enviaremos a você todo mês os ganhos gerados pela venda de sua energia solar para o mercado de eletricidade, equivalentes às economias que teria se ainda estivesse com a Neos."
+  },
+
+  "Compare-our-offer": {
+    "title": "Compare Nossa Oferta",
+    "point1": "mais barato que os painéis solares no telhado",
+    "point2": "mais produção de energia por painel em comparação com os painéis solares no telhado",
+    "point3": "economias em comparação com os fornecedores tradicionais de serviços públicos",
+    "point4": "menos intensivo em carbono do que os fornecedores tradicionais de serviços públicos"
+  },
+
+  "Details": {
+    "title": "Seus Detalhes",
+    "alert": "Por favor, verifique os termos."
+  },
+  "Email-success": {
+    "title": "Sucesso!",
+    "desc1": "Você assinou o contrato com sucesso.",
+    "desc2": "Você pode baixar abaixo o contrato assinado.",
+    "send-email-txt1": "Você recebeu um e-mail para",
+    "send-email-txt2": "com os passos para assinar o contrato. Volte aqui assim que assinar. Você também pode visualizar o contrato aqui.",
+    "sign-contract-txt": "ASSINAR CONTRATO",
+    "download-txt": "BAIXAR"
+  },
+  "Payment": {
+    "title": "Atualizar Método de Pagamento",
+    "desc": "Atualize os detalhes do seu cartão.",
+    "pay-btn-txt": "PAGAR AGORA",
+    "card-name": "Nome no cartão",
+    "card-number": "Número do cartão",
+    "cvv": "CVV",
+    "expiry": "Vencimento",
+    "element-not-found-err": "Elemento do cartão não encontrado",
+    "insufficient-fund-err": "Fundos insuficientes. Por favor, use um cartão diferente ou verifique seu saldo."
+  },
+  "Footer": {
+    "copyright": "Direitos Autorais ©",
+    "license": "Licenciado por",
+    "policy": "Política de Privacidade",
+    "terms": "Termos de Uso"
+  }
+}

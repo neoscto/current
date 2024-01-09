@@ -1,0 +1,141 @@
+{
+  "Home": {
+    "nav": {
+      "faqs": "Preguntas frecuentes"
+    },
+    "title": "Bienvenido al Futuro",
+    "description": "Descubre Solar Virtual. Sin instalación. Energía económica. Conexión instantánea.",
+    "btn1txt": "SABER MÁS",
+    "btn2txt": "OBTENER PRESUPUESTO"
+  },
+  "Description": {
+    "title": "¿Qué es Solar Virtual?",
+    "description": "Compra paneles dentro de parques solares. Recibe electricidad a través del sistema de red.",
+    "point1": "⚡ &nbsp; 80% de reducción en la factura de electricidad",
+    "point2": "💸 &nbsp; 35% más barato que la energía solar en la azotea",
+    "point3": "⏱ &nbsp; Conexión instantánea",
+    "point4": "🌆 &nbsp; Sin necesidad de tejado",
+    "point5": "🔄 &nbsp; Devolución en 4.5 años",
+    "point6": "&nbsp; 25 años de vida útil",
+    "point7": "🌱  &nbsp; 100% renovable"
+  },
+  "Calculate-saving-btn": "CALCULAR TUS AHORROS",
+  "Receive Offer": "Recibir Oferta",
+  "Sign Contract": "Firmar Contrato",
+  "Enjoy Solar": "Disfrutar del Solar",
+  "Get-offer": {
+    "Standard Offer": "Oferta Estándar",
+    "Personalised Offer": "Oferta Personalizada",
+    "You will not need anything else to get the offer": "No necesitarás nada más para obtener la oferta",
+    "You will need your latest electricity bill to get the offer": "Necesitarás tu última factura de electricidad para obtener la oferta",
+    "Instant Calculation": "Cálculo Instantáneo",
+    "Answer 4 Questions": "Responder 4 Preguntas",
+    "100% Accurate": "100% Preciso",
+    "85% Accurate": "85% Preciso",
+    "btn": "OBTENER OFERTA",
+    "review-expert-txt": "Revisa tu propuesta con tu Experto Solar",
+    "book-expert-txt": "HABLA CON TU EXPERTO"
+  },
+  "Get-offer-form": {
+    "form-placeholder": "Ingresa aquí",
+    "first-name": "Nombre",
+    "last-name": "Apellido",
+    "email": "Correo Electrónico",
+    "phone": "Número de Teléfono",
+    "cups": "CUPS",
+    "address": "Dirección",
+    "postcode": "Código Postal",
+    "city": "Ciudad",
+    "field-label1": "Número de personas que viven en la casa",
+    "field-label2": "CUPS",
+    "field-desc": "Puedes encontrar tu número de CUPS en cualquiera de tus facturas de electricidad",
+    "form-t&c": "Al marcar, confirmas que has leído, entendido y aceptas",
+    "form-t&c-txt": "Términos y Condiciones",
+    "view-contract-txt": "VER CONTRATO"
+  },
+  "Your-offer": {
+    "title": "Precio a Pagar",
+    "desc": "por 25 años de energía solar",
+    "offer-title": "Tu Oferta",
+    "offer-option1": "Paneles (Equivalentes a",
+    "offer-option1-unit": "KWp",
+    "offer-saving-1": "ahorro anual",
+    "offer-saving-2": "ahorro total",
+    "offer-payback": "años de devolución",
+    "offer-consumption": "de consumo cubierto por",
+    "contract-btn-txt": "generar contrato"
+  },
+
+  "offer": {
+    "validation": {
+      "firstName": {
+        "required": "Se requiere el nombre"
+      },
+      "lastName": {
+        "required": "Se requiere el apellido"
+      },
+      "email": {
+        "required": "Se requiere el correo electrónico",
+        "valid": "El correo electrónico debe ser válido"
+      },
+      "phoneNumber": {
+        "required": "Se requiere el número de teléfono",
+        "valid": "El número de teléfono debe ser válido"
+      },
+      "cups": {
+        "required": "Se requiere el campo"
+      },
+      "numberOfPeople": {
+        "required": "Se requiere el campo"
+      }
+    }
+  },
+
+  "How-it-work": {
+    "title": "¿Cómo funciona?",
+    "point1": "Neos se convierte en tu proveedor y utiliza el sistema de red para transportar la electricidad generada por tus paneles solares a tu hogar.",
+    "point2": "Durante las horas de producción solar, pagarás €0.00 por la energía que consumes.",
+    "point3": "Si hay producción excedente, Neos venderá el 100% del excedente al mercado eléctrico.",
+    "point4": "Fuera de las horas de producción solar, pagarás el precio de mercado de la electricidad, con un margen de €0.01 por KWh.",
+    "point5": "Deberás pagar peajes y costos asociados al uso de la red, estimados en €0.02 por KWh.",
+    "point6": "Si decides que no quieres a Neos como tu proveedor, no hay compromiso de permanecer con nosotros, y puedes elegir otro proveedor en cualquier momento.",
+    "point7": "Si eliges otro proveedor, te enviaremos cada mes los ingresos generados por la venta de tu energía solar al mercado eléctrico, equivalentes a los ahorros que obtendrías si aún estuvieras con Neos."
+  },
+  "Compare-our-offer": {
+    "title": "Compare Our Offer",
+    "point1": "cheaper than rooftop solar panels",
+    "point2": "more energy production per panel compared to rooftop solar panels",
+    "point3": "savings compared to traditional utility providers",
+    "point4": "less carbon intensive than traditional utility providers"
+  },
+  "Details": {
+    "title": "Tus Detalles",
+    "alert": "Por favor, verifica los términos."
+  },
+  "Email-success": {
+    "title": "¡Éxito!",
+    "desc1": "Has firmado el contrato exitosamente.",
+    "desc2": "Puedes descargar a continuación el contrato firmado.",
+    "send-email-txt1": "Has recibido un correo electrónico a",
+    "send-email-txt2": "con los pasos para firmar el contrato. Vuelve aquí una vez que lo hayas firmado. También puedes ver el contrato aquí.",
+    "sign-contract-txt": "FIRMAR CONTRATO",
+    "download-txt": "DESCARGAR"
+  },
+  "Payment": {
+    "title": "Actualizar método de pago",
+    "desc": "Actualiza los detalles de tu tarjeta.",
+    "pay-btn-txt": "PAGAR AHORA",
+    "card-name": "Nombre en la tarjeta",
+    "card-number": "Número de tarjeta",
+    "cvv": "CVV",
+    "expiry": "Vencimiento",
+    "element-not-found-err": "Elemento de tarjeta no encontrado",
+    "insufficient-fund-err": "Fondos insuficientes. Utiliza una tarjeta diferente o verifica tu saldo."
+  },
+  "Footer": {
+    "copyright": "Derechos de autor ©",
+    "license": "Licenciado por",
+    "policy": "Política de privacidad",
+    "terms": "Términos de uso"
+  }
+}

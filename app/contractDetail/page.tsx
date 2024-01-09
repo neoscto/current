@@ -1,56 +1,70 @@
 "use client";
 import NeosButton from "@/components/NeosButton";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import EmailSuccess from "../emailSuccess/page";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { useDispatch } from "react-redux";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
+import { setFormBack } from "@/features/common/commonSlice";
 
-const ContractDetail = ({ handleNext }: any) => {
-  const { userData } = useSelector((state: RootState) => state.commonSlice);
-  const displayValue = Number(userData?.numberOfPeople) + 1;
+const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
+  const displayValue = Number(formik?.values?.numberOfPeople) + 1;
+  const dispatch = useDispatch();
 
   const labelStyle = "font-medium text-base text-black";
   const infoStyle = "text-base font-normal text-[#373737]";
-
-  const [currentView, setCurrentView] = useState(true);
   // const [isChecked, setIsChecked] = useState(false);
-
+  const { t } = useTranslation();
+  useEffect(() => {
+    setShowForm("yourDetails");
+  }, []);
   return (
     <>
-      {currentView ? (
+      {showForm === "yourDetails" ? (
         <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white">
           <div className="flex flex-col-reverse md:flex-row  justify-center">
             <div className="w-full md:w-3/6 mb-10 md:mb-0">
               <h1 className="text-lg md:2xl lg:text-3xl font-bold mb-3.5">
-                Your Details
+                {t("Details.title")}
               </h1>
               <div className="w-full border border-[#E0E0E0] rounded-3xl py-2.5 px-4 md:px-6">
                 <div className="border-b border-[#E0E0E0] py-3.5 flex flex-col md:flex-row">
                   <div className="w-full md:w-3/5">
-                    <p className={labelStyle}>First Name</p>
-                    <p className={infoStyle}>{userData?.firstName || "-"}</p>
+                    <p className={labelStyle}>
+                      {t("Get-offer-form.first-name")}
+                    </p>
+                    <p className={infoStyle}>
+                      {formik?.values?.firstName || "-"}
+                    </p>
                   </div>
                   <div className="w-full md:w-2/5 border-t border-[#E0E0E0] mt-2.5 pt-2.5 md:border-t-0 md:mt-0 md:pt-0">
-                    <p className={labelStyle}>Last Name</p>
-                    <p className={infoStyle}>{userData?.lastName || "-"}</p>
+                    <p className={labelStyle}>
+                      {t("Get-offer-form.last-name")}
+                    </p>
+                    <p className={infoStyle}>
+                      {formik?.values?.lastName || "-"}
+                    </p>
                   </div>
                 </div>
                 {/* Email and phone */}
                 <div className="border-b border-[#E0E0E0] py-3.5 flex flex-col md:flex-row">
                   <div className="w-full md:w-3/5">
-                    <p className={labelStyle}>Email Address</p>
-                    <p className={infoStyle}>{userData?.emailAddress || "-"}</p>
+                    <p className={labelStyle}>{t("Get-offer-form.email")}</p>
+                    <p className={infoStyle}>
+                      {formik?.values?.emailAddress || "-"}
+                    </p>
                   </div>
                   <div className="w-full md:w-2/5 border-t border-[#E0E0E0] mt-2.5 pt-2.5 md:border-t-0 md:mt-0 md:pt-0">
-                    <p className={labelStyle}>Phone Number</p>
-                    <p className={infoStyle}>{userData?.phoneNumber || "-"}</p>
+                    <p className={labelStyle}>{t("Get-offer-form.phone")}</p>
+                    <p className={infoStyle}>
+                      {formik?.values?.phoneNumber || "-"}
+                    </p>
                   </div>
                 </div>
                 {/* cpus */}
                 <div className="border-b border-[#E0E0E0] py-3.5 flex">
                   <div className="w-full">
-                    <p className={labelStyle}>CUPS</p>
+                    <p className={labelStyle}>{t("Get-offer-form.cups")}</p>
                     <p className={infoStyle}>
                       {
                         // userData?.firstName ||
@@ -62,7 +76,7 @@ const ContractDetail = ({ handleNext }: any) => {
                 {/* Address */}
                 <div className="border-b border-[#E0E0E0] py-3.5 flex">
                   <div className="w-full ">
-                    <p className={labelStyle}>Address</p>
+                    <p className={labelStyle}>{t("Get-offer-form.address")}</p>
                     <p className={infoStyle}>
                       {
                         // userData?.firstName ||
@@ -74,7 +88,7 @@ const ContractDetail = ({ handleNext }: any) => {
                 {/* Post Code and City */}
                 <div className="py-3.5 flex flex-col md:flex-row">
                   <div className="w-full md:w-3/5">
-                    <p className={labelStyle}>Postcode</p>
+                    <p className={labelStyle}>{t("Get-offer-form.postcode")}</p>
                     <p className={infoStyle}>
                       {
                         // userData?.firstName ||
@@ -83,7 +97,7 @@ const ContractDetail = ({ handleNext }: any) => {
                     </p>
                   </div>
                   <div className="w-full md:w-2/5 border-t border-[#E0E0E0] mt-2.5 pt-2.5 md:border-t-0 md:mt-0 md:pt-0">
-                    <p className={labelStyle}>City</p>
+                    <p className={labelStyle}>{t("Get-offer-form.city")}</p>
                     <p className={infoStyle}>
                       {
                         // userData?.firstName ||
@@ -105,14 +119,14 @@ const ContractDetail = ({ handleNext }: any) => {
                     fontSize: "12px",
                   }}
                 >
-                  By ticking, you are confirming that you have read, understood
-                  and agree <span className="text-[#FD7C7C]"> NEOS </span>
+                  {t("Get-offer-form.form-t&c")}
+                  <span className="text-[#FD7C7C]"> NEOS </span>
                   <Link
                     href="/termsOfUse"
                     target="_blank"
                     className="text-blue-600 dark:text-blue-500 hover:underline"
                   >
-                    Terms and Conditions
+                    {t("Get-offer-form.form-t&c-txt")}
                   </Link>
                   .
                 </label>
@@ -123,7 +137,7 @@ const ContractDetail = ({ handleNext }: any) => {
                 <img src="description.png" alt="Description image" />
                 <div className="-mt-12 text-center">
                   <h1 className="text-lg md:2xl lg:text-3xl font-bold">
-                    Price to Pay: €{displayValue}
+                    {t("Your-offer.title")}: €{displayValue}
                   </h1>
                   {/* <div className='inline-flex'>
                                         <input id="link-checkbox" type="checkbox" value="" className="mt-[3px] w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded  " />
@@ -136,16 +150,17 @@ const ContractDetail = ({ handleNext }: any) => {
                     <NeosButton
                       sx={{ mt: 3 }}
                       category="colored"
-                      title="VIEW CONTACT"
+                      title={t("Get-offer-form.view-contract-txt")}
                       onClick={() => {
                         const isChecked = document.getElementById(
                           "link-checkbox"
                         ) as HTMLInputElement | null;
 
                         if (isChecked && isChecked?.checked) {
-                          setCurrentView(false);
+                          setShowForm("emailSuccess");
+                          dispatch(setFormBack("emailDetails"));
                         } else {
-                          alert("please check terms.");
+                          alert(t("Details.alert"));
                         }
                       }}
                     />
@@ -156,7 +171,12 @@ const ContractDetail = ({ handleNext }: any) => {
           </div>
         </div>
       ) : (
-        <EmailSuccess handleNext={handleNext} />
+        ""
+      )}
+      {showForm === "emailSuccess" ? (
+        <EmailSuccess handleNext={handleNext} formik={formik} />
+      ) : (
+        ""
       )}
     </>
   );

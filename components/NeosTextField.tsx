@@ -43,6 +43,8 @@ interface NeosTextFieldProps {
   remainingProps?: any;
   label?: string;
   value?: string;
+  helperText?: string;
+  error?: boolean;
 }
 
 const NeosTextField: React.FC<NeosTextFieldProps> = (props) => {
