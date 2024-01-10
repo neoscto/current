@@ -127,8 +127,8 @@ const HorizontalLinearStepper = () => {
   };
 
   useEffect(() => {
-    dispath(setUserData(formData));
-  }, [formData]);
+    dispath(setUserData(formik.values));
+  }, [formik.values]);
 
   const generatePDF = () => {
     pdfGenerate(formik.values);

@@ -3,6 +3,7 @@ import NeosButton from "@/components/NeosButton";
 import MainContainer from "@/components/sharedComponents/MainContainer";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
+import poster from "@/public/poster.png";
 
 const LandingPage = () => {
   const router = useRouter();
@@ -12,6 +13,7 @@ const LandingPage = () => {
       <div>
         <div className="block md:hidden lg:hidden relative flex justify-center items-center mt-4 mb-6">
           <video
+            poster={poster.src}
             src="https://videos.gotolstoy.com/public/f00d787b-4ba2-43d0-a780-24ad46b005ca/98d32db0-b1fe-4938-ba9d-a36346605775/98d32db0-b1fe-4938-ba9d-a36346605775.mp4"
             controls
             className="max-h-[330px] h-full z-10 absolute w-[160px] mt-[-10px] z-[1]"
@@ -31,6 +33,7 @@ const LandingPage = () => {
                 className="absolute -left-1 sm:-top-[12rem] md:top-[-5em] lg:-top-[5.2em] max-w-full"
               />
               <video
+                poster={poster.src}
                 src="https://videos.gotolstoy.com/public/f00d787b-4ba2-43d0-a780-24ad46b005ca/98d32db0-b1fe-4938-ba9d-a36346605775/98d32db0-b1fe-4938-ba9d-a36346605775.mp4"
                 controls
                 className="max-h-[600px]  z-10 absolute w-[85%] lg:mt-[-2em] md:mt-[-2em] left-5 h-[520px] sm:mt-[-0.9em] z-[1]"

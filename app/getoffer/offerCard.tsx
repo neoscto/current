@@ -24,7 +24,7 @@ const OfferCard = ({ Data, setShowForm }: OfferCardProps) => {
           : "border-[#E0E0E0] bg-white"
       }`}
     >
-      <h3 className="text-lg font-semibold flex justify-center items-center">
+      <h3 className="text-lg font-semibold flex justify-center items-center lg:w-109 md:w-[109%] sm:w-[109%] h-[30px]">
         {Data?.is_premium && (
           <img src="PersonalisedOffer.png" className="w-[30] h-[30] mr-3" />
         )}
@@ -42,7 +42,11 @@ const OfferCard = ({ Data, setShowForm }: OfferCardProps) => {
         );
       })}
       <NeosButton
-        sx={{ width: "134px!important", marginTop: [5, 14] }}
+        sx={{
+          width: "134px!important",
+          marginTop: "1.5rem",
+          minWidth: "fit-content",
+        }}
         category="colored"
         title={t("Get-offer.btn")}
         onClick={() => {

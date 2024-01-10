@@ -5,6 +5,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CancelIcon from "@mui/icons-material/Cancel";
 import OpenInFullIcon from "@mui/icons-material/OpenInFull";
+import poster from "@/public/poster.png";
 
 const VideoPlayer = () => {
   const [isCentered, setIsCentered] = useState(false);
@@ -74,6 +75,7 @@ const VideoPlayer = () => {
         </Box>
         <video
           controls
+          poster={poster.src}
           className={`${isCentered ? "md:max-w-[350px] w-6/12" : ""}`}
         >
           <source

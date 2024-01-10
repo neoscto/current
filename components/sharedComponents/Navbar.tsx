@@ -9,7 +9,6 @@ import NeosSelect from "../NeosSelect";
 import english from "@/public/flags/gb-eng.png";
 import portugal from "@/public/flags/pt.png";
 import spanish from "@/public/flags/spanish.png";
-
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
@@ -31,15 +30,18 @@ const Navbar = (props: any) => {
         width={100}
         className="h-[20px] md:h-auto lg:h-auto -ms-3 md:ms-0 lg:ms-0 cursor-pointer"
         onClick={() => router.push("/")}
+        unoptimized
       />
-      <div className="flex items-center">
+
+      <div className="flex items-center select-container">
         <Link
           href="/faq"
-          className="font-bold text-xs md:text-xl lg:text-xl text-white mx-6"
+          className="font-bold text-xs md:text-xl lg:text-xl text-white mx-6   text-end text-end"
         >
           {t("Home.nav.faqs")}
         </Link>
         <NeosSelect
+          className="lg:min-w-[135px] md:min-w-[135px] w-[105px] "
           value={lang}
           onChange={(e: React.ChangeEvent<{ value: unknown }>) => {
             setlang(e.target.value as string);
