@@ -3,12 +3,17 @@ import NeosButton from "@/components/NeosButton";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 const EmailSuccess = ({ handleNext, formik }: any) => {
-  const displayValue = Number(formik?.values?.numberOfPeople) + 1;
+  const displayValue =
+    Number(
+      formik?.values?.numberOfPeople
+        ? formik?.values?.numberOfPeople
+        : formik?.values?.cups
+    ) + 1;
   const { t } = useTranslation();
   const signContract = async () => {
     await formik.handleSubmit();
     handleNext();
-  }
+  };
   return (
     <div className="w-[100%] md:w-[80%] lg:w-[50%]  mx-auto flex flex-col justify-center items-center pb-12 px-5">
       <div className="w-12 h-12 relative">

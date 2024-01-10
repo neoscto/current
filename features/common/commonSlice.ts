@@ -19,6 +19,7 @@ const commonSlice = createSlice({
       emailAddress: "",
       phoneNumber: "",
       numberofpeopleAdditionValue: "",
+      cups : "",
     },
     formBack: "",
   },

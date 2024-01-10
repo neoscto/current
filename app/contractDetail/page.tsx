@@ -8,7 +8,12 @@ import { useTranslation } from "react-i18next";
 import { setFormBack } from "@/features/common/commonSlice";
 
 const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
-  const displayValue = Number(formik?.values?.numberOfPeople) + 1;
+  const displayValue =
+    Number(
+      formik?.values?.numberOfPeople
+        ? formik?.values?.numberOfPeople
+        : formik?.values?.cups
+    ) + 1;
   const dispatch = useDispatch();
 
   const labelStyle = "font-medium text-base text-black";

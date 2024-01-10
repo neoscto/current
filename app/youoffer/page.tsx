@@ -9,7 +9,10 @@ import { useTranslation } from "react-i18next";
 
 const YourOffer = ({ handleNext }: any) => {
   const { userData } = useSelector((state: RootState) => state.commonSlice);
-  const displayValue = Number(userData?.numberOfPeople) + 1;
+  const displayValue =
+    Number(
+      userData?.numberOfPeople ? userData?.numberOfPeople : userData?.cups
+    ) + 1;
   const { t } = useTranslation();
 
   return (
