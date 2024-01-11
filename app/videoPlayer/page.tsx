@@ -33,8 +33,9 @@ const VideoPlayer = () => {
       }}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
-      onTouchStart={() => setIsHover(true)}
-      onTouchEnd={() => setIsHover(false)}
+      onTouchStart={() => {
+        setIsHover(true);
+      }}
     >
       {!isCentered ? (
         <Box

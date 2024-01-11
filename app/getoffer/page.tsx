@@ -162,7 +162,7 @@ const HorizontalLinearStepper = () => {
   return (
     <MainContainer>
       <div className="relative rounded-[30px] bg-[#01092299] max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white overflow-hidden">
-        <div className="flex items-center gap-x-[12px] absolute top-[2.1em] left-[2em]">
+        <div className="flex items-center gap-x-[12px] absolute lg:top-[2.25em] lg:left-[2em] md:top-[2.25em] md:left-[2em] top-[1.5em] left-[0.3em]">
           <span onClick={() => handleFormBack()}>
             <ArrowBackIcon
               className=" cursor-pointer "

@@ -23,12 +23,12 @@ const Navbar = (props: any) => {
     }
   }, [lang, i18n.language]);
   return (
-    <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto py-4 md: lg:py-6 flex justify-between items-center">
+    <div className="max-w-[93%]  md:max-w-[88%] lg:max-w-[83%] w-full mx-auto py-4 md: lg:py-6 flex justify-between items-center ">
       <Image
         src={neoslogo}
         alt="NEOS logo"
         width={100}
-        className="h-[20px] md:h-auto lg:h-auto -ms-3 md:ms-0 lg:ms-0 cursor-pointer"
+        className="h-[20px] md:h-auto lg:h-auto -ms-3 md:ms-0 lg:ms-0 cursor-pointer object-contain"
         onClick={() => router.push("/")}
         unoptimized
       />
