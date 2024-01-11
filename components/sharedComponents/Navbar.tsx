@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import neoslogo from "@/public/neos-logo.svg";
+import neoslogo from "@/public/neos-logo.png";
 import NeosButton from "@/components/NeosButton";
 import { MenuItem } from "@mui/material";
 import { useEffect, useState } from "react";

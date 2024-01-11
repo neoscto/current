@@ -10,6 +10,7 @@ import poster from "@/public/poster.png";
 const VideoPlayer = () => {
   const [isCentered, setIsCentered] = useState(false);
   const [isShow, setIsShow] = useState(true);
+  const [isHover, setIsHover] = useState(false);
 
   const handleVideoClick = () => {
     // alert("hy");
@@ -30,6 +31,10 @@ const VideoPlayer = () => {
         height: isCentered ? "90%" : "13.1rem",
         width: isCentered ? "100%" : "9.5rem",
       }}
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
+      onTouchStart={() => setIsHover(true)}
+      onTouchEnd={() => setIsHover(false)}
     >
       {!isCentered ? (
         <Box
@@ -40,12 +45,14 @@ const VideoPlayer = () => {
             borderRadius: "2px 0 0 1px",
             cursor: "pointer",
           }}
-          className="items-center pl-[0.2em] flex"
+          className={`items-center pl-[0.2em] ${
+            !isHover && isShow ? "hidden" : "flex"
+          }`}
           onClick={() => {
             setIsShow(!isShow);
           }}
         >
-          {isShow ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          {isShow ? <ChevronRightIcon /> : <ChevronLeftIcon />}
         </Box>
       ) : (
         ""
@@ -64,8 +71,10 @@ const VideoPlayer = () => {
             borderRadius: "2px 0 0 1px",
             cursor: "pointer",
             position: "absolute",
-            top: isCentered ? "5px" : "-25px",
+            top: isCentered ? "5px" : "",
+            zIndex: "5",
           }}
+          className={`${!isHover && isShow ? "hidden" : "flex"}`}
           onClick={handleVideoClick}
           // onClick={() => {
           //   setIsCentered(false);
@@ -76,7 +85,9 @@ const VideoPlayer = () => {
         <video
           controls
           poster={poster.src}
-          className={`${isCentered ? "md:max-w-[350px] w-6/12" : ""}`}
+          className={`${
+            isCentered ? "md:max-w-[350px] w-6/12" : ""
+          } shadow-sm rounded-md`}
         >
           <source
             src="https://videos.gotolstoy.com/public/f00d787b-4ba2-43d0-a780-24ad46b005ca/98d32db0-b1fe-4938-ba9d-a36346605775/98d32db0-b1fe-4938-ba9d-a36346605775.mp4"
