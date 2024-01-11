@@ -84,7 +84,7 @@ const VideoPlayer = () => {
         </Box>
         <video
           controls
-          poster={poster.src}
+          // poster={poster.src}
           className={`${
             isCentered ? "md:max-w-[350px] w-6/12" : ""
           } shadow-sm rounded-md`}
