@@ -68,3 +68,39 @@ body {
   }
 }
 
+.video-player .customwrap video {
+  border-radius: 0.5em;
+  z-index: 4;
+  position: relative;
+}
+
+.customwrap {
+  width: 100% !important;
+  height: 100% !important;
+}
+.video-expand .customwrap video {
+  @media only screen and (min-width: 768px) {
+    max-width: 350px;
+  }
+  width: 50%;
+  border-radius: 0px;
+}
+
+.video-landscape .customwrap video {
+  position: absolute;
+  left: 1.25rem;
+  z-index: 10;
+  max-height: 600px;
+  width: 85%;
+  height: 520px;
+
+  @media only screen and (min-width: 640px) {
+    margin-top: -0.9em;
+  }
+  @media only screen and (min-width: 768px) {
+    margin-top: -2em;
+  }
+  @media only screen and (min-width: 1024px) {
+    margin-top: -2em;
+  }
+}
