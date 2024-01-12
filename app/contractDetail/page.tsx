@@ -1,6 +1,6 @@
 "use client";
 import NeosButton from "@/components/NeosButton";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import EmailSuccess from "../emailSuccess/page";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
@@ -18,11 +18,25 @@ const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
 
   const labelStyle = "font-medium text-base text-black";
   const infoStyle = "text-base font-normal text-[#373737]";
+  const defaultTxtStyle = "text-base font-normal text-[#bdbdbd]";
   // const [isChecked, setIsChecked] = useState(false);
   const { t } = useTranslation();
   useEffect(() => {
     setShowForm("yourDetails");
   }, []);
+  const [isMobile, setIsMobile] = useState(false);
+  const handleResize = () => {
+    if (window.innerWidth < 768) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+  });
   return (
     <>
       {showForm === "yourDetails" ? (
@@ -70,7 +84,7 @@ const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
                 <div className="border-b border-[#E0E0E0] py-3.5 flex">
                   <div className="w-full">
                     <p className={labelStyle}>{t("Get-offer-form.cups")}</p>
-                    <p className={infoStyle}>
+                    <p className={defaultTxtStyle}>
                       {
                         // userData?.firstName ||
                         "05"
@@ -82,7 +96,7 @@ const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
                 <div className="border-b border-[#E0E0E0] py-3.5 flex">
                   <div className="w-full ">
                     <p className={labelStyle}>{t("Get-offer-form.address")}</p>
-                    <p className={infoStyle}>
+                    <p className={defaultTxtStyle}>
                       {
                         // userData?.firstName ||
                         "2972 Westheimer Rd. Santa Ana, Illinois 85486"
@@ -94,7 +108,7 @@ const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
                 <div className="py-3.5 flex flex-col md:flex-row">
                   <div className="w-full md:w-3/5">
                     <p className={labelStyle}>{t("Get-offer-form.postcode")}</p>
-                    <p className={infoStyle}>
+                    <p className={defaultTxtStyle}>
                       {
                         // userData?.firstName ||
                         "984 493"
@@ -103,7 +117,7 @@ const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
                   </div>
                   <div className="w-full md:w-2/5 border-t border-[#E0E0E0] mt-2.5 pt-2.5 md:border-t-0 md:mt-0 md:pt-0">
                     <p className={labelStyle}>{t("Get-offer-form.city")}</p>
-                    <p className={infoStyle}>
+                    <p className={defaultTxtStyle}>
                       {
                         // userData?.firstName ||
                         "New York, USK"
@@ -116,7 +130,7 @@ const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
                 <input
                   id="link-checkbox"
                   type="checkbox"
-                  className="mt-[3px] w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                  className="mt-[3px] w-8 h-8 md:w-4 md:h-4 text-blue-600 bg-gray-100 border-gray-300 rounded text-8xl"
                 />
                 <label
                   className="ms-2 text-[#4F4F4F]"
@@ -136,6 +150,29 @@ const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
                   .
                 </label>
               </div>
+              {isMobile ? (
+                <div className="block">
+                  <NeosButton
+                    sx={{ mt: 3 }}
+                    category="colored"
+                    title={t("Get-offer-form.view-contract-txt")}
+                    onClick={() => {
+                      const isChecked = document.getElementById(
+                        "link-checkbox"
+                      ) as HTMLInputElement | null;
+
+                      if (isChecked && isChecked?.checked) {
+                        setShowForm("emailSuccess");
+                        dispatch(setFormBack("emailDetails"));
+                      } else {
+                        alert(t("Details.alert"));
+                      }
+                    }}
+                  />
+                </div>
+              ) : (
+                " "
+              )}
             </div>
             <div className="flex justify-center items-center relative w-full md:w-3/6 pb-10">
               <div className="inline-block md:px-4">
@@ -151,25 +188,29 @@ const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
                                             <option value="US" selected>Commercialisation Agreement</option>
                                         </select>
                                     </div> */}
-                  <div className="block">
-                    <NeosButton
-                      sx={{ mt: 3 }}
-                      category="colored"
-                      title={t("Get-offer-form.view-contract-txt")}
-                      onClick={() => {
-                        const isChecked = document.getElementById(
-                          "link-checkbox"
-                        ) as HTMLInputElement | null;
+                  {isMobile ? (
+                    ""
+                  ) : (
+                    <div className="block">
+                      <NeosButton
+                        sx={{ mt: 3 }}
+                        category="colored"
+                        title={t("Get-offer-form.view-contract-txt")}
+                        onClick={() => {
+                          const isChecked = document.getElementById(
+                            "link-checkbox"
+                          ) as HTMLInputElement | null;
 
-                        if (isChecked && isChecked?.checked) {
-                          setShowForm("emailSuccess");
-                          dispatch(setFormBack("emailDetails"));
-                        } else {
-                          alert(t("Details.alert"));
-                        }
-                      }}
-                    />
-                  </div>
+                          if (isChecked && isChecked?.checked) {
+                            setShowForm("emailSuccess");
+                            dispatch(setFormBack("emailDetails"));
+                          } else {
+                            alert(t("Details.alert"));
+                          }
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

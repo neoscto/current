@@ -12,6 +12,7 @@ interface ButtonNeosProps {
     onClick?:any;
     type?:any;
     disabled?:any;
+    id?: string
 }
 
 const getButtonStyles = (category: 'fill' | 'outline' | 'colored') => {

@@ -61,7 +61,6 @@ const HorizontalLinearStepper = () => {
     (state: RootState) => state.commonSlice
   );
   const { t } = useTranslation();
-
   const isStepOptional = (step: number): boolean => {
     return step === 1;
   };
@@ -171,7 +170,7 @@ const HorizontalLinearStepper = () => {
           </span>
         </div>
         <Box sx={{ width: "100%" }}>
-          <div className=" w-[90%] md:w-[80%] lg:w-[60%] mx-auto py-6 md:py-9 lg:py-9">
+          <div className="w-[90%] md:w-[80%] lg:w-[60%] ml-auto md:mx-auto py-6 md:py-9 lg:py-9">
             <Stepper activeStep={activeStep}>
               {steps.map((label, index) => {
                 const stepProps: { completed?: boolean } = {};

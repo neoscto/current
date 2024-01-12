@@ -2,10 +2,11 @@
 import NeosButton from "@/components/NeosButton";
 import { CompareOfferList, HowItWorksList } from "@/utils/StaticData";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useTranslation } from "react-i18next";
+import { PopupModal, useCalendlyEventListener } from "react-calendly";
 
 const YourOffer = ({ handleNext }: any) => {
   const { userData } = useSelector((state: RootState) => state.commonSlice);
@@ -14,6 +15,29 @@ const YourOffer = ({ handleNext }: any) => {
       userData?.numberOfPeople ? userData?.numberOfPeople : userData?.cups
     ) + 1;
   const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  const handleResize = () => {
+    if (window.innerWidth < 768) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+  });
+
+  useCalendlyEventListener({
+    onEventScheduled: (e) => {
+      setOpen(false);
+      console.log("response", e.data.payload);
+    },
+  });
 
   return (
     <div>
@@ -88,19 +112,7 @@ const YourOffer = ({ handleNext }: any) => {
           </div>
         </div>
         <div className="flex flex-col md:flex-row mb-7">
-          <div className="md:w-3/6 border border-[#E0E0E0] rounded-3xl px-4 py-7 md:mr-3">
-            <h1 className="text-base md:2xl  font-bold text-center mb-7">
-              {t("How-it-work.title")}
-            </h1>
-            <ul className="ps-4 work-list-marker">
-              {HowItWorksList.map((item, index) => (
-                <li key={index} className="text-sm text-black mb-4 list-disc">
-                  {t(`How-it-work.${Object.keys(item)[0]}`)}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="ms-1 md:w-3/6">
+          {isMobile ? (
             <div className="w-full border border-[#E0E0E0] rounded-3xl px-4 py-7 mt-5 md:mt-0">
               <h1 className="text-base md:2xl  font-bold text-center mb-7">
                 {t("Compare-our-offer.title")}
@@ -115,6 +127,56 @@ const YourOffer = ({ handleNext }: any) => {
                 ))}
               </ul>
             </div>
+          ) : (
+            <div className="md:w-3/6 border border-[#E0E0E0] rounded-3xl px-4 py-7 md:mr-3">
+              <h1 className="text-base md:2xl  font-bold text-center mb-7">
+                {t("How-it-work.title")}
+              </h1>
+              <ul className="ps-4 work-list-marker">
+                {HowItWorksList.map((item, index) => (
+                  <li key={index} className="text-sm text-black mb-4 list-disc">
+                    {t(`How-it-work.${Object.keys(item)[0]}`)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <div className="ms-1 md:w-3/6">
+            {isMobile ? (
+              <div className="md:w-3/6 border border-[#E0E0E0] rounded-3xl px-4 py-7 md:mr-3">
+                <h1 className="text-base md:2xl  font-bold text-center mb-7">
+                  {t("How-it-work.title")}
+                </h1>
+                <ul className="ps-4 work-list-marker">
+                  {HowItWorksList.map((item, index) => (
+                    <li
+                      key={index}
+                      className="text-sm text-black mb-4 list-disc"
+                    >
+                      {t(`How-it-work.${Object.keys(item)[0]}`)}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <div className="w-full border border-[#E0E0E0] rounded-3xl px-4 py-7 mt-5 md:mt-0">
+                <h1 className="text-base md:2xl  font-bold text-center mb-7">
+                  {t("Compare-our-offer.title")}
+                </h1>
+                <ul className="ps-4 work-list-marker">
+                  {CompareOfferList.map((item, index) => (
+                    <li
+                      key={index}
+                      className="text-sm text-black mb-4 list-disc"
+                    >
+                      {`${displayValue}% ${t(
+                        `Compare-our-offer.${Object.keys(item)[0]}`
+                      )}`}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <div className="flex justify-center flex-col items-center bg-[#E7F5FA]  rounded-3xl pt-5 mt-5 pb-7 px-5">
               <h1 className="text-base md:2xl  font-bold text-center w-[220px]">
                 {t("Get-offer.review-expert-txt")}
@@ -126,9 +188,19 @@ const YourOffer = ({ handleNext }: any) => {
               <p className="font-normal text-sm">sebastian@solarmente.se</p>
               <NeosButton
                 sx={{ mt: 2 }}
+                id="btn"
                 category="colored"
                 title={t("Get-offer.book-expert-txt")}
+                onClick={() => setOpen(true)}
               />
+              {typeof window !== "undefined" && (
+                <PopupModal
+                  url={process.env.NEXT_PUBLIC_CALENDLY_URL || ""}
+                  onModalClose={() => setOpen(false)}
+                  open={open}
+                  rootElement={document.getElementById("btn") as any}
+                />
+              )}
             </div>
           </div>
         </div>

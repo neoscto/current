@@ -52,12 +52,14 @@ const LandingPage = () => {
                     category="fill"
                     title={t("Home.btn1txt")}
                     onClick={() => router.push("/description")}
+                    className="text-[.6em] md:text-[.8em] font-semibold"
                   />
                   <NeosButton
                     category="outline"
                     sx={{ ml: 2 }}
                     title={t("Home.btn2txt")}
                     onClick={() => router.push("/getoffer")}
+                    className="text-[.6em] md:text-[.8em] font-semibold"
                   />
                 </div>
               </div>
