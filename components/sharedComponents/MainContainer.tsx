@@ -4,23 +4,25 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import VideoPlayer from "@/app/videoPlayer/page";
 import { useTranslation } from "react-i18next";
+import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
 
 interface MainContainerProps {
   children: ReactNode;
 }
 
 const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
-  const [lang, setlang] = useState("es");
+  const { language } = useSelector((state: RootState) => state.commonSlice);
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    if (lang !== i18n.language) {
-      i18n.changeLanguage(lang as string);
+    if (language !== i18n.language) {
+      i18n.changeLanguage(language as string);
     }
-  }, [lang, i18n.language]);
+  }, [language, i18n.language]);
   return (
     <div className="landing-page-container w-full flex flex-col min-h-[100vh] relative">
-      <Navbar setlang={setlang} lang={lang} />
+      <Navbar  />
       <div className="flex-1 flex justify-center items-center">{children}</div>
       <div className="mt-12">
         <Footer />

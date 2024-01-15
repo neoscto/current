@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { setFormBack } from "@/features/common/commonSlice";
+import { getAuthorizationUrl } from "@/services/docusign.service";
+import { getDataFromSessionStorage } from "@/utils/utils";
 
 const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
   const displayValue =
@@ -37,6 +39,32 @@ const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
     handleResize();
     window.addEventListener("resize", handleResize);
   });
+
+  const handleInputChange = (event: any) => {
+    const { name, value } = event.target;
+    formik.setFieldValue(name, value);
+  };
+
+  const redirectDocuSign = () => {
+    const authorizationUri = getAuthorizationUrl();
+    window.location.href = authorizationUri;
+  };
+
+  const updateUser = async () => {
+    const offerData: any = getDataFromSessionStorage("UserOffer");
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/users-offers/${offerData?._id}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          address: formik?.values?.address,
+          postcode: formik?.values?.postcode,
+          city: formik?.values?.city,
+        }),
+      }
+    );
+    const data = await response.json();
+  };
   return (
     <>
       {showForm === "yourDetails" ? (
@@ -83,12 +111,21 @@ const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
                 {/* cpus */}
                 <div className="border-b border-[#E0E0E0] py-3.5 flex">
                   <div className="w-full">
-                    <p className={labelStyle}>{t("Get-offer-form.cups")}</p>
+                    <p className={labelStyle}>
+                      {t("Get-offer-form.cups")}(optional)
+                    </p>
                     <p className={defaultTxtStyle}>
-                      {
+                      {/* {
                         // userData?.firstName ||
                         "05"
-                      }
+                      } */}
+                      <input
+                        type="text"
+                        name="cups"
+                        value={formik.values.cups || ""}
+                        onChange={handleInputChange}
+                        className="outline-none border-none focus:outline-none focus:border-none focus:ring-0"
+                      />
                     </p>
                   </div>
                 </div>
@@ -97,31 +134,43 @@ const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
                   <div className="w-full ">
                     <p className={labelStyle}>{t("Get-offer-form.address")}</p>
                     <p className={defaultTxtStyle}>
-                      {
+                      {/* {
                         // userData?.firstName ||
                         "2972 Westheimer Rd. Santa Ana, Illinois 85486"
-                      }
+                      } */}
+                      <input
+                        type="text"
+                        name="address"
+                        value={formik.values.address || ""}
+                        onChange={handleInputChange}
+                        className="outline-none border-none focus:outline-none focus:border-none focus:ring-0"
+                      />
                     </p>
                   </div>
                 </div>
-                {/* Post Code and City */}
                 <div className="py-3.5 flex flex-col md:flex-row">
                   <div className="w-full md:w-3/5">
                     <p className={labelStyle}>{t("Get-offer-form.postcode")}</p>
                     <p className={defaultTxtStyle}>
-                      {
-                        // userData?.firstName ||
-                        "984 493"
-                      }
+                      <input
+                        type="text"
+                        name="postcode"
+                        value={formik.values.postcode || ""}
+                        onChange={handleInputChange}
+                        className="outline-none border-none focus:outline-none focus:border-none focus:ring-0"
+                      />
                     </p>
                   </div>
                   <div className="w-full md:w-2/5 border-t border-[#E0E0E0] mt-2.5 pt-2.5 md:border-t-0 md:mt-0 md:pt-0">
                     <p className={labelStyle}>{t("Get-offer-form.city")}</p>
                     <p className={defaultTxtStyle}>
-                      {
-                        // userData?.firstName ||
-                        "New York, USK"
-                      }
+                      <input
+                        type="text"
+                        name="city"
+                        value={formik.values.city || ""}
+                        onChange={handleInputChange}
+                        className="outline-none border-none focus:outline-none focus:border-none focus:ring-0"
+                      />
                     </p>
                   </div>
                 </div>
@@ -130,14 +179,9 @@ const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
                 <input
                   id="link-checkbox"
                   type="checkbox"
-                  className="mt-[3px] w-8 h-8 md:w-4 md:h-4 text-blue-600 bg-gray-100 border-gray-300 rounded text-8xl"
+                  className="w-12 h-12 md:mt-1 md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded text-8xl"
                 />
-                <label
-                  className="ms-2 text-[#4F4F4F]"
-                  style={{
-                    fontSize: "12px",
-                  }}
-                >
+                <label className="ms-2 mt-2 md:mt-0 text-[#4F4F4F] text-sm">
                   {t("Get-offer-form.form-t&c")}
                   <span className="text-[#FD7C7C]"> NEOS </span>
                   <Link
@@ -161,8 +205,16 @@ const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
                         "link-checkbox"
                       ) as HTMLInputElement | null;
 
-                      if (isChecked && isChecked?.checked) {
-                        setShowForm("emailSuccess");
+                      if (
+                        isChecked &&
+                        isChecked?.checked &&
+                        formik?.values?.address &&
+                        formik?.values?.postcode &&
+                        formik?.values?.city
+                      ) {
+                        updateUser();
+                        redirectDocuSign();
+                        // setShowForm("emailSuccess");
                         dispatch(setFormBack("emailDetails"));
                       } else {
                         alert(t("Details.alert"));
@@ -174,7 +226,7 @@ const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
                 " "
               )}
             </div>
-            <div className="flex justify-center items-center relative w-full md:w-3/6 pb-10">
+            <div className="flex justify-center items-center relative w-full md:w-3/6 pb-10 md:left-8 lg:left-12">
               <div className="inline-block md:px-4">
                 <img src="description.png" alt="Description image" />
                 <div className="-mt-12 text-center">
@@ -201,8 +253,15 @@ const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
                             "link-checkbox"
                           ) as HTMLInputElement | null;
 
-                          if (isChecked && isChecked?.checked) {
-                            setShowForm("emailSuccess");
+                          if (
+                            isChecked &&
+                            isChecked?.checked &&
+                            formik?.values?.address &&
+                            formik?.values?.postcode &&
+                            formik?.values?.city
+                          ) {
+                            updateUser();
+                            redirectDocuSign();
                             dispatch(setFormBack("emailDetails"));
                           } else {
                             alert(t("Details.alert"));

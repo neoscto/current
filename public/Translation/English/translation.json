@@ -108,7 +108,7 @@
   },
   "Details": {
     "title": "Your Details",
-    "alert": "please check terms."
+    "alert": "Please fill in all required fields."
   },
   "Email-success": {
     "title": "Success!",

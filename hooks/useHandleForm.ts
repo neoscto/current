@@ -24,7 +24,6 @@ export default function useHandleForm({
     validationSchema,
     validateOnChange: false,
     onSubmit: (values, { resetForm }) => {
-      console.log("values",values)
       switch (method) {
         case "POST":
           POST(values, resetForm);

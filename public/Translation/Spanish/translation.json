@@ -110,7 +110,7 @@
   },
   "Details": {
     "title": "Tus Detalles",
-    "alert": "Por favor, verifica los términos."
+    "alert": "Por favor, preencha todos os campos obrigatórios."
   },
   "Email-success": {
     "title": "¡Éxito!",
