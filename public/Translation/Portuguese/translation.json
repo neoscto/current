@@ -140,5 +140,10 @@
     "license": "Licenciado por",
     "policy": "Política de Privacidade",
     "terms": "Termos de Uso"
+  },
+  "Email-failed": {
+    "title": "email failed",
+    "send-email-txt1": "falha ao enviar o e-mail",
+    "sign-contract-txt": "falha ao salvar o contrato"
   }
 }
