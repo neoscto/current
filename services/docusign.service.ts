@@ -74,9 +74,9 @@ export const getEmbeddedSigningUrl = async (
   offerData: any
 ): Promise<string> => {
   const response = await axios.post(
-    `https://demo.docusign.net/restapi/v2.1/accounts/9ecb5648-5f85-47f9-9542-5e1485bb4ef3/envelopes/${envelopeId}/views/recipient`,
+    `https://demo.docusign.net/restapi/v2.1/accounts/me/envelopes/${envelopeId}/views/recipient`,
     {
-      returnUrl: process.env.NEXT_PUBLIC_DOCUSIGN_AFTER_SIGN_REDIRECT,
+      returnUrl: `${process.env.NEXT_PUBLIC_DOCUSIGN_AFTER_SIGN_REDIRECT}?offer=${offerData._id}`,
       authenticationMethod: "email",
       email: offerData.emailAddress,
       userName: offerData.firstName,

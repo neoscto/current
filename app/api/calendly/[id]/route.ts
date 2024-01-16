@@ -50,8 +50,14 @@ export async function PATCH(
         Authorization: `Bearer ${calendlyToken}`,
       },
     };
-    const response: any = await axios.request(options);
-    const eventData = response.data;
+    let eventData;
+    try {
+      const response: any = await axios.request(options);
+      eventData = response.data;
+    } catch (error) {
+      console.log("error", error);
+      eventData = id;
+    }
 
     const { data, error } = await updateUserOfferById(userId, {
       event: eventData,
