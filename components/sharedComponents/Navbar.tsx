@@ -39,7 +39,7 @@ const Navbar = () => {
         unoptimized
       />
 
-      <div className="flex items-center select-container ml-2 md:ml-0">
+      <div className="flex items-center select-container ml-10 md:ml-0">
         <Link
           href="/faq"
           className="font-bold text-xs md:text-xl lg:text-xl text-white mx-6   text-end text-end"

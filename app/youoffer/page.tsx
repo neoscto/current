@@ -119,7 +119,7 @@ const YourOffer = ({ handleNext }: any) => {
         </div>
         <div className="max-w-full lg:max-w-[508px] w-full border border-[#E0E0E0] p-4 my-3 lg:mt-2 rounded-3xl mx-auto lg:mx-0 lg:ml-auto">
           <div className="flex justify-center md:justify-between items-center md:items-start flex-1 flex-col md:flex-row">
-            <p className="text-base text-black font-medium me-4 lg:me-11 whitespace-nowrap">
+            <p className="text-base text-black font-medium me-4 lg:me-11 whitespace-nowrap pb-4 md:pb-0">
               {t("Footer.license")}
             </p>
             <div className="flex align-center flex-wrap">
@@ -171,10 +171,10 @@ const YourOffer = ({ handleNext }: any) => {
               </ul>
             </div>
           )}
-          <div className="ms-1 md:w-3/6">
+          <div className="ms-1 md:w-3/6 mt-4 md:mt-0">
             {isMobile ? (
               <div className="md:w-3/6 border border-[#E0E0E0] rounded-3xl px-4 py-7 md:mr-3">
-                <h1 className="text-base md:2xl  font-bold text-center mb-7">
+                <h1 className="text-base md:2xl font-bold text-center mb-7">
                   {t("How-it-work.title")}
                 </h1>
                 <ul className="ps-4 work-list-marker">

@@ -251,6 +251,7 @@ const HorizontalLinearStepper = () => {
                     sx={{
                       "& .MuiStepLabel-root": {
                         flexDirection: ["column", "row"],
+                        height: "40px",
                       },
                       "& .MuiStepLabel-root .Mui-active .MuiStepIcon-text": {
                         fill: "#fff",
@@ -259,6 +260,7 @@ const HorizontalLinearStepper = () => {
                         color: "#000",
                         fontSize: ["12px", "14px"],
                         fontWeight: 500,
+                        marginTop: "4px",
                       },
                       svg: {
                         width: "30px",
@@ -267,7 +269,9 @@ const HorizontalLinearStepper = () => {
                       },
                     }}
                   >
-                    <StepLabel {...labelProps}>{t(label)}</StepLabel>
+                    <StepLabel {...labelProps} className="w-20 md:w-auto">
+                      {t(label)}
+                    </StepLabel>
                   </Step>
                 );
               })}
