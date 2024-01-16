@@ -13,7 +13,7 @@ const Description = () => {
   return (
     <MainContainer>
       <div className="relative rounded-[30px] bg-[#01092299] max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white overflow-hidden">
-        <div className="flex items-center gap-x-[12px] absolute top-[2em] left-[2em]">
+        <div className="flex items-center gap-x-[12px] absolute top-[1.1em] left-[.8em] md:top-[1.6em] md:left-[1.6em]">
           <span onClick={() => router.back()}>
             <ArrowBackIcon
               className="mb-[0.35em] cursor-pointer "

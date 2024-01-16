@@ -26,6 +26,7 @@ export type UsersOffersSchemaProps = {
   postcode: string;
   termsConditionRead?: boolean;
   contractSign?: boolean;
+  event: any;
   contractSignAt?: Date;
   esign?: string;
 };
@@ -96,6 +97,8 @@ class UsersOffersSchema {
 
   @prop()
   esign: string;
+  @prop()
+  event: Object;
 
   @prop({ default: new Date() })
   createdAt: Date;

@@ -19,9 +19,10 @@ const commonSlice = createSlice({
       emailAddress: "",
       phoneNumber: "",
       numberofpeopleAdditionValue: "",
-      cups : "",
+      cups: "",
     },
     formBack: "",
+    language: "es",
   },
   reducers: {
     setUserData: (state, action) => {
@@ -29,6 +30,9 @@ const commonSlice = createSlice({
     },
     setFormBack: (state, action) => {
       state.formBack = action.payload;
+    },
+    setLanguage: (state, action) => {
+      state.language = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -38,5 +42,5 @@ const commonSlice = createSlice({
   },
 });
 
-export const { setUserData ,setFormBack} = commonSlice.actions;
+export const { setUserData, setFormBack, setLanguage } = commonSlice.actions;
 export default commonSlice.reducer;

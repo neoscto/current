@@ -6,6 +6,7 @@ import NeosButton from "@/components/NeosButton";
 import YourOffer from "../youoffer/page";
 import OfferCard from "./offerCard";
 import { useTranslation } from "react-i18next";
+// import axios from "axios";
 
 interface GetOfferProps {
   formik: any;
@@ -13,6 +14,7 @@ interface GetOfferProps {
   handleNext: any;
   setShowForm: any;
   showForm: any;
+  signature: any;
 }
 
 const GetOffer: React.FC<GetOfferProps> = ({
@@ -21,17 +23,13 @@ const GetOffer: React.FC<GetOfferProps> = ({
   handleNext,
   setShowForm,
   showForm,
+  signature,
 }) => {
   const handleyourSaving = async () => {
-    formik.validateForm().then((error: any) => {
-      const arrayData = Object.keys(error);
-      arrayData.forEach((errorForm: string) =>
-        formik.setFieldError(errorForm, error[errorForm])
-      );
-      if (arrayData.length === 0) setShowForm("yourOffer");
-    });
+    formik.handleSubmit();
+    setShowForm("yourOffer");
   };
-  const chooseOfferType = (type: string) => {
+  const chooseOfferType = async (type: string) => {
     switch (type) {
       case "soffer":
         formik.setFieldValue("offerType", "Standard");
@@ -43,7 +41,7 @@ const GetOffer: React.FC<GetOfferProps> = ({
         break;
     }
     setShowForm(type);
-    formik.setErrors({});
+    // formik.setErrors({});
   };
   const { t } = useTranslation();
   return (

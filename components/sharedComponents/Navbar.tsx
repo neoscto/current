@@ -11,19 +11,25 @@ import portugal from "@/public/flags/pt.png";
 import spanish from "@/public/flags/spanish.png";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
+import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
+import { setLanguage } from "@/features/common/commonSlice";
 
-const Navbar = (props: any) => {
-  const { setlang, lang } = props;
+const Navbar = () => {
   const router = useRouter();
   const { t, i18n } = useTranslation();
+  const dispath = useDispatch<AppDispatch>();
+  const { language }: any = useSelector(
+    (state: RootState) => state.commonSlice
+  );
 
   useEffect(() => {
-    if (lang !== i18n.language) {
-      i18n.changeLanguage(lang as string);
+    if (language !== i18n.language) {
+      i18n.changeLanguage(language as string);
     }
-  }, [lang, i18n.language]);
+  }, [language, i18n.language]);
   return (
-    <div className="max-w-[93%]  md:max-w-[88%] lg:max-w-[83%] w-full mx-auto py-4 md: lg:py-6 flex justify-between items-center ">
+    <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto py-4 md: lg:py-6 flex justify-between items-center ">
       <Image
         src={neoslogo}
         alt="NEOS logo"
@@ -33,7 +39,7 @@ const Navbar = (props: any) => {
         unoptimized
       />
 
-      <div className="flex items-center select-container">
+      <div className="flex items-center select-container ml-2 md:ml-0">
         <Link
           href="/faq"
           className="font-bold text-xs md:text-xl lg:text-xl text-white mx-6   text-end text-end"
@@ -41,12 +47,13 @@ const Navbar = (props: any) => {
           {t("Home.nav.faqs")}
         </Link>
         <NeosSelect
-          className="lg:min-w-[135px] md:min-w-[135px] w-[105px] "
-          value={lang}
+          className="lg:min-w-[135px] md:min-w-[135px] w-[105px]"
+          value={language}
           onChange={(e: React.ChangeEvent<{ value: unknown }>) => {
-            setlang(e.target.value as string);
+            dispath(setLanguage(e.target.value as string));
+            i18n.changeLanguage(language as string);
           }}
-          defaultValue={lang}
+          defaultValue={language}
         >
           {[
             { name: "Spanish", flag: spanish, value: "es" },

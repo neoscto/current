@@ -7,13 +7,18 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useTranslation } from "react-i18next";
 import { PopupModal, useCalendlyEventListener } from "react-calendly";
+import { useRouter } from "next/navigation";
+import { getDataFromSessionStorage } from "@/utils/utils";
 
 const YourOffer = ({ handleNext }: any) => {
-  const { userData } = useSelector((state: RootState) => state.commonSlice);
+  const { userData }: any = useSelector(
+    (state: RootState) => state.commonSlice
+  );
   const displayValue =
     Number(
       userData?.numberOfPeople ? userData?.numberOfPeople : userData?.cups
     ) + 1;
+  const router = useRouter();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
@@ -33,11 +38,36 @@ const YourOffer = ({ handleNext }: any) => {
   });
 
   useCalendlyEventListener({
-    onEventScheduled: (e) => {
+    onEventScheduled: (e: any) => {
+      const token = getDataFromSessionStorage("calendlyToken");
+      const offerData: any = getDataFromSessionStorage("UserOffer");
+      const saveEvent = async () => {
+        const eventId = String(e.data.payload.event.uri).split("/").pop() || "";
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/calendly/${eventId}`,
+          {
+            method: "PATCH",
+            body: JSON.stringify({ token, userId: offerData?._id }),
+          }
+        );
+        const data = await response.json();
+        console.log("response", data);
+      };
+      saveEvent();
       setOpen(false);
-      console.log("response", e.data.payload);
     },
   });
+
+  const handleCalender = async () => {
+    const token = getDataFromSessionStorage("calendlyToken");
+    if (token) {
+      setOpen(true);
+      return;
+    }
+    router.push(
+      `https://auth.calendly.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_CALENDLY_CLIENT_ID}&response_type=code&redirect_uri=${process.env.NEXT_PUBLIC_CALENDLY_REDIRECT_URL}`
+    );
+  };
 
   return (
     <div>
@@ -191,7 +221,7 @@ const YourOffer = ({ handleNext }: any) => {
                 id="btn"
                 category="colored"
                 title={t("Get-offer.book-expert-txt")}
-                onClick={() => setOpen(true)}
+                onClick={() => handleCalender()}
               />
               {typeof window !== "undefined" && (
                 <PopupModal

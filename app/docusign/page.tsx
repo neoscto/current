@@ -1,17 +1,14 @@
 "use client";
 import NeosButton from "@/components/NeosButton";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
-const EmailSuccess = ({ handleNext, formik }: any) => {
-  const displayValue =
-    Number(
-      formik?.values?.numberOfPeople
-        ? formik?.values?.numberOfPeople
-        : formik?.values?.cups
-    ) + 1;
+const EmailSuccess = ({}: any) => {
+  const displayValue = 3;
   const { t } = useTranslation();
-  const signContract = async () => {
-    await formik.handleSubmit();
+  const router = useRouter();
+  const handleNext = () => {
+    window.parent.postMessage("changeRoute", "*");
   };
   return (
     <div className="w-[100%] md:w-[80%] lg:w-[50%]  mx-auto flex flex-col justify-center items-center pb-12 px-5">
@@ -55,7 +52,7 @@ const EmailSuccess = ({ handleNext, formik }: any) => {
           <NeosButton
             category="colored"
             title={t("Email-success.sign-contract-txt")}
-            onClick={() => signContract()}
+            onClick={() => handleNext()}
           />
         </div>
       </div>

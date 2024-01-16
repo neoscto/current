@@ -12,12 +12,13 @@ const createUserOffer = async ({
   cups,
   address,
   city,
+  numberOfPeople,
   postcode,
   termsConditionRead,
+  event,
 }: UsersOffersSchemaType) => {
   try {
     await connectDB();
-    
     const data = await UsersOffers.create({
       offerType,
       emailAddress,
@@ -28,7 +29,9 @@ const createUserOffer = async ({
       address,
       city,
       postcode,
+      numberOfPeople,
       termsConditionRead,
+      event,
     });
 
     return {
@@ -44,12 +47,23 @@ export async function POST(request: Request) {
     await connectDB();
 
     const body = await request.json();
-
     if (!body.emailAddress) {
       return createErrorResponse("Email is required", 400);
     }
-
-    const { data, error } = await createUserOffer(body);
+    const requestBody: any = {
+      offerType: body.offerType,
+      emailAddress: body.emailAddress,
+      firstName: body.firstName,
+      lastName: body.lastName,
+      phoneNumber: body.phoneNumber,
+      cups: body.cups,
+      address: body.address,
+      city: body.city,
+      postcode: body.postcode,
+      termsConditionRead: body.termsConditionRead,
+      numberOfPeople: body.numberOfPeople,
+    };
+    const { data, error } = await createUserOffer(requestBody);
     if (error) {
       throw error;
     }
@@ -63,7 +77,7 @@ export async function POST(request: Request) {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error: any) {
-    console.log("api error ===>",error)
+    console.log("api error ===>", error);
     if (error.code === 11000) {
       return createErrorResponse("Record already exists", 409);
     }
