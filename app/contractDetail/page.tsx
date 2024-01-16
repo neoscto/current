@@ -6,10 +6,16 @@ import { useDispatch } from "react-redux";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { setFormBack } from "@/features/common/commonSlice";
-import { getAuthorizationUrl } from "@/services/docusign.service";
+// import { getAuthorizationUrl } from "@/services/docusign.service";
 import { getDataFromSessionStorage } from "@/utils/utils";
 
-const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
+const ContractDetail = ({
+  handleNext,
+  formik,
+  showForm,
+  setShowForm,
+  signature,
+}: any) => {
   const displayValue =
     Number(
       formik?.values?.numberOfPeople
@@ -46,8 +52,9 @@ const ContractDetail = ({ handleNext, formik, showForm, setShowForm }: any) => {
   };
 
   const redirectDocuSign = () => {
-    const authorizationUri = getAuthorizationUrl();
-    window.location.href = authorizationUri;
+    // const authorizationUri = getAuthorizationUrl();
+    // window.location.href = authorizationUri;
+    signature();
   };
 
   const updateUser = async () => {

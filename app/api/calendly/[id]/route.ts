@@ -42,12 +42,12 @@ export async function PATCH(
     let body = await request.json();
     const userId = body.userId;
     const calendlyToken = body.token;
-
     var options = {
       method: "GET",
       url: `https://api.calendly.com/scheduled_events/${id}`,
       headers: {
-        "Content-Type": calendlyToken,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${calendlyToken}`,
       },
     };
     const response: any = await axios.request(options);

@@ -1,5 +1,5 @@
 import axios from "axios";
-const clientId = process.env.NEXT_PUBLIC_DOCUSIGN_CLIENT_ID;
+const clientId = process.env.NEXT_PUBLIC_DOCUSIGN_INTEGRATION_KEY;
 const clientSecret = process.env.NEXT_PUBLIC_DOCUSIGN_SECRET_KEY;
 const redirectUri = process.env.NEXT_PUBLIC_DOCUSIGN_AUTH_CALLBACK;
 

@@ -6,8 +6,8 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const useDocusignService = (formik: any, showForm: string) => {
-  const clientId = process.env.NEXT_PUBLIC_DOCUSIGN_CLIENT_ID;
+const useDocusignService = (formik: any) => {
+  const clientId = process.env.NEXT_PUBLIC_DOCUSIGN_INTEGRATION_KEY;
   const redirectUri = process.env.NEXT_PUBLIC_DOCUSIGN_AUTH_REDIRECT;
 
   const searchParams = useSearchParams();
@@ -48,11 +48,11 @@ const useDocusignService = (formik: any, showForm: string) => {
         } catch (error) {
         } finally {
           setLoading(false);
-          saveDataToSessionStorage("UserOffer", "");
+          // saveDataToSessionStorage("UserOffer", "");
         }
       }
     })();
-  }, [searchParams, showForm]);
+  }, [searchParams]);
 
   const getAuthorizationUrl = () => {
     return `https://account-d.docusign.com/oauth/auth?response_type=code&scope=signature&client_id=${clientId}&redirect_uri=${redirectUri}`;

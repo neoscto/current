@@ -40,17 +40,17 @@ const HorizontalLinearStepper = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const handleSuccessResponce = (res: any) => {
-    saveDataToSessionStorage("UserOffer", res.data);
-  };
+  // const handleSuccessResponce = (res: any) => {
+  //   saveDataToSessionStorage("UserOffer", res.data);
+  // };
 
   const formikInitialValues = {
     offerType: "",
     numberOfPeople: "",
     cups: "",
     firstName: "",
-    lastName:  "",
-    emailAddress:  "",
+    lastName: "",
+    emailAddress: "",
     phoneNumber: "",
     numberofpeopleAdditionValue: 1,
   };
@@ -62,10 +62,16 @@ const HorizontalLinearStepper = () => {
     formikInitialValues,
     validationSchema: offerStep1Schema,
     handleSuccessResponce,
-    
   });
-  const { loading, getAuthorizationUrl, signature, signingUrl } =
-    useDocusignService(formik,showForm);
+  function handleSuccessResponce(res: any) {
+    saveDataToSessionStorage("UserOffer", res.data);
+    setShowForm("yourOffer");
+    const arrayData = Object.keys(res.data);
+    arrayData.forEach((key: any) => {
+      formik.setFieldValue(key, res.data[key]);
+    });
+  }
+  const { loading, signature, signingUrl } = useDocusignService(formik);
 
   const searchParams = useSearchParams();
   const [skipped, setSkipped] = useState<Set<number>>(new Set<number>());

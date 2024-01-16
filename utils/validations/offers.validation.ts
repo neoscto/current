@@ -14,15 +14,15 @@ export const offerStep1Schema = yup.object().shape({
     .email("offer.validation.email.valid")
     .required("offer.validation.email.required"),
   phoneNumber: yup.string().required("offer.validation.phoneNumber.required"),
-  cups: yup.number().when("offerType", {
-    is: (v: string) => v === "Personalised",
-    then: (schema) => schema.required("offer.validation.cups.required"),
-  }),
-  numberOfPeople: yup.number().when("offerType", {
-    is: (v: string) => v === "Standard",
-    then: (schema) =>
-      schema.required("offer.validation.numberOfPeople.required"),
-  }),
+  // cups: yup.number().when("offerType", {
+  //   is: (v: string) => v === "Personalised",
+  //   then: (schema) => schema.required("offer.validation.cups.required"),
+  // }),
+  // numberOfPeople: yup.number().when("offerType", {
+  //   is: (v: string) => v === "Standard",
+  //   then: (schema) =>
+  //     schema.required("offer.validation.numberOfPeople.required"),
+  // }),
 });
 
 export type OfferStep1SchemaType = yup.InferType<typeof offerStep1Schema>;
