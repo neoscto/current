@@ -1,4 +1,4 @@
-import { createErrorResponse } from "@/lib/api-response";
+import { createErrorResponse, stringToObjectId } from "@/lib/api-response";
 import {
   authenticate,
   createEnvelope,
@@ -7,21 +7,31 @@ import {
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { UsersOffers } from "@/models/UsersOffers";
+import jsPDF from "jspdf";
 
-const getDataFromFile = (): any => {
-  const filePath = path.join(process.cwd(), "pdfs/test.json");
-  const jsonData = fs.readFileSync(filePath, "utf-8");
-  return JSON.parse(jsonData);
+const pdfGenerate = (formData: any): string => {
+  const pdf = new jsPDF();
+  if (formData?.numberOfPeople) {
+    pdf.text(`Number of People: ${formData.numberOfPeople}`, 20, 20);
+  } else {
+    pdf.text(`Number of People: ${formData.cups}`, 20, 20);
+  }
+  pdf.text(`First Name: ${formData.firstName}`, 20, 30);
+  pdf.text(`Last Name: ${formData.lastName}`, 20, 40);
+  pdf.text(`Email Address: ${formData.emailAddress}`, 20, 50);
+  pdf.text(`Phone Number: ${formData.phoneNumber}`, 20, 60);
+  const pdfData = (pdf.output("dataurlstring") as string) || "";
+  return pdfData.split(",")[1] || "";
 };
 
 const generateEnvelopeData = (offerData: any) => {
-  const filePath = path.join(process.cwd(), "pdfs/test.pdf");
-  const documentBase64 = fs.readFileSync(filePath, "base64");
+  const pdfDataUrl = pdfGenerate(offerData);
   const envelopeData = {
     emailSubject: "Please sign this document",
     documents: [
       {
-        documentBase64: documentBase64,
+        documentBase64: pdfDataUrl,
         documentId: "1",
         fileExtension: "pdf",
         name: "Document.pdf",
@@ -36,10 +46,10 @@ const generateEnvelopeData = (offerData: any) => {
           tabs: {
             signHereTabs: [
               {
-                documentId: "1",
-                pageNumber: "1",
-                xPosition: "100",
-                yPosition: "100",
+                anchorString: "Sign Here",
+                anchorUnits: "pixels",
+                anchorXOffset: "0",
+                anchorYOffset: "-20",
               },
             ],
           },
@@ -49,6 +59,19 @@ const generateEnvelopeData = (offerData: any) => {
     status: "sent",
   };
   return envelopeData;
+};
+
+const updateEnvelopeId = async (id: string, envelopeId: string) => {
+  const parsedId = stringToObjectId(id);
+  return await UsersOffers.findByIdAndUpdate(
+    parsedId,
+    { envelopeId },
+    {
+      new: true,
+    }
+  )
+    .lean()
+    .exec();
 };
 
 export async function POST(_request: Request, _response: Response) {
@@ -65,7 +88,7 @@ export async function POST(_request: Request, _response: Response) {
       envelopeId,
       offerData
     );
-
+    await updateEnvelopeId(offerData._id, envelopeId);
     return new NextResponse(
       JSON.stringify({ signingUrl, envelopeId, accessToken }),
       {

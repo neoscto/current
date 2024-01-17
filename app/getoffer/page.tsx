@@ -71,7 +71,8 @@ const HorizontalLinearStepper = () => {
       formik.setFieldValue(key, res.data[key]);
     });
   }
-  const { loading, signature, signingUrl } = useDocusignService(formik);
+  const { loading, signature, signingUrl, downloadPdf } =
+    useDocusignService(formik);
 
   const searchParams = useSearchParams();
   const [skipped, setSkipped] = useState<Set<number>>(new Set<number>());
@@ -336,7 +337,7 @@ const HorizontalLinearStepper = () => {
               )}
               {Number(activeStep) == 2 && (
                 <Success
-                  generatePDF={generatePDF}
+                  generatePDF={downloadPdf}
                   setShowForm={setShowForm}
                   showForm={showForm}
                   signature={signature}

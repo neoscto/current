@@ -29,6 +29,7 @@ export type UsersOffersSchemaProps = {
   event: any;
   contractSignAt?: Date;
   esign?: string;
+  envelopeId?: string;
 };
 
 type UsersOffersSchemaMethods = {};
@@ -97,6 +98,10 @@ class UsersOffersSchema {
 
   @prop()
   esign: string;
+
+  @prop()
+  envelopeId: string;
+
   @prop()
   event: Object;
 
