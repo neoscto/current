@@ -29,17 +29,17 @@ const Navbar = () => {
     }
   }, [language, i18n.language]);
   return (
-    <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto py-4 md: lg:py-6 flex justify-between items-center ">
+    <div className="max-w-[98%] md:max-w-[96%] lg:max-w-[96%] w-full py-4 mx-auto lg:py-6 flex justify-between items-center ">
       <Image
         src={neoslogo}
         alt="NEOS logo"
         width={100}
-        className="h-[20px] md:h-auto lg:h-auto -ms-3 md:ms-0 lg:ms-0 cursor-pointer object-contain"
+        className="h-[20px] md:h-auto lg:h-auto -ms-1 md:ms-0 lg:ms-0 cursor-pointer object-contain"
         onClick={() => router.push("/")}
         unoptimized
       />
 
-      <div className="flex items-center select-container ml-10 md:ml-0">
+      <div className="flex items-center select-container ml-4 md:ml-0">
         <Link
           href="/faq"
           className="font-bold text-xs md:text-xl lg:text-xl text-white mx-6   text-end text-end"
@@ -47,7 +47,7 @@ const Navbar = () => {
           {t("Home.nav.faqs")}
         </Link>
         <NeosSelect
-          className="lg:min-w-[135px] md:min-w-[135px] w-[105px]"
+          className="lg:min-w-[135px] md:min-w-[135px] w-[105px] -ml-1"
           value={language}
           onChange={(e: React.ChangeEvent<{ value: unknown }>) => {
             dispath(setLanguage(e.target.value as string));
