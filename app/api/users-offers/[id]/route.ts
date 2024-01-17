@@ -26,10 +26,7 @@ async function getUserOfferById(id: string) {
   }
 }
 
-async function updateUserOfferById(
-  id: string,
-  obj: { title?: string; completed?: boolean }
-) {
+async function updateUserOfferById(id: string, obj: any) {
   try {
     await connectDB();
 

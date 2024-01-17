@@ -6,6 +6,10 @@ import NeosButton from "@/components/NeosButton";
 import YourOffer from "../youoffer/page";
 import OfferCard from "./offerCard";
 import { useTranslation } from "react-i18next";
+import {
+  getDataFromSessionStorage,
+  saveDataToSessionStorage,
+} from "@/utils/utils";
 // import axios from "axios";
 
 interface GetOfferProps {
@@ -26,8 +30,31 @@ const GetOffer: React.FC<GetOfferProps> = ({
   signature,
 }) => {
   const handleyourSaving = async () => {
+    const offerData: any = getDataFromSessionStorage("UserOffer");
+    if (offerData) {
+      const updatedData = {
+        firsName: formik?.values?.firstName,
+        lastName: formik.values.lastName,
+        emailAddress: formik.values.emailAddress,
+        numberOfPeople: formik.values.numberOfPeople,
+        phoneNumber: formik.values.phoneNumber,
+        cups: formik.values.cups,
+      };
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/users-offers/${offerData?._id}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify(updatedData),
+        }
+      );
+      const data = await response.json();
+      if (data) {
+        saveDataToSessionStorage("UserOffer", data.data);
+        setShowForm("yourOffer");
+      }
+      return;
+    }
     formik.handleSubmit();
-    // setShowForm("yourOffer");
   };
   const chooseOfferType = async (type: string) => {
     switch (type) {

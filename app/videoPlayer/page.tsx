@@ -97,13 +97,11 @@ const VideoPlayer = () => {
             height: "5rem",
             margin: "2px",
             borderRadius: "2px 0 0 1px",
+            width: "auto",
           }}
           className={`items-center ${
             isShow ? "pb-4" : ""
           } pt-1 px-1 flex justify-end`}
-          onClick={() => {
-            setIsShow(!isShow);
-          }}
         >
           {isShow ? (
             <div

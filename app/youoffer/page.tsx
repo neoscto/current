@@ -117,7 +117,7 @@ const YourOffer = ({ handleNext }: any) => {
             </div>
           </div>
         </div>
-        <div className="max-w-full lg:max-w-[508px] w-full border border-[#E0E0E0] p-4 my-3 lg:mt-2 rounded-3xl mx-auto lg:mx-0 lg:ml-auto">
+        <div className="max-w-full lg:max-w-[508px] w-full border border-[#E0E0E0] p-4 mt-3 -mb-1 lg:mt-2 rounded-3xl mx-auto lg:mx-0 lg:ml-auto">
           <div className="flex justify-center md:justify-between items-center md:items-start flex-1 flex-col md:flex-row">
             <p className="text-base text-black font-medium me-4 lg:me-11 whitespace-nowrap pb-4 md:pb-0">
               {t("Footer.license")}

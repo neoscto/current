@@ -252,6 +252,7 @@ const HorizontalLinearStepper = () => {
                       "& .MuiStepLabel-root": {
                         flexDirection: ["column", "row"],
                         height: "40px",
+                        alignItems: "center",
                       },
                       "& .MuiStepLabel-root .Mui-active .MuiStepIcon-text": {
                         fill: "#fff",
@@ -269,7 +270,10 @@ const HorizontalLinearStepper = () => {
                       },
                     }}
                   >
-                    <StepLabel {...labelProps} className="w-20 md:w-auto">
+                    <StepLabel
+                      {...labelProps}
+                      className="w-12 sm:w-24 md:w-auto"
+                    >
                       {t(label)}
                     </StepLabel>
                   </Step>
@@ -279,7 +283,14 @@ const HorizontalLinearStepper = () => {
           </div>
           {signingUrl || loading ? (
             signingUrl ? (
-              <iframe src={signingUrl} width="100%" height="800px"></iframe>
+              <div>
+                <iframe
+                  src={signingUrl}
+                  width="100%"
+                  height="800px"
+                  className="mt-4"
+                ></iframe>
+              </div>
             ) : (
               <div
                 style={{

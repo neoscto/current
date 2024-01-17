@@ -46,7 +46,7 @@ const useDocusignService = (formik: any) => {
               route.push("/");
             }
           };
-          // window.addEventListener("message", handleMessage);
+          window.addEventListener("message", handleMessage);
           setSigningUrl(data.signingUrl);
         } catch (error) {
         } finally {

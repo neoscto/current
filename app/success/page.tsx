@@ -11,7 +11,7 @@ const Success = ({ generatePDF, setShowForm, showForm }: any) => {
     setShowForm("paymentForm");
   }, []);
   return (
-    <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14">
+    <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-5">
       <div className="mx-auto flex flex-col justify-center items-center w-full lg:w-3/6">
         <div className="w-12 h-12 relative">
           <Image src="/success.png" alt="user image" fill />

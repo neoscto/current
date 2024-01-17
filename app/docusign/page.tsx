@@ -85,7 +85,7 @@ const EmailSuccess = ({}: any) => {
           <Image src="/stop.png" alt="user image" fill />
         )}
       </div>
-      <h1 className="text-lg md:2xl lg:text-3xl font-bold mb-3.5 mt-2">
+      <h1 className="text-lg md:2xl lg:text-3xl font-bold mb-3.5">
         {event === "signing_complete"
           ? t("Email-success.title")
           : t("Email-failed.title")}
