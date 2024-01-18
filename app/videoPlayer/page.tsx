@@ -29,7 +29,11 @@ const VideoPlayer = () => {
       className={`${
         isCentered
           ? "absolute max-w-full md:w-full bg-black bg-opacity-40 h-screen flex justify-center  items-center"
-          : "fixed flex px-2 flex-col bottom-[0.5rem] md:bottom-[2rem] right-1 md:right-3 w-36 z-[2]"
+          : `${
+              isShow
+                ? "fixed flex px-2 flex-col bottom-[0.5rem] md:bottom-[2rem] right-1 md:right-3 w-36 z-[2]"
+                : "fixed flex flex-col md:bottom-[2rem]  md:right-3 w-[48px] h-[48px] z-[2] overflow-hidden p-0 right-[10px] bottom-[20px]"
+            }`
       }`}
       sx={{
         // display: "none",
@@ -95,13 +99,15 @@ const VideoPlayer = () => {
         <Box
           sx={{
             height: "5rem",
-            margin: "2px",
+            // margin: "2px",
             borderRadius: "2px 0 0 1px",
             width: "auto",
           }}
           className={`items-center ${
-            isShow ? "pb-4" : ""
-          } pt-1 px-1 flex justify-end`}
+            isShow
+              ? "pb-4 pt-1 px-1 m-[2px] flex justify-end"
+              : "w-[48px] h-[48px]  p-0"
+          } `}
         >
           {isShow ? (
             <div

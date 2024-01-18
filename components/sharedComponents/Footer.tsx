@@ -55,13 +55,19 @@ const Footer = () => {
         <Link href="/faq" className="text-base text-black font-medium">
           {t("Footer.copyright")} 2023 Neos
         </Link>
-        <p className="text-base text-black font-medium mx-3">
+        <Link
+          href="/termsOfUse"
+          className="text-base text-black font-medium mx-3"
+        >
           {t("Footer.terms")}
-        </p>
-        <p className="text-base text-black font-medium">
+        </Link>
+        <Link
+          href="/privacyPolicy"
+          className="text-base text-black font-medium"
+        >
           {" "}
           {t("Footer.policy")}
-        </p>
+        </Link>
       </div>
     </>
   );
