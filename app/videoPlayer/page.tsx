@@ -30,8 +30,8 @@ const VideoPlayer = () => {
         isCentered
           ? "absolute max-w-full md:w-full bg-black bg-opacity-40 h-screen flex justify-center  items-center"
           : isShow
-          ? "fixed flex px-2 flex-col bottom-[0.5rem] right-1 w-36 z-[2] pb-[70px] md:bottom-[82px] md:right-[14px]"
-          : "fixed flex px-2 flex-col bottom-[20px] right-[0px] pb-[70px]  w-[48px] h-[48px] z-[2] md:bottom-[94px] md:right-[10px]"
+          ? "fixed flex px-2 flex-col bottom-[40px] right-1 w-36 z-[2] pb-[70px] md:bottom-[82px] md:right-[14px]"
+          : "fixed flex px-2 flex-col bottom-[50px] right-[0px] pb-[70px]  w-[48px] h-[48px] z-[2] md:bottom-[94px] md:right-[10px]"
       }`}
       sx={{
         // display: "none",
