@@ -226,16 +226,14 @@ const HorizontalLinearStepper = () => {
   return (
     <MainContainer>
       <div className="relative rounded-[30px] bg-[#01092299] max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white overflow-hidden">
-        <div className="flex items-center gap-x-[12px] absolute lg:top-[2em] lg:left-[1.8em] md:top-[2em] md:left-[2em] top-[1.5em] left-[0.4em]">
+        {/* <div className="flex items-center gap-x-[12px] absolute lg:top-[2.59em] lg:left-[1.8em] md:top-[2.59em] md:left-[2em] sm:top-[2em] top-[31px] sm:left-[1em] left-[0.15em] "> */}
+        <div className="flex items-center gap-x-[12px] absolute lg:top-[2em] lg:left-[1.8em] md:top-[20px] md:left-[16px] top-[16px] left-[6px]">
           <span onClick={() => handleFormBack()}>
-            <ArrowBackIcon
-              className=" cursor-pointer "
-              sx={{ fontSize: "30px" }}
-            />
+            <ArrowBackIcon className=" cursor-pointer  lg:text-[30px] md:text-[30px] sm:text-[30px] text-[22px]" />
           </span>
         </div>
         <Box sx={{ width: "100%" }}>
-          <div className="w-[90%] md:w-[80%] lg:w-[60%] ml-auto md:mx-auto py-6 md:py-9 lg:py-9">
+          <div className="w-[90%] md:w-[80%] lg:w-[60%] ml-auto md:mx-auto py-6 md:py-9 lg:py-9 mr-auto ">
             <Stepper activeStep={Number(activeStep)}>
               {steps.map((label, index) => {
                 const stepProps: { completed?: boolean } = {};
@@ -255,6 +253,11 @@ const HorizontalLinearStepper = () => {
                         height: "40px",
                         alignItems: "center",
                       },
+                      "@media (max-width: 700px)": {
+                        "& .MuiStepLabel-root": {
+                          flexDirection: "column",
+                        },
+                      },
                       "& .MuiStepLabel-root .Mui-active .MuiStepIcon-text": {
                         fill: "#fff",
                       },
@@ -263,6 +266,7 @@ const HorizontalLinearStepper = () => {
                         fontSize: ["12px", "14px"],
                         fontWeight: 500,
                         marginTop: "4px",
+                        textAlign: "center",
                       },
                       svg: {
                         width: "30px",
