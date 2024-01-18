@@ -302,7 +302,7 @@ const HorizontalLinearStepper = () => {
                   src={signingUrl}
                   width="100%"
                   height="800px"
-                  className="mt-4 p-4"
+                  className="mt-4 p-6"
                 ></iframe>
               </div>
             ) : (
