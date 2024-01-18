@@ -41,13 +41,12 @@ export async function PATCH(
     const id = params.id;
     let body = await request.json();
     const userId = body.userId;
-    const calendlyToken = body.token;
     var options = {
       method: "GET",
       url: `https://api.calendly.com/scheduled_events/${id}`,
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${calendlyToken}`,
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_CALENDLY_TOKEN}`,
       },
     };
     let eventData;

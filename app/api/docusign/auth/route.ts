@@ -9,6 +9,7 @@ import fs from "fs";
 import path from "path";
 import { UsersOffers } from "@/models/UsersOffers";
 import jsPDF from "jspdf";
+import connectDB from "@/lib/connect-db";
 
 const pdfGenerate = (formData: any): string => {
   const pdf = new jsPDF();
@@ -76,6 +77,7 @@ const updateEnvelopeId = async (id: string, envelopeId: string) => {
 
 export async function POST(_request: Request, _response: Response) {
   try {
+    await connectDB();
     const body = await _request.json();
     const code = body.code;
     const offerData = body.offerData;

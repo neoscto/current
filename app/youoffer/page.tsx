@@ -39,7 +39,6 @@ const YourOffer = ({ handleNext }: any) => {
 
   useCalendlyEventListener({
     onEventScheduled: (e: any) => {
-      const token = getDataFromSessionStorage("calendlyToken");
       const offerData: any = getDataFromSessionStorage("UserOffer");
       const saveEvent = async () => {
         const eventId = String(e.data.payload.event.uri).split("/").pop() || "";
@@ -47,7 +46,7 @@ const YourOffer = ({ handleNext }: any) => {
           `${process.env.NEXT_PUBLIC_API_URL}/calendly/${eventId}`,
           {
             method: "PATCH",
-            body: JSON.stringify({ token, userId: offerData?._id }),
+            body: JSON.stringify({ userId: offerData?._id }),
           }
         );
         const data = await response.json();
@@ -59,14 +58,14 @@ const YourOffer = ({ handleNext }: any) => {
   });
 
   const handleCalender = async () => {
-    const token = getDataFromSessionStorage("calendlyToken");
-    if (token) {
-      setOpen(true);
-      return;
-    }
-    router.push(
-      `https://auth.calendly.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_CALENDLY_CLIENT_ID}&response_type=code&redirect_uri=${process.env.NEXT_PUBLIC_CALENDLY_REDIRECT_URL}`
-    );
+    setOpen(true);
+    // const token = getDataFromSessionStorage("calendlyToken");
+    // if (token) {
+    //   return;
+    // }
+    // router.push(
+    //   `https://auth.calendly.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_CALENDLY_CLIENT_ID}&response_type=code&redirect_uri=${process.env.NEXT_PUBLIC_CALENDLY_REDIRECT_URL}`
+    // );
   };
 
   return (

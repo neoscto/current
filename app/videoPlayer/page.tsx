@@ -29,11 +29,9 @@ const VideoPlayer = () => {
       className={`${
         isCentered
           ? "absolute max-w-full md:w-full bg-black bg-opacity-40 h-screen flex justify-center  items-center"
-          : `${
-              isShow
-                ? "fixed flex px-2 flex-col bottom-[0.5rem] md:bottom-[2rem] right-1 md:right-3 w-36 z-[2]"
-                : "fixed flex flex-col md:bottom-[2rem]  md:right-3 w-[48px] h-[48px] z-[2] overflow-hidden p-0 right-[10px] bottom-[20px]"
-            }`
+          : isShow
+          ? "fixed flex px-2 flex-col bottom-[0.5rem] right-1 w-36 z-[2] pb-[70px] md:bottom-[82px] md:right-[14px]"
+          : "fixed flex px-2 flex-col bottom-[20px] right-[0px] pb-[70px]  w-[48px] h-[48px] z-[2] md:bottom-[94px] md:right-[10px]"
       }`}
       sx={{
         // display: "none",
@@ -98,16 +96,17 @@ const VideoPlayer = () => {
       {!isCentered ? (
         <Box
           sx={{
-            height: "5rem",
-            // margin: "2px",
+            height: "auto",
+            margin: "0px",
             borderRadius: "2px 0 0 1px",
-            width: "auto",
+
+            padding: "0px",
           }}
-          className={`items-center ${
+          className={`items-center bottom-[0px] ${
             isShow
-              ? "pb-4 pt-1 px-1 m-[2px] flex justify-end"
-              : "w-[48px] h-[48px]  p-0"
-          } `}
+              ? "pb-4 w-auto right-[6px] bottom-[0px]"
+              : " right-[10px] bottom-[4px]"
+          } flex justify-end absolute `}
         >
           {isShow ? (
             <div

@@ -202,38 +202,38 @@ const HorizontalLinearStepper = () => {
     router.back();
   };
 
-  useEffect(() => {
-    const fetchToken = async () => {
-      if (params.get("code")) {
-        const code = params.get("code");
-        var options = {
-          method: "POST",
-          url: `${process.env.NEXT_PUBLIC_API_URL}/calendly?code=${code}`,
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        };
-        const response: any = await axios.request(options);
-        if (response && response.data && response.data.token) {
-          saveDataToSessionStorage("calendlyToken", response.data.token);
-          setShowForm("yourOffer");
-        }
-      }
-    };
-    fetchToken();
-  }, [params]);
+  // useEffect(() => {
+  //   const fetchToken = async () => {
+  //     if (params.get("code")) {
+  //       const code = params.get("code");
+  //       var options = {
+  //         method: "POST",
+  //         url: `${process.env.NEXT_PUBLIC_API_URL}/calendly?code=${code}`,
+  //         headers: {
+  //           "Content-Type": "application/x-www-form-urlencoded",
+  //         },
+  //       };
+  //       const response: any = await axios.request(options);
+  //       if (response && response.data && response.data.token) {
+  //         saveDataToSessionStorage("calendlyToken", response.data.token);
+  //         setShowForm("yourOffer");
+  //       }
+  //     }
+  //   };
+  //   fetchToken();
+  // }, [params]);
 
   return (
     <MainContainer>
       <div className="relative rounded-[30px] bg-[#01092299] max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white overflow-hidden">
         {/* <div className="flex items-center gap-x-[12px] absolute lg:top-[2.59em] lg:left-[1.8em] md:top-[2.59em] md:left-[2em] sm:top-[2em] top-[31px] sm:left-[1em] left-[0.15em] "> */}
-        <div className="flex items-center gap-x-[12px] absolute lg:top-[2em] lg:left-[1.8em] md:top-[20px] md:left-[16px] top-[16px] left-[6px]">
+        <div className="flex items-center gap-x-[12px] absolute lg:top-[2em] lg:left-[20px] md:top-[20px] md:left-[20px] top-[10px] left-[10px]">
           <span onClick={() => handleFormBack()}>
             <ArrowBackIcon className=" cursor-pointer  lg:text-[30px] md:text-[30px] sm:text-[30px] text-[22px]" />
           </span>
         </div>
         <Box sx={{ width: "100%" }}>
-          <div className="w-[90%] md:w-[80%] lg:w-[60%] ml-auto md:mx-auto py-6 md:py-9 lg:py-9 mr-auto ">
+          <div className="w-[90%] md:w-[80%] lg:w-[60%] md:mx-auto py-6 md:py-9 lg:py-9 mr-auto ml-4 mt-4 mb-7 md:mb-0 md:mt-1 lg:mb-0">
             <Stepper activeStep={Number(activeStep)}>
               {steps.map((label, index) => {
                 const stepProps: { completed?: boolean } = {};
@@ -250,12 +250,19 @@ const HorizontalLinearStepper = () => {
                     sx={{
                       "& .MuiStepLabel-root": {
                         flexDirection: ["column", "row"],
-                        height: "40px",
+                        height: "36px",
                         alignItems: "center",
                       },
                       "@media (max-width: 700px)": {
                         "& .MuiStepLabel-root": {
                           flexDirection: "column",
+                          height: "32px",
+                        },
+                        "& .MuiStepLabel-label": {
+                          marginLeft: "-10px",
+                        },
+                        svg: {
+                          paddingLeft: "2px",
                         },
                       },
                       "& .MuiStepLabel-root .Mui-active .MuiStepIcon-text": {
@@ -267,17 +274,19 @@ const HorizontalLinearStepper = () => {
                         fontWeight: 500,
                         marginTop: "4px",
                         textAlign: "center",
+                        marginLeft: "0px",
                       },
                       svg: {
                         width: "30px",
                         height: "30px",
+
                         color: "#EAEAED",
                       },
                     }}
                   >
                     <StepLabel
                       {...labelProps}
-                      className="w-12 sm:w-24 md:w-auto"
+                      className="w-12 pl-2 sm:w-24 md:w-auto flex item"
                     >
                       {t(label)}
                     </StepLabel>
@@ -293,7 +302,7 @@ const HorizontalLinearStepper = () => {
                   src={signingUrl}
                   width="100%"
                   height="800px"
-                  className="mt-4"
+                  className="mt-4 p-4"
                 ></iframe>
               </div>
             ) : (
