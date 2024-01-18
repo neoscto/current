@@ -67,17 +67,17 @@ const faq = () => {
     <MainContainer>
       <Box sx={{ width: "100%" }}>
         <div className="rounded-[30px] bg-[#01092299] max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white">
-          <div className="w-[94%] mx-auto py-6 md:py-9 lg:py-9">
-            <Typography variant="h4" gutterBottom>
+          <div className="w-[94%] mx-auto py-6 md:py-9 lg:py-9 ">
+            <Typography variant="h4" className="text-center" gutterBottom>
               Frequently Asked Questions
             </Typography>
             <div
               style={{
                 height: "49vh",
-                overflowY: "scroll",
+                // overflowY: "scroll",
                 padding: "0.5rem",
               }}
-              className="flex flex-wrap"
+              className="flex flex-wrap scroll-bar"
             >
               {faqData?.map((faq, index) => (
                 <Accordion

@@ -86,6 +86,11 @@ body {
   border-radius: 0px;
 }
 
+.scroll-bar {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
 .video-landscape .customwrap video {
   position: absolute;
   left: 1.25rem;
@@ -93,6 +98,7 @@ body {
   max-height: 600px;
   width: 85%;
   height: 520px;
+
 
   @media only screen and (min-width: 640px) {
     margin-top: -0.9em;

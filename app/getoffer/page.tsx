@@ -233,7 +233,7 @@ const HorizontalLinearStepper = () => {
           </span>
         </div>
         <Box sx={{ width: "100%" }}>
-          <div className="w-[90%] md:w-[80%] lg:w-[60%] md:mx-auto py-6 md:py-9 lg:py-9 mr-auto ml-4 mt-4 mb-7 md:mb-0 md:mt-1 lg:mb-0">
+          <div className="w-[90%] md:w-[80%] lg:w-[60%] md:mx-auto py-6 md:py-9 lg:py-9 mr-auto ml-4 mt-4 mb-6 md:mb-0 md:mt-1 lg:mb-0">
             <Stepper activeStep={Number(activeStep)}>
               {steps.map((label, index) => {
                 const stepProps: { completed?: boolean } = {};
@@ -260,6 +260,7 @@ const HorizontalLinearStepper = () => {
                         },
                         "& .MuiStepLabel-label": {
                           marginLeft: "-10px",
+                          fontSize: ["10px", "12px"],
                         },
                         svg: {
                           paddingLeft: "2px",
@@ -270,7 +271,7 @@ const HorizontalLinearStepper = () => {
                       },
                       "& .MuiStepLabel-label": {
                         color: "#000",
-                        fontSize: ["12px", "14px"],
+                        fontSize: ["10px", "14px"],
                         fontWeight: 500,
                         marginTop: "4px",
                         textAlign: "center",
