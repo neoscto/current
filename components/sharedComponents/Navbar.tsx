@@ -37,12 +37,12 @@ const Navbar = () => {
         className="h-[20px] md:h-auto lg:h-auto -ms-1 md:ms-0 lg:ms-0 cursor-pointer object-contain"
         onClick={() => router.push("/")}
         unoptimized
-      />
+      />  
 
       <div className="items-center select-container ml-4 md:ml-0 sm:flex flex">
         <Link
           href="/faq"
-          className="font-bold text-xs md:text-xl lg:text-xl text-white ml-0 sm:ml-[15px] mr-[10px] md:mr-[16px] sm:w-[80px] md:w-[100px] lg:w-[120px]  relative sm:static text-end"
+          className="font-bold text-xs md:text-xl lg:text-xl text-white ml-0 sm:ml-[15px] mr-[10px] md:mr-[16px] sm:w-[80px] md:w-[100px] lg:w-[120px]  relative sm:static text-end md:pr-4"
         >
           {t("Home.nav.faqs")}
         </Link>
