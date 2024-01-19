@@ -39,15 +39,15 @@ const Navbar = () => {
         unoptimized
       />
 
-      <div className="items-center select-container ml-4 md:ml-0 sm:flex">
+      <div className="items-center select-container ml-4 md:ml-0 sm:flex flex">
         <Link
           href="/faq"
-          className="font-bold text-xs md:text-xl lg:text-xl text-white ml-0 sm:ml-[15px] mr-[10px] md:mr-[16px] sm:w-[80px] md:w-[100px] lg:w-[120px]  relative sm:static top-[3px] text-end"
+          className="font-bold text-xs md:text-xl lg:text-xl text-white ml-0 sm:ml-[15px] mr-[10px] md:mr-[16px] sm:w-[80px] md:w-[100px] lg:w-[120px]  relative sm:static text-end"
         >
           {t("Home.nav.faqs")}
         </Link>
         <NeosSelect
-          className="lg:min-w-[135px] md:min-w-[135px] w-[105px] -ml-1"
+          className="lg:min-w-[135px] md:min-w-[135px] w-[105px] -ml-1 "
           value={language}
           onChange={(e: React.ChangeEvent<{ value: unknown }>) => {
             dispath(setLanguage(e.target.value as string));

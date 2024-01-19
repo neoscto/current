@@ -35,7 +35,7 @@ const SelectBox = styled(Select)(() => ({
 const NeosSelect=(props) => {
     const { value, defaultValue, ...otherProps } = props;
     return (
-        <FormControl size="small" fullWidth={true} variant="outlined" sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }}>
+        <FormControl size="small" variant="outlined" sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }}>
             <SelectBox
                 {...otherProps}
                 value={value}
