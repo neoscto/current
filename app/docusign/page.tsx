@@ -22,7 +22,6 @@ const EmailSuccess = ({}: any) => {
   const router = useRouter();
   const handleNext = () => {
     window.parent.postMessage("changeRoute", "*");
-    saveDataToSessionStorage("UserOffer",{})
   };
   const searchParams = useSearchParams();
   const event = searchParams.get("event");
