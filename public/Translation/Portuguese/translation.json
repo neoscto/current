@@ -11,14 +11,15 @@
 
   "Description": {
     "title": "O que é Solar Virtual?",
-    "description": "Compre painéis dentro de parques solares. Receba eletricidade através do sistema de rede.",
-    "point1": "⚡ &nbsp; 80% de redução na conta de eletricidade",
-    "point2": "💸 &nbsp; 35% mais barato que a energia solar no telhado",
-    "point3": "⏱ &nbsp; Conexão instantânea",
-    "point4": "🌆 &nbsp; Sem necessidade de telhado",
-    "point5": "🔄 &nbsp; Pagamento em 4.5 anos",
-    "point6": "&nbsp; 25 anos de vida útil",
-    "point7": "🌱  &nbsp; 100% renovável"
+    "description": "A <b>Neos</b> oferece-lhe a oportunidade de comprar painéis solares localizados nos parques solares existentes em Espanha. Isso significa que você irá gerar sua própria eletricidade renovável e recebê-la em sua casa ou empresa através da rede elétrica do país, já no primeiro dia do próximo mês!",
+    "point1": "Economia de custos significativa",
+    "point1Description":"Redução de até 80% nas contas de eletricidade e X% mais barato do que instalações solares em telhados.",
+    "point2": "Acesse em qualquer lugar, instantaneamente",
+    "point2Description":"Conexão instantânea à rede. Não é necessário painel de telhado ou qualquer tipo de instalação.",
+    "point3": "Retorno financeiro",
+    "point3Description":"Período de retorno de cerca de 6,9 ​​anos, em comparação com 14 anos para painéis de telhado.",
+    "point4": "Energia Renovável de Longo Prazo",
+    "point4Description":"Os painéis solares têm vida útil de 25 anos, fornecendo energia 100% renovável."
   },
 
   "Calculate-saving-btn": "CALCULAR SUAS ECONOMIAS",
