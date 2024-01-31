@@ -5,12 +5,15 @@ import MainContainer from "@/components/sharedComponents/MainContainer";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import VideoPreview from "../videoPlayer/preview";
+import Licensed from "@/components/Licensed";
 
 const LandingPage = () => {
   const router = useRouter();
   const { t } = useTranslation();
   return (
     <MainContainer>
+      <div className="flex flex-col gap-5">
+
       <div>
         <div className="block md:hidden lg:hidden relative flex justify-center items-center mt-4 mb-6">
           <VideoPreview
@@ -30,14 +33,14 @@ const LandingPage = () => {
         <div className="rounded-[30px] bg-[#01092299] max-w-[90%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[970px] w-full mx-auto max-h-[177px] md:max-h-[455px] lg:max-h-[455px] h-full relative md:mt-[4em] lg:mt-[3.5em] lg:mb-[4.9em] md:mb-[4.9em]">
           <div className="grid grid-cols-8 gap-4 h-full">
             <div className="hidden sm:hidden md:block lg:block md:col-span-4 lg:col-span-3 relative">
-              <img
+              {/* <img
                 src="landingpage/iPhone.png"
                 alt="NEOS logo"
                 className="absolute -left-1 sm:-top-[12rem] md:top-[-5em] lg:-top-[5.2em] max-w-full"
-              />
+              /> */}
               <VideoPreview
                 custonClass={
-                  "max-h-[600px]  z-10 absolute w-[85%] lg:mt-[-2em] md:mt-[-2em] left-5 h-[520px] sm:mt-[-0.9em] z-[1]"
+                  "max-h-[600px] z-10 absolute w-[85%] lg:mt-[-2em] md:mt-[-2em] left-5 h-[520px] sm:mt-[-0.9em] z-[1] rounded-3xl overflow-hidden"
                 }
                 url={
                   "https://videos.gotolstoy.com/public/f00d787b-4ba2-43d0-a780-24ad46b005ca/98d32db0-b1fe-4938-ba9d-a36346605775/98d32db0-b1fe-4938-ba9d-a36346605775.mp4"
@@ -73,6 +76,9 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <Licensed />
       </div>
     </MainContainer>
   );

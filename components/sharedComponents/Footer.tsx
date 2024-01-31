@@ -12,10 +12,10 @@ const Footer = () => {
   return (
     <div className="bg-white">
 
-      <div className="xl:max-w-[1200px] w-full xl:px-0 px-5 mx-auto py-5 flex gap-4 flex-col md:flex-row">
+      <div className="xl:max-w-[1200px] w-full xl:px-0 px-5 mx-auto py-5 flex gap-4 flex-col md:flex-row ">
 
         {/* Left Container */}
-        <div className="max-w-[calc(50%_-_8px)] w-full flex flex-col gap-2">
+        <div className="md:max-w-[calc(50%_-_8px)] max-w-full w-full flex flex-col gap-2 md:items-start items-center">
           <Link href='mailto:contact@neosenergy.co' className="flex gap-1.5 items-center">
             <MailOutlineIcon />
             <span>contact@neosenergy.co</span>
@@ -26,13 +26,13 @@ const Footer = () => {
             <span>+34 900 732 890</span>
           </Link>
 
-          <Link href="/faq" className="text-black font-medium  hidden md:flex items-center me-3">
+          <Link href="/faq" className="text-black font-medium items-center me-3">
             {t("Footer.copyright")} 2023 Neos
           </Link>
         </div>
 
         {/* Right Container */}
-        <div className="max-w-[calc(50%_-_8px)] w-full flex flex-col items-end gap-2">
+        <div className="md:max-w-[calc(50%_-_8px)] w-full flex flex-col gap-2 md:items-end items-center">
 
           {/* Social media Links */}
           <div className="flex flex-row gap-2">
