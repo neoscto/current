@@ -8,8 +8,10 @@ interface VideoPlayerProps {
   custonClass?: any;
   playerRef?:any;
   handleVideoReady?:any;
+  autoPlay?: boolean;
+  muted?: boolean;
 }
-const VideoPreview: React.FC<VideoPlayerProps> = ({ url, custonClass,playerRef,handleVideoReady }) => {
+const VideoPreview: React.FC<VideoPlayerProps> = ({ url, custonClass,playerRef,handleVideoReady, autoPlay, muted }) => {
   return (
     <div className={custonClass} id="video-main">
       <DynamicReactPlayer
@@ -18,7 +20,8 @@ const VideoPreview: React.FC<VideoPlayerProps> = ({ url, custonClass,playerRef,h
         controls
         className={"customwrap"}
         onReady={handleVideoReady}
-        playing={true}
+        playing={(autoPlay) ? autoPlay : false}
+        muted={(muted) ? muted : false}
       />
     </div>
   );

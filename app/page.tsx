@@ -11,12 +11,12 @@ interface postData {
 export default function Home() {
 
   const dispath = useDispatch < AppDispatch > ()
-  const { post } = useSelector((state: RootState) => state.commonSlice)
+  // const { post } = useSelector((state: RootState) => state.commonSlice)
 
-  console.log(post)
-  useEffect(() => {
-    dispath(fetchPosts())
-  }, [])
+  // console.log(post)
+  // useEffect(() => {
+  //   dispath(fetchPosts())
+  // }, [])
 
   return (
     <div className='w-full relative'>
