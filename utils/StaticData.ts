@@ -1,11 +1,8 @@
 export const descriptionList: { [key: string]: string }[] = [
-  { point1: "⚡ &nbsp; 80% reduction on electricity bill" },
-  { point2: "💸 &nbsp; 35% cheaper than rooftop solar" },
-  { point3: "⏱ &nbsp; Instant connection" },
-  { point4: "🌆 &nbsp; No need for rooftop" },
-  { point5: "🔄 &nbsp; 4.5 years payback" },
-  { point6: "&nbsp; 25 years useful life" },
-  { point7: "🌱  &nbsp; 100% renewable" },
+  { point1: "Significant Cost Savings",  point1Description:'Up to 80% reduction in electricity bills,and X% cheaper than rooftop solar installations.'},
+  { point2: "Access Anywhere, Instantly" , point2Description:'Instant connection to the grid. No rooftop panel or any kind of installation required.'},
+  { point3: "Financial Return", point3Description:'Payback period of around 6.9 years, compared to 14 years for rooftop panels.'},
+  { point4: "Long-Term Renewable Energy", point4Description:'Solar panels have a 25-year useful life, providing 100% renewable energy.'},
 ];
 
 export const GetOfferCardData: {
