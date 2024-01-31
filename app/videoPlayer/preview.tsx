@@ -18,6 +18,7 @@ const VideoPreview: React.FC<VideoPlayerProps> = ({ url, custonClass,playerRef,h
         controls
         className={"customwrap"}
         onReady={handleVideoReady}
+        playing={true}
       />
     </div>
   );

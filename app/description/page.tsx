@@ -28,8 +28,11 @@ const Description = () => {
             </h1>
 
             <div className="w-full py-[13px] pr-[9px] pl-[16px] rounded-[8px] border-[1px] border-[#E0E0E0] mt-1.5">
-              <p className="text-sm md:text-base lg:text-base text-black">
-                {t("Description.description")}
+              <p className="text-sm md:text-base lg:text-base text-black"
+              dangerouslySetInnerHTML={{
+                __html: t(`Description.description`),
+              }}
+              >
               </p>
             </div>
             <div className="my-4 md:my-8 lg:my-8 flex flex-wrap gap-[18px] ">
