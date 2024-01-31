@@ -10,7 +10,8 @@
   },
   "Description": {
     "title": "What is Virtual Solar?",
-    "description": "Neos offers you the opportunity to buy solar panels located in Spain’s existing solar parks. This means that you will generate your own renewable electricity and receive it at your house or business through the country’s power grid, as soon as the first day of next month!",
+    "description": "<b>Neos</b> offers you the opportunity to buy solar panels located in Spain’s existing solar parks. This means that you will generate your own renewable electricity and receive it at your house or business through the country’s power grid, as soon as the first day of next month!",
+    "Benefits":"Benefits",
     "point1": "Significant Cost Savings",
     "point1Description":"Up to 80% reduction in electricity bills,and X% cheaper than rooftop solar installations.",
     "point2": "Access Anywhere, Instantly",
