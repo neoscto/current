@@ -101,7 +101,7 @@ const faq = () => {
                 <Accordion
                   key={index}
                   sx={accorSyle}
-                  className="lg:max-w-[50%] md:max-w-[50%] sm:max-w-[100%]"
+                  className="lg:max-w-[100%] md:max-w-[100%] sm:max-w-[100%]"
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
