@@ -30,17 +30,17 @@ const Description = () => {
             <div className="flex flex-col items-center justify-center lg:hidden mt-3">
               <img src="virtual-solar-small.png" alt="Description image" width={267} />
               <div className="text-center mt-[23px]">
-              <NeosButton
-                className={'px-[24px] py-[14px] text-sm leading-4 font-semibold'}
-                category="colored"
-                title={t("Calculate-saving-btn")}
-                onClick={() => router.push("/getoffer")}
-              />
-            </div>
+                <NeosButton
+                  className={'px-[24px] py-[14px] text-sm leading-4 font-semibold'}
+                  category="colored"
+                  title={t("Calculate-saving-btn")}
+                  onClick={() => router.push("/getoffer")}
+                />
+              </div>
             </div>
 
             <div className="lg:mt-[29px] mt-[27px]">
-              <h1 className="text-[28px] leading-[35px] font-bold text-center">{t("Description.Benefits")}</h1>
+              <h1 className="text-[28px] leading-[35px] font-bold text-center">{t("Description.benefits")}</h1>
               <div className="flex flex-wrap gap-[18px] sm:gap-4 mt-5 lg:mt-2.5">
                 {descriptionList.map((item, index) => {
                   if (index % 4 === 1 || index % 4 === 2) {
