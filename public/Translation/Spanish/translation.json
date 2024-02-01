@@ -77,6 +77,12 @@
     "savings": "Savings Over 25 Years",
     "c02-reduction": "CO2 Reduction"
   },
+  "panel-header": {
+    "neos-panel-neos-provider": "Paneles Neos y \nNeos como proveedor",
+    "neos-panels-keep-provider": "Paneles Neos y \nproveedor Keep",
+    "rooftop-panels-keep-provider": "Paneles de techo y \nproveedor de mantenimiento",
+    "keep-provider": "mantener\nproveedor"
+  },
   "offer": {
     "validation": {
       "firstName": {

@@ -69,7 +69,51 @@ const YourOffer = ({ handleNext }: any) => {
   };
 
   const panelChargeDetails = [
+    { title: 'installation-cost' },
+    { title: 'grid-electricity' },
+    { title: 'payback' },
+    { title: 'savings' },
+    { title: 'c02-reduction' }
+  ]
 
+  const panelHeader = [
+    { title: 'neos-panel-neos-provider' },
+    { title: 'neos-panels-keep-provider' },
+    { title: 'rooftop-panels-keep-provider' },
+    { title: 'keep-provider' }
+  ]
+
+  const tempData = [
+    {
+      neosPanelProvider: '€ 3,600',
+      neosPanelKeepProvider: '€3600',
+      rooftopPanelKeepProvider: '€ 5000',
+      keepProvider: ''
+    },
+    {
+      neosPanelProvider: '€ 8,000',
+      neosPanelKeepProvider: '€ 14,000',
+      rooftopPanelKeepProvider: '€ 14,000',
+      keepProvider: '€ 26,000'
+    },
+    {
+      neosPanelProvider: '6 years',
+      neosPanelKeepProvider: '8 years',
+      rooftopPanelKeepProvider: '13 years',
+      keepProvider: ''
+    },
+    {
+      neosPanelProvider: '€ 14,400',
+      neosPanelKeepProvider: '€ 8,400',
+      rooftopPanelKeepProvider: '€ 6,600',
+      keepProvider: '0'
+    },
+    {
+      neosPanelProvider: '1.8 tons',
+      neosPanelKeepProvider: '1.5 tons',
+      rooftopPanelKeepProvider: '1.3 tons',
+      keepProvider: ''
+    }
   ]
 
   return (
@@ -176,9 +220,33 @@ const YourOffer = ({ handleNext }: any) => {
           </div>
         </div>
 
-        <div className="w-full gap-[30px] ">
-          <div>
+        <div className="w-full gap-[30px] mt-[46px]">
+          <div className="flex flex-col items-end w-[75%]">
+            {/* header render */}
+            <div className="flex justify-end max-w-[calc(100%_-_225px)] w-full">
+              {panelHeader.map((head, index) => {
+                return (<div key={index} className={`w-full py-[21px] px-4 whitespace-pre border text-[#4F4F4F] text-[14px] leading-[17.64px] font-semibold border-b-0 flex items-center ${index === 0 ? 'rounded-tl-3xl border-[#0F9DD0] bg-[#E8F5FA] max-w-[180px] w-full' : index === 1 ? 'max-w-[138px] w-full' : index === 3 ? ' border-[#E0E0E0] rounded-tr-3xl max-w-[108px] w-full' : 'border-[#E0E0E0] max-w-[156px] w-full'}`}>
+                  {index === 0 && <img src="premium.png" alt='premium' className="px-1.5" />}
+                  {t(`panel-header.${head.title}`)}
+                </div>)
+              })}
+            </div>
 
+            {/* table body rendering start*/}
+            <div className="w-full">
+              {panelChargeDetails?.map((charge, index) => {
+                return (<div className="flex w-full" key={index}>
+                  <div className={`w-[225px] pl-[20px] p-[18px] border border-[#E0E0E0] border-r-0 border-b-0 text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium ${index === panelChargeDetails.length - 1 ? 'rounded-bl-3xl border-b-[1px]' : ''}`}>{t(`panel-charge.${charge.title}`)}</div>
+                  <div className="flex max-w-[calc(100%_-_225px)] w-full">
+                    <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#0F9DD0] bg-[#E8F5FA] border-b-0 max-w-[180px] w-full ${index === panelChargeDetails.length - 1 ? 'border-b-[1px]' : ''}`}>{tempData[index].neosPanelProvider || '-'}</div>
+                    <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[138px] w-full ${index === panelChargeDetails.length - 1 ? 'border-b-[1px]' : ''}`}>{tempData[index].neosPanelKeepProvider || '-'}</div>
+                    <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[156px] w-full ${index === panelChargeDetails.length - 1 ? 'border-b-[1px]' : ''}`}>{tempData[index].rooftopPanelKeepProvider || '-'}</div>
+                    <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-b-0 max-w-[108px] w-full ${index === panelChargeDetails.length - 1 ? 'rounded-br-3xl border-b-[1px]' : ''}`}>{tempData[index].keepProvider || '-'}</div>
+                  </div>
+                </div>)
+              })}
+            </div>
+            {/*  table body rendering ends*/}
           </div>
         </div>
 
