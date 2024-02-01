@@ -101,12 +101,13 @@ const faq = () => {
                 <Accordion
                   key={index}
                   sx={accorSyle}
-                  className="lg:max-w-[100%] md:max-w-[100%] sm:max-w-[100%]"
+                  className="lg:max-w-[100%] md:max-w-[100%] sm:max-w-[100%] w-full"
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls={`panel${index + 1}a-content`}
                     id={`panel${index + 1}a-header`}
+                    sx={{ paddingRight: 0 }}
                   >
                     <Typography variant="h6">{faq?.question || ""}</Typography>
                   </AccordionSummary>
