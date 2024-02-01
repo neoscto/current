@@ -9,6 +9,113 @@ import { useTranslation } from "react-i18next";
 import { PopupModal, useCalendlyEventListener } from "react-calendly";
 import { useRouter } from "next/navigation";
 import { getDataFromSessionStorage } from "@/utils/utils";
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
+const data = [
+  {
+    years: '0',
+    saving: 500,
+  },
+  {
+    years: '1',
+    saving: 1000,
+  },
+  {
+    years: '2',
+    saving: 1500,
+  },
+  {
+    years: '3',
+    saving: 2000,
+  },
+  {
+    years: '4',
+    saving: 2500,
+  },
+  {
+    years: '5',
+    saving: 3000,
+  },
+  {
+    years: '6',
+    saving: 3500,
+  },
+  {
+    years: '7',
+    saving: 4000,
+  },
+  {
+    years: '8',
+    saving: 4500,
+  },
+  {
+    years: '9',
+    saving: 5000,
+  },
+  {
+    years: '10',
+    saving: 5500,
+  },
+  {
+    years: '11',
+    saving: 6000,
+  },
+  {
+    years: '12',
+    saving: 6500,
+  },
+  {
+    years: '13',
+    saving: 7000,
+  },
+  {
+    years: '14',
+    saving: 7500,
+  },
+  {
+    years: '15',
+    saving: 8000,
+  },
+  {
+    years: '16',
+    saving: 8500,
+  },
+  {
+    years: '17',
+    saving: 9000,
+  },
+  {
+    years: '18',
+    saving: 9500,
+  },
+  {
+    years: '19',
+    saving: 10000,
+  },
+  {
+    years: '20',
+    saving: 10500,
+  },
+  {
+    years: '21',
+    saving: 11000,
+  },
+  {
+    years: '22',
+    saving: 11500,
+  },
+  {
+    years: '23',
+    saving: 12000,
+  },
+  {
+    years: '24',
+    saving: 12500,
+  },
+  {
+    years: '25',
+    saving: 13000,
+  }
+];
 
 const YourOffer = ({ handleNext }: any) => {
   const { userData }: any = useSelector(
@@ -343,6 +450,18 @@ const YourOffer = ({ handleNext }: any) => {
               )}
             </div>
           </div>
+        </div>
+        <div className="flex justify-center flex-col h-[300px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart width={150} height={40} data={data}>
+              <Bar dataKey="saving" fill="#436DC6" barSize={24} radius={[5, 5, 0, 0]} />
+              <XAxis dataKey="years" />
+              <YAxis tickCount={4} domain={[0, 15000]} tickFormatter={(value) => `${value / 1000}K`} />
+              <Tooltip />
+              <ReferenceLine y={4500} stroke="#EB5757" strokeDasharray="5 0" strokeWidth={3} />
+            </BarChart>
+          </ResponsiveContainer>
+
         </div>
       </div>
     </div>
