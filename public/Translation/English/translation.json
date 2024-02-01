@@ -67,7 +67,15 @@
     "offer-payback": "years payback",
     "offer-consumption": "of consumption covered by",
     "contract-btn-txt": "generate contract",
-    "download-offer": "download offer"
+    "download-offer": "download offer",
+    "Redeem-code-discount": "Referral Code for a Discount"
+  },
+  "panel-charge": {
+    "installation-cost": "Installation Cost",
+    "grid-electricity": "Grid Electricity Over 25 Years",
+    "payback": "Payback",
+    "savings": "Savings Over 25 Years",
+    "c02-reduction": "CO2 Reduction"
   },
   "offer": {
     "validation": {

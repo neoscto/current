@@ -67,7 +67,15 @@
     "offer-payback": "años de devolución",
     "offer-consumption": "de consumo cubierto por",
     "contract-btn-txt": "descargar oferta",
-    "download-offer": "download offer"
+    "download-offer": "download offer",
+    "Redeem-code-discount": "Código de referencia para un descuento"
+  },
+  "panel-charge": {
+    "installation-cost": "Costo de instalacion",
+    "grid-electricity": "Electricidad de red durante 25 años",
+    "payback": "Payback",
+    "savings": "Savings Over 25 Years",
+    "c02-reduction": "CO2 Reduction"
   },
   "offer": {
     "validation": {

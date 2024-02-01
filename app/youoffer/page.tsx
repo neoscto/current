@@ -68,12 +68,16 @@ const YourOffer = ({ handleNext }: any) => {
     // );
   };
 
+  const panelChargeDetails = [
+
+  ]
+
   return (
     <div className="max-w-[1200px] w-full mx-auto">
       <div className="w-full bg-white lg:pt-12 lg:px-[70px] lg:pb-[67px]">
 
         {/* Offer and virtual solar */}
-        <div className="flex justify-end gap-[131px]">
+        <div className="flex justify-end gap-[131px] items-end">
           <div className="max-w-[354px] w-full flex flex-col items-center">
             <img src="virtual-solar-small.png" alt="Description image" width={348} height={296} />
             <div className="text-center mt-[7px]">
@@ -85,10 +89,15 @@ const YourOffer = ({ handleNext }: any) => {
               </p>
             </div>
 
-            <div className="flex justify-between items-end gap-[18px] mt-5">
-              <div>
-                <p></p>
-
+            <div className="flex justify-between items-end gap-[18px] mt-5 w-full">
+              <div className="flex flex-col gap-1.5">
+                <p className="text-center text-[14px] leading-[17px] font-medium">{t("Your-offer.Redeem-code-discount")}</p>
+                <input
+                  type="text"
+                  name="cups"
+                  placeholder="Enter here"
+                  className="py-[13px] px-1 border-[1px] border-[#E0E0E0] rounded-xl placeholder:text-center text-center focus-within:outline-none"
+                />
               </div>
               <div>
                 <NeosButton
@@ -163,37 +172,18 @@ const YourOffer = ({ handleNext }: any) => {
                   onClick={handleNext}
                 />
               </div>
-
-
             </div>
           </div>
         </div>
 
-        <div className="max-w-full lg:max-w-[508px] w-full border border-[#E0E0E0] p-4 mt-3 -mb-1 lg:mt-2 rounded-3xl mx-auto lg:mx-0 lg:ml-auto">
-          <div className="flex justify-center md:justify-between items-center md:items-start flex-1 flex-col md:flex-row">
-            <p className="text-base text-black font-medium me-4 lg:me-11 whitespace-nowrap pb-4 md:pb-0">
-              {t("Footer.license")}
-            </p>
-            <div className="flex align-center flex-wrap">
-              <img
-                src="Footer/CNMC.png"
-                alt="NEOS logo"
-                className="object-contain w-[45px]"
-              />
-              <img
-                src="Footer/OMIE-removebg-preview.png"
-                alt="NEOS logo"
-                className="object-contain w-[45px] mx-4"
-              />
-              <img
-                src="Footer/REE-removebg-preview.png"
-                alt="NEOS logo"
-                className="object-contain w-[100px]"
-              />
-            </div>
+        <div className="w-full gap-[30px] ">
+          <div>
+
           </div>
         </div>
-        <div className="flex flex-col md:flex-row mb-7">
+
+
+        <div className="flex flex-col md:flex-row mt-[46px]">
           {isMobile ? (
             <div className="w-full border border-[#E0E0E0] rounded-3xl px-4 py-7 mt-5 md:mt-0">
               <h1 className="text-base md:2xl  font-bold text-center mb-7">
