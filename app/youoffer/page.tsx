@@ -69,53 +69,106 @@ const YourOffer = ({ handleNext }: any) => {
   };
 
   return (
-    <div>
-      <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white">
-        <div className="flex flex-col md:flex-row lg:flex-row justify-center items-center">
-          <div className="flex justify-center items-center relative w-full md:w-3/6">
-            <div className="inline-block">
-              <img src="description.png" alt="Description image" />
-              <div className="-mt-12 text-center">
-                <h1 className="text-lg md:2xl lg:text-3xl font-bold">
-                  {t("Your-offer.title")}: €{displayValue}
-                </h1>
-                <p className="text-sm md:text-base lg:text-base mt-1 text-[#828282] font-medium mt-0">
-                  {t("Your-offer.desc")}
-                </p>
+    <div className="max-w-[1200px] w-full mx-auto">
+      <div className="w-full bg-white lg:pt-12 lg:px-[70px] lg:pb-[67px]">
+
+        {/* Offer and virtual solar */}
+        <div className="flex justify-end gap-[131px]">
+          <div className="max-w-[354px] w-full flex flex-col items-center">
+            <img src="virtual-solar-small.png" alt="Description image" width={348} height={296} />
+            <div className="text-center mt-[7px]">
+              <h1 className="text-lg md:2xl lg:text-3xl font-bold">
+                {t("Your-offer.title")}: €{displayValue}
+              </h1>
+              <p className="text-sm md:text-base lg:text-base mt-1 text-[#828282] font-medium">
+                {t("Your-offer.desc")}
+              </p>
+            </div>
+
+            <div className="flex justify-between items-end gap-[18px] mt-5">
+              <div>
+                <p></p>
+
+              </div>
+              <div>
+                <NeosButton
+                  sx={{ width: "100%" }}
+                  category="colored"
+                  className='px-5 py-3 text-[16px] leading-5 font-semibold'
+                  title={t("Your-offer.validate-btn")}
+                  onClick={handleNext}
+                />
               </div>
             </div>
           </div>
-          <div className="flex justify-center items-center w-full md:w-3/6">
-            <div className="max-w-full md:max-w-[320px] w-full md:ps-5 pt-4 md:pt-0">
-              <h1 className="text-lg md:2xl lg:text-3xl font-bold ">
-                {t("Your-offer.offer-title")}
-              </h1>
-              <p className="text-sm md:text-base lg:text-base mt-1 text-[#828282] font-medium mt-0">
-                {displayValue} {t("Your-offer.offer-option1")} {displayValue}
-                {t("Your-offer.offer-option1-unit")}
-                {/* {(displayValue * 3.2).toFixed(2)}KWp) */}
-              </p>
-              <div className="my-2 md:my-5">
-                <p className="text-base text-black font-normal">
-                  • €{displayValue} {t("Your-offer.offer-saving-1")} (€
-                  {displayValue} {t("Your-offer.offer-saving-2")})
+
+          <div className="flex justify-center items-center max-w-[500px] w-full">
+            <div className="max-w-full w-full">
+              <div className="py-[11px] text-black">
+                <h1 className="lg:text-[30px] leading-[37.8px] font-bold">
+                  {t("Your-offer.offer-title")}:
+                  <span className="font-medium text-[24px] leading-[30px] pl-1">{displayValue} {t("Your-offer.offer-option1")} {displayValue}
+                    {t("Your-offer.offer-option1-unit")}
+                    {/* {(displayValue * 3.2).toFixed(2)}KWp) */}</span>
+                </h1>
+              </div>
+
+              {/* Select plan */}
+              <div className="my-[22px]">
+                <p className="text-[20px] leading-[25px] font-semibold text-[#333333] text-center">{t("offer.selectPlan")}</p>
+              </div>
+
+              {/* Plan Buttons */}
+              <div className="flex gap-4">
+                <NeosButton
+                  category="outline"
+                  className='text-black py-[14px] px-[24px] outline-[2px] outline outline-[#66BCDA] font-medium text-[16px] leading-5 normal-case'
+                  title={t("offer.buyPanelProviderNeos")}
+                />
+
+                <NeosButton
+                  category="outline"
+                  className='text-black py-[14px] px-[24px] outline-[2px] outline outline-[#66BCDA] font-medium text-[16px] leading-5 normal-case'
+                  title={t("offer.buyPanelProviderCurrent")}
+                />
+              </div>
+
+              <div className="py-[11px] mt-[22px] flex flex-col gap-2.5">
+                <p className="text-[18px] leading-[22.68px] font-medium text-black">
+                  • €{displayValue} {t("Your-offer.offer-saving-1")}
                 </p>
-                <p className="text-base text-black font-normal my-2 md:my-2.5">
+                <p className="text-[18px] leading-[22.68px] font-medium text-black">
+                  • € {displayValue} {t("Your-offer.offer-saving-2")}
+                </p>
+                <p className="text-[18px] leading-[22.68px] font-medium text-black">
                   • {displayValue} {t("Your-offer.offer-payback")}
                 </p>
-                <p className="text-base text-black font-normal">
+                <p className="text-[18px] leading-[22.68px] font-medium text-black">
                   • {displayValue}% {t("Your-offer.offer-consumption")}
                 </p>
               </div>
-              <NeosButton
-                sx={{ width: "100%", mt: 1 }}
-                category="colored"
-                title={t("Your-offer.contract-btn-txt")}
-                onClick={handleNext}
-              />
+
+              <div className="flex gap-4">
+                <NeosButton
+                  sx={{ width: "100%" }}
+                  category="colored"
+                  title={t("Your-offer.download-offer")}
+                  onClick={handleNext}
+                />
+
+                <NeosButton
+                  sx={{ width: "100%" }}
+                  category="colored"
+                  title={t("Your-offer.contract-btn-txt")}
+                  onClick={handleNext}
+                />
+              </div>
+
+
             </div>
           </div>
         </div>
+
         <div className="max-w-full lg:max-w-[508px] w-full border border-[#E0E0E0] p-4 mt-3 -mb-1 lg:mt-2 rounded-3xl mx-auto lg:mx-0 lg:ml-auto">
           <div className="flex justify-center md:justify-between items-center md:items-start flex-1 flex-col md:flex-row">
             <p className="text-base text-black font-medium me-4 lg:me-11 whitespace-nowrap pb-4 md:pb-0">

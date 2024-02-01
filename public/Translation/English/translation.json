@@ -12,14 +12,14 @@
     "title": "What is Virtual Solar?",
     "description": "<b>Neos</b> offers you the opportunity to buy solar panels located in Spain’s existing solar parks. This means that you will generate your own renewable electricity and receive it at your house or business through the country’s power grid, as soon as the first day of next month!",
     "point1": "Significant Cost Savings",
-    "point1Description":"Up to 80% reduction in electricity bills,and X% cheaper than rooftop solar installations.",
+    "point1Description": "Up to 80% reduction in electricity bills,and X% cheaper than rooftop solar installations.",
     "point2": "Access Anywhere, Instantly",
-    "point2Description":"Instant connection to the grid. No rooftop panel or any kind of installation required.",
+    "point2Description": "Instant connection to the grid. No rooftop panel or any kind of installation required.",
     "point3": "Financial Return",
-    "point3Description":"Payback period of around 6.9 years, compared to 14 years for rooftop panels.",
+    "point3Description": "Payback period of around 6.9 years, compared to 14 years for rooftop panels.",
     "point4": "Long-Term Renewable Energy",
-    "point4Description":"Solar panels have a 25-year useful life, providing 100% renewable energy.",
-    "benefits":"Benefits"
+    "point4Description": "Solar panels have a 25-year useful life, providing 100% renewable energy.",
+    "benefits": "Benefits"
   },
   "Calculate-saving-btn": "CALCULATE SAVINGS",
   "Receive Offer": "Receive Offer",
@@ -58,14 +58,16 @@
   "Your-offer": {
     "title": "Price to Pay",
     "desc": "for 25 years of solar power",
+    "validate-btn": "validate",
     "offer-title": "Your Offer",
     "offer-option1": "Panels (Equivalent to",
     "offer-option1-unit": "KWp",
     "offer-saving-1": "yearly savings",
-    "offer-saving-2": "total savings",
+    "offer-saving-2": "total savings over 25 years",
     "offer-payback": "years payback",
     "offer-consumption": "of consumption covered by",
-    "contract-btn-txt": "generate contract"
+    "contract-btn-txt": "generate contract",
+    "download-offer": "download offer"
   },
   "offer": {
     "validation": {
@@ -89,7 +91,10 @@
       "numberOfPeople": {
         "required": "Filed is required"
       }
-    }
+    },
+    "selectPlan": "Select Plan",
+    "buyPanelProviderNeos": "Buy Panels & Choose Neos As My Provider",
+    "buyPanelProviderCurrent": "Buy Panels & Keep My Current Provider"
   },
   "How-it-work": {
     "title": "How it works?",
