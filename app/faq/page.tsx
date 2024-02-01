@@ -99,7 +99,7 @@ const faq = () => {
                 // overflowY: "scroll",
                 padding: "0.5rem",
               }}
-              className="flex flex-wrap scroll-bar"
+              className="flex flex-wrap"
             >
               {faqData?.map((faq, index) => (
                 <Accordion
