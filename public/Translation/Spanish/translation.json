@@ -12,14 +12,14 @@
     "title": "¿Qué es la energía solar virtual?",
     "description": "<b>Neos</b> te ofrece la oportunidad de comprar paneles solares ubicados en los parques solares existentes en España. Esto significa que generarás tu propia electricidad renovable y la recibirás en tu casa o negocio a través de la red eléctrica del país, ¡tan pronto como el primer día del próximo mes!",
     "point1": "Ahorros de costos significativos",
-    "point1Description":"Hasta un 80% de reducción en las facturas de electricidad y un X% más barato que las instalaciones solares en tejados.",
+    "point1Description": "Hasta un 80% de reducción en las facturas de electricidad y un X% más barato que las instalaciones solares en tejados.",
     "point2": "Acceda desde cualquier lugar, al instante",
-    "point2Description":"Conexión instantánea a la red. No requiere panel de techo ni ningún tipo de instalación.",
+    "point2Description": "Conexión instantánea a la red. No requiere panel de techo ni ningún tipo de instalación.",
     "point3": "Retorno financiero",
-    "point3Description":"Periodo de recuperación de alrededor de 6,9 ​​años, en comparación con los 14 años de los paneles para tejados.",
+    "point3Description": "Periodo de recuperación de alrededor de 6,9 ​​años, en comparación con los 14 años de los paneles para tejados.",
     "point4": "Energía renovable a largo plazo",
-    "point4Description":"Los paneles solares tienen una vida útil de 25 años, proporcionando energía 100% renovable.",
-    "benefits":"Beneficios"
+    "point4Description": "Los paneles solares tienen una vida útil de 25 años, proporcionando energía 100% renovable.",
+    "benefits": "Beneficios"
   },
   "Calculate-saving-btn": "CALCULAR TUS AHORROS",
   "Receive Offer": "Recibir Oferta",
@@ -67,7 +67,6 @@
     "offer-consumption": "de consumo cubierto por",
     "contract-btn-txt": "generar contrato"
   },
-
   "offer": {
     "validation": {
       "firstName": {
@@ -92,7 +91,6 @@
       }
     }
   },
-
   "How-it-work": {
     "title": "¿Cómo funciona?",
     "point1": "Neos se convierte en tu proveedor y utiliza el sistema de red para transportar la electricidad generada por tus paneles solares a tu hogar.",
@@ -136,6 +134,7 @@
   },
   "Footer": {
     "copyright": "Derechos de autor ©",
+    "rights": "Reservados todos los derechos.",
     "license": "Licenciado por",
     "policy": "Política de privacidad",
     "terms": "Términos de uso"

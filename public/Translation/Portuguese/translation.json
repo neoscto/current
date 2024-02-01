@@ -8,21 +8,19 @@
     "btn1txt": "SAIBA MAIS",
     "btn2txt": "OBTER COTAÇÃO"
   },
-
   "Description": {
     "title": "O que é Solar Virtual?",
     "description": "A <b>Neos</b> oferece-lhe a oportunidade de comprar painéis solares localizados nos parques solares existentes em Espanha. Isso significa que você irá gerar sua própria eletricidade renovável e recebê-la em sua casa ou empresa através da rede elétrica do país, já no primeiro dia do próximo mês!",
     "point1": "Economia de custos significativa",
-    "point1Description":"Redução de até 80% nas contas de eletricidade e X% mais barato do que instalações solares em telhados.",
+    "point1Description": "Redução de até 80% nas contas de eletricidade e X% mais barato do que instalações solares em telhados.",
     "point2": "Acesse em qualquer lugar, instantaneamente",
-    "point2Description":"Conexão instantânea à rede. Não é necessário painel de telhado ou qualquer tipo de instalação.",
+    "point2Description": "Conexão instantânea à rede. Não é necessário painel de telhado ou qualquer tipo de instalação.",
     "point3": "Retorno financeiro",
-    "point3Description":"Período de retorno de cerca de 6,9 ​​anos, em comparação com 14 anos para painéis de telhado.",
+    "point3Description": "Período de retorno de cerca de 6,9 ​​anos, em comparação com 14 anos para painéis de telhado.",
     "point4": "Energia Renovável de Longo Prazo",
-    "point4Description":"Os painéis solares têm vida útil de 25 anos, fornecendo energia 100% renovável.",
-    "benefits":"Benefícios"
+    "point4Description": "Os painéis solares têm vida útil de 25 anos, fornecendo energia 100% renovável.",
+    "benefits": "Benefícios"
   },
-
   "Calculate-saving-btn": "CALCULAR SUAS ECONOMIAS",
   "Receive Offer": "Receber Oferta",
   "Sign Contract": "Assinar Contrato",
@@ -93,7 +91,6 @@
       }
     }
   },
-
   "How-it-work": {
     "title": "Como funciona?",
     "point1": "A Neos se torna sua revendedora e utiliza o sistema de rede para transportar a eletricidade gerada pelos seus painéis solares para a sua casa.",
@@ -104,7 +101,6 @@
     "point6": "Se decidir que não quer a Neos como sua revendedora, não há compromisso de permanecer conosco, e você pode escolher outro revendedor a qualquer momento.",
     "point7": "Se escolher outro revendedor, enviaremos a você todo mês os ganhos gerados pela venda de sua energia solar para o mercado de eletricidade, equivalentes às economias que teria se ainda estivesse com a Neos."
   },
-
   "Compare-our-offer": {
     "title": "Compare Nossa Oferta",
     "point1": "mais barato que os painéis solares no telhado",
@@ -112,7 +108,6 @@
     "point3": "economias em comparação com os fornecedores tradicionais de serviços públicos",
     "point4": "menos intensivo em carbono do que os fornecedores tradicionais de serviços públicos"
   },
-
   "Details": {
     "title": "Seus Detalhes",
     "alert": "Por favor, complete todos los campos obligatorios."
@@ -139,6 +134,7 @@
   },
   "Footer": {
     "copyright": "Direitos Autorais ©",
+    "rights": "Todos os direitos reservados.",
     "license": "Licenciado por",
     "policy": "Política de Privacidade",
     "terms": "Termos de Uso"
