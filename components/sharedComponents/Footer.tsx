@@ -7,34 +7,41 @@ import XIcon from '@mui/icons-material/X';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import CallIcon from '@mui/icons-material/Call';
 import moment from "moment";
+import neoslogo from "@/public/neos-logo.png";
 
 const Footer = () => {
   const { t } = useTranslation();
   return (
-    <div className="bg-white">
+    <div className="bg-[#01092299]">
 
       <div className="xl:max-w-[1200px] w-full xl:px-0 px-5 mx-auto py-5 flex gap-6 flex-col md:flex-row ">
 
         {/* Left Container */}
         <div className="md:max-w-[calc(33%_-_8px)] max-w-full w-full flex flex-col gap-2 md:items-start items-center">
-          <Link href='mailto:contact@neosenergy.co' className="flex gap-1.5 items-center">
+          <Link href='mailto:contact@neosenergy.co' className="flex gap-1.5 items-center text-white invert brightness-0">
             <MailOutlineIcon />
             <span>contact@neosenergy.co</span>
           </Link>
 
-          <Link href='tel:+34 900 732 890' className="flex gap-1.5 items-center">
+          <Link href='tel:+34 900 732 890' className="flex gap-1.5 items-center invert brightness-0">
             <CallIcon />
             <span>+34 900 732 890</span>
           </Link>
 
-          <span className="text-black font-medium items-center">
+          <span className="text-white font-medium items-center lg:flex hidden">
             {t("Footer.copyright")} {moment(new Date()).format('YYYY')} Neos. {t("Footer.rights")}
           </span>
         </div>
 
         {/* middle Container */}
         <div className="hidden md:flex justify-center items-center max-w-[calc(33%_-_8px)] w-full">
-          <img src="neos-footer-logo.png" alt="Neos Logo" width={125} height={32} />
+          <Image
+            src={neoslogo}
+            alt="NEOS logo"
+            width={100}
+            className="h-[20px] md:h-auto lg:h-auto -ms-1 md:ms-0 lg:ms-0 cursor-pointer object-contain"
+            priority
+          />
         </div>
 
         {/* Right Container */}
@@ -42,32 +49,36 @@ const Footer = () => {
 
           {/* Social media Links */}
           <div className="flex flex-row gap-2">
-            <Link href='#'>
+            <Link href='#' className="invert brightness-0">
               <InstagramIcon />
             </Link>
 
-            <Link href='#'>
+            <Link href='#' className="invert brightness-0">
               <LinkedInIcon />
             </Link>
-            <Link href='#'>
+            <Link href='#' className="invert brightness-0">
               <XIcon />
             </Link>
           </div>
 
           <Link
             href="/privacyPolicy"
-            className="text-base text-black font-medium"
+            className="text-base text-white font-medium"
           >
             {t("Footer.policy")}
           </Link>
 
           <Link
             href="/termsOfUse"
-            className="text-base text-black font-medium"
+            className="text-base text-white font-medium"
           >
             {t("Footer.terms")}
           </Link>
         </div>
+
+        <p className="text-white font-medium items-center flex lg:hidden text-center w-auto mx-auto">
+          {t("Footer.copyright")} {moment(new Date()).format('YYYY')} Neos. {t("Footer.rights")}
+        </p>
       </div>
 
     </div>

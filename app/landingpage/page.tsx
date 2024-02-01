@@ -16,7 +16,7 @@ const LandingPage = () => {
 
         <div>
           <div className=" mt-4">
-            <div className="block md:hidden lg:hidden relative flex justify-center items-center mb-6 h-[330px] w-[160px] mt-[-10px] rounded-[14px] overflow-hidden bg-white mx-auto">
+            <div className="block md:hidden lg:hidden relative flex justify-center items-center mb-6 h-[330px] w-[160px] mt-[-10px] rounded-[12px] overflow-hidden bg-white mx-auto">
               <VideoPreview
                 custonClass={
                   "max-h-[330px] h-full z-10 relative w-[160px]  z-[1]"

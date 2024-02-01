@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import MainContainer from "@/components/sharedComponents/MainContainer";
 import {
   Box,
@@ -10,6 +11,9 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const faq = () => {
+
+  const [expandedId, setExpandedId] = useState('')
+
   const faqData = [
     {
       question: "What is Neos?",
@@ -91,17 +95,21 @@ const faq = () => {
             </Typography>
             <div
               style={{
-                height: "49vh",
+                height: "lg:49vh md:60vh",
                 // overflowY: "scroll",
                 padding: "0.5rem",
               }}
-              className="flex flex-wrap scroll-bar"
+              className="flex flex-wrap"
             >
               {faqData?.map((faq, index) => (
                 <Accordion
+                  expanded={expandedId === index.toString()}
                   key={index}
                   sx={accorSyle}
                   className="lg:max-w-[100%] md:max-w-[100%] sm:max-w-[100%] w-full"
+                  onChange={() => {
+                    setExpandedId(expandedId === index.toString() ? '' : index.toString())
+                  }}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
