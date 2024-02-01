@@ -76,7 +76,7 @@ const Footer = () => {
           </Link>
         </div>
 
-        <p className="text-white font-medium items-center flex lg:hidden text-center w-full">
+        <p className="text-white font-medium items-center flex lg:hidden text-center w-auto mx-auto">
           {t("Footer.copyright")} {moment(new Date()).format('YYYY')} Neos. {t("Footer.rights")}
         </p>
       </div>
