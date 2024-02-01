@@ -22,7 +22,7 @@ const commonSlice = createSlice({
       cups: "",
     },
     formBack: "",
-    language: "es",
+    language: "en",
   },
   reducers: {
     setUserData: (state, action) => {

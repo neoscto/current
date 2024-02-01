@@ -79,12 +79,8 @@ const DTPrimaryBtn = styled(Button)(({ category }: { category: 'fill' | 'outline
         padding: "10px",
         width: "100%",
     fontWeight:500,
-
     },
-
 }));
-
-
 
 const NeosButton = (props: ButtonNeosProps) => {
     const { category, title, ...otherProps } = props;

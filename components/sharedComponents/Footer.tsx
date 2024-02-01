@@ -1,75 +1,70 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import XIcon from '@mui/icons-material/X';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import CallIcon from '@mui/icons-material/Call';
 
 const Footer = () => {
   const { t } = useTranslation();
   return (
-    <>
-      <div className="px-4 md:px-18 lg:px-28 py-4  flex justify-between align-center bg-white">
-        {/* <Image src={neoslogo} alt="NEOS logo" width={100} /> */}
-        <Link
-          href="/faq"
-          className="text-black font-medium  hidden md:flex items-center me-3"
-        >
-          {t("Footer.copyright")} 2023 Neos
-        </Link>
-        <div className="flex justify-between align-center flex-1 md:flex-none lg:flex-none">
-          <p className="text-base text-black font-medium me-4 lg:me-11 whitespace-nowrap flex items-center">
-            {t("Footer.license")}
-          </p>
-          <div className="flex align-center flex-wrap">
-            <img
-              src="Footer/CNMC.png"
-              alt="NEOS logo"
-              className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full"
-            />
-            <img
-              src="Footer/OMIE-removebg-preview.png"
-              alt="NEOS logo"
-              className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full mx-4 my-2 md:my-0"
-            />
-            <img
-              src="Footer/REE-removebg-preview.png"
-              alt="NEOS logo"
-              className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full"
-            />
-          </div>
+    <div className="bg-white">
+
+      <div className="xl:max-w-[1200px] w-full xl:px-0 px-5 mx-auto py-5 flex gap-4 flex-col md:flex-row ">
+
+        {/* Left Container */}
+        <div className="md:max-w-[calc(50%_-_8px)] max-w-full w-full flex flex-col gap-2 md:items-start items-center">
+          <Link href='mailto:contact@neosenergy.co' className="flex gap-1.5 items-center">
+            <MailOutlineIcon />
+            <span>contact@neosenergy.co</span>
+          </Link>
+
+          <Link href='tel:+34 900 732 890' className="flex gap-1.5 items-center">
+            <CallIcon />
+            <span>+34 900 732 890</span>
+          </Link>
+
+          <Link href="/faq" className="text-black font-medium items-center me-3">
+            {t("Footer.copyright")} 2023 Neos
+          </Link>
         </div>
-        <div className="flex items-center">
+
+        {/* Right Container */}
+        <div className="md:max-w-[calc(50%_-_8px)] w-full flex flex-col gap-2 md:items-end items-center">
+
+          {/* Social media Links */}
+          <div className="flex flex-row gap-2">
+            <Link href='#'>
+              <InstagramIcon />
+            </Link>
+
+            <Link href='#'>
+              <LinkedInIcon />
+            </Link>
+            <Link href='#'>
+              <XIcon />
+            </Link>
+          </div>
+
           <Link
             href="/privacyPolicy"
-            className="text-base text-black font-medium  hidden md:block lg:block md:mx-2 lg:mx-5"
+            className="text-base text-black font-medium"
           >
             {t("Footer.policy")}
           </Link>
+
           <Link
             href="/termsOfUse"
-            className="text-base text-black font-medium  hidden md:block lg:block"
+            className="text-base text-black font-medium"
           >
             {t("Footer.terms")}
           </Link>
         </div>
       </div>
-      <div className="px-4 md:px-18 lg:px-28 py-4 flex justify-between align-center bg-white block md:hidden lg:hidden border-t-2 border-inherit">
-        <Link href="/faq" className="text-base text-black font-medium">
-          {t("Footer.copyright")} 2023 Neos
-        </Link>
-        <Link
-          href="/termsOfUse"
-          className="text-base text-black font-medium mx-3"
-        >
-          {t("Footer.terms")}
-        </Link>
-        <Link
-          href="/privacyPolicy"
-          className="text-base text-black font-medium"
-        >
-          {" "}
-          {t("Footer.policy")}
-        </Link>
-      </div>
-    </>
+
+    </div>
   );
 };
 
