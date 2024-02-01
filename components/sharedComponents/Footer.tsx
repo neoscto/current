@@ -6,16 +6,17 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import XIcon from '@mui/icons-material/X';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import CallIcon from '@mui/icons-material/Call';
+import moment from "moment";
 
 const Footer = () => {
   const { t } = useTranslation();
   return (
     <div className="bg-white">
 
-      <div className="xl:max-w-[1200px] w-full xl:px-0 px-5 mx-auto py-5 flex gap-4 flex-col md:flex-row ">
+      <div className="xl:max-w-[1200px] w-full xl:px-0 px-5 mx-auto py-5 flex gap-6 flex-col md:flex-row ">
 
         {/* Left Container */}
-        <div className="md:max-w-[calc(50%_-_8px)] max-w-full w-full flex flex-col gap-2 md:items-start items-center">
+        <div className="md:max-w-[calc(33%_-_8px)] max-w-full w-full flex flex-col gap-2 md:items-start items-center">
           <Link href='mailto:contact@neosenergy.co' className="flex gap-1.5 items-center">
             <MailOutlineIcon />
             <span>contact@neosenergy.co</span>
@@ -26,13 +27,18 @@ const Footer = () => {
             <span>+34 900 732 890</span>
           </Link>
 
-          <Link href="/faq" className="text-black font-medium items-center me-3">
-            {t("Footer.copyright")} 2023 Neos
-          </Link>
+          <span className="text-black font-medium items-center">
+            {t("Footer.copyright")} {moment(new Date()).format('YYYY')} Neos. {t("Footer.rights")}
+          </span>
+        </div>
+
+        {/* middle Container */}
+        <div className="hidden md:flex justify-center items-center max-w-[calc(33%_-_8px)] w-full">
+          <img src="neos-footer-logo.png" alt="Neos Logo" width={125} height={32} />
         </div>
 
         {/* Right Container */}
-        <div className="md:max-w-[calc(50%_-_8px)] w-full flex flex-col gap-2 md:items-end items-center">
+        <div className="md:max-w-[calc(33%_-_8px)] w-full flex flex-col gap-2 md:items-end items-center">
 
           {/* Social media Links */}
           <div className="flex flex-row gap-2">

@@ -14,17 +14,17 @@ const Licensed = () => {
                 <img
                     src="Footer/CNMC.png"
                     alt="NEOS logo"
-                    className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full"
+                    className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full invert brightness-0"
                 />
                 <img
                     src="Footer/OMIE-removebg-preview.png"
                     alt="NEOS logo"
-                    className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full mx-4 my-2 md:my-0"
+                    className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full mx-4 my-2 md:my-0 brightness-0 invert"
                 />
                 <img
                     src="Footer/REE-removebg-preview.png"
                     alt="NEOS logo"
-                    className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full"
+                    className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full invert brightness-0"
                 />
             </div>
         </div>

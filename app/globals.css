@@ -29,6 +29,7 @@ body {
     background-image: url("../public/landingpage-bg-mbl.png");
   }
 }
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -79,15 +80,17 @@ body {
   height: 100% !important;
 }
 
-.customwrap video{
+.customwrap video {
   width: auto;
   height: auto;
+  object-fit: cover;
 }
 
 .video-expand .customwrap video {
   @media only screen and (min-width: 768px) {
     max-width: 350px;
   }
+
   width: 50%;
   border-radius: 0px;
 }
@@ -96,6 +99,7 @@ body {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
+
 .css-18i9zaa {
   width: auto !important;
 }
@@ -112,9 +116,11 @@ body {
   @media only screen and (min-width: 640px) {
     margin-top: -0.9em;
   }
+
   @media only screen and (min-width: 768px) {
     margin-top: -2em;
   }
+
   @media only screen and (min-width: 1024px) {
     margin-top: -2em;
   }
