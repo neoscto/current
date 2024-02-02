@@ -107,8 +107,8 @@
       }
     },
     "selectPlan": "Select Plan",
-    "buyPanelProviderNeos": "Buy Panels & Choose Neos As My Provider",
-    "buyPanelProviderCurrent": "Buy Panels & Keep My Current Provider"
+    "buyPanelProviderNeos": "Buy Panels &\nChoose Neos As My Provider",
+    "buyPanelProviderCurrent": "Buy Panels &\nKeep My Current Provider"
   },
   "How-it-work": {
     "title": "How it works?",
@@ -146,7 +146,15 @@
   "chart": {
     "savingWithNeos": "Savings with Neos",
     "installationCost": "Installation Cost",
-    "years": "years"
+    "years": "years",
+    "savings": "savings",
+    "peekSolarFarm": "Take a peek at YOUR solar farm!",
+    "solar": "La Solanilla Solar Park",
+    "solarPoints": {
+      "point1": "Trujillo, Cáceres, Extremadura, Spain",
+      "point2": "103 GWh of annual production (enough for 35,000 households)",
+      "point3": "72,000 tons of annual CO2 reductions"
+    }
   },
   "Details": {
     "title": "Your Details",

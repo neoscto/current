@@ -70,11 +70,15 @@ const GetOffer: React.FC<GetOfferProps> = ({
     setShowForm(type);
     // formik.setErrors({});
   };
+
+  console.log('showForm: ', showForm)
+
   const { t } = useTranslation();
   return (
     <>
-      <div className=" w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9">
-        {showForm == "soffer" && (
+
+      {showForm == "soffer" && (
+        <div className=" w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9">
           <div className="w-[100%] md:w-[85%] lg:w-[85%]  mx-auto mt-6 md:mt-16 lg:mt-16 ">
             <h1 className="font-bold text-3xl mb-8 md:mb-11 lg:mb-11 text-center">
               {t("Get-offer.Standard Offer")}
@@ -145,9 +149,11 @@ const GetOffer: React.FC<GetOfferProps> = ({
               />
             </div>
           </div>
-        )}
+        </div>
+      )}
 
-        {showForm == "poffer" && (
+      {showForm == "poffer" && (
+        <div className=" w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9">
           <div className="w-[100%] md:w-[85%] lg:w-[85%]  mx-auto mt-6 md:mt-16 lg:mt-16 ">
             <h1 className="font-bold text-3xl mb-8 md:mb-11 lg:mb-11 text-center">
               {t("Get-offer.Personalised Offer")}
@@ -221,8 +227,10 @@ const GetOffer: React.FC<GetOfferProps> = ({
               />
             </div>
           </div>
-        )}
-        {showForm == "allOffers" && (
+        </div>
+      )}
+      {showForm == "allOffers" && (
+        <div className=" w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9">
           <div className="my-11 lg:my-12">
             <Grid
               container
@@ -236,8 +244,8 @@ const GetOffer: React.FC<GetOfferProps> = ({
               ))}
             </Grid>
           </div>
-        )}
-      </div>
+        </div>
+      )}
       {showForm == "yourOffer" && <YourOffer handleNext={handleNext} />}
     </>
   );

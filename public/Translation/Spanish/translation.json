@@ -119,7 +119,7 @@
     "point5": "Deberás pagar peajes y costos asociados al uso de la red, estimados en €0.02 por KWh.",
     "point6": "Si decides que no quieres a Neos como tu proveedor, no hay compromiso de permanecer con nosotros, y puedes elegir otro proveedor en cualquier momento.",
     "point7": "Si eliges otro proveedor, te enviaremos cada mes los ingresos generados por la venta de tu energía solar al mercado eléctrico, equivalentes a los ahorros que obtendrías si aún estuvieras con Neos.",
-    "chooseNeosPartner": "Choose Neos As Your Provider",
+    "chooseNeosPartner": "Elija Neos como su proveedor",
     "keepProvider": "Mantenga su proveedor actual",
     "NeosPartner": {
       "point1": "Neos se convierte en tu proveedor. No te preocupes, nosotros nos encargamos de todo. Nos pondremos en contacto con su proveedor para cambiar su contrato.",
@@ -146,7 +146,15 @@
   "chart": {
     "savingWithNeos": "Ahorros con Neos",
     "installationCost": "Costo de instalacion",
-    "years": "años"
+    "years": "años",
+    "savings": "ahorros",
+    "peekSolarFarm": "¡Eche un vistazo a SU granja solar!",
+    "solar": "Parque Solar La Solanilla",
+    "solarPoints": {
+      "point1": "Trujillo, Cáceres, Extremadura, España",
+      "point2": "103 GWh de producción anual (suficiente para 35.000 hogares)",
+      "point3": "72.000 toneladas de reducción anual de CO2"
+    }
   },
   "Details": {
     "title": "Tus Detalles",

@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import { PopupModal, useCalendlyEventListener } from "react-calendly";
 import { useRouter } from "next/navigation";
 import { getDataFromSessionStorage } from "@/utils/utils";
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine, Label } from 'recharts';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine, Label, CartesianAxis } from 'recharts';
 import VideoPreview from "../videoPlayer/preview";
 import Rating from '@mui/material/Rating';
 
@@ -229,29 +229,30 @@ const YourOffer = ({ handleNext }: any) => {
 
   return (
     <div className="max-w-[1200px] w-full mx-auto">
-      <div className="w-full bg-white lg:pt-12 lg:px-[70px] lg:pb-[18px]">
+      <div className="w-full bg-white lg:px-[70px] lg:pb-[18px] px-5 py-4" >
 
         {/* Offer and virtual solar */}
-        <div className="flex justify-end gap-[131px] items-end">
-          <div className="max-w-[354px] w-full flex flex-col items-center">
+        <div className="flex lg:justify-end lg:gap-[131px] items-end flex-col lg:flex-row gap-[29px]">
+
+          <div className="lg:max-w-[354px] w-full flex flex-col items-center max-w-full">
             <img src="virtual-solar-small.png" alt="Description image" width={348} height={296} />
             <div className="text-center mt-[7px]">
-              <h1 className="text-lg md:2xl lg:text-3xl font-bold">
+              <h1 className="lg:text-[30px] lg:leading-[37px] text-[24px] leading-[30px] font-bold">
                 {t("Your-offer.title")}: €{displayValue}
               </h1>
-              <p className="text-sm md:text-base lg:text-base mt-1 text-[#828282] font-medium">
+              <p className=" mt-1 text-[#828282] font-medium lg:text-[18px] lg:leading-[22px] text-[16px] leading-[22px]">
                 {t("Your-offer.desc")}
               </p>
             </div>
 
-            <div className="flex justify-between items-end gap-[18px] mt-5 w-full">
+            <div className="flex justify-center items-end gap-[18px] lg:mt-5 mt-6 w-full">
               <div className="flex flex-col gap-1.5">
                 <p className="text-center text-[14px] leading-[17px] font-medium">{t("Your-offer.Redeem-code-discount")}</p>
                 <input
                   type="text"
                   name="cups"
                   placeholder="Enter here"
-                  className="py-[13px] px-1 border-[1px] border-[#E0E0E0] rounded-[8px] placeholder:text-center text-center focus-within:outline-none h-[44px]"
+                  className="py-[13px] px-1 border-[1px] border-[#E0E0E0] rounded-[8px] placeholder:text-center text-center focus-within:outline-none h-[44px] max-w-[219px] w-full"
                 />
               </div>
               <div>
@@ -266,12 +267,12 @@ const YourOffer = ({ handleNext }: any) => {
             </div>
           </div>
 
-          <div className="flex justify-center items-center max-w-[500px] w-full">
+          <div className="flex justify-center items-center lg:max-w-[500px] max-w-full w-full">
             <div className="max-w-full w-full">
               <div className="py-[11px] text-black">
-                <h1 className="lg:text-[30px] leading-[37.8px] font-bold">
-                  {t("Your-offer.offer-title")}:
-                  <span className="font-medium text-[24px] leading-[30px] pl-1">{displayValue} {t("Your-offer.offer-option1")} {displayValue}
+                <h1 className="flex flex-col justify-center lg:block">
+                  <span className="lg:text-[30px] lg:leading-[37.8px] lg:text-left font-bold text-[22px] leading-[27px] text-center">{t("Your-offer.offer-title")}:</span>
+                  <span className="font-medium text-[24px] leading-[30px] pl-1 lg:text-left text-center">{displayValue} {t("Your-offer.offer-option1")} {displayValue}
                     {t("Your-offer.offer-option1-unit")}
                     {/* {(displayValue * 3.2).toFixed(2)}KWp) */}</span>
                 </h1>
@@ -283,138 +284,181 @@ const YourOffer = ({ handleNext }: any) => {
               </div>
 
               {/* Plan Buttons */}
-              <div className="flex gap-4">
+              <div className="flex lg:gap-4 lg:justify-normal justify-center md:flex-row flex-col gap-3">
                 <NeosButton
                   category="outline"
-                  className='text-black py-[14px] px-[24px] outline-[2px] outline outline-[#66BCDA] font-medium text-[16px] leading-5 normal-case'
+                  className='text-black py-[14px] lg:px-[24px] outline-[2px] outline outline-[#66BCDA] font-medium text-[16px] leading-5 normal-case px-[53px] whitespace-pre md:whitespace-normal'
                   title={t("offer.buyPanelProviderNeos")}
                 />
 
                 <NeosButton
                   category="outline"
-                  className='text-black py-[14px] px-[24px] outline-[2px] outline outline-[#E0E0E0] font-medium text-[16px] leading-5 normal-case'
+                  className='text-black py-[14px] lg:px-[24px] outline-[2px] outline outline-[#E0E0E0] font-medium text-[16px] leading-5 normal-case px-[53px] whitespace-pre md:whitespace-normal'
                   title={t("offer.buyPanelProviderCurrent")}
                 />
               </div>
 
-              <div className="py-[11px] mt-[22px] flex flex-col gap-2.5">
-                <p className="text-[18px] leading-[22.68px] font-medium text-black">
+              <div className="lg:py-[11px] mt-[22px] flex flex-col gap-2.5 py-[8.5px] ">
+                <p className="text-[18px] leading-[22.68px] font-medium text-[#333333]">
                   • €{displayValue} {t("Your-offer.offer-saving-1")}
                 </p>
-                <p className="text-[18px] leading-[22.68px] font-medium text-black">
+                <p className="text-[18px] leading-[22.68px] font-medium text-[#333333]">
                   • € {displayValue} {t("Your-offer.offer-saving-2")}
                 </p>
-                <p className="text-[18px] leading-[22.68px] font-medium text-black">
+                <p className="text-[18px] leading-[22.68px] font-medium text-[#333333]">
                   • {displayValue} {t("Your-offer.offer-payback")}
                 </p>
-                <p className="text-[18px] leading-[22.68px] font-medium text-black">
+                <p className="text-[18px] leading-[22.68px] font-medium text-[#333333]">
                   • {displayValue}% {t("Your-offer.offer-consumption")}
                 </p>
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3">
                 <NeosButton
-                  sx={{ width: "100%" }}
                   category="colored"
                   title={t("Your-offer.download-offer")}
                   onClick={handleNext}
+                  className='lg:w-full w-auto '
                 />
 
                 <NeosButton
-                  sx={{ width: "100%" }}
                   category="colored"
                   title={t("Your-offer.contract-btn-txt")}
                   onClick={handleNext}
+                  className='lg:w-full w-auto '
                 />
               </div>
             </div>
           </div>
         </div>
 
-        <div className="w-full gap-[30px] justify-between mt-[46px] flex">
-          <div className="flex flex-col items-end max-w-[807px] w-full">
-            {/* header render */}
-            <div className="flex justify-end max-w-[calc(100%_-_225px)] w-full">
-              {panelHeader.map((head, index) => {
-                return (<div key={index} className={`w-full py-[21px] px-4 whitespace-pre border text-[#4F4F4F] text-[14px] leading-[17.64px] font-semibold border-b-0 flex items-center ${index === 0 ? 'rounded-tl-3xl px-3 border-[#0F9DD0] bg-[#E8F5FA] max-w-[180px] min-w-[180px] w-full' : index === 1 ? 'max-w-[138px] min-w-[138px] w-full' : index === 3 ? ' border-[#E0E0E0] rounded-tr-3xl max-w-[108px] min-w-[108px] w-full' : 'border-[#E0E0E0] max-w-[156px] min-w-[156px] w-full'}`}>
-                  {index === 0 && <img src="premium.png" alt='premium' className="px-1.5" />}
-                  {t(`panel-header.${head.title}`)}
-                </div>)
-              })}
-            </div>
+        <div className="w-full gap-[30px] justify-between mt-[46px] flex flex-col-reverse lg:flex-row">
+          <div className="overflow-x-auto w-full">
+            <div className="flex flex-col items-end max-w-[807px] min-w-[807px] w-full ">
+              {/* header render */}
+              <div className="flex justify-end max-w-[calc(100%_-_225px)] w-full">
+                {panelHeader.map((head, index) => {
+                  return (<div key={index} className={`w-full py-[21px] px-4 whitespace-pre border text-[#4F4F4F] text-[14px] leading-[17.64px] font-semibold border-b-0 flex items-center ${index === 0 ? 'rounded-tl-3xl px-3 border-[#0F9DD0] bg-[#E8F5FA] max-w-[180px] min-w-[180px] w-full' : index === 1 ? 'max-w-[138px] min-w-[138px] w-full' : index === 3 ? ' border-[#E0E0E0] rounded-tr-3xl max-w-[108px] min-w-[108px] w-full' : 'border-[#E0E0E0] max-w-[156px] min-w-[156px] w-full'}`}>
+                    {index === 0 && <img src="premium.png" alt='premium' className="px-1.5" />}
+                    {t(`panel-header.${head.title}`)}
+                  </div>)
+                })}
+              </div>
 
-            {/* table body rendering start*/}
-            <div className="w-full">
-              {panelChargeDetails?.map((charge, index) => {
-                return (<div className="flex w-full" key={index}>
-                  <div className={`w-[225px] pl-[20px] p-[18px] border border-[#E0E0E0] border-r-0 border-b-0 text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium ${index === panelChargeDetails.length - 1 ? 'rounded-bl-3xl border-b-[1px]' : ''}`}>{t(`panel-charge.${charge.title}`)}</div>
-                  <div className="flex max-w-[calc(100%_-_225px)] w-full">
-                    <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#0F9DD0] bg-[#E8F5FA] border-b-0 max-w-[180px] min-w-[180px] w-full ${index === panelChargeDetails.length - 1 ? 'border-b-[1px]' : ''}`}>{tempData[index].neosPanelProvider || '-'}</div>
-                    <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[138px] w-full ${index === panelChargeDetails.length - 1 ? 'border-b-[1px]' : ''}`}>{tempData[index].neosPanelKeepProvider || '-'}</div>
-                    <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[156px] w-full ${index === panelChargeDetails.length - 1 ? 'border-b-[1px]' : ''}`}>{tempData[index].rooftopPanelKeepProvider || '-'}</div>
-                    <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-b-0 max-w-[108px] w-full ${index === panelChargeDetails.length - 1 ? 'rounded-br-3xl border-b-[1px]' : ''}`}>{tempData[index].keepProvider || '-'}</div>
-                  </div>
-                </div>)
-              })}
+              {/* table body rendering start*/}
+              <div className="w-full">
+                {panelChargeDetails?.map((charge, index) => {
+                  return (<div className="flex w-full" key={index}>
+                    <div className={`w-[225px] pl-[20px] p-[18px] border border-[#E0E0E0] border-r-0 border-b-0 text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium ${index === panelChargeDetails.length - 1 ? 'rounded-bl-3xl border-b-[1px]' : ''}`}>{t(`panel-charge.${charge.title}`)}</div>
+                    <div className="flex max-w-[calc(100%_-_225px)] w-full">
+                      <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#0F9DD0] bg-[#E8F5FA] border-b-0 max-w-[180px] min-w-[180px] w-full ${index === panelChargeDetails.length - 1 ? 'border-b-[1px]' : ''}`}>{tempData[index].neosPanelProvider || '-'}</div>
+                      <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[138px] w-full ${index === panelChargeDetails.length - 1 ? 'border-b-[1px]' : ''}`}>{tempData[index].neosPanelKeepProvider || '-'}</div>
+                      <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[156px] w-full ${index === panelChargeDetails.length - 1 ? 'border-b-[1px]' : ''}`}>{tempData[index].rooftopPanelKeepProvider || '-'}</div>
+                      <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-b-0 max-w-[108px] w-full ${index === panelChargeDetails.length - 1 ? 'rounded-br-3xl border-b-[1px]' : ''}`}>{tempData[index].keepProvider || '-'}</div>
+                    </div>
+                  </div>)
+                })}
+              </div>
+              {/*  table body rendering ends*/}
             </div>
-            {/*  table body rendering ends*/}
           </div>
 
-          <div className="lg:max-w-[223px] w-full">
-            <div className="relative flex justify-center items-center w-full h-[347px] video-container rounded-3xl overflow-hidden">
+          <div className="lg:max-w-[223px] w-full max-w-full flex justify-center items-center">
+            <div className="relative w-full lg:h-[347px] max-w-[310px] lg:max-w-[223px] h-[405px] video-container rounded-3xl overflow-hidden">
               <VideoPreview
-                custonClass="max-h-[347px] h-full w-[223px]"
+                custonClass="lg:max-h-[347px] h-full lg:w-[223px] w-[310px] max-h-[405px]"
                 url="https://videos.gotolstoy.com/public/f00d787b-4ba2-43d0-a780-24ad46b005ca/98d32db0-b1fe-4938-ba9d-a36346605775/98d32db0-b1fe-4938-ba9d-a36346605775.mp4"
               />
             </div>
           </div>
         </div>
 
+        <div className="flex lg:items-center lg:justify-end lg:gap-[196px] lg:flex-row flex-col gap-8 items-center justify-center lg:mb-0 mb-[22px]">
+          {/* Licensed  */}
+          <div className="flex lg:justify-between align-center flex-1 md:flex-none lg:flex-none max-w-[548px] w-full lg:px-[43px] lg:py-[47px] lg:flex-row flex-col justify-center gap-3 lg:gap-0 mt-8 lg:mt-0">
+            <p className="text-[20px] leading-[25px] text-black font-semibold text-center lg:text-left">
+              {t("Footer.license")}
+            </p>
+            <div className="flex items-center justify-center flex-wrap gap-[26px]">
+              <img
+                src="Footer/CNMC.png"
+                alt="NEOS logo"
+                width={55}
+                height={33}
+                className="max-w-[55.38px] w-full max-h-[30px] h-full"
+              />
+              <img
+                src="Footer/REE-removebg-preview.png"
+                alt="NEOS logo"
+                width={160}
+                height={20}
+                className="max-w-[160px] w-full max-h-[20px] h-full"
+              />
+              <img
+                src="Footer/OMIE-removebg-preview.png"
+                alt="NEOS logo"
+                width={62}
+                height={30}
+                className="max-w-[62.46px] w-full max-h-[30px] h-full"
+              />
+            </div>
+          </div>
+
+          <NeosButton
+            className={'px-[24px] py-[14px] text-sm leading-4 font-semibold lg:mr-[36px] w-auto'}
+            category="colored"
+            title={t("select-plan-btn")}
+          />
+        </div>
+
         {/* How does it work? */}
-        <div className="w-full  pt-6 px-[34px] pb-[22px] border border-[#E0E0E0] rounded-3xl">
+        <div className="w-full  pt-6 lg:px-[34px] px-4 pb-[22px] border border-[#E0E0E0] rounded-3xl">
 
           <h1 className="text-black text-[20px] leading-[25px] font-semibold text-center">
             {t("How-it-work.title")}
           </h1>
 
-          <div className="flex mt-[34px] gap-6">
-            <div className="bg-[#E7F5FA] rounded-3xl p-5 w-full">
-              <h1 className="text-[18px] leading-[22.68px] text-black text-center font-semibold">{t("How-it-work.chooseNeosPartner")}</h1>
-              <div className="flex flex-col gap-4 mt-[30px]">
-                <p className="text-[14px] leading-[21px] text-black">{t("How-it-work.NeosPartner.point1")}</p>
-                <p className="text-[14px] leading-[21px] text-black">{t("How-it-work.NeosPartner.point2")}</p>
-                <p className="text-[14px] leading-[21px] text-black">{t("How-it-work.NeosPartner.point3")}</p>
-              </div>
+          <div className="flex mt-[34px] lg:gap-6 lg:flex-row flex-col gap-[22px]">
+            <div className="bg-[#E7F5FA] rounded-3xl lg:p-5 w-full px-3 py-5 ">
+              <h1 className="lg:text-[18px] lg:leading-[22.68px] text-[16px] leading-5 text-black text-center font-semibold">{t("How-it-work.chooseNeosPartner")}</h1>
+              <ul className="flex flex-col gap-4 mt-[30px] list-disc pl-5">
+                <li className="text-[14px] leading-[21px] text-black">{t("How-it-work.NeosPartner.point1")}</li>
+                <li className="text-[14px] leading-[21px] text-black">{t("How-it-work.NeosPartner.point2")}</li>
+                <li className="text-[14px] leading-[21px] text-black">{t("How-it-work.NeosPartner.point3")}</li>
+              </ul>
             </div>
 
-            <div className="bg-[#E7F5FA] rounded-3xl p-5 w-full">
+            <div className="bg-[#E7F5FA] rounded-3xl lg:p-5 w-full px-3 py-5">
               <h1 className="text-[18px] leading-[22.68px] text-black text-center font-semibold">{t("How-it-work.keepProvider")}</h1>
 
-              <div className="flex flex-col gap-4 mt-[30px]">
-                <p className="text-[14px] leading-[21px] text-black">{t("How-it-work.providerPartner.point1")}</p>
-                <p className="text-[14px] leading-[21px] text-black">{t("How-it-work.providerPartner.point2")}</p>
-                <p className="text-[14px] leading-[21px] text-black">{t("How-it-work.providerPartner.point3")}</p>
-              </div>
+              <ul className="flex flex-col gap-4 mt-[30px] list-disc pl-5">
+                <li className="text-[14px] leading-[21px] text-black">{t("How-it-work.providerPartner.point1")}</li>
+                <li className="text-[14px] leading-[21px] text-black">{t("How-it-work.providerPartner.point2")}</li>
+                <li className="text-[14px] leading-[21px] text-black">{t("How-it-work.providerPartner.point3")}</li>
+              </ul>
             </div>
           </div>
         </div>
 
-        {/* Customer review starts */}
-        <div className="flex gap-[26px] mt-8 ">
-          <div className="max-w-[635px] w-full py-6 pl-5 pr-[31px] border flex flex-col justify-between gap-2 border-[#E0E0E0] rounded-3xl">
-            <div className="">
-              <h1 className="text-[18px] leading-[21px] font-bold flex flex-col">{t("customer-review")}</h1>
 
-              <div className="flex gap-4 mt-4">
+
+        {/* Customer review starts */}
+        <div className="flex lg:gap-[26px] lg:mt-8 mt-[19px] gap-[17px] lg:flex-row flex-col">
+          <div className="lg:max-w-[635px] w-full lg:py-6 lg:pl-5 lg:pr-[31px] pt-[22px] pb-[17px] px-[16px] border flex flex-col justify-between gap-2 border-[#E0E0E0] rounded-3xl max-w-full">
+            <div className="">
+              <h1 className="text-[18px] leading-[21px] font-bold flex flex-col lg:text-left text-center">{t("customer-review")}</h1>
+
+              <div className="flex gap-4 lg:mt-4 mt-[18px]">
                 <div className="w-[50px] radius-[50%] h-[50px]">
                   <img src="user.jpg" alt="user" width={50} height={50} className="object-cover" />
                 </div>
 
-                <div className="max-w-[calc(100%_-_66px)] w-full">
+                <div className="max-w-[calc(100%_-_66px)] w-full ">
                   <p className="text-[16px] leading-5 font-medium text-black">Manuel Fernández</p>
                   <div className="my-2">
                     <Rating
                       readOnly
+                      size={'small'}
                       name="simple-controlled"
                       value={value || 0}
                       onChange={(event, newValue) => {
@@ -428,14 +472,14 @@ const YourOffer = ({ handleNext }: any) => {
             </div>
             <div className="flex justify-center">
               <NeosButton
-                className={'px-[24px] py-[14px] text-sm leading-4 font-semibold'}
+                className={'px-[24px] py-[14px] text-sm leading-4 font-semibold w-auto mt-[21px] '}
                 category="colored"
                 title={t("select-plan-btn")}
               />
             </div>
           </div>
 
-          <div className="max-w-[399px] w-full bg-[#E7F5FA] rounded-3xl py-5 px-[46px]">
+          <div className="lg:max-w-[399px] w-full bg-[#E7F5FA] rounded-3xl py-5 px-[46px] max-w-full">
             <h1 className="whitespace-pre text-center text-[18px] leading-[21px] font-bold">{t("review-your-offer-with-ceo")}</h1>
             <div className="flex flex-col items-center mt-[14px] mb-[21px]">
               <img src="user.jpg" alt="user" className="w-[50px] h-[50px] rounded-[50%] object-cover" width={50} height={50} />
@@ -446,7 +490,7 @@ const YourOffer = ({ handleNext }: any) => {
 
             <div className="flex justify-center">
               <NeosButton
-                className={'px-[24px] py-[14px] text-sm leading-4 font-semibold'}
+                className={'px-[24px] py-[14px] text-sm leading-4 font-semibold w-auto'}
                 category="colored"
                 title={t("book-call-btn")}
               />
@@ -461,10 +505,11 @@ const YourOffer = ({ handleNext }: any) => {
 
         {/* Chart Starts here */}
         <div className="flex justify-center flex-col h-[474px] w-full border mt-8 border-[#E0E0E0] rounded-3xl p-4 pt-6">
+
           {/*  chart header */}
-          <div className="flex justify-between gap-4 mb-[40px]">
-            <div className="flex flex-wrap gap-[29px] items-center">
-              <span className="text-[20px] leading-[25px] font-semibold text-black">{t("panel-charge.payback")}</span>
+          <div className="flex justify-between lg:gap-4 lg:mb-[40px] lg:flex-row flex-col gap-[14px] mb-2.5">
+            <div className="flex flex-wrap lg:gap-[29px] gap-1.5 lg:items-center lg:flex-row flex-col items-start">
+              <span className="text-[20px] leading-[25px] font-semibold text-black text-left">{t("panel-charge.payback")}</span>
 
               <div className="flex gap-4">
                 <NeosButton
@@ -480,12 +525,12 @@ const YourOffer = ({ handleNext }: any) => {
               </div>
             </div>
 
-            <div className="flex flex-col justify-end">
-              <div className="flex items-center gap-2.5">
+            <div className="flex lg:flex-col lg:justify-end flex-row gap-1 justify-between">
+              <div className="flex items-center gap-2.5 w-1/2 lg:w-auto">
                 <div className="bg-[#436DC6] w-[26px] h-[10px]"></div>
                 <span className="text-[16px] leading-[21px] font-medium text-[#4F4F4F]">{t("chart.savingWithNeos")}</span>
               </div>
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2.5 w-1/2 lg:w-auto">
                 <div className="bg-[#EB5757] w-[26px] h-[10px]"></div>
                 <span className="text-[16px] leading-[21px] font-medium text-[#4F4F4F]">{t("chart.installationCost")}</span>
               </div>
@@ -496,10 +541,15 @@ const YourOffer = ({ handleNext }: any) => {
           <div className="max-h-[314px] h-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart width={150} height={40} data={data}>
-                <Bar dataKey="saving" fill="#436DC6" barSize={24} radius={[5, 5, 0, 0]} />
-                <XAxis dataKey="years" >
+                <Bar dataKey="saving" fill="#436DC6" barSize={24} radius={[0, 0, 0, 0]} />
+                <XAxis dataKey="years" fontFamily={'outline'}  >
+                  <Label offset={0} position="insideBottom" style={{ fontSize: '12px', color: '#000', lineHeight: '15.62px' }} color="#000" fontSize={20} value={t("years")} />
                 </XAxis>
-                <YAxis tickCount={4} domain={[0, 15000]} tickFormatter={(value) => `${value / 1000}K`} label={{ value: t("years"), angle: -90, position: 'insideLeft' }} />
+                <CartesianAxis />
+                <CartesianGrid strokeLinejoin="round" stroke="#ECECEC" vertical={false} />
+                <YAxis tickCount={4} fontFamily={'outline'} domain={[0, 15000]} tickFormatter={(value) => value > 0 ? `${value / 1000}K` : value} >
+                  <Label offset={0} angle={-90} position={'insideLeft'} value={`${t("savings")} (€)`} style={{ fontSize: '12px', color: '#000', lineHeight: '15.62px' }} />
+                </YAxis>
                 {/* <Tooltip /> */}
                 <ReferenceLine y={4500} stroke="#EB5757" strokeDasharray="5 0" strokeWidth={3} />
               </BarChart>
@@ -511,13 +561,28 @@ const YourOffer = ({ handleNext }: any) => {
         <div className="flex justify-center my-8">
           <NeosButton
             category="colored"
-            className='px-5 py-3 text-[16px] leading-5 font-semibold'
+            className='px-5 py-3 text-[16px] leading-5 font-semibold w-auto'
             title={t("select-plan-btn")}
           />
         </div>
 
-        <div className="w-full rounded-3xlh-[388px]">
-          <img src="video-placeholder.png" alt="video" className="object-cover" />
+        <div className="w-full rounded-3xl lg:h-[388px] h-[651px] relative">
+          <img src="video-placeholder.png" alt="video" className="object-cover lg:h-[388px] h-[651px]" />
+          <div className="flex justify-between w-full">
+            <div className="max-w-[340px] w-full bg-[#01092299] px-5 py-4 rounded-[30px] top-6 left-6 absolute">
+              <p className="text-[20px] leading-[25px] font-semibold text-white">{t("chart.peekSolarFarm")}</p>
+            </div>
+
+            <div className="lg:max-w-[280px] w-full bg-[#01092299] pt-[14px] pl-[22px] pr-[15px] pb-[18px] absolute lg:top-6 lg:right-6 rounded-[30px] bottom-6 max-w-[calc(100%_-_30px)] mx-auto lg:ml-auto">
+              <p className="text-[16px] leading-5 font-bold text-white">{t("chart.solar")}</p>
+
+              <ul className="flex flex-col mt-3 list-disc pl-[12px] gap-[14px]">
+                <li className="text-[14px] leading-[17.64px] font-medium text-white">{t("chart.solarPoints.point1")}</li>
+                <li className="text-[14px] leading-[17.64px] font-medium text-white">{t("chart.solarPoints.point2")}</li>
+                <li className="text-[14px] leading-[17.64px] font-medium text-white">{t("chart.solarPoints.point3")}</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
