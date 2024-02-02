@@ -26,13 +26,12 @@ const VideoPlayer = () => {
   };
   return (
     <Box
-      className={`${
-        isCentered
-          ? "absolute max-w-full md:w-full bg-black bg-opacity-40 h-screen flex justify-center  items-center"
-          : isShow
+      className={`${isCentered
+        ? "absolute max-w-full md:w-full bg-black bg-opacity-40 h-screen flex justify-center  items-center"
+        : isShow
           ? "fixed flex px-2 flex-col bottom-[40px] right-1 w-36 z-[2] pb-[70px] md:bottom-[82px] md:right-[14px]"
           : "fixed flex px-2 flex-col bottom-[50px] right-[0px] pb-[70px]  w-[48px] h-[48px] z-[2] md:bottom-[94px] md:right-[10px]"
-      }`}
+        }`}
       sx={{
         // display: "none",
         display: "flex",
@@ -73,9 +72,9 @@ const VideoPlayer = () => {
             }}
             className={`${!isHover && isShow ? "none" : "flex"}`}
             onClick={handleVideoClick}
-            // onClick={() => {
-            //   setIsCentered(false);
-            // }}
+          // onClick={() => {
+          //   setIsCentered(false);
+          // }}
           >
             {isCentered ? (
               <CancelIcon />
@@ -102,11 +101,10 @@ const VideoPlayer = () => {
 
             padding: "0px",
           }}
-          className={`items-center bottom-[0px] ${
-            isShow
-              ? "pb-4 w-auto right-[6px] bottom-[0px]"
-              : " right-[10px] bottom-[4px]"
-          } flex justify-end absolute `}
+          className={`items-center bottom-[0px] ${isShow
+            ? "pb-4 w-auto right-[6px] bottom-[0px]"
+            : " right-[10px] bottom-[4px]"
+            } flex justify-end absolute `}
         >
           {isShow ? (
             <div
@@ -121,24 +119,21 @@ const VideoPlayer = () => {
               />
             </div>
           ) : (
-            <div
-              className="w-12 h-12 flex items-center justify-center rounded-full bg-[#ED817D] text-white text-xl shadow-sm rounded-md`"
-              onClick={() => {
-                setIsShow(!isShow);
-              }}
-            >
-              {/* <FeaturedVideoIcon
-                sx={{ fontSize: 20 }}
-                className="cursor-pointer"
-              /> */}
-              <Image
-                src={VideoLogo}
-                alt="video-logo"
-                width={20}
-                height={20}
-                className="cursor-pointer text-white"
-              />
-            </div>
+            // <div
+            //   className="w-12 h-12 flex items-center justify-center rounded-full bg-[#ED817D] text-white text-xl shadow-sm rounded-md`"
+            //   onClick={() => {
+            //     setIsShow(!isShow);
+            //   }}
+            // >
+            //   <Image
+            //     src={VideoLogo}
+            //     alt="video-logo"
+            //     width={20}
+            //     height={20}
+            //     className="cursor-pointer text-white"
+            //   />
+            // </div>
+            <></>
           )}
         </Box>
       ) : (

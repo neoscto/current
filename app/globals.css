@@ -83,6 +83,7 @@ body {
 .customwrap video {
   width: auto;
   height: auto;
+  object-fit: cover;
 }
 
 .video-container #video-main .customwrap video {
