@@ -86,6 +86,10 @@ body {
   object-fit: cover;
 }
 
+.video-container #video-main .customwrap video {
+  object-fit: cover;
+}
+
 .video-expand .customwrap video {
   @media only screen and (min-width: 768px) {
     max-width: 350px;

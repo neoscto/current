@@ -58,6 +58,7 @@
   "Your-offer": {
     "title": "Precio a Pagar",
     "desc": "por 25 años de energía solar",
+    "validate-btn": "validar",
     "offer-title": "Tu Oferta",
     "offer-option1": "Paneles (Equivalentes a",
     "offer-option1-unit": "KWp",
@@ -65,7 +66,22 @@
     "offer-saving-2": "ahorro total",
     "offer-payback": "años de devolución",
     "offer-consumption": "de consumo cubierto por",
-    "contract-btn-txt": "generar contrato"
+    "contract-btn-txt": "descargar oferta",
+    "download-offer": "download offer",
+    "Redeem-code-discount": "Código de referencia para un descuento"
+  },
+  "panel-charge": {
+    "installation-cost": "Costo de instalacion",
+    "grid-electricity": "Electricidad de red durante 25 años",
+    "payback": "Payback",
+    "savings": "Savings Over 25 Years",
+    "c02-reduction": "CO2 Reduction"
+  },
+  "panel-header": {
+    "neos-panel-neos-provider": "Paneles Neos y \nNeos como proveedor",
+    "neos-panels-keep-provider": "Paneles Neos y \nproveedor Keep",
+    "rooftop-panels-keep-provider": "Paneles de techo y \nproveedor de mantenimiento",
+    "keep-provider": "mantener\nproveedor"
   },
   "offer": {
     "validation": {
@@ -89,7 +105,10 @@
       "numberOfPeople": {
         "required": "Se requiere el campo"
       }
-    }
+    },
+    "selectPlan": "Seleccionar plan",
+    "buyPanelProviderNeos": "Compre paneles y elija Neos como mi proveedor",
+    "buyPanelProviderCurrent": "Comprar paneles y conservar mi proveedor actual"
   },
   "How-it-work": {
     "title": "¿Cómo funciona?",
@@ -99,14 +118,43 @@
     "point4": "Fuera de las horas de producción solar, pagarás el precio de mercado de la electricidad, con un margen de €0.01 por KWh.",
     "point5": "Deberás pagar peajes y costos asociados al uso de la red, estimados en €0.02 por KWh.",
     "point6": "Si decides que no quieres a Neos como tu proveedor, no hay compromiso de permanecer con nosotros, y puedes elegir otro proveedor en cualquier momento.",
-    "point7": "Si eliges otro proveedor, te enviaremos cada mes los ingresos generados por la venta de tu energía solar al mercado eléctrico, equivalentes a los ahorros que obtendrías si aún estuvieras con Neos."
+    "point7": "Si eliges otro proveedor, te enviaremos cada mes los ingresos generados por la venta de tu energía solar al mercado eléctrico, equivalentes a los ahorros que obtendrías si aún estuvieras con Neos.",
+    "chooseNeosPartner": "Elija Neos como su proveedor",
+    "keepProvider": "Mantenga su proveedor actual",
+    "NeosPartner": {
+      "point1": "Neos se convierte en tu proveedor. No te preocupes, nosotros nos encargamos de todo. Nos pondremos en contacto con su proveedor para cambiar su contrato.",
+      "point2": "La electricidad generada por tu instalación te la proporcionamos de forma gratuita. Cuando tu instalación no produce electricidad, te suministramos electricidad a nuestro coste base, sin añadir ningún margen de beneficio.",
+      "point3": "Cualquier excedente de electricidad que produzca su instalación genera ingresos y reduce aún más el coste de la electricidad que le suministramos."
+    },
+    "providerPartner": {
+      "point1": "Compras una instalación de Neos y mantienes tu proveedor actual.",
+      "point2": "Tu factura con tu proveedor sigue siendo la misma y, a final de mes, depositamos tus ingresos en tu cuenta bancaria.",
+      "point3": "Tu proveedor actual te sigue cobrando un margen por la electricidad que te suministra cuando tu instalación no genera electricidad, como durante la noche."
+    }
   },
+  "customer-review": "Opinión del cliente",
+  "review-your-offer-with-ceo": "Revise su oferta \nen una llamada rápida con nuestro director ejecutivo.",
+  "book-call-btn": "reservar una llamada",
+  "select-plan-btn": "Seleccionar plan",
   "Compare-our-offer": {
     "title": "Compara Nuestra Oferta",
     "point1": "más económico que los paneles solares en el techo",
     "point2": "mayor producción de energía por panel en comparación con los paneles solares en el techo",
     "point3": "ahorros en comparación con los proveedores de servicios públicos tradicionales",
     "point4": "menos intensivo en carbono que los proveedores de servicios públicos tradicionales"
+  },
+  "chart": {
+    "savingWithNeos": "Ahorros con Neos",
+    "installationCost": "Costo de instalacion",
+    "years": "años",
+    "savings": "ahorros",
+    "peekSolarFarm": "¡Eche un vistazo a SU granja solar!",
+    "solar": "Parque Solar La Solanilla",
+    "solarPoints": {
+      "point1": "Trujillo, Cáceres, Extremadura, España",
+      "point2": "103 GWh de producción anual (suficiente para 35.000 hogares)",
+      "point3": "72.000 toneladas de reducción anual de CO2"
+    }
   },
   "Details": {
     "title": "Tus Detalles",
