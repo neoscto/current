@@ -499,7 +499,7 @@ const YourOffer = ({ handleNext }: any) => {
                 <Bar dataKey="saving" fill="#436DC6" barSize={24} radius={[5, 5, 0, 0]} />
                 <XAxis dataKey="years" >
                 </XAxis>
-                <YAxis tickCount={4} domain={[0, 15000]} tickFormatter={(value) => `${value / 1000}K`} label={{ value: 'pv of page', angle: -90, position: 'insideLeft' }} />
+                <YAxis tickCount={4} domain={[0, 15000]} tickFormatter={(value) => `${value / 1000}K`} label={{ value: t("years"), angle: -90, position: 'insideLeft' }} />
                 {/* <Tooltip /> */}
                 <ReferenceLine y={4500} stroke="#EB5757" strokeDasharray="5 0" strokeWidth={3} />
               </BarChart>

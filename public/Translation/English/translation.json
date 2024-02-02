@@ -145,7 +145,8 @@
   },
   "chart": {
     "savingWithNeos": "Savings with Neos",
-    "installationCost": "Installation Cost"
+    "installationCost": "Installation Cost",
+    "years": "years"
   },
   "Details": {
     "title": "Your Details",

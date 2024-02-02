@@ -145,7 +145,8 @@
   },
   "chart": {
     "savingWithNeos": "Ahorros con Neos",
-    "installationCost": "Costo de instalacion"
+    "installationCost": "Costo de instalacion",
+    "years": "años"
   },
   "Details": {
     "title": "Tus Detalles",
