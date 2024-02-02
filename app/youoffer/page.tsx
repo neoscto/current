@@ -10,6 +10,9 @@ import { PopupModal, useCalendlyEventListener } from "react-calendly";
 import { useRouter } from "next/navigation";
 import { getDataFromSessionStorage } from "@/utils/utils";
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
+import VideoPreview from "../videoPlayer/preview";
+import Rating from '@mui/material/Rating';
+
 const data = [
   {
     years: '0',
@@ -128,6 +131,7 @@ const YourOffer = ({ handleNext }: any) => {
   const router = useRouter();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [value, setValue] = useState<number | null>(5);
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -327,12 +331,12 @@ const YourOffer = ({ handleNext }: any) => {
           </div>
         </div>
 
-        <div className="w-full gap-[30px] mt-[46px]">
-          <div className="flex flex-col items-end w-[75%]">
+        <div className="w-full gap-[30px] justify-between mt-[46px] flex">
+          <div className="flex flex-col items-end max-w-[807px] w-full">
             {/* header render */}
             <div className="flex justify-end max-w-[calc(100%_-_225px)] w-full">
               {panelHeader.map((head, index) => {
-                return (<div key={index} className={`w-full py-[21px] px-4 whitespace-pre border text-[#4F4F4F] text-[14px] leading-[17.64px] font-semibold border-b-0 flex items-center ${index === 0 ? 'rounded-tl-3xl border-[#0F9DD0] bg-[#E8F5FA] max-w-[180px] w-full' : index === 1 ? 'max-w-[138px] w-full' : index === 3 ? ' border-[#E0E0E0] rounded-tr-3xl max-w-[108px] w-full' : 'border-[#E0E0E0] max-w-[156px] w-full'}`}>
+                return (<div key={index} className={`w-full py-[21px] px-4 whitespace-pre border text-[#4F4F4F] text-[14px] leading-[17.64px] font-semibold border-b-0 flex items-center ${index === 0 ? 'rounded-tl-3xl px-3 border-[#0F9DD0] bg-[#E8F5FA] max-w-[180px] min-w-[180px] w-full' : index === 1 ? 'max-w-[138px] min-w-[138px] w-full' : index === 3 ? ' border-[#E0E0E0] rounded-tr-3xl max-w-[108px] min-w-[108px] w-full' : 'border-[#E0E0E0] max-w-[156px] min-w-[156px] w-full'}`}>
                   {index === 0 && <img src="premium.png" alt='premium' className="px-1.5" />}
                   {t(`panel-header.${head.title}`)}
                 </div>)
@@ -345,7 +349,7 @@ const YourOffer = ({ handleNext }: any) => {
                 return (<div className="flex w-full" key={index}>
                   <div className={`w-[225px] pl-[20px] p-[18px] border border-[#E0E0E0] border-r-0 border-b-0 text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium ${index === panelChargeDetails.length - 1 ? 'rounded-bl-3xl border-b-[1px]' : ''}`}>{t(`panel-charge.${charge.title}`)}</div>
                   <div className="flex max-w-[calc(100%_-_225px)] w-full">
-                    <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#0F9DD0] bg-[#E8F5FA] border-b-0 max-w-[180px] w-full ${index === panelChargeDetails.length - 1 ? 'border-b-[1px]' : ''}`}>{tempData[index].neosPanelProvider || '-'}</div>
+                    <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#0F9DD0] bg-[#E8F5FA] border-b-0 max-w-[180px] min-w-[180px] w-full ${index === panelChargeDetails.length - 1 ? 'border-b-[1px]' : ''}`}>{tempData[index].neosPanelProvider || '-'}</div>
                     <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[138px] w-full ${index === panelChargeDetails.length - 1 ? 'border-b-[1px]' : ''}`}>{tempData[index].neosPanelKeepProvider || '-'}</div>
                     <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[156px] w-full ${index === panelChargeDetails.length - 1 ? 'border-b-[1px]' : ''}`}>{tempData[index].rooftopPanelKeepProvider || '-'}</div>
                     <div className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-b-0 max-w-[108px] w-full ${index === panelChargeDetails.length - 1 ? 'rounded-br-3xl border-b-[1px]' : ''}`}>{tempData[index].keepProvider || '-'}</div>
@@ -355,8 +359,102 @@ const YourOffer = ({ handleNext }: any) => {
             </div>
             {/*  table body rendering ends*/}
           </div>
+
+          <div className="lg:max-w-[223px] w-full">
+            <div className="relative flex justify-center items-center w-full h-[347px] video-container rounded-3xl overflow-hidden">
+              <VideoPreview
+                custonClass="max-h-[347px] h-full w-[223px]"
+                url="https://videos.gotolstoy.com/public/f00d787b-4ba2-43d0-a780-24ad46b005ca/98d32db0-b1fe-4938-ba9d-a36346605775/98d32db0-b1fe-4938-ba9d-a36346605775.mp4"
+              />
+            </div>
+          </div>
         </div>
 
+        {/* How does it work? */}
+        <div className="w-full  pt-6 px-[34px] pb-[22px] border border-[#E0E0E0] rounded-3xl">
+
+          <h1 className="text-black text-[20px] leading-[25px] font-semibold text-center">
+            {t("How-it-work.title")}
+          </h1>
+
+          <div className="flex mt-[34px] gap-6">
+            <div className="bg-[#E7F5FA] rounded-3xl p-5 w-full">
+              <h1 className="text-[18px] leading-[22.68px] text-black text-center font-semibold">{t("How-it-work.chooseNeosPartner")}</h1>
+              <div className="flex flex-col gap-4 mt-[30px]">
+                <p className="text-[14px] leading-[21px] text-black">{t("How-it-work.NeosPartner.point1")}</p>
+                <p className="text-[14px] leading-[21px] text-black">{t("How-it-work.NeosPartner.point2")}</p>
+                <p className="text-[14px] leading-[21px] text-black">{t("How-it-work.NeosPartner.point3")}</p>
+              </div>
+            </div>
+
+            <div className="bg-[#E7F5FA] rounded-3xl p-5 w-full">
+              <h1 className="text-[18px] leading-[22.68px] text-black text-center font-semibold">{t("How-it-work.keepProvider")}</h1>
+
+              <div className="flex flex-col gap-4 mt-[30px]">
+                <p className="text-[14px] leading-[21px] text-black">{t("How-it-work.providerPartner.point1")}</p>
+                <p className="text-[14px] leading-[21px] text-black">{t("How-it-work.providerPartner.point2")}</p>
+                <p className="text-[14px] leading-[21px] text-black">{t("How-it-work.providerPartner.point3")}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Customer review starts */}
+        <div className="flex gap-[26px] mt-8 ">
+          <div className="max-w-[635px] w-full py-6 pl-5 pr-[31px] border flex flex-col justify-between gap-2 border-[#E0E0E0] rounded-3xl">
+            <div className="">
+              <h1 className="text-[18px] leading-[21px] font-bold flex flex-col">{t("customer-review")}</h1>
+
+              <div className="flex gap-4 mt-4">
+                <div className="w-[50px] radius-[50%] h-[50px]">
+                  <img src="user.jpg" alt="user" width={50} height={50} className="object-cover" />
+                </div>
+
+                <div className="max-w-[calc(100%_-_66px)] w-full">
+                  <p className="text-[16px] leading-5 font-medium text-black">Manuel Fernández</p>
+                  <div className="my-2">
+                    <Rating
+                      name="simple-controlled"
+                      value={value || 0}
+                      onChange={(event, newValue) => {
+                        setValue(newValue);
+                      }}
+                    />
+                  </div>
+                  <p className="text-[14px] leading-5 text-[#4F4F4F]" >"I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.”</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center">
+              <NeosButton
+                className={'px-[24px] py-[14px] text-sm leading-4 font-semibold'}
+                category="colored"
+                title={t("select-plan-btn")}
+              />
+            </div>
+          </div>
+
+          <div className="max-w-[399px] w-full bg-[#E7F5FA] rounded-3xl py-5 px-[46px]">
+            <h1 className="whitespace-pre text-center text-[18px] leading-[21px] font-bold">{t("review-your-offer-with-ceo")}</h1>
+            <div className="flex flex-col items-center mt-[14px] mb-[21px]">
+              <img src="user.jpg" alt="user" className="w-[50px] h-[50px] rounded-[50%] object-cover" width={50} height={50} />
+
+              <p className="text-[14px] leading-[17.64px] text-black font-medium mt-2 text-center">Jose Laffitte</p>
+              <p className="text-[14px] leading-[17.64px] text-black text-center">jose@neosenergy.co</p>
+            </div>
+
+            <div className="flex justify-center">
+              <NeosButton
+                className={'px-[24px] py-[14px] text-sm leading-4 font-semibold'}
+                category="colored"
+                title={t("book-call-btn")}
+              />
+            </div>
+
+          </div>
+
+        </div>
+        {/* Customer review ends */}
 
         <div className="flex flex-col md:flex-row mt-[46px]">
           {isMobile ? (

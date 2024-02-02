@@ -118,8 +118,24 @@
     "point4": "Fuera de las horas de producción solar, pagarás el precio de mercado de la electricidad, con un margen de €0.01 por KWh.",
     "point5": "Deberás pagar peajes y costos asociados al uso de la red, estimados en €0.02 por KWh.",
     "point6": "Si decides que no quieres a Neos como tu proveedor, no hay compromiso de permanecer con nosotros, y puedes elegir otro proveedor en cualquier momento.",
-    "point7": "Si eliges otro proveedor, te enviaremos cada mes los ingresos generados por la venta de tu energía solar al mercado eléctrico, equivalentes a los ahorros que obtendrías si aún estuvieras con Neos."
+    "point7": "Si eliges otro proveedor, te enviaremos cada mes los ingresos generados por la venta de tu energía solar al mercado eléctrico, equivalentes a los ahorros que obtendrías si aún estuvieras con Neos.",
+    "chooseNeosPartner": "Choose Neos As Your Provider",
+    "keepProvider": "Mantenga su proveedor actual",
+    "NeosPartner": {
+      "point1": "Neos se convierte en tu proveedor. No te preocupes, nosotros nos encargamos de todo. Nos pondremos en contacto con su proveedor para cambiar su contrato.",
+      "point2": "La electricidad generada por tu instalación te la proporcionamos de forma gratuita. Cuando tu instalación no produce electricidad, te suministramos electricidad a nuestro coste base, sin añadir ningún margen de beneficio.",
+      "point3": "Cualquier excedente de electricidad que produzca su instalación genera ingresos y reduce aún más el coste de la electricidad que le suministramos."
+    },
+    "providerPartner": {
+      "point1": "Compras una instalación de Neos y mantienes tu proveedor actual.",
+      "point2": "Tu factura con tu proveedor sigue siendo la misma y, a final de mes, depositamos tus ingresos en tu cuenta bancaria.",
+      "point3": "Tu proveedor actual te sigue cobrando un margen por la electricidad que te suministra cuando tu instalación no genera electricidad, como durante la noche."
+    }
   },
+  "customer-review": "Opinión del cliente",
+  "review-your-offer-with-ceo": "Revise su oferta \nen una llamada rápida con nuestro director ejecutivo.",
+  "book-call-btn": "reservar una llamada",
+  "select-plan-btn": "Seleccionar plan",
   "Compare-our-offer": {
     "title": "Compara Nuestra Oferta",
     "point1": "más económico que los paneles solares en el techo",

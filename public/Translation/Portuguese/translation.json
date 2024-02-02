@@ -118,7 +118,23 @@
     "point4": "Fora das horas de produção solar, você pagará o preço de mercado da eletricidade, com uma margem de €0.01 por KWh.",
     "point5": "Você precisará pagar pedágios e custos associados ao uso da rede, estimados em €0.02 por KWh.",
     "point6": "Se decidir que não quer a Neos como sua revendedora, não há compromisso de permanecer conosco, e você pode escolher outro revendedor a qualquer momento.",
-    "point7": "Se escolher outro revendedor, enviaremos a você todo mês os ganhos gerados pela venda de sua energia solar para o mercado de eletricidade, equivalentes às economias que teria se ainda estivesse com a Neos."
+    "point7": "Se escolher outro revendedor, enviaremos a você todo mês os ganhos gerados pela venda de sua energia solar para o mercado de eletricidade, equivalentes às economias que teria se ainda estivesse com a Neos.",
+    "chooseNeosPartner": "Choose Neos As Your Provider",
+    "keepProvider": "Mantenha seu provedor atual",
+    "NeosPartner": {
+      "point1": "Neos se torna seu provedor. Não se preocupe, nós cuidamos de tudo. Entraremos em contato com seu provedor para alterar seu contrato.",
+      "point2": "A eletricidade gerada pela sua instalação é-lhe fornecida gratuitamente. Quando a sua instalação não produz eletricidade, fornecemos-lhe eletricidade ao nosso custo base, sem acrescentar qualquer margem de lucro.",
+      "point3": "Qualquer excedente de eletricidade que a sua instalação produz gera receitas e reduz ainda mais o custo da eletricidade que lhe fornecemos.,"
+    },
+    "customer-review": "Avaliação do cliente",
+    "review-your-offer-with-ceo": "Revise sua oferta \nem uma ligação rápida com nosso CEO!",
+    "book-call-btn": "Agende uma ligação",
+    "select-plan-btn": "Selecione o plano",
+    "providerPartner": {
+      "point1": "Você compra uma instalação Neos e mantém seu provedor atual.",
+      "point2": "Sua fatura com seu provedor permanece a mesma e, no final do mês, depositamos suas receitas em sua conta bancária.",
+      "point3": "O seu fornecedor atual continua cobrando uma margem pela eletricidade que lhe é fornecida quando a sua instalação não está gerando eletricidade, como durante a noite."
+    }
   },
   "Compare-our-offer": {
     "title": "Compare Nossa Oferta",
