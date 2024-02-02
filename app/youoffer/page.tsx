@@ -246,20 +246,19 @@ const YourOffer = ({ handleNext }: any) => {
             </div>
 
             <div className="flex justify-center items-end gap-[18px] lg:mt-5 mt-6 w-full">
-              <div className="flex flex-col gap-1.5">
+              <div className="flex flex-col lg:gap-1.5 gap-4">
                 <p className="text-center text-[14px] leading-[17px] font-medium">{t("Your-offer.Redeem-code-discount")}</p>
                 <input
                   type="text"
                   name="cups"
                   placeholder="Enter here"
-                  className="py-[13px] px-1 border-[1px] border-[#E0E0E0] rounded-[8px] placeholder:text-center text-center focus-within:outline-none h-[44px] max-w-[219px] w-full"
+                  className="py-[13px] px-1 border-[1px] border-[#E0E0E0] rounded-[8px] placeholder:text-center text-center focus-within:outline-none h-[44px] lg:max-w-[219px] w-full"
                 />
               </div>
               <div>
                 <NeosButton
-                  sx={{ width: "100%" }}
                   category="colored"
-                  className='px-5 py-3 text-[16px] leading-5 font-semibold h-[44px] rounded-[15px]'
+                  className='lg:px-5 lg:py-3 text-[16px] leading-5 font-semibold h-[44px] rounded-[15px] w-auto lg:w-full px-[9px] py-3'
                   title={t("Your-offer.validate-btn")}
                   onClick={handleNext}
                 />
@@ -272,15 +271,15 @@ const YourOffer = ({ handleNext }: any) => {
               <div className="py-[11px] text-black">
                 <h1 className="flex flex-col justify-center lg:block">
                   <span className="lg:text-[30px] lg:leading-[37.8px] lg:text-left font-bold text-[22px] leading-[27px] text-center">{t("Your-offer.offer-title")}:</span>
-                  <span className="font-medium text-[24px] leading-[30px] pl-1 lg:text-left text-center">{displayValue} {t("Your-offer.offer-option1")} {displayValue}
-                    {t("Your-offer.offer-option1-unit")}
+                  <span className="lg:text-[24px] lg:leading-[30px] text-[20px] leading-[25px] pl-1 lg:text-left text-center">{displayValue} {t("Your-offer.offer-option1")} {displayValue}
+                    {t("Your-offer.offer-option1-unit") + ")"}
                     {/* {(displayValue * 3.2).toFixed(2)}KWp) */}</span>
                 </h1>
               </div>
 
               {/* Select plan */}
-              <div className="my-[22px]">
-                <p className="text-[20px] leading-[25px] font-semibold text-[#333333] text-center">{t("offer.selectPlan")}</p>
+              <div className="lg:my-[22px] mt-[16px] ">
+                <p className="text-[20px] leading-[25px] font-semibold text-[#333333] text-center lg:p-0 p-1 pb-2">{t("offer.selectPlan")}</p>
               </div>
 
               {/* Plan Buttons */}
@@ -318,21 +317,21 @@ const YourOffer = ({ handleNext }: any) => {
                   category="colored"
                   title={t("Your-offer.download-offer")}
                   onClick={handleNext}
-                  className='lg:w-full w-auto '
+                  className='lg:w-full w-auto lg:p-[17px]'
                 />
 
                 <NeosButton
                   category="colored"
                   title={t("Your-offer.contract-btn-txt")}
                   onClick={handleNext}
-                  className='lg:w-full w-auto '
+                  className='lg:w-full w-auto lg:p-[17px]'
                 />
               </div>
             </div>
           </div>
         </div>
 
-        <div className="w-full gap-[30px] justify-between mt-[46px] flex flex-col-reverse lg:flex-row">
+        <div className="w-full gap-[30px] justify-between lg:mt-[46px] flex flex-col-reverse lg:flex-row mt-[23px]">
           <div className="overflow-x-auto w-full">
             <div className="flex flex-col items-end max-w-[807px] min-w-[807px] w-full ">
               {/* header render */}
@@ -379,33 +378,33 @@ const YourOffer = ({ handleNext }: any) => {
             <p className="text-[20px] leading-[25px] text-black font-semibold text-center lg:text-left">
               {t("Footer.license")}
             </p>
-            <div className="flex items-center justify-center flex-wrap gap-[26px]">
+            <div className="flex items-center justify-center flex-wrap lg:gap-[26px] gap-4">
               <img
                 src="Footer/CNMC.png"
                 alt="NEOS logo"
                 width={55}
                 height={33}
-                className="max-w-[55.38px] w-full max-h-[30px] h-full"
+                className="lg:max-w-[55.38px] w-full max-h-[30px] h-full max-w-[51px]"
               />
               <img
                 src="Footer/REE-removebg-preview.png"
                 alt="NEOS logo"
                 width={160}
                 height={20}
-                className="max-w-[160px] w-full max-h-[20px] h-full"
+                className="lg:max-w-[160px] w-full max-h-[20px] h-full max-w-[144px]"
               />
               <img
                 src="Footer/OMIE-removebg-preview.png"
                 alt="NEOS logo"
                 width={62}
                 height={30}
-                className="max-w-[62.46px] w-full max-h-[30px] h-full"
+                className="lg:max-w-[62.46px] w-full max-h-[30px] h-full max-w-[58px]"
               />
             </div>
           </div>
 
           <NeosButton
-            className={'px-[24px] py-[14px] text-sm leading-4 font-semibold lg:mr-[36px] w-auto'}
+            className={'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold lg:mr-[36px] w-auto'}
             category="colored"
             title={t("select-plan-btn")}
           />
@@ -472,7 +471,7 @@ const YourOffer = ({ handleNext }: any) => {
             </div>
             <div className="flex justify-center">
               <NeosButton
-                className={'px-[24px] py-[14px] text-sm leading-4 font-semibold w-auto mt-[21px] '}
+                className={'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto mt-[21px] '}
                 category="colored"
                 title={t("select-plan-btn")}
               />
@@ -504,7 +503,7 @@ const YourOffer = ({ handleNext }: any) => {
 
 
         {/* Chart Starts here */}
-        <div className="flex justify-center flex-col h-[474px] w-full border mt-8 border-[#E0E0E0] rounded-3xl p-4 pt-6">
+        <div className="flex justify-center flex-col lg:h-[474px] w-full border mt-8 border-[#E0E0E0] rounded-3xl p-4 lg:pt-6 pt-[18px]">
 
           {/*  chart header */}
           <div className="flex justify-between lg:gap-4 lg:mb-[40px] lg:flex-row flex-col gap-[14px] mb-2.5">
@@ -514,12 +513,12 @@ const YourOffer = ({ handleNext }: any) => {
               <div className="flex gap-4">
                 <NeosButton
                   category="outline"
-                  className='px-[24px] py-[14px] text-[16px] leading-5 font-medium text-black rounded-3xl border border-[#66BCDA] normal-case'
+                  className='lg:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 font-medium text-black rounded-3xl border border-[#66BCDA] normal-case'
                   title={t("How-it-work.chooseNeosPartner")}
                 />
                 <NeosButton
                   category="outline"
-                  className='px-[24px] py-[14px] text-[16px] leading-5 font-medium text-black rounded-3xl border border-[#E0E0E0] normal-case'
+                  className='g:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 font-medium text-black rounded-3xl border border-[#E0E0E0] normal-case'
                   title={t("How-it-work.keepProvider")}
                 />
               </div>
@@ -527,29 +526,28 @@ const YourOffer = ({ handleNext }: any) => {
 
             <div className="flex lg:flex-col lg:justify-end flex-row gap-1 justify-between">
               <div className="flex items-center gap-2.5 w-1/2 lg:w-auto">
-                <div className="bg-[#436DC6] w-[26px] h-[10px]"></div>
-                <span className="text-[16px] leading-[21px] font-medium text-[#4F4F4F]">{t("chart.savingWithNeos")}</span>
+                <div className="bg-[#436DC6] lg:w-[26px] w-[20px] h-[10px]"></div>
+                <span className="lg:text-[16px] lg:leading-[21px] text-[12px] leading-[15px] font-medium text-[#4F4F4F]">{t("chart.savingWithNeos")}</span>
               </div>
               <div className="flex items-center gap-2.5 w-1/2 lg:w-auto">
-                <div className="bg-[#EB5757] w-[26px] h-[10px]"></div>
-                <span className="text-[16px] leading-[21px] font-medium text-[#4F4F4F]">{t("chart.installationCost")}</span>
+                <div className="bg-[#EB5757] lg:w-[26px] w-[20px] h-[10px]"></div>
+                <span className="lg:text-[16px] lg:leading-[21px] text-[12px] leading-[15px] font-medium text-[#4F4F4F]">{t("chart.installationCost")}</span>
               </div>
             </div>
           </div>
 
           {/* chart container */}
-          <div className="max-h-[314px] h-full">
+          <div className="lg:max-h-[314px] h-full max-h-[124px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart width={150} height={40} data={data}>
-                <Bar dataKey="saving" fill="#436DC6" barSize={24} radius={[0, 0, 0, 0]} />
-                <XAxis dataKey="years" fontFamily={'outline'}  >
-                  <Label offset={0} position="insideBottom" style={{ fontSize: '12px', color: '#000', lineHeight: '15.62px' }} color="#000" fontSize={20} value={t("years")} />
+              <BarChart width={150} height={40} data={data} >
+                <Bar dataKey="saving" fill="#436DC6" barSize={24} />
+                <XAxis dataKey="years" tickLine={false} fontFamily={'outline'} className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]">
+                  <Label offset={0} position="insideBottom" fontSize={20} value={t("years")} className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]" />
                 </XAxis>
-                <CartesianAxis />
-                <CartesianGrid strokeLinejoin="round" stroke="#ECECEC" vertical={false} />
-                <YAxis tickCount={4} fontFamily={'outline'} domain={[0, 15000]} tickFormatter={(value) => value > 0 ? `${value / 1000}K` : value} >
-                  <Label offset={0} angle={-90} position={'insideLeft'} value={`${t("savings")} (€)`} style={{ fontSize: '12px', color: '#000', lineHeight: '15.62px' }} />
+                <YAxis tickCount={4} tickLine={false} fontFamily={'outline'} domain={[0, 15000]} tickFormatter={(value) => value > 0 ? `${value / 1000}K` : value} className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]">
+                  <Label offset={0} angle={-90} position={'insideLeft'} value={`${t("savings")} (€)`} className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]" />
                 </YAxis>
+                <CartesianAxis className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]" />
                 {/* <Tooltip /> */}
                 <ReferenceLine y={4500} stroke="#EB5757" strokeDasharray="5 0" strokeWidth={3} />
               </BarChart>
@@ -566,26 +564,24 @@ const YourOffer = ({ handleNext }: any) => {
           />
         </div>
 
-        <div className="w-full rounded-3xl lg:h-[388px] h-[651px] relative">
+        <div className="w-full rounded-3xl lg:h-[388px] h-[651px] relative overflow-hidden">
           <img src="video-placeholder.png" alt="video" className="object-cover lg:h-[388px] h-[651px]" />
-          <div className="flex justify-between w-full">
-            <div className="max-w-[340px] w-full bg-[#01092299] px-5 py-4 rounded-[30px] top-6 left-6 absolute">
-              <p className="text-[20px] leading-[25px] font-semibold text-white">{t("chart.peekSolarFarm")}</p>
-            </div>
+          <div className="lg:max-w-[340px] w-full bg-[#01092299] px-5 py-4 rounded-[30px] top-6 lg:left-6 absolute -translate-x-1/2 left-1/2 lg:translate-x-0 max-w-[calc(100%_-_30px)]">
+            <p className="lg:text-[20px] lg:leading-[25px] text-[14px] leading-[17.64px] font-semibold text-white">{t("chart.peekSolarFarm")}</p>
+          </div>
 
-            <div className="lg:max-w-[280px] w-full bg-[#01092299] pt-[14px] pl-[22px] pr-[15px] pb-[18px] absolute lg:top-6 lg:right-6 rounded-[30px] bottom-6 max-w-[calc(100%_-_30px)] mx-auto lg:ml-auto">
-              <p className="text-[16px] leading-5 font-bold text-white">{t("chart.solar")}</p>
+          <div className="lg:max-w-[280px] w-full bg-[#01092299] pt-[14px] pl-[22px] pr-[15px] pb-[18px] absolute lg:top-6 lg:right-6 rounded-[30px] bottom-6 max-w-[calc(100%_-_30px)] left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto lg:bottom-auto">
+            <p className="text-[16px] leading-5 font-bold text-white">{t("chart.solar")}</p>
 
-              <ul className="flex flex-col mt-3 list-disc pl-[12px] gap-[14px]">
-                <li className="text-[14px] leading-[17.64px] font-medium text-white">{t("chart.solarPoints.point1")}</li>
-                <li className="text-[14px] leading-[17.64px] font-medium text-white">{t("chart.solarPoints.point2")}</li>
-                <li className="text-[14px] leading-[17.64px] font-medium text-white">{t("chart.solarPoints.point3")}</li>
-              </ul>
-            </div>
+            <ul className="flex flex-col mt-3 list-disc pl-[12px] gap-[14px]">
+              <li className="text-[14px] leading-[17.64px] font-medium text-white">{t("chart.solarPoints.point1")}</li>
+              <li className="text-[14px] leading-[17.64px] font-medium text-white">{t("chart.solarPoints.point2")}</li>
+              <li className="text-[14px] leading-[17.64px] font-medium text-white">{t("chart.solarPoints.point3")}</li>
+            </ul>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
