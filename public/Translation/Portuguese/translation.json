@@ -143,6 +143,10 @@
     "point3": "economias em comparação com os fornecedores tradicionais de serviços públicos",
     "point4": "menos intensivo em carbono do que os fornecedores tradicionais de serviços públicos"
   },
+  "chart": {
+    "savingWithNeos": "Economizando com Neos",
+    "installationCost": "Custo de instalação"
+  },
   "Details": {
     "title": "Seus Detalhes",
     "alert": "Por favor, complete todos los campos obligatorios."

@@ -143,6 +143,10 @@
     "point3": "savings compared to traditional utility providers",
     "point4": "less carbon intensive than traditional utility providers"
   },
+  "chart": {
+    "savingWithNeos": "Savings with Neos",
+    "installationCost": "Installation Cost"
+  },
   "Details": {
     "title": "Your Details",
     "alert": "Please fill in all required fields."

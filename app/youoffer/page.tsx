@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import { PopupModal, useCalendlyEventListener } from "react-calendly";
 import { useRouter } from "next/navigation";
 import { getDataFromSessionStorage } from "@/utils/utils";
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine, Label } from 'recharts';
 import VideoPreview from "../videoPlayer/preview";
 import Rating from '@mui/material/Rating';
 
@@ -229,7 +229,7 @@ const YourOffer = ({ handleNext }: any) => {
 
   return (
     <div className="max-w-[1200px] w-full mx-auto">
-      <div className="w-full bg-white lg:pt-12 lg:px-[70px] lg:pb-[67px]">
+      <div className="w-full bg-white lg:pt-12 lg:px-[70px] lg:pb-[18px]">
 
         {/* Offer and virtual solar */}
         <div className="flex justify-end gap-[131px] items-end">
@@ -251,14 +251,14 @@ const YourOffer = ({ handleNext }: any) => {
                   type="text"
                   name="cups"
                   placeholder="Enter here"
-                  className="py-[13px] px-1 border-[1px] border-[#E0E0E0] rounded-xl placeholder:text-center text-center focus-within:outline-none"
+                  className="py-[13px] px-1 border-[1px] border-[#E0E0E0] rounded-[8px] placeholder:text-center text-center focus-within:outline-none h-[44px]"
                 />
               </div>
               <div>
                 <NeosButton
                   sx={{ width: "100%" }}
                   category="colored"
-                  className='px-5 py-3 text-[16px] leading-5 font-semibold'
+                  className='px-5 py-3 text-[16px] leading-5 font-semibold h-[44px] rounded-[15px]'
                   title={t("Your-offer.validate-btn")}
                   onClick={handleNext}
                 />
@@ -292,7 +292,7 @@ const YourOffer = ({ handleNext }: any) => {
 
                 <NeosButton
                   category="outline"
-                  className='text-black py-[14px] px-[24px] outline-[2px] outline outline-[#66BCDA] font-medium text-[16px] leading-5 normal-case'
+                  className='text-black py-[14px] px-[24px] outline-[2px] outline outline-[#E0E0E0] font-medium text-[16px] leading-5 normal-case'
                   title={t("offer.buyPanelProviderCurrent")}
                 />
               </div>
@@ -414,6 +414,7 @@ const YourOffer = ({ handleNext }: any) => {
                   <p className="text-[16px] leading-5 font-medium text-black">Manuel Fernández</p>
                   <div className="my-2">
                     <Rating
+                      readOnly
                       name="simple-controlled"
                       value={value || 0}
                       onChange={(event, newValue) => {
@@ -456,110 +457,67 @@ const YourOffer = ({ handleNext }: any) => {
         </div>
         {/* Customer review ends */}
 
-        <div className="flex flex-col md:flex-row mt-[46px]">
-          {isMobile ? (
-            <div className="w-full border border-[#E0E0E0] rounded-3xl px-4 py-7 mt-5 md:mt-0">
-              <h1 className="text-base md:2xl  font-bold text-center mb-7">
-                {t("Compare-our-offer.title")}
-              </h1>
-              <ul className="ps-4 work-list-marker">
-                {CompareOfferList.map((item, index) => (
-                  <li key={index} className="text-sm text-black mb-4 list-disc">
-                    {`${displayValue}% ${t(
-                      `Compare-our-offer.${Object.keys(item)[0]}`
-                    )}`}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <div className="md:w-3/6 border border-[#E0E0E0] rounded-3xl px-4 py-7 md:mr-3">
-              <h1 className="text-base md:2xl  font-bold text-center mb-7">
-                {t("How-it-work.title")}
-              </h1>
-              <ul className="ps-4 work-list-marker">
-                {HowItWorksList.map((item, index) => (
-                  <li key={index} className="text-sm text-black mb-4 list-disc">
-                    {t(`How-it-work.${Object.keys(item)[0]}`)}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          <div className="ms-1 md:w-3/6 mt-4 md:mt-0">
-            {isMobile ? (
-              <div className="md:w-3/6 border border-[#E0E0E0] rounded-3xl px-4 py-7 md:mr-3">
-                <h1 className="text-base md:2xl font-bold text-center mb-7">
-                  {t("How-it-work.title")}
-                </h1>
-                <ul className="ps-4 work-list-marker">
-                  {HowItWorksList.map((item, index) => (
-                    <li
-                      key={index}
-                      className="text-sm text-black mb-4 list-disc"
-                    >
-                      {t(`How-it-work.${Object.keys(item)[0]}`)}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : (
-              <div className="w-full border border-[#E0E0E0] rounded-3xl px-4 py-7 mt-5 md:mt-0">
-                <h1 className="text-base md:2xl  font-bold text-center mb-7">
-                  {t("Compare-our-offer.title")}
-                </h1>
-                <ul className="ps-4 work-list-marker">
-                  {CompareOfferList.map((item, index) => (
-                    <li
-                      key={index}
-                      className="text-sm text-black mb-4 list-disc"
-                    >
-                      {`${displayValue}% ${t(
-                        `Compare-our-offer.${Object.keys(item)[0]}`
-                      )}`}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            <div className="flex justify-center flex-col items-center bg-[#E7F5FA]  rounded-3xl pt-5 mt-5 pb-7 px-5">
-              <h1 className="text-base md:2xl  font-bold text-center w-[220px]">
-                {t("Get-offer.review-expert-txt")}
-              </h1>
-              <div className="w-12 h-12 relative my-4">
-                <Image src="/user_demo.png" alt="user image" fill />
-              </div>
-              <p className="text-sm font-medium">Sebastian Gonzalez</p>
-              <p className="font-normal text-sm">sebastian@solarmente.se</p>
-              <NeosButton
-                sx={{ mt: 2 }}
-                id="btn"
-                category="colored"
-                title={t("Get-offer.book-expert-txt")}
-                onClick={() => handleCalender()}
-              />
-              {typeof window !== "undefined" && (
-                <PopupModal
-                  url={process.env.NEXT_PUBLIC_CALENDLY_URL || ""}
-                  onModalClose={() => setOpen(false)}
-                  open={open}
-                  rootElement={document.getElementById("btn") as any}
+
+
+        {/* Chart Starts here */}
+        <div className="flex justify-center flex-col h-[474px] w-full border mt-8 border-[#E0E0E0] rounded-3xl p-4 pt-6">
+          {/*  chart header */}
+          <div className="flex justify-between gap-4 mb-[40px]">
+            <div className="flex flex-wrap gap-[29px] items-center">
+              <span className="text-[20px] leading-[25px] font-semibold text-black">{t("panel-charge.payback")}</span>
+
+              <div className="flex gap-4">
+                <NeosButton
+                  category="outline"
+                  className='px-[24px] py-[14px] text-[16px] leading-5 font-medium text-black rounded-3xl border border-[#66BCDA] normal-case'
+                  title={t("How-it-work.chooseNeosPartner")}
                 />
-              )}
+                <NeosButton
+                  category="outline"
+                  className='px-[24px] py-[14px] text-[16px] leading-5 font-medium text-black rounded-3xl border border-[#E0E0E0] normal-case'
+                  title={t("How-it-work.keepProvider")}
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col justify-end">
+              <div className="flex items-center gap-2.5">
+                <div className="bg-[#436DC6] w-[26px] h-[10px]"></div>
+                <span className="text-[16px] leading-[21px] font-medium text-[#4F4F4F]">{t("chart.savingWithNeos")}</span>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <div className="bg-[#EB5757] w-[26px] h-[10px]"></div>
+                <span className="text-[16px] leading-[21px] font-medium text-[#4F4F4F]">{t("chart.installationCost")}</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="flex justify-center flex-col h-[300px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart width={150} height={40} data={data}>
-              <Bar dataKey="saving" fill="#436DC6" barSize={24} radius={[5, 5, 0, 0]} />
-              <XAxis dataKey="years" />
-              <YAxis tickCount={4} domain={[0, 15000]} tickFormatter={(value) => `${value / 1000}K`} />
-              <Tooltip />
-              <ReferenceLine y={4500} stroke="#EB5757" strokeDasharray="5 0" strokeWidth={3} />
-            </BarChart>
-          </ResponsiveContainer>
 
+          {/* chart container */}
+          <div className="max-h-[314px] h-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart width={150} height={40} data={data}>
+                <Bar dataKey="saving" fill="#436DC6" barSize={24} radius={[5, 5, 0, 0]} />
+                <XAxis dataKey="years" >
+                </XAxis>
+                <YAxis tickCount={4} domain={[0, 15000]} tickFormatter={(value) => `${value / 1000}K`} label={{ value: 'pv of page', angle: -90, position: 'insideLeft' }} />
+                {/* <Tooltip /> */}
+                <ReferenceLine y={4500} stroke="#EB5757" strokeDasharray="5 0" strokeWidth={3} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+        {/* Chart ends */}
+
+        <div className="flex justify-center my-8">
+          <NeosButton
+            category="colored"
+            className='px-5 py-3 text-[16px] leading-5 font-semibold'
+            title={t("select-plan-btn")}
+          />
+        </div>
+
+        <div className="w-full rounded-3xlh-[388px]">
+          <img src="video-placeholder.png" alt="video" className="object-cover" />
         </div>
       </div>
     </div>
