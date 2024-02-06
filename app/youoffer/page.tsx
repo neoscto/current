@@ -4,7 +4,7 @@ import { CompareOfferList, HowItWorksList } from "@/utils/StaticData";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useTranslation } from "react-i18next";
-import { PopupModal, useCalendlyEventListener } from "react-calendly";
+import { InlineWidget, PopupModal, useCalendlyEventListener } from "react-calendly";
 import NeosButton from "@/components/NeosButton";
 import { useRouter } from "next/navigation";
 import { getDataFromSessionStorage } from "@/utils/utils";
@@ -476,6 +476,70 @@ const YourOffer = ({ handleNext }: any) => {
                   <p className="text-[14px] leading-5 text-[#4F4F4F]" >"I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.”</p>
                 </div>
               </div>
+              <div className="flex gap-4 lg:mt-4 mt-[18px]">
+                <div className="w-[50px] radius-[50%] h-[50px]">
+                  <img src="user.jpg" alt="user" width={50} height={50} className="object-cover" />
+                </div>
+
+                <div className="max-w-[calc(100%_-_66px)] w-full ">
+                  <p className="text-[16px] leading-5 font-medium text-black">Manuel Fernández</p>
+                  <div className="my-2">
+                    <Rating
+                      readOnly
+                      size={'small'}
+                      name="simple-controlled"
+                      value={value || 0}
+                      onChange={(event, newValue) => {
+                        setValue(newValue);
+                      }}
+                    />
+                  </div>
+                  <p className="text-[14px] leading-5 text-[#4F4F4F]" >"I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.”</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4 lg:mt-4 mt-[18px]">
+                <div className="w-[50px] radius-[50%] h-[50px]">
+                  <img src="user.jpg" alt="user" width={50} height={50} className="object-cover" />
+                </div>
+
+                <div className="max-w-[calc(100%_-_66px)] w-full ">
+                  <p className="text-[16px] leading-5 font-medium text-black">Manuel Fernández</p>
+                  <div className="my-2">
+                    <Rating
+                      readOnly
+                      size={'small'}
+                      name="simple-controlled"
+                      value={value || 0}
+                      onChange={(event, newValue) => {
+                        setValue(newValue);
+                      }}
+                    />
+                  </div>
+                  <p className="text-[14px] leading-5 text-[#4F4F4F]" >"I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.”</p>
+                </div>
+              </div>
+              <div className="flex gap-4 lg:mt-4 mt-[18px]">
+                <div className="w-[50px] radius-[50%] h-[50px]">
+                  <img src="user.jpg" alt="user" width={50} height={50} className="object-cover" />
+                </div>
+
+                <div className="max-w-[calc(100%_-_66px)] w-full ">
+                  <p className="text-[16px] leading-5 font-medium text-black">Manuel Fernández</p>
+                  <div className="my-2">
+                    <Rating
+                      readOnly
+                      size={'small'}
+                      name="simple-controlled"
+                      value={value || 0}
+                      onChange={(event, newValue) => {
+                        setValue(newValue);
+                      }}
+                    />
+                  </div>
+                  <p className="text-[14px] leading-5 text-[#4F4F4F]" >"I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.”</p>
+                </div>
+              </div>
             </div>
             <div className="flex justify-center">
               <NeosButton
@@ -487,7 +551,7 @@ const YourOffer = ({ handleNext }: any) => {
             </div>
           </div>
 
-          <div className="lg:max-w-[399px] w-full bg-[#E7F5FA] rounded-3xl py-5 px-[46px] max-w-full">
+          <div className="lg:max-w-[399px] w-full bg-[#E7F5FA] rounded-3xl py-5 px-5 max-w-full">
             <h1 className="whitespace-pre text-center text-[18px] leading-[21px] font-bold">{t("review-your-offer-with-ceo")}</h1>
             <div className="flex flex-col items-center mt-[14px] mb-[21px]">
               <img src="user.jpg" alt="user" className="w-[50px] h-[50px] rounded-[50%] object-cover" width={50} height={50} />
@@ -495,14 +559,22 @@ const YourOffer = ({ handleNext }: any) => {
               <p className="text-[14px] leading-[17.64px] text-black font-medium mt-2 text-center">Jose Laffitte</p>
               <p className="text-[14px] leading-[17.64px] text-black text-center">jose@neosenergy.co</p>
             </div>
-
-            <div className="flex justify-center">
+            <InlineWidget
+              url={process.env.NEXT_PUBLIC_CALENDLY_URL || ""}
+              styles={{
+                height: '500px'
+              }}
+              // onModalClose={() => setOpen(false)}
+              // open={open}
+              // rootElement={document.getElementById("btn") as any}
+            />
+            {/* <div className="flex justify-center">
               <NeosButton
                 className={'px-[24px] py-[14px] text-sm leading-4 font-semibold w-auto'}
                 category="colored"
                 title={t("book-call-btn")}
               />
-            </div>
+            </div> */}
           </div>
         </div>
         {/* Customer review ends */}
