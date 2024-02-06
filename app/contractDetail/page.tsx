@@ -115,7 +115,7 @@ const ContractDetail = ({
                     </p>
                   </div>
                 </div>
-                {/* cpus */}
+                {/* cups */}
                 <div className="border-b border-[#E0E0E0] py-3.5 flex">
                   <div className="w-full">
                     <p className={labelStyle}>
