@@ -310,7 +310,7 @@ const YourOffer = ({ handleNext }: any) => {
                   • €{displayValue} {t("Your-offer.offer-saving-1")}
                 </p>
                 <p className="text-[18px] leading-[22.68px] font-medium text-[#333333]">
-                  • € {displayValue} {t("Your-offer.offer-saving-2")}
+                  • €{displayValue} {t("Your-offer.offer-saving-2")}
                 </p>
                 <p className="text-[18px] leading-[22.68px] font-medium text-[#333333]">
                   • {displayValue} {t("Your-offer.offer-payback")}
@@ -564,9 +564,9 @@ const YourOffer = ({ handleNext }: any) => {
               styles={{
                 height: '500px'
               }}
-              // onModalClose={() => setOpen(false)}
-              // open={open}
-              // rootElement={document.getElementById("btn") as any}
+            // onModalClose={() => setOpen(false)}
+            // open={open}
+            // rootElement={document.getElementById("btn") as any}
             />
             {/* <div className="flex justify-center">
               <NeosButton
