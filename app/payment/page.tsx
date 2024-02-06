@@ -37,6 +37,8 @@ const CheckoutForm = () => {
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // state for is payment success
+  const [isPaymentSuccess, setIsPaymentSuccess] = useState(false);
   const { t } = useTranslation();
 
   const handleSubmit = async (
@@ -56,16 +58,26 @@ const CheckoutForm = () => {
       const { token, error } = await stripe!.createToken(cardElement);
       if (error?.code === "insufficient_funds") {
         alert(t("Payment.insufficient-fund-err"));
-      } else {
-        alert(`Error: ${error?.message}`);
       }
-      console.log(error);
-
-      //   if (error) {
-      //     throw new Error(error.message);
-      //   }
-
-      console.log(token);
+      if (error) {
+        console.log('PAYMENT ERROR ==>', error);
+      }
+      if (token) {
+        debugger;
+        const response = await fetch("/api/payment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token: token.id, amount: displayValue }),
+        });
+        const paymentResponse = await response.json();
+        if (paymentResponse.status === 'succeeded') {
+          setIsPaymentSuccess(true);
+        }
+        alert(paymentResponse.status);
+        console.log('response', paymentResponse);
+      }
       // Send the token to your server to complete the payment
     } catch (err: any) {
       console.error(err);

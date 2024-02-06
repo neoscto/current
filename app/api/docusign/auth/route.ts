@@ -29,13 +29,14 @@ const pdfGenerate = (formData: any): string => {
 const generateEnvelopeData = (offerData: any) => {
   const pdfDataUrl = pdfGenerate(offerData);
   const envelopeData = {
-    emailSubject: "Please sign this document",
+    status: 'sent',
+    emailSubject: 'Please sign this document',
     documents: [
       {
-        documentBase64: pdfDataUrl,
-        documentId: "1",
-        fileExtension: "pdf",
-        name: "Document.pdf",
+        documentBase64: Buffer.from('<html><body>Your contract content here /sn1/</body></html>').toString('base64'),
+        name: 'DocumentName.html',
+        fileExtension: 'html',
+        documentId: '1',
       },
     ],
     recipients: {
@@ -43,21 +44,42 @@ const generateEnvelopeData = (offerData: any) => {
         {
           email: offerData.emailAddress,
           name: offerData.firstName,
-          recipientId: "1",
+          recipientId: '1',
+          clientUserId: '1002',
+          // smsAuthentication: {
+          //   senderProvidedNumbers: [
+          //     `+91${offerData.phoneNumber}`,
+          //   ]
+          // },
+          // "identityVerification": {
+          //   "workflowId": "c368e411-1592-4001-a3df-dca94ac539ae",
+          //   "inputOptions": [
+          //     {
+          //       "name": "phone_number_list",
+          //       "valueType": "PhoneNumberList",
+          //       "phoneNumberList": [
+          //         {
+          //           "countryCodeLock": false,
+          //           "countryCode": "91",
+          //           "number": offerData.phoneNumber,
+          //           "extension": "91"
+          //         }
+          //       ]
+          //     }
+          //   ]
+          // },
           tabs: {
             signHereTabs: [
               {
-                anchorString: "Sign Here",
-                anchorUnits: "pixels",
-                anchorXOffset: "0",
-                anchorYOffset: "-20",
+                anchorString: '/sn1/',
+                anchorXOffset: '20',
+                anchorYOffset: '10',
               },
             ],
           },
         },
       ],
     },
-    status: "sent",
   };
   return envelopeData;
 };
@@ -79,9 +101,10 @@ export async function POST(_request: Request, _response: Response) {
   try {
     await connectDB();
     const body = await _request.json();
-    const code = body.code;
+    // const code = body.code;
     const offerData = body.offerData;
-    const accessToken = await authenticate(code as string);
+    // const accessToken = await authenticate(code as string);
+    const accessToken = process.env.NEXT_PUBLIC_DOCUSIGN_API_TOKEN || "";
     const envelopeData = generateEnvelopeData(offerData);
 
     const envelopeId = await createEnvelope(accessToken, envelopeData);
