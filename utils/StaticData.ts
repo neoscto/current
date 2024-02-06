@@ -1,8 +1,8 @@
 export const descriptionList: { [key: string]: string }[] = [
-  { point1: "Significant Cost Savings",  point1Description:'Up to 80% reduction in electricity bills,and X% cheaper than rooftop solar installations.'},
-  { point2: "Access Anywhere, Instantly" , point2Description:'Instant connection to the grid. No rooftop panel or any kind of installation required.'},
-  { point3: "Financial Return", point3Description:'Payback period of around 6.9 years, compared to 14 years for rooftop panels.'},
-  { point4: "Long-Term Renewable Energy", point4Description:'Solar panels have a 25-year useful life, providing 100% renewable energy.'},
+  { point1: "Significant Cost Savings", point1Description: 'Up to 80% reduction in electricity bills, and up to 35% cheaper than rooftop solar installations.' },
+  { point2: "Access Anywhere, Instantly", point2Description: 'Instant connection to the grid. No rooftop panel or any kind of installation required.' },
+  { point3: "Financial Return", point3Description: 'Payback period of around 6.9 years, compared to 14 years for rooftop panels.' },
+  { point4: "Long-Term Renewable Energy", point4Description: 'Solar panels have a 25-year useful life, providing 100% renewable energy.' },
 ];
 
 export const GetOfferCardData: {
@@ -11,19 +11,19 @@ export const GetOfferCardData: {
   desc: string;
   feature: string[];
 }[] = [
-  {
-    is_premium: false,
-    title: "Standard Offer",
-    desc: "You will not need anything else to get the offer",
-    feature: ["Instant Calculation", "Answer 4 Questions", "85% Accurate"],
-  },
-  {
-    is_premium: true,
-    title: "Personalised Offer",
-    desc: "You will need your latest electricity bill to get the offer",
-    feature: ["Instant Calculation", "Answer 4 Questions", "100% Accurate"],
-  },
-];
+    {
+      is_premium: false,
+      title: "Standard Offer",
+      desc: "You will not need anything else to get the offer",
+      feature: ["Instant Calculation", "Answer 4 Questions", "85% Accurate"],
+    },
+    {
+      is_premium: true,
+      title: "Personalised Offer",
+      desc: "You will need your latest electricity bill to get the offer",
+      feature: ["Instant Calculation", "Answer 4 Questions", "100% Accurate"],
+    },
+  ];
 
 export const HowItWorksList: { [key: string]: string }[] = [
   {
