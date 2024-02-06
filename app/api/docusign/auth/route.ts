@@ -46,28 +46,28 @@ const generateEnvelopeData = (offerData: any) => {
           name: offerData.firstName,
           recipientId: '1',
           clientUserId: '1002',
-          // smsAuthentication: {
-          //   senderProvidedNumbers: [
-          //     `+91${offerData.phoneNumber}`,
-          //   ]
-          // },
-          // "identityVerification": {
-          //   "workflowId": "c368e411-1592-4001-a3df-dca94ac539ae",
-          //   "inputOptions": [
-          //     {
-          //       "name": "phone_number_list",
-          //       "valueType": "PhoneNumberList",
-          //       "phoneNumberList": [
-          //         {
-          //           "countryCodeLock": false,
-          //           "countryCode": "91",
-          //           "number": offerData.phoneNumber,
-          //           "extension": "91"
-          //         }
-          //       ]
-          //     }
-          //   ]
-          // },
+          smsAuthentication: {
+            senderProvidedNumbers: [
+              `+44${offerData.phoneNumber}`,
+            ]
+          },
+          "identityVerification": {
+            "workflowId": "c368e411-1592-4001-a3df-dca94ac539ae",
+            "inputOptions": [
+              {
+                "name": "phone_number_list",
+                "valueType": "PhoneNumberList",
+                "phoneNumberList": [
+                  {
+                    "countryCodeLock": false,
+                    "countryCode": "44",
+                    "number": offerData.phoneNumber,
+                    "extension": "44"
+                  }
+                ]
+              }
+            ]
+          },
           tabs: {
             signHereTabs: [
               {
