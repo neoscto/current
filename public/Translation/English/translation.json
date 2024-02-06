@@ -5,12 +5,12 @@
     },
     "title": "Welcome to the Future",
     "description": "Discover Virtual Solar. No installation. Cheap energy. Instant connection.",
-    "btn1txt": "LEARN MORE",
-    "btn2txt": "GET QUOTE"
+    "btn1txt": "EXPLORE",
+    "btn2txt": "CALCULATE SAVINGS"
   },
   "Description": {
     "title": "What is Virtual Solar?",
-    "description": "<b>Neos</b> offers you the opportunity to buy solar panels located in Spain’s existing solar parks. This means that you will generate your own renewable electricity and receive it at your house or business through the country’s power grid, as soon as the first day of next month!",
+    "description": "<b>Neos</b> allows you to own all the electricity produced by solar panels in Spanish solar parks. This means that you will generate your own renewable electricity and receive it at your house or business through the country’s power grid, as soon as the first day of next month!",
     "point1": "Significant Cost Savings",
     "point1Description": "Up to 80% reduction in electricity bills,and X% cheaper than rooftop solar installations.",
     "point2": "Access Anywhere, Instantly",
@@ -51,9 +51,9 @@
     "field-label1": "Number of people living in house",
     "field-label2": "CUPS",
     "field-desc": "You can find your CUPS number in any of your electricity bills",
-    "form-t&c": "By ticking, you are confirming that you have read, understood and agree",
+    "form-t&c": "By ticking, you are confirming that you have read, understood and agreed to the",
     "form-t&c-txt": "Terms and Conditions",
-    "view-contract-txt": "VIEW CONTACT"
+    "view-contract-txt": "VIEW CONTRACT"
   },
   "Your-offer": {
     "title": "Price to Pay",
@@ -107,8 +107,8 @@
       }
     },
     "selectPlan": "Select Plan",
-    "buyPanelProviderNeos": "Buy Panels &\nChoose Neos As My Provider",
-    "buyPanelProviderCurrent": "Buy Panels &\nKeep My Current Provider"
+    "buyPanelProviderNeos": "Buy Installations &\nChoose Neos As My Provider",
+    "buyPanelProviderCurrent": "Buy Installations &\nKeep My Current Provider"
   },
   "How-it-work": {
     "title": "How it works?",
