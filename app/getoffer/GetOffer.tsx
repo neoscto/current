@@ -71,8 +71,6 @@ const GetOffer: React.FC<GetOfferProps> = ({
     // formik.setErrors({});
   };
 
-  console.log('showForm: ', showForm)
-
   const { t } = useTranslation();
   return (
     <>

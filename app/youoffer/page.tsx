@@ -1,12 +1,11 @@
 "use client";
-import NeosButton from "@/components/NeosButton";
+import React, { useEffect, useState, } from "react";
 import { CompareOfferList, HowItWorksList } from "@/utils/StaticData";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useTranslation } from "react-i18next";
-import { PopupModal, useCalendlyEventListener } from "react-calendly";
+import { InlineWidget, PopupModal, useCalendlyEventListener } from "react-calendly";
+import NeosButton from "@/components/NeosButton";
 import { useRouter } from "next/navigation";
 import { getDataFromSessionStorage } from "@/utils/utils";
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine, Label, CartesianAxis } from 'recharts';
@@ -132,7 +131,6 @@ const YourOffer = ({ handleNext }: any) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<number | null>(5);
-
   const [isMobile, setIsMobile] = useState(false);
 
   const handleResize = () => {
@@ -227,8 +225,16 @@ const YourOffer = ({ handleNext }: any) => {
     }
   ]
 
+
+  const scrollToDiv = () => {
+    const planSection = document.getElementById('plan-section');
+    if (planSection) {
+      planSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="max-w-[1200px] w-full mx-auto">
+    <div className="max-w-[1200px] w-full mx-auto" id='content-id'>
       <div className="w-full bg-white lg:px-[70px] lg:pb-[18px] px-5 py-4" >
 
         {/* Offer and virtual solar */}
@@ -277,24 +283,26 @@ const YourOffer = ({ handleNext }: any) => {
                 </h1>
               </div>
 
-              {/* Select plan */}
-              <div className="lg:my-[22px] mt-[16px] ">
-                <p className="text-[20px] leading-[25px] font-semibold text-[#333333] text-center lg:p-0 p-1 pb-2">{t("offer.selectPlan")}</p>
-              </div>
+              <div id='plan-section'>
+                {/* Select plan */}
+                <div className="lg:py-[22px] pt-[16px] ">
+                  <p className="text-[20px] leading-[25px] font-semibold text-[#333333] text-center lg:p-0 p-1 pb-2">{t("offer.selectPlan")}</p>
+                </div>
 
-              {/* Plan Buttons */}
-              <div className="flex lg:gap-4 lg:justify-normal justify-center md:flex-row flex-col gap-3">
-                <NeosButton
-                  category="outline"
-                  className='text-black py-[14px] lg:px-[24px] outline-[2px] outline outline-[#66BCDA] font-medium text-[16px] leading-5 normal-case px-[53px] whitespace-pre md:whitespace-normal'
-                  title={t("offer.buyPanelProviderNeos")}
-                />
+                {/* Plan Buttons */}
+                <div className="flex lg:gap-4 lg:justify-normal justify-center md:flex-row flex-col gap-3" >
+                  <NeosButton
+                    category="outline"
+                    className='!text-black py-[14px] lg:px-[24px] outline-[2px] !outline outline-[#66BCDA] font-medium text-[16px] leading-5 normal-case px-[53px] whitespace-pre md:whitespace-normal'
+                    title={t("offer.buyPanelProviderNeos")}
+                  />
 
-                <NeosButton
-                  category="outline"
-                  className='text-black py-[14px] lg:px-[24px] outline-[2px] outline outline-[#E0E0E0] font-medium text-[16px] leading-5 normal-case px-[53px] whitespace-pre md:whitespace-normal'
-                  title={t("offer.buyPanelProviderCurrent")}
-                />
+                  <NeosButton
+                    category="outline"
+                    className='!text-black py-[14px] lg:px-[24px] outline-[2px] outline !outline-[#E0E0E0] font-medium text-[16px] leading-5 normal-case px-[53px] whitespace-pre md:whitespace-normal'
+                    title={t("offer.buyPanelProviderCurrent")}
+                  />
+                </div>
               </div>
 
               <div className="lg:py-[11px] mt-[22px] flex flex-col gap-2.5 py-[8.5px] ">
@@ -316,7 +324,6 @@ const YourOffer = ({ handleNext }: any) => {
                 <NeosButton
                   category="colored"
                   title={t("Your-offer.download-offer")}
-                  onClick={handleNext}
                   className='lg:w-full w-auto lg:p-[17px]'
                 />
 
@@ -332,7 +339,7 @@ const YourOffer = ({ handleNext }: any) => {
         </div>
 
         <div className="w-full gap-[30px] justify-between lg:mt-[46px] flex flex-col-reverse lg:flex-row mt-[23px]">
-          <div className="overflow-x-auto w-full">
+          <div className="overflow-x-auto w-full flex justify-center">
             <div className="flex flex-col items-end max-w-[807px] min-w-[807px] w-full ">
               {/* header render */}
               <div className="flex justify-end max-w-[calc(100%_-_225px)] w-full">
@@ -407,6 +414,7 @@ const YourOffer = ({ handleNext }: any) => {
             className={'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold lg:mr-[36px] w-auto'}
             category="colored"
             title={t("select-plan-btn")}
+            onClick={scrollToDiv}
           />
         </div>
 
@@ -468,17 +476,82 @@ const YourOffer = ({ handleNext }: any) => {
                   <p className="text-[14px] leading-5 text-[#4F4F4F]" >"I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.”</p>
                 </div>
               </div>
+              <div className="flex gap-4 lg:mt-4 mt-[18px]">
+                <div className="w-[50px] radius-[50%] h-[50px]">
+                  <img src="user.jpg" alt="user" width={50} height={50} className="object-cover" />
+                </div>
+
+                <div className="max-w-[calc(100%_-_66px)] w-full ">
+                  <p className="text-[16px] leading-5 font-medium text-black">Manuel Fernández</p>
+                  <div className="my-2">
+                    <Rating
+                      readOnly
+                      size={'small'}
+                      name="simple-controlled"
+                      value={value || 0}
+                      onChange={(event, newValue) => {
+                        setValue(newValue);
+                      }}
+                    />
+                  </div>
+                  <p className="text-[14px] leading-5 text-[#4F4F4F]" >"I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.”</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4 lg:mt-4 mt-[18px]">
+                <div className="w-[50px] radius-[50%] h-[50px]">
+                  <img src="user.jpg" alt="user" width={50} height={50} className="object-cover" />
+                </div>
+
+                <div className="max-w-[calc(100%_-_66px)] w-full ">
+                  <p className="text-[16px] leading-5 font-medium text-black">Manuel Fernández</p>
+                  <div className="my-2">
+                    <Rating
+                      readOnly
+                      size={'small'}
+                      name="simple-controlled"
+                      value={value || 0}
+                      onChange={(event, newValue) => {
+                        setValue(newValue);
+                      }}
+                    />
+                  </div>
+                  <p className="text-[14px] leading-5 text-[#4F4F4F]" >"I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.”</p>
+                </div>
+              </div>
+              <div className="flex gap-4 lg:mt-4 mt-[18px]">
+                <div className="w-[50px] radius-[50%] h-[50px]">
+                  <img src="user.jpg" alt="user" width={50} height={50} className="object-cover" />
+                </div>
+
+                <div className="max-w-[calc(100%_-_66px)] w-full ">
+                  <p className="text-[16px] leading-5 font-medium text-black">Manuel Fernández</p>
+                  <div className="my-2">
+                    <Rating
+                      readOnly
+                      size={'small'}
+                      name="simple-controlled"
+                      value={value || 0}
+                      onChange={(event, newValue) => {
+                        setValue(newValue);
+                      }}
+                    />
+                  </div>
+                  <p className="text-[14px] leading-5 text-[#4F4F4F]" >"I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.”</p>
+                </div>
+              </div>
             </div>
             <div className="flex justify-center">
               <NeosButton
                 className={'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto mt-[21px] '}
                 category="colored"
                 title={t("select-plan-btn")}
+                onClick={scrollToDiv}
               />
             </div>
           </div>
 
-          <div className="lg:max-w-[399px] w-full bg-[#E7F5FA] rounded-3xl py-5 px-[46px] max-w-full">
+          <div className="lg:max-w-[399px] w-full bg-[#E7F5FA] rounded-3xl py-5 px-5 max-w-full">
             <h1 className="whitespace-pre text-center text-[18px] leading-[21px] font-bold">{t("review-your-offer-with-ceo")}</h1>
             <div className="flex flex-col items-center mt-[14px] mb-[21px]">
               <img src="user.jpg" alt="user" className="w-[50px] h-[50px] rounded-[50%] object-cover" width={50} height={50} />
@@ -486,24 +559,30 @@ const YourOffer = ({ handleNext }: any) => {
               <p className="text-[14px] leading-[17.64px] text-black font-medium mt-2 text-center">Jose Laffitte</p>
               <p className="text-[14px] leading-[17.64px] text-black text-center">jose@neosenergy.co</p>
             </div>
-
-            <div className="flex justify-center">
+            <InlineWidget
+              url={process.env.NEXT_PUBLIC_CALENDLY_URL || ""}
+              styles={{
+                height: '500px'
+              }}
+              // onModalClose={() => setOpen(false)}
+              // open={open}
+              // rootElement={document.getElementById("btn") as any}
+            />
+            {/* <div className="flex justify-center">
               <NeosButton
                 className={'px-[24px] py-[14px] text-sm leading-4 font-semibold w-auto'}
                 category="colored"
                 title={t("book-call-btn")}
               />
-            </div>
-
+            </div> */}
           </div>
-
         </div>
         {/* Customer review ends */}
 
 
 
         {/* Chart Starts here */}
-        <div className="flex justify-center flex-col lg:h-[474px] w-full border mt-8 border-[#E0E0E0] rounded-3xl p-4 lg:pt-6 pt-[18px]">
+        <div className="flex justify-center flex-col md:h-[474px] w-full border mt-8 border-[#E0E0E0] rounded-3xl p-4 lg:pt-6 pt-[18px]">
 
           {/*  chart header */}
           <div className="flex justify-between lg:gap-4 lg:mb-[40px] lg:flex-row flex-col gap-[14px] mb-2.5">
@@ -513,23 +592,23 @@ const YourOffer = ({ handleNext }: any) => {
               <div className="flex gap-4">
                 <NeosButton
                   category="outline"
-                  className='lg:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 font-medium text-black rounded-3xl border border-[#66BCDA] normal-case'
+                  className='lg:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 font-medium !text-black rounded-3xl border !border-[#66BCDA] normal-case'
                   title={t("How-it-work.chooseNeosPartner")}
                 />
                 <NeosButton
                   category="outline"
-                  className='g:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 font-medium text-black rounded-3xl border border-[#E0E0E0] normal-case'
+                  className='g:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 font-medium !text-black rounded-3xl border !border-[#E0E0E0] normal-case'
                   title={t("How-it-work.keepProvider")}
                 />
               </div>
             </div>
 
-            <div className="flex lg:flex-col lg:justify-end flex-row gap-1 justify-between">
-              <div className="flex items-center gap-2.5 w-1/2 lg:w-auto">
+            <div className="flex lg:flex-col lg:justify-end flex-row gap-1 justify-start">
+              <div className="flex items-center gap-2.5 max-w-1/2 lg:w-auto">
                 <div className="bg-[#436DC6] lg:w-[26px] w-[20px] h-[10px]"></div>
                 <span className="lg:text-[16px] lg:leading-[21px] text-[12px] leading-[15px] font-medium text-[#4F4F4F]">{t("chart.savingWithNeos")}</span>
               </div>
-              <div className="flex items-center gap-2.5 w-1/2 lg:w-auto">
+              <div className="flex items-center gap-2.5 max-w-1/2 lg:w-auto">
                 <div className="bg-[#EB5757] lg:w-[26px] w-[20px] h-[10px]"></div>
                 <span className="lg:text-[16px] lg:leading-[21px] text-[12px] leading-[15px] font-medium text-[#4F4F4F]">{t("chart.installationCost")}</span>
               </div>
@@ -537,7 +616,7 @@ const YourOffer = ({ handleNext }: any) => {
           </div>
 
           {/* chart container */}
-          <div className="lg:max-h-[314px] h-full max-h-[124px]">
+          <div className="md:max-h-[314px] max-h-[124px] h-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart width={150} height={40} data={data} >
                 <Bar dataKey="saving" fill="#436DC6" barSize={24} />
@@ -561,6 +640,7 @@ const YourOffer = ({ handleNext }: any) => {
             category="colored"
             className='px-5 py-3 text-[16px] leading-5 font-semibold w-auto'
             title={t("select-plan-btn")}
+            onClick={scrollToDiv}
           />
         </div>
 
