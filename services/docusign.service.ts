@@ -46,7 +46,7 @@ export const createEnvelope = async (
 ) => {
   try {
     const response = await axios.post(
-      "https://demo.docusign.net/restapi/v2/accounts/me/envelopes",
+      "https://demo.docusign.net/restapi/v2.1/accounts/2a6cb19d-7b9b-45a0-8e7e-46e03d32b79c/envelopes",
       envelopeData,
       {
         headers: {
@@ -74,12 +74,14 @@ export const getEmbeddedSigningUrl = async (
   offerData: any
 ): Promise<string> => {
   const response = await axios.post(
-    `https://demo.docusign.net/restapi/v2.1/accounts/me/envelopes/${envelopeId}/views/recipient`,
+    `https://demo.docusign.net/restapi/v2.1/accounts/2a6cb19d-7b9b-45a0-8e7e-46e03d32b79c/envelopes/${envelopeId}/views/recipient`,
     {
       returnUrl: `${process.env.NEXT_PUBLIC_DOCUSIGN_AFTER_SIGN_REDIRECT}?offer=${offerData._id}`,
       authenticationMethod: "email",
+      phoneNumber: offerData.phoneNumber,
       email: offerData.emailAddress,
       userName: offerData.firstName,
+      clientUserId: '1002',
     },
     {
       headers: createAuthHeader(accessToken),

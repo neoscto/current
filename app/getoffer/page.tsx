@@ -39,6 +39,8 @@ const HorizontalLinearStepper = () => {
   const dispath = useDispatch<AppDispatch>();
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const activeStep = searchParams.get("activeStep") || 0;
 
   // const handleSuccessResponce = (res: any) => {
   //   saveDataToSessionStorage("UserOffer", res.data);
@@ -74,9 +76,19 @@ const HorizontalLinearStepper = () => {
   const { loading, signature, signingUrl, downloadPdf } =
     useDocusignService(formik);
 
-  const searchParams = useSearchParams();
+  useEffect(() => {
+    window.addEventListener("message", (event) => {
+      if (event.data === "redirect_success_url") {
+        window.location.href = "/getoffer?activeStep=2";
+        window.removeEventListener("message", (event) => { });
+      }
+    });
+
+  }, [signingUrl])
+
+
   const [skipped, setSkipped] = useState<Set<number>>(new Set<number>());
-  const activeStep = searchParams.get("activeStep") || 0;
+
   const { formBack }: any = useSelector(
     (state: RootState) => state.commonSlice
   );

@@ -6,7 +6,7 @@ import theme, { outfit } from '@/styles/theme';
 import './globals.css'
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-const stripePromise = loadStripe('pk_live_51OSMbhE3ValX33mMoXmN49VYsnq6h0mNVlCpJAAvTRqsBoeDxHBekBz6RrnRTKZ9pJ4NdXPeYf2imRrCl8JtXsIU005SWQyg19');
+const stripePromise = loadStripe('pk_test_51OSMbhE3ValX33mMTwrHIIMHySCc84WNPn2edAMAFVHLIRH4co0OxRIiZCgW7RgNTvRmkm6pbdnNNf85iHXbMheT003C5bJozN');
 import "./i18n"
 
 

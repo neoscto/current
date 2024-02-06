@@ -105,9 +105,47 @@ const useDocusignService = (formik: any) => {
     }
   };
 
-  const signature = () => {
-    const authorizationUri = getAuthorizationUrl();
-    window.location.href = authorizationUri;
+  const signature = async () => {
+    // const authorizationUri = getAuthorizationUrl();
+    // window.location.href = authorizationUri;
+    const offerData: any = getDataFromSessionStorage("UserOffer");
+    setUserOffer(offerData);
+    if (formik && offerData) {
+      const arrayData = Object.keys(offerData);
+      arrayData.forEach((key: any) => {
+        formik.setFieldValue(key, offerData[key]);
+      });
+    }
+    setLoading(true);
+    try {
+      // setUserOffer(offerData);
+      const response = await fetch("/api/docusign/auth", {
+        method: "POST",
+        body: JSON.stringify({ "code": "", offerData }),
+      });
+      const { signingUrl, envelopeId, accessToken } = await response.json();
+      offerData.envelopeId = envelopeId;
+      setUserOffer(offerData);
+
+      // const handleMessage = (event: any) => {
+      //   if (event.data === "changeRoute") {
+      //     route.push("/getoffer?activeStep=2");
+      //     setSigningUrl("");
+      //   }
+      //   if (event.data === "gotToHomePage") {
+      //     route.push("/");
+      //   }
+      // };
+      // window.addEventListener("message", handleMessage);
+      saveDataToSessionStorage("docusignAccessToken", accessToken);
+      saveDataToSessionStorage("UserOffer", offerData);
+      setSigningUrl(signingUrl);
+    } catch (error) {
+    } finally {
+      setLoading(false);
+      // saveDataToSessionStorage("UserOffer", "");
+    }
+
   };
   return {
     loading,
