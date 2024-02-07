@@ -502,17 +502,20 @@ const YourOffer = ({ handleNext }: any) => {
             </div>
             <div className="flex justify-center">
               <NeosButton
-                className={'px-[24px] py-[14px] text-sm leading-4 font-semibold w-auto'}
+                sx={{ mt: 2 }}
+                id="btn"
                 category="colored"
-                title={t("book-call-btn")}
-                onClick={handleCalender}
+                title={t("Get-offer.book-expert-txt")}
+                onClick={() => handleCalender()}
               />
-              <PopupModal
+              {typeof window !== "undefined" && (
+                <PopupModal
                   url={process.env.NEXT_PUBLIC_CALENDLY_URL || ""}
                   onModalClose={() => setOpen(false)}
                   open={open}
                   rootElement={document.getElementById("btn") as any}
                 />
+              )}
             </div>
           </div>
         </div>
