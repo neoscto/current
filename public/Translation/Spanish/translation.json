@@ -191,5 +191,10 @@
     "title": "email failed",
     "send-email-txt1": "falló al enviar el correo electrónico",
     "sign-contract-txt": "falló al guardar el contrato"
+  },
+  "congrats": {
+    "title": "¡Felicidades!",
+    "desc1": "Ha firmado exitosamente el contrato y realizado el pago.",
+    "desc2": "Puedes descargar a continuación el contrato firmado."
   }
 }
