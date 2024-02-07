@@ -74,6 +74,7 @@ const CheckoutForm = () => {
         const paymentResponse = await response.json();
         if (paymentResponse.status === 'succeeded') {
           setIsPaymentSuccess(true);
+          window.location.href = "/getoffer?activeStep=3";
         }
         alert(paymentResponse.status);
         console.log('response', paymentResponse);
