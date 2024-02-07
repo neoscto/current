@@ -40,7 +40,7 @@ const LandingPage = () => {
                   }
                   autoPlay={true}
                   muted={true}
-                  controls={false}
+                  controls={true}
                 />
               </div>
               <div className="col-span-8 sm:col-span-8 md:col-span-4 lg:col-span-5 px-5 md:px-4 lg:px-10 leading-[48px] flex justify-center lg:justify-start items-center pt-5 pb-5 md:mb-24  md:mt-20 lg:mb-24  lg:mt-24">

@@ -9,6 +9,7 @@ import { RootState } from "@/store/store";
 import { useTranslation } from "react-i18next";
 
 const CARD_ELEMENT_OPTIONS = {
+  disableLink: true,
   style: {
     base: {
       iconColor: "#FD7C7C",

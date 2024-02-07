@@ -5,14 +5,14 @@
     },
     "title": "Bienvenido al Futuro",
     "description": "Descubre Solar Virtual. Sin instalación. Energía económica. Conexión instantánea.",
-    "btn1txt": "SABER MÁS",
-    "btn2txt": "OBTENER PRESUPUESTO"
+    "btn1txt": "PARA EXPLORAR",
+    "btn2txt": "CALCULAR MIS AHORROS"
   },
   "Description": {
     "title": "¿Qué es la energía solar virtual?",
-    "description": "<b>Neos</b> te ofrece la oportunidad de comprar paneles solares ubicados en los parques solares existentes en España. Esto significa que generarás tu propia electricidad renovable y la recibirás en tu casa o negocio a través de la red eléctrica del país, ¡tan pronto como el primer día del próximo mes!",
+    "description": "<b>Neos</b> permite ser propietario de toda la electricidad producida por las placas solares de los parques solares españoles. Esto significa que generarás tu propia electricidad renovable y la recibirás en tu hogar o negocio a través de la red eléctrica del país, ¡el primer día del próximo mes!",
     "point1": "Ahorros de costos significativos",
-    "point1Description": "Hasta un 80% de reducción en las facturas de electricidad y un X% más barato que las instalaciones solares en tejados.",
+    "point1Description": "Hasta un 80% de reducción en las facturas de electricidad y hasta un 35% más barato que las instalaciones solares en tejados.",
     "point2": "Acceda desde cualquier lugar, al instante",
     "point2Description": "Conexión instantánea a la red. No requiere panel de techo ni ningún tipo de instalación.",
     "point3": "Retorno financiero",
@@ -21,7 +21,7 @@
     "point4Description": "Los paneles solares tienen una vida útil de 25 años, proporcionando energía 100% renovable.",
     "benefits": "Beneficios"
   },
-  "Calculate-saving-btn": "CALCULAR TUS AHORROS",
+  "Calculate-saving-btn": "CALCULAR MIS AHORROS",
   "Receive Offer": "Recibir Oferta",
   "Sign Contract": "Firmar Contrato",
   "Enjoy Solar": "Disfrutar del Solar",
@@ -51,7 +51,7 @@
     "field-label1": "Número de personas que viven en la casa",
     "field-label2": "CUPS",
     "field-desc": "Puedes encontrar tu número de CUPS en cualquiera de tus facturas de electricidad",
-    "form-t&c": "Al marcar, confirmas que has leído, entendido y aceptas",
+    "form-t&c": "Al marcar, confirma que ha leído, comprendido y aceptado las",
     "form-t&c-txt": "Términos y Condiciones",
     "view-contract-txt": "VER CONTRATO"
   },
@@ -65,7 +65,7 @@
     "offer-saving-1": "ahorro anual",
     "offer-saving-2": "ahorro total",
     "offer-payback": "años de devolución",
-    "offer-consumption": "de consumo cubierto por",
+    "offer-consumption": "de consumo cubierto por energía solar",
     "contract-btn-txt": "descargar oferta",
     "download-offer": "download offer",
     "Redeem-code-discount": "Código de referencia para un descuento"
@@ -107,8 +107,8 @@
       }
     },
     "selectPlan": "Seleccionar plan",
-    "buyPanelProviderNeos": "Compre paneles y elija Neos como mi proveedor",
-    "buyPanelProviderCurrent": "Comprar paneles y conservar mi proveedor actual"
+    "buyPanelProviderNeos": "Comprar instalaciones y hacer de Neos mi proveedor",
+    "buyPanelProviderCurrent": "Comprar instalaciones y\nmantener mi proveedor"
   },
   "How-it-work": {
     "title": "¿Cómo funciona?",
@@ -119,8 +119,8 @@
     "point5": "Deberás pagar peajes y costos asociados al uso de la red, estimados en €0.02 por KWh.",
     "point6": "Si decides que no quieres a Neos como tu proveedor, no hay compromiso de permanecer con nosotros, y puedes elegir otro proveedor en cualquier momento.",
     "point7": "Si eliges otro proveedor, te enviaremos cada mes los ingresos generados por la venta de tu energía solar al mercado eléctrico, equivalentes a los ahorros que obtendrías si aún estuvieras con Neos.",
-    "chooseNeosPartner": "Elija Neos como su proveedor",
-    "keepProvider": "Mantenga su proveedor actual",
+    "chooseNeosPartner": "Hacer de Neos mi proveedor",
+    "keepProvider": "Manter meu provedor atual",
     "NeosPartner": {
       "point1": "Neos se convierte en tu proveedor. No te preocupes, nosotros nos encargamos de todo. Nos pondremos en contacto con su proveedor para cambiar su contrato.",
       "point2": "La electricidad generada por tu instalación te la proporcionamos de forma gratuita. Cuando tu instalación no produce electricidad, te suministramos electricidad a nuestro coste base, sin añadir ningún margen de beneficio.",

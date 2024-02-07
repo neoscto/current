@@ -57,7 +57,7 @@ const HorizontalLinearStepper = () => {
     phoneNumber: "",
     numberofpeopleAdditionValue: 1,
   };
-  const [showForm, setShowForm] = useState<string>("allOffers");
+  const [showForm, setShowForm] = useState<string>("yourOffer");
 
   const [formik, isLoading]: any = useHandleForm({
     method: "POST",
