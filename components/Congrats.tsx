@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import NeosButton from "@/components/NeosButton";
 import { useTranslation } from "react-i18next";
+import VideoPreview from "@/app/videoPlayer/preview";
 
 const Congrats = ({ generatePDF }: any) => {
   const { t } = useTranslation();
@@ -32,6 +33,18 @@ const Congrats = ({ generatePDF }: any) => {
             category="colored"
             title={t("Email-success.download-txt")}
             onClick={generatePDF}
+          />
+        </div>
+      </div>
+
+      <div className="mx-auto flex justify-center items-center w-full lg:w-3/6">
+        <div className="relative w-full lg:h-[347px] max-w-[310px] lg:max-w-[223px] h-[405px] video-container !rounded-3xl overflow-hidden">
+          <VideoPreview
+            custonClass="lg:max-h-[347px] h-full lg:w-[223px] w-[310px] max-h-[405px]"
+            url="https://videos.gotolstoy.com/public/41532226-45a4-45f6-a10f-a313cb492bc8/6c2ed4e4-393f-415d-8c6f-495ee6f13e80/6c2ed4e4-393f-415d-8c6f-495ee6f13e80.mp4"
+            controls={false}
+            muted
+            autoPlay
           />
         </div>
       </div>
