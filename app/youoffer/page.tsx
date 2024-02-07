@@ -341,7 +341,7 @@ const YourOffer = ({ handleNext }: any) => {
         <div className="w-full gap-[30px] justify-between lg:mt-[46px] flex flex-col-reverse lg:flex-row mt-[23px]">
           <div className="overflow-x-auto w-full lg:max-w-[100%_-_253px]">
             <div className="flex">
-              <div className="flex flex-col items-end max-w-[807px] min-w-[807px] w-full ">
+              <div className="flex flex-col items-end max-w-[807px] min-w-[807px] w-full mx-auto">
                 {/* header render */}
                 <div className="flex justify-end max-w-[calc(100%_-_225px)] w-full">
                   {panelHeader.map((head, index) => {
