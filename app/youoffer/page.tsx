@@ -372,7 +372,7 @@ const YourOffer = ({ handleNext }: any) => {
           </div>
 
           <div className="lg:max-w-[223px] w-full max-w-full flex justify-center items-center">
-            <div className="relative w-full lg:h-[347px] max-w-[310px] lg:max-w-[223px] h-[405px] video-container rounded-3xl overflow-hidden">
+            <div className="relative w-full lg:h-[347px] max-w-[310px] lg:max-w-[223px] h-[405px] video-container !rounded-3xl overflow-hidden">
               <VideoPreview
                 custonClass="lg:max-h-[347px] h-full lg:w-[223px] w-[310px] max-h-[405px]"
                 url="https://videos.gotolstoy.com/public/41532226-45a4-45f6-a10f-a313cb492bc8/6c2ed4e4-393f-415d-8c6f-495ee6f13e80/6c2ed4e4-393f-415d-8c6f-495ee6f13e80.mp4"
@@ -424,14 +424,14 @@ const YourOffer = ({ handleNext }: any) => {
         </div>
 
         {/* How does it work? */}
-        <div className="w-full  pt-6 lg:px-[34px] px-4 pb-[22px] border border-[#E0E0E0] rounded-3xl">
+        <div className="w-full  pt-6 lg:px-[34px] px-4 pb-[22px] border border-[#E0E0E0] !rounded-3xl">
 
           <h1 className="text-black text-[20px] leading-[25px] font-semibold text-center">
             {t("How-it-work.title")}
           </h1>
 
           <div className="flex mt-[34px] lg:gap-6 lg:flex-row flex-col gap-[22px]">
-            <div className="bg-[#E7F5FA] rounded-3xl lg:p-5 w-full px-3 py-5 ">
+            <div className="bg-[#E7F5FA] !rounded-3xl lg:p-5 w-full px-3 py-5 ">
               <h1 className="lg:text-[18px] lg:leading-[22.68px] text-[16px] leading-5 text-black text-center font-semibold">{t("How-it-work.chooseNeosPartner")}</h1>
               <ul className="flex flex-col gap-4 mt-[30px] list-disc pl-5">
                 <li className="text-[14px] leading-[21px] text-black">{t("How-it-work.NeosPartner.point1")}</li>
@@ -440,7 +440,7 @@ const YourOffer = ({ handleNext }: any) => {
               </ul>
             </div>
 
-            <div className="bg-[#E7F5FA] rounded-3xl lg:p-5 w-full px-3 py-5">
+            <div className="bg-[#E7F5FA] !rounded-3xl lg:p-5 w-full px-3 py-5">
               <h1 className="text-[18px] leading-[22.68px] text-black text-center font-semibold">{t("How-it-work.keepProvider")}</h1>
 
               <ul className="flex flex-col gap-4 mt-[30px] list-disc pl-5">
@@ -456,7 +456,7 @@ const YourOffer = ({ handleNext }: any) => {
 
         {/* Customer review starts */}
         <div className="flex lg:gap-[26px] lg:mt-8 mt-[19px] gap-[17px] lg:flex-row flex-col">
-          <div className="lg:max-w-[635px] w-full lg:py-6 lg:pl-5 lg:pr-[31px] pt-[22px] pb-[17px] px-[16px] border flex flex-col justify-between gap-2 border-[#E0E0E0] rounded-3xl max-w-full">
+          <div className="lg:max-w-[635px] w-full lg:py-6 lg:pl-5 lg:pr-[31px] pt-[22px] pb-[17px] px-[16px] border flex flex-col justify-between gap-2 border-[#E0E0E0] !rounded-3xl max-w-full">
             <div className="">
               <h1 className="text-[18px] leading-[21px] font-bold flex flex-col lg:text-left text-center">{t("customer-review")}</h1>
 
@@ -556,7 +556,7 @@ const YourOffer = ({ handleNext }: any) => {
             </div>
           </div>
 
-          <div className="lg:max-w-[399px] w-full bg-[#E7F5FA] rounded-3xl py-5 px-5 max-w-full">
+          <div className="lg:max-w-[399px] w-full bg-[#E7F5FA] !rounded-3xl py-5 px-5 max-w-full">
             <h1 className="whitespace-pre text-center text-[18px] leading-[21px] font-bold">{t("review-your-offer-with-ceo")}</h1>
             <div className="flex flex-col items-center mt-[14px] mb-[21px]">
               <img src="user.jpg" alt="user" className="w-[50px] h-[50px] rounded-[50%] object-cover" width={50} height={50} />
@@ -587,7 +587,7 @@ const YourOffer = ({ handleNext }: any) => {
 
 
         {/* Chart Starts here */}
-        <div className="flex justify-center flex-col md:h-[474px] w-full border mt-8 border-[#E0E0E0] rounded-3xl p-4 lg:pt-6 pt-[18px]">
+        <div className="flex justify-center flex-col md:h-[474px] w-full border mt-8 border-[#E0E0E0] !rounded-3xl p-4 lg:pt-6 pt-[18px]">
 
           {/*  chart header */}
           <div className="flex justify-between lg:gap-4 lg:mb-[40px] lg:flex-row flex-col gap-[14px] mb-2.5">
@@ -649,7 +649,7 @@ const YourOffer = ({ handleNext }: any) => {
           />
         </div>
 
-        <div className="w-full rounded-3xl lg:h-[388px] h-[651px] relative overflow-hidden">
+        <div className="w-full !rounded-3xl lg:h-[388px] h-[651px] relative overflow-hidden">
           <img src="video-placeholder.png" alt="video" className="object-cover lg:h-[388px] h-[651px]" />
           <div className="lg:max-w-[340px] w-full bg-[#01092299] px-5 py-4 rounded-[30px] top-6 lg:left-6 absolute -translate-x-1/2 left-1/2 lg:translate-x-0 max-w-[calc(100%_-_30px)]">
             <p className="lg:text-[20px] lg:leading-[25px] text-[14px] leading-[17.64px] font-semibold text-white">{t("chart.peekSolarFarm")}</p>
