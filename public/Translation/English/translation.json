@@ -6,7 +6,7 @@
     "title": "Welcome to the Future",
     "description": "Discover Virtual Solar. No installation. Cheap energy. Instant connection.",
     "btn1txt": "EXPLORE",
-    "btn2txt": "CALCULATE SAVINGS"
+    "btn2txt": "CALCULATE MY SAVINGS"
   },
   "Description": {
     "title": "What is Virtual Solar?",
@@ -21,7 +21,7 @@
     "point4Description": "Solar panels have a 25-year useful life, providing 100% renewable energy.",
     "benefits": "Benefits"
   },
-  "Calculate-saving-btn": "CALCULATE SAVINGS",
+  "Calculate-saving-btn": "CALCULATE MY SAVINGS",
   "Receive Offer": "Receive Offer",
   "Sign Contract": "Sign Contract",
   "Enjoy Solar": "Enjoy Solar",
