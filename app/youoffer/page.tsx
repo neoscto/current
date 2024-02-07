@@ -534,12 +534,12 @@ const YourOffer = ({ handleNext }: any) => {
               <div className="flex gap-4">
                 <NeosButton
                   category="outline"
-                  className='lg:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 font-medium !text-black !rounded-3xl border !border-[#66BCDA] normal-case h-12'
+                  className='lg:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 font-medium !text-black !rounded-3xl border-2 !border-[#66BCDA] normal-case h-12'
                   title={t("How-it-work.chooseNeosPartner")}
                 />
                 <NeosButton
                   category="outline"
-                  className='g:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 font-medium !text-black !rounded-3xl border !border-[#E0E0E0] normal-case h-12'
+                  className='g:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 font-medium !text-black !rounded-3xl border-2 !border-[#E0E0E0] normal-case h-12'
                   title={t("How-it-work.keepProvider")}
                 />
               </div>
@@ -562,7 +562,7 @@ const YourOffer = ({ handleNext }: any) => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart width={150} height={40} data={data} >
                 <Bar dataKey="saving" fill="#436DC6" barSize={24} />
-                <XAxis dataKey="years" tickLine={false} fontFamily={'outline'} className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]">
+                <XAxis dataKey="years" tickLine={false} fontFamily={'outline'} className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px] mt-[10px]">
                   <Label offset={0} position="insideBottom" fontSize={20} value={t("years")} className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]" />
                 </XAxis>
                 <YAxis tickCount={4} tickLine={false} fontFamily={'outline'} domain={[0, 15000]} tickFormatter={(value) => value > 0 ? `${value / 1000}K` : value} className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]">
