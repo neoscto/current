@@ -5,14 +5,14 @@
     },
     "title": "Bem-vindo ao Futuro",
     "description": "Descubra o Solar Virtual. Sem instalação. Energia barata. Conexão instantânea.",
-    "btn1txt": "SAIBA MAIS",
-    "btn2txt": "OBTER COTAÇÃO"
+    "btn1txt": "EXPLORAR",
+    "btn2txt": "CALCULAR MINHAS ECONOMIAS"
   },
   "Description": {
     "title": "O que é Solar Virtual?",
-    "description": "A <b>Neos</b> oferece-lhe a oportunidade de comprar painéis solares localizados nos parques solares existentes em Espanha. Isso significa que você irá gerar sua própria eletricidade renovável e recebê-la em sua casa ou empresa através da rede elétrica do país, já no primeiro dia do próximo mês!",
+    "description": "A <b>Neos</b> permite-lhe possuir toda a eletricidade produzida pelos painéis solares nos parques solares espanhóis. Isso significa que você irá gerar sua própria eletricidade renovável e recebê-la em sua casa ou empresa através da rede elétrica do país, já no primeiro dia do próximo mês!",
     "point1": "Economia de custos significativa",
-    "point1Description": "Redução de até 80% nas contas de eletricidade e X% mais barato do que instalações solares em telhados.",
+    "point1Description": "Redução de até 80% nas contas de eletricidade e até 35% mais barata do que instalações solares em telhados.",
     "point2": "Acesse em qualquer lugar, instantaneamente",
     "point2Description": "Conexão instantânea à rede. Não é necessário painel de telhado ou qualquer tipo de instalação.",
     "point3": "Retorno financeiro",
@@ -21,7 +21,7 @@
     "point4Description": "Os painéis solares têm vida útil de 25 anos, fornecendo energia 100% renovável.",
     "benefits": "Benefícios"
   },
-  "Calculate-saving-btn": "CALCULAR SUAS ECONOMIAS",
+  "Calculate-saving-btn": "CALCULAR MINHAS ECONOMIAS",
   "Receive Offer": "Receber Oferta",
   "Sign Contract": "Assinar Contrato",
   "Enjoy Solar": "Desfrutar do Solar",
@@ -51,7 +51,7 @@
     "field-label1": "Número de pessoas que vivem na casa",
     "field-label2": "CUPS",
     "field-desc": "Você pode encontrar seu número de CUPS em qualquer uma de suas contas de eletricidade",
-    "form-t&c": "Ao marcar, você confirma que leu, entendeu e concorda",
+    "form-t&c": "Ao assinalar, você confirma que leu, entendeu e concordou com os",
     "form-t&c-txt": "Termos e Condições",
     "view-contract-txt": "VER CONTRATO"
   },
@@ -65,7 +65,7 @@
     "offer-saving-1": "economia anual",
     "offer-saving-2": "economia total",
     "offer-payback": "anos de retorno",
-    "offer-consumption": "de consumo coberto por",
+    "offer-consumption": "do consumo coberto pela energia solar",
     "contract-btn-txt": "gerar contrato",
     "download-offer": "descargar oferta",
     "Redeem-code-discount": "Código de referência para um desconto"
@@ -107,8 +107,8 @@
       }
     },
     "selectPlan": "Selecione o plano",
-    "buyPanelProviderNeos": "Compre painéis e escolha Neos como meu fornecedor",
-    "buyPanelProviderCurrent": "Compre painéis e mantenha meu fornecedor atual"
+    "buyPanelProviderNeos": "Compre instalações e faça do Neos meu provedor",
+    "buyPanelProviderCurrent": "Compre instalações e\nmantenha meu provedor"
   },
   "How-it-work": {
     "title": "Como funciona?",
@@ -119,8 +119,8 @@
     "point5": "Você precisará pagar pedágios e custos associados ao uso da rede, estimados em €0.02 por KWh.",
     "point6": "Se decidir que não quer a Neos como sua revendedora, não há compromisso de permanecer conosco, e você pode escolher outro revendedor a qualquer momento.",
     "point7": "Se escolher outro revendedor, enviaremos a você todo mês os ganhos gerados pela venda de sua energia solar para o mercado de eletricidade, equivalentes às economias que teria se ainda estivesse com a Neos.",
-    "chooseNeosPartner": "Escolha Neos como seu provedor",
-    "keepProvider": "Mantenha seu provedor atual",
+    "chooseNeosPartner": "Faça do Neos meu provedor",
+    "keepProvider": "Manter meu provedor atual",
     "NeosPartner": {
       "point1": "Neos se torna seu provedor. Não se preocupe, nós cuidamos de tudo. Entraremos em contato com seu provedor para alterar seu contrato.",
       "point2": "A eletricidade gerada pela sua instalação é-lhe fornecida gratuitamente. Quando a sua instalação não produz eletricidade, fornecemos-lhe eletricidade ao nosso custo base, sem acrescentar qualquer margem de lucro.",
