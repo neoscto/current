@@ -16,7 +16,7 @@ const VideoPlayer = () => {
   const playerRef = useRef<any>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState<boolean>(false);
   const videoUrl =
-    "https://videos.gotolstoy.com/public/f00d787b-4ba2-43d0-a780-24ad46b005ca/98d32db0-b1fe-4938-ba9d-a36346605775/98d32db0-b1fe-4938-ba9d-a36346605775.mp4";
+    "https://videos.gotolstoy.com/public/41532226-45a4-45f6-a10f-a313cb492bc8/6c2ed4e4-393f-415d-8c6f-495ee6f13e80/6c2ed4e4-393f-415d-8c6f-495ee6f13e80.mp4";
   const handleVideoClick = () => {
     // alert("hy");
     setIsCentered(!isCentered);
@@ -119,21 +119,20 @@ const VideoPlayer = () => {
               />
             </div>
           ) : (
-            // <div
-            //   className="w-12 h-12 flex items-center justify-center rounded-full bg-[#ED817D] text-white text-xl shadow-sm rounded-md`"
-            //   onClick={() => {
-            //     setIsShow(!isShow);
-            //   }}
-            // >
-            //   <Image
-            //     src={VideoLogo}
-            //     alt="video-logo"
-            //     width={20}
-            //     height={20}
-            //     className="cursor-pointer text-white"
-            //   />
-            // </div>
-            <></>
+            <div
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-[#ED817D] text-white text-xl shadow-sm rounded-md`"
+              onClick={() => {
+                setIsShow(!isShow);
+              }}
+            >
+              <Image
+                src={VideoLogo}
+                alt="video-logo"
+                width={20}
+                height={20}
+                className="cursor-pointer text-white"
+              />
+            </div>
           )}
         </Box>
       ) : (
