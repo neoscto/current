@@ -13,12 +13,12 @@ const Congrats = ({ generatePDF }: any) => {
           <Image src="/success.png" alt="user image" fill />
         </div>
         <h1 className="text-lg md:2xl lg:text-3xl font-bold mb-3.5 mt-2">
-          {t("Email-success.title")}
+          {t("congrats.title")}
         </h1>
         <label className="ext-sm font-normal text-[#828282] text-center ">
-          {t("Email-success.desc1")}
+          {t("congrats.desc1")}
           <br></br>
-          {t("Email-success.desc2")}
+          {t("congrats.desc2")}
         </label>
         <div className="w-full border border-[#E0E0E0] rounded-xl py-3 px-4 flex justify-between items-center my-7">
           <div className="flex items-center">

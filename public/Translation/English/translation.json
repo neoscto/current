@@ -191,5 +191,10 @@
     "title": "email failed",
     "send-email-txt1": "failed to sent email",
     "sign-contract-txt": "failed to save contract"
+  },
+  "congrats": {
+    "title": "Congratulations!",
+    "desc1": "You have successfully signed the contract and make the payment.",
+    "desc2": "You can download below the signed contract."
   }
 }
