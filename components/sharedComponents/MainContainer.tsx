@@ -22,12 +22,12 @@ const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
   }, [language, i18n.language]);
   return (
     <div className="landing-page-container w-full flex flex-col min-h-[100vh] relative">
-      <Navbar  />
+      <Navbar />
       <div className="flex-1 flex justify-center items-center">{children}</div>
       <div className="mt-12">
         <Footer />
       </div>
-      <VideoPlayer />
+      {/* <VideoPlayer /> */}
     </div>
   );
 };

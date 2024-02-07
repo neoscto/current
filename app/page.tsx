@@ -10,13 +10,22 @@ interface postData {
 
 export default function Home() {
 
-  const dispath = useDispatch < AppDispatch > ()
+  const dispath = useDispatch<AppDispatch>()
   // const { post } = useSelector((state: RootState) => state.commonSlice)
 
   // console.log(post)
   // useEffect(() => {
   //   dispath(fetchPosts())
   // }, [])
+
+  useEffect(() => {
+    (window as any).tolstoyWidgetId = "iwq80wxppj53m";
+    var s = document.createElement("script");
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = "https://widget.gotolstoy.com/widget/widget.js";
+    document.head.appendChild(s);
+  }, [])
 
   return (
     <div className='w-full relative'>
