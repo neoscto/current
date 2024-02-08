@@ -293,13 +293,13 @@ const YourOffer = ({ handleNext }: any) => {
                 <div className="flex lg:gap-4 lg:justify-normal justify-center md:flex-row flex-col gap-3" >
                   <NeosButton
                     category="outline"
-                    className='!text-black py-[14px] lg:px-[24px] !outline-[2px] !outline !outline-[#66BCDA] font-medium text-[16px] leading-5 normal-case px-[53px] whitespace-pre md:whitespace-normal'
+                    className='!text-black py-[14px] lg:px-[24px] !outline-[2px] !outline !outline-[#66BCDA] font-medium text-[16px] leading-5 !normal-case px-[53px] whitespace-pre md:whitespace-normal'
                     title={t("offer.buyPanelProviderNeos")}
                   />
 
                   <NeosButton
                     category="outline"
-                    className='!text-black py-[14px] lg:px-[24px] !outline-[2px] !outline !outline-[#E0E0E0] font-medium text-[16px] leading-5 normal-case px-[53px] whitespace-pre md:whitespace-normal'
+                    className='!text-black py-[14px] lg:px-[24px] !outline-[2px] !outline !outline-[#E0E0E0] font-medium text-[16px] leading-5 !normal-case px-[53px] whitespace-pre md:whitespace-normal'
                     title={t("offer.buyPanelProviderCurrent")}
                   />
                 </div>
