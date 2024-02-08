@@ -5,8 +5,9 @@ import {
   getEmbeddedSigningUrl,
 } from "@/services/docusign.service";
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import * as jwt from 'jsonwebtoken'
+import * as fs from 'fs';
+import path from 'path';
 import { UsersOffers } from "@/models/UsersOffers";
 import jsPDF from "jspdf";
 import connectDB from "@/lib/connect-db";
@@ -103,8 +104,8 @@ export async function POST(_request: Request, _response: Response) {
     const body = await _request.json();
     // const code = body.code;
     const offerData = body.offerData;
-    // const accessToken = await authenticate(code as string);
-    const accessToken = process.env.NEXT_PUBLIC_DOCUSIGN_API_TOKEN || "";
+    const accessToken: string = await getAccessToken();
+    // const accessToken = process.env.NEXT_PUBLIC_DOCUSIGN_API_TOKEN || "";
     const envelopeData = generateEnvelopeData(offerData);
 
     const envelopeId = await createEnvelope(accessToken, envelopeData);
@@ -128,4 +129,34 @@ export async function POST(_request: Request, _response: Response) {
 
     return createErrorResponse(error.message, 500);
   }
+}
+
+const getAccessToken = async () => {
+
+  const iat = Math.floor(Date.now() / 1000);
+  const payload = {
+    "iss": "cc82c409-08f6-4fe1-bdd3-03fb28efd21e",
+    "sub": "0d895940-2603-4e3a-94e2-e4687fcc2da0",
+    "aud": "account-d.docusign.com",
+    "iat": iat,
+    "exp": iat + 3600,
+    "scope": "signature"
+  }
+  const privateKeyBuffer = fs.readFileSync(path.join(process.cwd(), 'app/api/docusign/auth/private.key'));
+  const header = {
+    alg: 'RS256', // Algorithm used for signing (RSA with SHA-256)
+    typ: 'JWT',   // Type of token
+  };
+  const tokenAssertion = jwt.sign(payload, privateKeyBuffer, { header });
+
+  const tokenResponse = await fetch('https://account-d.docusign.com/oauth/token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=${tokenAssertion}`
+  });
+  const token = await tokenResponse.json();
+  return token.access_token;
+
 }
