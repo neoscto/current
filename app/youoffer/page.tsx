@@ -534,12 +534,12 @@ const YourOffer = ({ handleNext }: any) => {
               <div className="flex gap-4">
                 <NeosButton
                   category="outline"
-                  className='lg:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 font-medium !text-black !rounded-3xl border-2 !border-[#66BCDA] normal-case h-12'
+                  className='lg:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 font-medium !text-black !rounded-[24px] !border-2 !border-[#66BCDA] normal-case h-12'
                   title={t("How-it-work.chooseNeosPartner")}
                 />
                 <NeosButton
                   category="outline"
-                  className='g:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 font-medium !text-black !rounded-3xl border-2 !border-[#E0E0E0] normal-case h-12'
+                  className='g:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 font-medium !text-black !rounded-[24px] border-2 !border-[#E0E0E0] normal-case h-12'
                   title={t("How-it-work.keepProvider")}
                 />
               </div>
