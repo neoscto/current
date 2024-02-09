@@ -49,7 +49,7 @@ const generateEnvelopeData = (offerData: any) => {
           clientUserId: '1002',
           smsAuthentication: {
             senderProvidedNumbers: [
-              `+44${offerData.phoneNumber}`,
+              `${offerData.phoneNumber}`,
             ]
           },
           "identityVerification": {
@@ -61,9 +61,9 @@ const generateEnvelopeData = (offerData: any) => {
                 "phoneNumberList": [
                   {
                     "countryCodeLock": false,
-                    "countryCode": "44",
+                    "countryCode": offerData.dialCode,
                     "number": offerData.phoneNumber,
-                    "extension": "44"
+                    "extension": offerData.dialCode
                   }
                 ]
               }

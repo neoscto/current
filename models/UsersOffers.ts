@@ -18,6 +18,7 @@ export type UsersOffersSchemaProps = {
   firstName: string;
   lastName: string;
   phoneNumber: string;
+  dialCode: string;
   cups: number;
   numberOfPeople: number;
   numberOfPeopleAdditionValue: number;
@@ -68,6 +69,9 @@ class UsersOffersSchema {
 
   @prop({ required: true })
   phoneNumber: string;
+
+  @prop({ required: true })
+  dialCode: string;
 
   @prop({ required: false })
   cups: number;

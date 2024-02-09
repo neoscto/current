@@ -10,7 +10,9 @@ import {
   getDataFromSessionStorage,
   saveDataToSessionStorage,
 } from "@/utils/utils";
-// import axios from "axios";
+import 'react-phone-number-input/style.css'
+import PhoneInput, { Country, getCountryCallingCode, isValidPhoneNumber } from 'react-phone-number-input'
+import { useState } from "react";
 
 interface GetOfferProps {
   formik: any;
@@ -38,6 +40,7 @@ const GetOffer: React.FC<GetOfferProps> = ({
         emailAddress: formik.values.emailAddress,
         numberOfPeople: formik.values.numberOfPeople,
         phoneNumber: formik.values.phoneNumber,
+        dialCode: formik.values.dialCode,
         cups: formik.values.cups,
       };
       const response = await fetch(
@@ -128,7 +131,7 @@ const GetOffer: React.FC<GetOfferProps> = ({
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={6}>
-                <NeosTextField
+                {/* <NeosTextField
                   placeholder={t("Get-offer-form.form-placeholder")}
                   label={t("Get-offer-form.phone")}
                   name="phoneNumber"
@@ -136,7 +139,29 @@ const GetOffer: React.FC<GetOfferProps> = ({
                   onChange={formik.handleChange}
                   error={Boolean(formik.errors.phoneNumber)}
                   helperText={t(formik.errors.phoneNumber)}
+                /> */}
+                <label className="text-sm text-black  font-medium mb-1.5 block">
+                  {t("Get-offer-form.phone")}
+                </label>
+                <PhoneInput
+                  placeholder={t("Get-offer-form.form-placeholder")}
+                  name="phoneNumber"
+                  className="border border-[#E0E0E0] rounded-[8px] p-3 w-full"
+                  international
+                  value={formik.values.phoneNumber}
+                  countryCallingCodeEditable={false}
+                  defaultCountry="GB"
+                  onCountryChange={(country: Country) => {
+                    const dialCode = getCountryCallingCode(country)
+                    formik.setFieldValue('dialCode', dialCode);
+                  }}
+                  onChange={(value) => {
+                    formik.setFieldValue('phoneNumber', value);
+                  }}
                 />
+                <p className="font-sm text-[#2D9CDB] mt-1">
+                  {formik.values.phoneNumber ? (isValidPhoneNumber(formik.values.phoneNumber) ? undefined : 'Invalid phone number') : 'Phone number required'}
+                </p>
               </Grid>
             </Grid>
             <div className="text-center mt-8 md:mt-24 lg:mt-24">
@@ -206,7 +231,7 @@ const GetOffer: React.FC<GetOfferProps> = ({
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={6}>
-                <NeosTextField
+                {/* <NeosTextField
                   placeholder={t("Get-offer-form.form-placeholder")}
                   label={t("Get-offer-form.phone")}
                   name="phoneNumber"
@@ -214,7 +239,29 @@ const GetOffer: React.FC<GetOfferProps> = ({
                   onChange={formik.handleChange}
                   error={Boolean(formik.errors.phoneNumber)}
                   helperText={t(formik.errors.phoneNumber)}
+                /> */}
+                <label className="text-sm text-black  font-medium mb-1.5 block">
+                  {t("Get-offer-form.phone")}
+                </label>
+                <PhoneInput
+                  placeholder={t("Get-offer-form.form-placeholder")}
+                  name="phoneNumber"
+                  className="border border-[#E0E0E0] rounded-[8px] p-3 w-full"
+                  international
+                  value={formik.values.phoneNumber}
+                  countryCallingCodeEditable={false}
+                  defaultCountry="GB"
+                  onCountryChange={(country: Country) => {
+                    const dialCode = getCountryCallingCode(country)
+                    formik.setFieldValue('dialCode', dialCode);
+                  }}
+                  onChange={(value) => {
+                    formik.setFieldValue('phoneNumber', value);
+                  }}
                 />
+                <p className="font-sm text-[#2D9CDB] mt-1">
+                  {formik.values.phoneNumber ? (isValidPhoneNumber(formik.values.phoneNumber) ? undefined : 'Invalid phone number') : 'Phone number required'}
+                </p>
               </Grid>
             </Grid>
             <div className="text-center mt-8 md:mt-24 lg:mt-24">

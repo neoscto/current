@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { CardElement, useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
 import { Grid } from "@mui/material";
 import NeosTextField from "@/components/NeosTextField";
 import NeosButton from "@/components/NeosButton";
@@ -50,21 +50,25 @@ const CheckoutForm = () => {
     setLoading(true);
 
     try {
-      const cardElement = elements?.getElement(CardElement);
 
+      if (!stripe || !elements) {
+        throw new Error(t("Payment.stripe-not-found-err"));
+      }
+
+      const cardElement = elements?.getElement(CardNumberElement);
       if (!cardElement) {
         throw new Error(t("Payment.element-not-found-err"));
       }
 
       const { token, error } = await stripe!.createToken(cardElement);
       if (error?.code === "insufficient_funds") {
-        alert(t("Payment.insufficient-fund-err"));
+        setError(error.message || "");
       }
       if (error) {
         console.log('PAYMENT ERROR ==>', error);
+        setError(error.message || "");
       }
       if (token) {
-        debugger;
         const response = await fetch("/api/payment", {
           method: "POST",
           headers: {
@@ -77,7 +81,6 @@ const CheckoutForm = () => {
           setIsPaymentSuccess(true);
           window.location.href = "/getoffer?activeStep=3";
         }
-        alert(paymentResponse.status);
         console.log('response', paymentResponse);
       }
       // Send the token to your server to complete the payment
@@ -98,36 +101,42 @@ const CheckoutForm = () => {
         <p className="text-lg font-medium text-black">{t("Payment.title")}</p>
         <p className="text-[#667085] text-sm mb-8">{t("Payment.desc")}</p>
         <Grid container rowSpacing={3} columnSpacing={3}>
-          <Grid item xs={12} sm={12} md={12}>
+          {/* Name on card */}
+          <Grid item xs={8} sm={12} md={8}>
             <NeosTextField
               placeholder="Olivia Rhye"
               label={t("Payment.card-name")}
             />
           </Grid>
 
-          <Grid item xs={12} sm={12} md={12}>
-            <div className="flex justify-between">
-              <label className="text-sm text-black  font-medium mb-1.5 block">
-                {t("Payment.card-number")}
-              </label>
-              <span className="flex">
-                <label className="text-sm text-black  font-medium mb-1.5 ">
-                  {t("Payment.expiry")}
-                </label>
-                <label className="text-sm text-black  font-medium mb-1.5 ms-5 pe-4">
-                  {t("Payment.cvv")}
-                </label>
-              </span>
-            </div>
-            <div
-              style={{
-                border: "1px solid #E0E0E0",
-                borderRadius: "8px",
-                padding: "13px 16px",
-              }}
-            >
-              <CardElement options={CARD_ELEMENT_OPTIONS} />
-            </div>
+          {/* Expire date */}
+          <Grid item xs={4} sm={12} md={4}>
+            <label className="">
+              {t("Payment.expiry")}
+            </label>
+            <CardExpiryElement
+              className="border border-[#E0E0E0] rounded-[8px] p-3 mt-1"
+            />
+          </Grid>
+          {/* CARD number */}
+          <Grid item xs={8} sm={12} md={8}>
+            <label className="">
+              {t("Payment.card-number")}
+            </label>
+            <CardNumberElement
+              className="border border-[#E0E0E0] rounded-[8px] p-3 mt-1"
+              options={{
+                showIcon: true,
+              }} />
+          </Grid>
+          {/* CVV */}
+          <Grid item xs={4} sm={12} md={4}>
+            <label className="">
+              {t("Payment.expiry")}
+            </label>
+            <CardCvcElement
+              className="border border-[#E0E0E0] rounded-[8px] p-3 mt-1"
+            />
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
             {error && <p className="text-[#d32f2f]">{error}</p>}

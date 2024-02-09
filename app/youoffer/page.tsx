@@ -563,7 +563,7 @@ const YourOffer = ({ handleNext }: any) => {
               <BarChart width={150} height={40} data={data} >
                 <Bar dataKey="saving" fill="#436DC6" barSize={24} radius={[5, 5, 0, 0]} />
                 <XAxis dataKey="years" tickLine={false} className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px] mt-[10px]">
-                  <Label offset={-5} position="insideBottom" fontSize={20} value={t("Years")} className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]" />
+                  <Label offset={-4} position="insideBottom" fontSize={20} value={t("Years")} className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]" />
                 </XAxis>
                 <YAxis tickCount={4} tickLine={false} domain={[0, 15000]} tickFormatter={(value) => value > 0 ? `${value / 1000}K` : value} className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]">
                   <Label offset={0} angle={-90} position={'insideLeft'} value={`${t("Savings")} (€)`} className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]" />

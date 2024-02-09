@@ -33,6 +33,7 @@ interface FormData {
   lastName: string;
   emailAddress: string;
   phoneNumber: string;
+  dialCode: string;
   numberofpeopleAdditionValue: number;
 }
 
@@ -55,6 +56,7 @@ const HorizontalLinearStepper = () => {
     lastName: "",
     emailAddress: "",
     phoneNumber: "",
+    dialCode: "44",
     numberofpeopleAdditionValue: 1,
   };
   const [showForm, setShowForm] = useState<string>("allOffers");
@@ -164,6 +166,7 @@ const HorizontalLinearStepper = () => {
     lastName: "",
     emailAddress: "",
     phoneNumber: "",
+    dialCode: "44",
     numberofpeopleAdditionValue: 1,
   });
 
@@ -310,7 +313,7 @@ const HorizontalLinearStepper = () => {
           </div>
           {signingUrl || loading ? (
             signingUrl ? (
-              <div>
+              <div className="w-[90%] mx-auto mx-5 border-[2px] mb-5" >
                 <iframe
                   src={signingUrl}
                   width="100%"
@@ -322,11 +325,13 @@ const HorizontalLinearStepper = () => {
               <div
                 style={{
                   display: "flex",
+                  flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
                   height: "100vh",
                 }}
               >
+                <p>We are loading contract document. Please do not click anyware.</p>
                 <CircularProgress />
               </div>
             )
