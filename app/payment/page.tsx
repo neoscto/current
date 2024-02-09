@@ -64,7 +64,6 @@ const CheckoutForm = () => {
         console.log('PAYMENT ERROR ==>', error);
       }
       if (token) {
-        debugger;
         const response = await fetch("/api/payment", {
           method: "POST",
           headers: {

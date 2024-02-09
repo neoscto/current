@@ -33,6 +33,7 @@ interface FormData {
   lastName: string;
   emailAddress: string;
   phoneNumber: string;
+  dialCode: string;
   numberofpeopleAdditionValue: number;
 }
 
@@ -55,6 +56,7 @@ const HorizontalLinearStepper = () => {
     lastName: "",
     emailAddress: "",
     phoneNumber: "",
+    dialCode: "44",
     numberofpeopleAdditionValue: 1,
   };
   const [showForm, setShowForm] = useState<string>("allOffers");
@@ -164,6 +166,7 @@ const HorizontalLinearStepper = () => {
     lastName: "",
     emailAddress: "",
     phoneNumber: "",
+    dialCode: "44",
     numberofpeopleAdditionValue: 1,
   });
 
