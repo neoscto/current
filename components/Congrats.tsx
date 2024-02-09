@@ -9,7 +9,7 @@ const Congrats = ({ generatePDF }: any) => {
   const { t } = useTranslation();
   return (
     <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-5">
-      <div className="mx-auto flex flex-col justify-center items-center w-full lg:w-3/5">
+      <div className="mx-auto flex flex-col justify-center items-center w-full lg:w-3/6">
         <div className="w-12 h-12 relative">
           <Image src="/success.png" alt="user image" fill />
         </div>
@@ -37,7 +37,7 @@ const Congrats = ({ generatePDF }: any) => {
         </div>
       </div>
 
-      <div className="mx-auto flex justify-center items-center w-full lg:w-2/5">
+      <div className="mx-auto flex justify-center items-center w-full lg:w-3/6">
         <div className="relative w-full lg:h-[520px] max-w-[310px] h-full video-container !rounded-3xl overflow-hidden">
           <VideoPreview
             custonClass="h-full w-full"
