@@ -29,10 +29,14 @@ const ContractDetail = ({
   const defaultTxtStyle = "text-base font-normal text-[#bdbdbd]";
   // const [isChecked, setIsChecked] = useState(false);
   const { t } = useTranslation();
+  const [isMobile, setIsMobile] = useState(false);
+  const [userPlan, setUserPlan] = useState('neos');
+
   useEffect(() => {
     setShowForm("yourDetails");
+    const offerData: any = getDataFromSessionStorage("UserOffer");
+    setUserPlan(offerData?.plan);
   }, []);
-  const [isMobile, setIsMobile] = useState(false);
   const handleResize = () => {
     if (window.innerWidth < 768) {
       setIsMobile(true);
@@ -67,6 +71,7 @@ const ContractDetail = ({
           address: formik?.values?.address,
           postcode: formik?.values?.postcode,
           city: formik?.values?.city,
+          plan: offerData.plan ? offerData.plan : 'neos',
         }),
       }
     );
@@ -116,26 +121,31 @@ const ContractDetail = ({
                   </div>
                 </div>
                 {/* cups */}
-                <div className="border-b border-[#E0E0E0] py-3.5 flex">
-                  <div className="w-full">
-                    <p className={labelStyle}>
-                      {t("Get-offer-form.cups")} (Optional)
-                    </p>
-                    <p className={defaultTxtStyle}>
-                      {/* {
+                {
+                  userPlan === 'neos' ? (
+                    <div className="border-b border-[#E0E0E0] py-3.5 flex">
+                      <div className="w-full">
+                        <p className={labelStyle}>
+                          {t("Get-offer-form.cups")} (Optional)
+                        </p>
+                        <p className={defaultTxtStyle}>
+                          {/* {
                         // userData?.firstName ||
                         "05"
                       } */}
-                      <input
-                        type="text"
-                        name="cups"
-                        value={formik.values.cups || ""}
-                        onChange={handleInputChange}
-                        className="outline-none border-none focus:outline-none focus:border-none focus:ring-0"
-                      />
-                    </p>
-                  </div>
-                </div>
+                          <input
+                            type="text"
+                            name="cups"
+                            value={formik.values.cups || ""}
+                            onChange={handleInputChange}
+                            className="outline-none border-none focus:outline-none focus:border-none focus:ring-0"
+                          />
+                        </p>
+                      </div>
+                    </div>
+                  ) : null
+                }
+
                 {/* Address */}
                 <div className="border-b border-[#E0E0E0] py-3.5 flex">
                   <div className="w-full ">

@@ -20,6 +20,7 @@ export type UsersOffersSchemaProps = {
   phoneNumber: string;
   dialCode: string;
   cups: number;
+  plan: string;
   numberOfPeople: number;
   numberOfPeopleAdditionValue: number;
   address: string;
@@ -72,6 +73,9 @@ class UsersOffersSchema {
 
   @prop({ required: true })
   dialCode: string;
+
+  @prop({ required: false })
+  plan: string;
 
   @prop({ required: false })
   cups: number;

@@ -132,6 +132,7 @@ const YourOffer = ({ handleNext }: any) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<number | null>(5);
   const [isMobile, setIsMobile] = useState(false);
+  const [userPlan, setUserPlan] = useState('neos');
 
   const handleResize = () => {
     if (window.innerWidth < 768) {
@@ -145,6 +146,11 @@ const YourOffer = ({ handleNext }: any) => {
     handleResize();
     window.addEventListener("resize", handleResize);
   });
+
+  useEffect(() => {
+    const offerData: any = getDataFromSessionStorage("UserOffer");
+    setUserPlan((offerData?.plan) ? offerData?.plan : 'neos');
+  }, []);
 
   useCalendlyEventListener({
     onEventScheduled: (e: any) => {
@@ -233,6 +239,13 @@ const YourOffer = ({ handleNext }: any) => {
     }
   };
 
+  const updateUserPlanSelection = (plan: string) => () => {
+    const offerData: any = getDataFromSessionStorage("UserOffer");
+    offerData.plan = plan;
+    sessionStorage.setItem("UserOffer", JSON.stringify(offerData));
+    setUserPlan(plan);
+  }
+
   return (
     <div className="max-w-[1200px] w-full mx-auto" id='content-id'>
       <div className="w-full bg-white lg:px-[70px] lg:pb-[18px] px-5 py-4" >
@@ -293,14 +306,16 @@ const YourOffer = ({ handleNext }: any) => {
                 <div className="flex lg:gap-4 lg:justify-normal justify-center md:flex-row flex-col gap-3" >
                   <NeosButton
                     category="outline"
-                    className='!text-black py-[14px] lg:px-[24px] !outline-[2px] !outline !outline-[#66BCDA] !font-medium text-[16px] !leading-5 !normal-case px-[53px] whitespace-pre md:whitespace-normal'
+                    className={`!text-black py-[14px] lg:px-[24px] !outline-[2px] !outline !outline-[#${(userPlan == 'neos') ? '66BCDA' : 'E0E0E0'}] !font-medium text-[16px] !leading-5 !normal-case px-[53px] whitespace-pre md:whitespace-normal`}
                     title={t("offer.buyPanelProviderNeos")}
+                    onClick={updateUserPlanSelection('neos')}
                   />
 
                   <NeosButton
                     category="outline"
-                    className='!text-black py-[14px] lg:px-[24px] !outline-[2px] !outline !outline-[#E0E0E0] !font-medium text-[16px] !leading-5 !normal-case px-[53px] whitespace-pre md:whitespace-normal'
+                    className={`!text-black py-[14px] lg:px-[24px] !outline-[2px] !outline !outline-[#${(userPlan == 'current') ? '66BCDA' : 'E0E0E0'}] !font-medium text-[16px] !leading-5 !normal-case px-[53px] whitespace-pre md:whitespace-normal`}
                     title={t("offer.buyPanelProviderCurrent")}
+                    onClick={updateUserPlanSelection('current')}
                   />
                 </div>
               </div>
