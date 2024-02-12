@@ -19,7 +19,7 @@ export default function Home() {
   // }, [])
 
   useEffect(() => {
-    (window as any).tolstoyWidgetId = "iwq80wxppj53m";
+    (window as any).tolstoyWidgetId = "8n325wid8kupn";
     var s = document.createElement("script");
     s.type = "text/javascript";
     s.async = true;
