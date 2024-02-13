@@ -25,7 +25,7 @@ const ContractDetail = ({
   const dispatch = useDispatch();
 
   const labelStyle = "font-medium text-base text-black";
-  const infoStyle = "text-base font-normal text-[#373737]";
+  const infoStyle = "text-base font-normal text-[#808080]";
   const defaultTxtStyle = "text-base font-normal text-[#bdbdbd]";
   // const [isChecked, setIsChecked] = useState(false);
   const { t } = useTranslation();
@@ -35,7 +35,7 @@ const ContractDetail = ({
   useEffect(() => {
     setShowForm("yourDetails");
     const offerData: any = getDataFromSessionStorage("UserOffer");
-    setUserPlan(offerData?.plan);
+    setUserPlan((offerData?.plan || 'neos'));
   }, []);
   const handleResize = () => {
     if (window.innerWidth < 768) {
@@ -136,9 +136,10 @@ const ContractDetail = ({
                           <input
                             type="text"
                             name="cups"
+                            placeholder="05"
                             value={formik.values.cups || ""}
                             onChange={handleInputChange}
-                            className="outline-none border-none focus:outline-none focus:border-none focus:ring-0"
+                            className="outline-none border-none focus:outline-none focus:border-none focus:ring-0 text-black"
                           />
                         </p>
                       </div>
@@ -158,9 +159,10 @@ const ContractDetail = ({
                       <input
                         type="text"
                         name="address"
+                        placeholder="123 Main Rd. 12345"
                         value={formik.values.address || ""}
                         onChange={handleInputChange}
-                        className="outline-none border-none focus:outline-none focus:border-none focus:ring-0"
+                        className="outline-none border-none focus:outline-none focus:border-none focus:ring-0 text-black"
                       />
                     </p>
                   </div>
@@ -172,9 +174,10 @@ const ContractDetail = ({
                       <input
                         type="text"
                         name="postcode"
+                        placeholder="01001"
                         value={formik.values.postcode || ""}
                         onChange={handleInputChange}
-                        className="outline-none border-none focus:outline-none focus:border-none focus:ring-0"
+                        className="outline-none border-none focus:outline-none focus:border-none focus:ring-0 text-black"
                       />
                     </p>
                   </div>
@@ -184,9 +187,10 @@ const ContractDetail = ({
                       <input
                         type="text"
                         name="city"
+                        placeholder="Seville"
                         value={formik.values.city || ""}
                         onChange={handleInputChange}
-                        className="outline-none border-none focus:outline-none focus:border-none focus:ring-0"
+                        className="outline-none border-none focus:outline-none focus:border-none focus:ring-0 text-black"
                       />
                     </p>
                   </div>

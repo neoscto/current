@@ -11,6 +11,8 @@ import { getDataFromSessionStorage } from "@/utils/utils";
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine, Label, CartesianAxis } from 'recharts';
 import VideoPreview from "../videoPlayer/preview";
 import Rating from '@mui/material/Rating';
+import html2Canvas from 'html2canvas';
+import jsPDF from "jspdf";
 
 const data = [
   {
@@ -246,6 +248,52 @@ const YourOffer = ({ handleNext }: any) => {
     setUserPlan(plan);
   }
 
+  const downloadPagePdf = () => {
+    setTimeout(() => {
+
+      let page: any = document.getElementById('content-id');
+      html2Canvas(page).then((canvas: any) => {
+        let imgData = canvas.toDataURL('image/png');
+        // create image from imgData
+        let pdf = new jsPDF('p', 'mm', 'a4');
+        let width = pdf.internal.pageSize.getWidth();
+        let height = pdf.internal.pageSize.getHeight();
+        pdf.addImage(imgData, 'JPEG', 0, 0, width, 350);
+        pdf.save("offer.pdf");
+      });
+    }, 2000);
+
+  }
+
+  // state for referralCodeError
+  const [referralCodeError, setReferralCodeError] = useState("");
+  //state for referralCode
+  const [referralCode, setReferralCode] = useState("");
+
+  // validateReferralCode
+  const validateReferralCode = async () => {
+    if (referralCode.length === 0) {
+      setReferralCodeError("Invalid Code");
+      return;
+    }
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/users-offers/validate-code/${referralCode}`
+    );
+    const data = await response.json();
+    if (data.isValidCode) {
+      const userData: any = getDataFromSessionStorage("UserOffer");
+      userData.isValidCode = true;
+      sessionStorage.setItem("UserOffer", JSON.stringify(userData));
+      setReferralCodeError("valid");
+    } else {
+      const userData: any = getDataFromSessionStorage("UserOffer");
+      userData.isValidCode = false;
+      sessionStorage.setItem("UserOffer", JSON.stringify(userData));
+      setReferralCodeError("invalid");
+    }
+  };
+
+
   return (
     <div className="max-w-[1200px] w-full mx-auto" id='content-id'>
       <div className="w-full bg-white lg:px-[70px] lg:pb-[18px] px-5 py-4" >
@@ -271,15 +319,26 @@ const YourOffer = ({ handleNext }: any) => {
                   type="text"
                   name="cups"
                   placeholder="Enter here"
+                  value={referralCode}
                   className="py-[13px] px-1 border-[1px] border-[#E0E0E0] rounded-[8px] placeholder:text-center text-center focus-within:outline-none h-[44px] lg:max-w-[219px] w-full"
+                  onChange={(e) => {
+                    setReferralCode(e.target.value.replace(/\s/g, '').toUpperCase());
+                  }}
                 />
+                {
+                  referralCodeError === "valid" && <p className="text-center text-[14px] leading-[17px] font-medium text-green-500">Valid Code</p>
+                }
+                {
+                  referralCodeError === "invalid" && <p className="text-center text-[14px] leading-[17px] font-medium text-red-500">Invalid code.</p>
+                }
+
               </div>
               <div>
                 <NeosButton
                   category="colored"
                   className='lg:px-5 lg:py-3 text-[16px] leading-5 font-semibold h-[44px] rounded-[15px] w-auto lg:w-full px-[9px] py-3'
                   title={t("Your-offer.validate-btn")}
-                  onClick={handleNext}
+                  onClick={validateReferralCode}
                 />
               </div>
             </div>
@@ -340,6 +399,7 @@ const YourOffer = ({ handleNext }: any) => {
                   category="colored"
                   title={t("Your-offer.download-offer")}
                   className='lg:w-full w-auto lg:p-[17px]'
+                  onClick={downloadPagePdf}
                 />
 
                 <NeosButton

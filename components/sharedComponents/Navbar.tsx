@@ -42,7 +42,7 @@ const Navbar = () => {
       <div className="items-center select-container ml-4 md:ml-0 sm:flex flex">
         <Link
           href="/faq"
-          className="font-bold text-xs md:text-xl lg:text-xl text-white ml-0 sm:ml-[15px] mr-[10px] md:mr-[16px] sm:w-[80px] md:w-[100px] lg:w-[120px] w-[60px] pr-1 relative sm:static text-end md:pr-4"
+          className="font-bold border-[1px] py-[5px] rounded-[10px] text-center text-xs md:text-xl lg:text-xl text-white ml-0 sm:ml-[15px] mr-[10px] md:mr-[16px] sm:w-[80px] md:w-[100px] lg:w-[120px] w-[60px] pr-1 relative sm:static"
         >
           {t("Home.nav.faqs")}
         </Link>

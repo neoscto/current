@@ -215,6 +215,10 @@ const HorizontalLinearStepper = () => {
       setShowForm("yourDetails");
       return;
     }
+    if (showForm === 'allOffers') {
+      router.replace('/getoffer');
+      return;
+    }
     router.back();
   };
 

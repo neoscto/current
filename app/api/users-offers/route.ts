@@ -16,6 +16,7 @@ const createUserOffer = async ({
   city,
   numberOfPeople,
   postcode,
+  referralCode,
   termsConditionRead,
   event,
 }: UsersOffersSchemaType) => {
@@ -33,6 +34,7 @@ const createUserOffer = async ({
       address,
       city,
       postcode,
+      referralCode,
       numberOfPeople,
       termsConditionRead,
       event,
@@ -54,6 +56,12 @@ export async function POST(request: Request) {
     if (!body.emailAddress) {
       return createErrorResponse("Email is required", 400);
     }
+    // generate 8 character random string for referral code
+    const codeString = 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789'
+    let referralCode = '';
+    for (let i = 0; i < 8; i++) {
+      referralCode += codeString.charAt(Math.floor(Math.random() * codeString.length));
+    }
     const requestBody: any = {
       offerType: body.offerType,
       emailAddress: body.emailAddress,
@@ -66,6 +74,7 @@ export async function POST(request: Request) {
       address: body.address,
       city: body.city,
       postcode: body.postcode,
+      referralCode: referralCode,
       termsConditionRead: body.termsConditionRead,
       numberOfPeople: body.numberOfPeople,
     };

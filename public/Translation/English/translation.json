@@ -6,7 +6,11 @@
     "title": "Welcome to the Future",
     "description": "Discover Virtual Solar. No installation. Cheap energy. Instant connection.",
     "btn1txt": "EXPLORE",
-    "btn2txt": "CALCULATE MY SAVINGS"
+    "btn2txt": "CALCULATE MY SAVINGS",
+    "cookie": {
+      "description": "We use cookies to ensure you get the best experience on our website. By continuing to use our website, you agree to our use of cookies.",
+      "acceptBtn": "Accept"
+    }
   },
   "Description": {
     "title": "What is Virtual Solar?",
@@ -31,7 +35,7 @@
     "You will not need anything else to get the offer": "You will not need anything else to get the offer",
     "You will need your latest electricity bill to get the offer": "You will need your latest electricity bill to get the offer",
     "Instant Calculation": "Instant Calculation",
-    "Answer 4 Questions": "Answer 4 Questions",
+    "Answer 4 Questions": "Answer 1 Question",
     "100% Accurate": "100% Accurate",
     "85% Accurate": "85% Accurate",
     "btn": "GET OFFER",

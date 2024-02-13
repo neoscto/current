@@ -6,7 +6,11 @@
     "title": "Bienvenido al Futuro",
     "description": "Descubre Solar Virtual. Sin instalación. Energía económica. Conexión instantánea.",
     "btn1txt": "PARA EXPLORAR",
-    "btn2txt": "CALCULAR MIS AHORROS"
+    "btn2txt": "CALCULAR MIS AHORROS",
+    "cookie": {
+      "description": "Utilizamos cookies para garantizar que obtenga la mejor experiencia en nuestro sitio web. Al continuar utilizando nuestro sitio web, acepta nuestro uso de cookies.",
+      "acceptBtn": "Aceptar"
+    }
   },
   "Description": {
     "title": "¿Qué es la energía solar virtual?",
@@ -31,7 +35,7 @@
     "You will not need anything else to get the offer": "No necesitarás nada más para obtener la oferta",
     "You will need your latest electricity bill to get the offer": "Necesitarás tu última factura de electricidad para obtener la oferta",
     "Instant Calculation": "Cálculo Instantáneo",
-    "Answer 4 Questions": "Responder 4 Preguntas",
+    "Answer 4 Questions": "Responder 1 Preguntas",
     "100% Accurate": "100% Preciso",
     "85% Accurate": "85% Preciso",
     "btn": "OBTENER OFERTA",

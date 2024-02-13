@@ -32,7 +32,10 @@ const CARD_ELEMENT_OPTIONS = {
 
 const CheckoutForm = () => {
   const { userData } = useSelector((state: RootState) => state.commonSlice);
-  const displayValue = Number(userData?.numberOfPeople) + 1;
+  const totalAmount = Number(
+    userData?.numberOfPeople ? userData?.numberOfPeople : userData?.cups
+  ) + 1;
+  const displayValue = (userData?.isValidCode) ? totalAmount - 1 : totalAmount;
 
   const stripe = useStripe();
   const elements = useElements();
@@ -81,7 +84,6 @@ const CheckoutForm = () => {
           setIsPaymentSuccess(true);
           window.location.href = "/getoffer?activeStep=3";
         }
-        console.log('response', paymentResponse);
       }
       // Send the token to your server to complete the payment
     } catch (err: any) {
@@ -91,6 +93,20 @@ const CheckoutForm = () => {
       setLoading(false);
     }
   };
+
+  const validateName = (value: string) => {
+    const nameRegex = /^[a-zA-Z\s]*$/;
+    if (!nameRegex.test(value)) {
+      return setError('Please enter valid name');
+    }
+    if (!value) return setError('Name is required');
+    if (value.length < 3) {
+      setError('Name is too short');
+    } else {
+      setError(null);
+    }
+  }
+
 
   return (
     <form onSubmit={handleSubmit}>
@@ -106,6 +122,12 @@ const CheckoutForm = () => {
             <NeosTextField
               placeholder="Olivia Rhye"
               label={t("Payment.card-name")}
+              onChange={(e) => {
+                validateName(e.target.value)
+              }}
+              onBlur={(e) => {
+                validateName(e.target.value)
+              }}
             />
           </Grid>
 
@@ -148,7 +170,7 @@ const CheckoutForm = () => {
           category="colored"
           title="PAY NOW"
           type="submit"
-          disabled={!stripe || loading}
+          disabled={!stripe || loading || error}
         />
       </div>
     </form>
