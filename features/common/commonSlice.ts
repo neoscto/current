@@ -20,6 +20,7 @@ const commonSlice = createSlice({
       phoneNumber: "",
       numberofpeopleAdditionValue: "",
       cups: "",
+      isValidCode: "",
     },
     formBack: "",
     language: "en",

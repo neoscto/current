@@ -26,6 +26,7 @@ export type UsersOffersSchemaProps = {
   address: string;
   city: string;
   postcode: string;
+  referralCode: string;
   termsConditionRead?: boolean;
   contractSign?: boolean;
   event: any;
@@ -94,6 +95,9 @@ class UsersOffersSchema {
 
   @prop({ required: false })
   postcode: string;
+
+  @prop({ required: false })
+  referralCode: string;
 
   @prop({ default: false })
   termsConditionRead: boolean;

@@ -32,7 +32,10 @@ const CARD_ELEMENT_OPTIONS = {
 
 const CheckoutForm = () => {
   const { userData } = useSelector((state: RootState) => state.commonSlice);
-  const displayValue = Number(userData?.numberOfPeople) + 1;
+  const totalAmount = Number(
+    userData?.numberOfPeople ? userData?.numberOfPeople : userData?.cups
+  ) + 1;
+  const displayValue = (userData?.isValidCode) ? totalAmount - 1 : totalAmount;
 
   const stripe = useStripe();
   const elements = useElements();
@@ -81,7 +84,6 @@ const CheckoutForm = () => {
           setIsPaymentSuccess(true);
           window.location.href = "/getoffer?activeStep=3";
         }
-        console.log('response', paymentResponse);
       }
       // Send the token to your server to complete the payment
     } catch (err: any) {
