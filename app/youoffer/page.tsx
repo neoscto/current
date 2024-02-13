@@ -11,6 +11,8 @@ import { getDataFromSessionStorage } from "@/utils/utils";
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine, Label, CartesianAxis } from 'recharts';
 import VideoPreview from "../videoPlayer/preview";
 import Rating from '@mui/material/Rating';
+import html2Canvas from 'html2canvas';
+import jsPDF from "jspdf";
 
 const data = [
   {
@@ -246,6 +248,23 @@ const YourOffer = ({ handleNext }: any) => {
     setUserPlan(plan);
   }
 
+  const downloadPagePdf = () => {
+    setTimeout(() => {
+
+      let page: any = document.getElementById('content-id');
+      html2Canvas(page).then((canvas: any) => {
+        let imgData = canvas.toDataURL('image/png');
+        // create image from imgData
+        let pdf = new jsPDF('p', 'mm', 'a4');
+        let width = pdf.internal.pageSize.getWidth();
+        let height = pdf.internal.pageSize.getHeight();
+        pdf.addImage(imgData, 'JPEG', 0, 0, width, 350);
+        pdf.save("offer.pdf");
+      });
+    }, 2000);
+
+  }
+
   return (
     <div className="max-w-[1200px] w-full mx-auto" id='content-id'>
       <div className="w-full bg-white lg:px-[70px] lg:pb-[18px] px-5 py-4" >
@@ -340,6 +359,7 @@ const YourOffer = ({ handleNext }: any) => {
                   category="colored"
                   title={t("Your-offer.download-offer")}
                   className='lg:w-full w-auto lg:p-[17px]'
+                  onClick={downloadPagePdf}
                 />
 
                 <NeosButton

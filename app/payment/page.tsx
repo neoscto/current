@@ -92,6 +92,20 @@ const CheckoutForm = () => {
     }
   };
 
+  const validateName = (value: string) => {
+    const nameRegex = /^[a-zA-Z\s]*$/;
+    if (!nameRegex.test(value)) {
+      return setError('Please enter valid name');
+    }
+    if (!value) return setError('Name is required');
+    if (value.length < 3) {
+      setError('Name is too short');
+    } else {
+      setError(null);
+    }
+  }
+
+
   return (
     <form onSubmit={handleSubmit}>
       <h1 className="text-lg md:2xl lg:text-3xl font-bold  mt-2 mb-8 text-center">
@@ -106,6 +120,12 @@ const CheckoutForm = () => {
             <NeosTextField
               placeholder="Olivia Rhye"
               label={t("Payment.card-name")}
+              onChange={(e) => {
+                validateName(e.target.value)
+              }}
+              onBlur={(e) => {
+                validateName(e.target.value)
+              }}
             />
           </Grid>
 
@@ -148,7 +168,7 @@ const CheckoutForm = () => {
           category="colored"
           title="PAY NOW"
           type="submit"
-          disabled={!stripe || loading}
+          disabled={!stripe || loading || error}
         />
       </div>
     </form>
