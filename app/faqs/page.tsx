@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const faqData = [
+const faqsData = [
   {
     question: "What is Neos?",
     answer:
@@ -133,7 +133,7 @@ const faqData = [
   },
 ];
 
-const faq = () => {
+const faqs = () => {
   const [expandedId, setExpandedId] = useState("");
 
   return (
@@ -152,7 +152,7 @@ const faq = () => {
               }}
               className="flex flex-wrap"
             >
-              {faqData?.map((faq, index) => (
+              {faqsData?.map((faqs, index) => (
                 <Accordion
                   expanded={expandedId === index.toString()}
                   key={index}
@@ -170,14 +170,14 @@ const faq = () => {
                     id={`panel${index + 1}a-header`}
                     sx={{ paddingRight: 0 }}
                   >
-                    <Typography variant="h6">{faq?.question || ""}</Typography>
+                    <Typography variant="h6">{faqs?.question || ""}</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     <Typography>
                       {" "}
                       <p
                         className={``}
-                        dangerouslySetInnerHTML={{ __html: faq?.answer || "" }}
+                        dangerouslySetInnerHTML={{ __html: faqs?.answer || "" }}
                       />
                     </Typography>
                   </AccordionDetails>
@@ -191,7 +191,7 @@ const faq = () => {
   );
 };
 
-export default faq;
+export default faqs;
 
 const accorSyle = {
   boxShadow: "none !important",

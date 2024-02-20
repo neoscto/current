@@ -45,7 +45,7 @@ const Navbar = () => {
 
       <div className="items-center select-container ml-4 md:ml-0 sm:flex flex">
         <Link
-          href="/faq"
+          href="/faqs"
           className="font-bold border-[1px] rounded-[10px] text-center text-lg md:text-xl lg:text-xl text-white ml-0 sm:ml-[15px] mr-[10px] md:mr-[16px] px-4 py-1 relative sm:static"
         >
           {t("Home.nav.faqs")}
