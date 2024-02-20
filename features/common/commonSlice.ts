@@ -23,7 +23,7 @@ const commonSlice = createSlice({
       isValidCode: "",
     },
     formBack: "",
-    language: "es",
+    language: "en",
   },
   reducers: {
     setUserData: (state, action) => {
