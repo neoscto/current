@@ -78,14 +78,14 @@ const Footer = () => {
             </div>
 
             <Link
-              href="/privacyPolicy"
+              href="/privacy-policy"
               className="text-base text-white font-medium"
             >
               {t("Footer.policy")}
             </Link>
 
             <Link
-              href="/termsOfUse"
+              href="/terms-of-use"
               className="text-base text-white font-medium"
             >
               {t("Footer.terms")}

@@ -5,7 +5,6 @@ import Link from "next/link";
 
 const termsOfUse = () => {
   return (
-
     <MainContainer>
       <Box sx={{ width: "100%" }}>
         <div className="rounded-[30px] bg-[#01092299] max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white">
@@ -62,7 +61,7 @@ const termsOfUse = () => {
             personal data in accordance our privacy policy, which is
             available{" "}
             <Link
-              href="https://solar-contrancts.vercel.app/privacyPolicy"
+              href="https://solar-contrancts.vercel.app/privacy-policy"
               target="_blank"
             >
               here

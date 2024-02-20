@@ -206,7 +206,7 @@ const ContractDetail = ({
                   {t("Get-offer-form.form-t&c")}
                   <span className="text-[#FD7C7C]"> NEOS </span>
                   <Link
-                    href="/termsOfUse"
+                    href="/terms-of-use"
                     target="_blank"
                     className="text-blue-600 dark:text-blue-500 hover:underline"
                   >
