@@ -18,14 +18,14 @@ export default function Home() {
   //   dispath(fetchPosts())
   // }, [])
 
-  useEffect(() => {
-    (window as any).tolstoyWidgetId = "8n325wid8kupn";
-    var s = document.createElement("script");
-    s.type = "text/javascript";
-    s.async = true;
-    s.src = "https://widget.gotolstoy.com/widget/widget.js";
-    document.head.appendChild(s);
-  }, []);
+  // useEffect(() => {
+  //   (window as any).tolstoyWidgetId = "8n325wid8kupn";
+  //   var s = document.createElement("script");
+  //   s.type = "text/javascript";
+  //   s.async = true;
+  //   s.src = "https://widget.gotolstoy.com/widget/widget.js";
+  //   document.head.appendChild(s);
+  // }, []);
 
   return (
     <div className="w-full relative">

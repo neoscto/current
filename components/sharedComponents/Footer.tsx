@@ -14,7 +14,7 @@ const Footer = () => {
   const { t } = useTranslation();
   return (
     <>
-      <AcceptCookie />
+      {/* <AcceptCookie /> */}
       <div className="bg-[#01092299]">
         <div className="xl:max-w-[1200px] w-full xl:px-0 px-5 mx-auto py-5 flex gap-6 flex-col md:flex-row ">
           {/* Left Container */}
