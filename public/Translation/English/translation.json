@@ -200,5 +200,15 @@
     "title": "Congratulations!",
     "desc1": "You have successfully signed the contract and make the payment.",
     "desc2": "You can download below the signed contract."
+  },
+  "launch": {
+    "Pre_Sale_Launch": "Pre-Sale Launch!",
+    "description1": "Imagine cutting your electricity bills by up to 75% while supporting a greener planet!",
+    "description2": "At Neos, we are redefining electricity for Spain, offering you direct access to clean, solar energy from our state-of-the-art solar parks. No need to own a rooftop or be in a sunny area. With Neos, embrace the green revolution from any location, be it a house, flat, or business, regardless of the weather, thanks to our virtual solar installations.",
+    "description3": "What’s a virtual solar installation? It’s your personal share in solar energy production, assigned to you but located in our solar parks, which are already linked to the national grid. This means you start benefiting from solar power the moment you buy an installation, skipping the usual waiting period for a rooftop panel setup and paying 20% to 35% less for the same capacity.",
+    "Exclusive_Early_Access": "Exclusive Early Access",
+    "description4": "We're thrilled to announce that pre-sales for our virtual solar installations start later this month! Unlock our special launch discount by entering your details below.",
+    "Email_or_Phone_Number": "Email or Phone Number",
+    "SUBMIT": "SUBMIT"
   }
 }

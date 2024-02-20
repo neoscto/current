@@ -11,6 +11,9 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@mantine/core": "^7.5.3",
+    "@mantine/form": "^7.5.3",
+    "@mantine/hooks": "^7.5.3",
     "@mui/icons-material": "^5.15.3",
     "@mui/material": "^5.15.0",
     "@reduxjs/toolkit": "^2.0.1",
@@ -48,7 +51,9 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
-    "postcss": "^8",
+    "postcss": "^8.4.35",
+    "postcss-preset-mantine": "^1.13.0",
+    "postcss-simple-vars": "^7.0.1",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }
