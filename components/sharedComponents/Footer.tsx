@@ -45,7 +45,7 @@ const Footer = () => {
           <div className="hidden md:flex justify-center items-center max-w-[calc(33%_-_8px)] w-full">
             <Image
               src={neoslogo}
-              alt="NEOS logo"
+              alt="Neos logo"
               width={100}
               className="h-[20px] md:h-auto lg:h-auto -ms-1 md:ms-0 lg:ms-0 cursor-pointer object-contain"
               priority

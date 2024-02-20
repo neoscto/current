@@ -35,7 +35,7 @@ const Navbar = () => {
     <div className="xl:max-w-[1200px] px-6 md:px-10 xl:px-0 mx-auto w-full py-4 lg:py-6 flex justify-between items-center ">
       <Image
         src={neoslogo}
-        alt="NEOS logo"
+        alt="Neos logo"
         width={0}
         height={0}
         className=" w-24 md:w-32 -ms-1 md:ms-0 lg:ms-0 cursor-pointer object-contain"
@@ -71,7 +71,7 @@ const Navbar = () => {
             >
               <Image
                 src={item.flag}
-                alt="NEOS logo"
+                alt="Neos logo"
                 width={20}
                 className="mr-2 "
                 objectFit="contain"
