@@ -468,21 +468,21 @@ const YourOffer = ({ handleNext }: any) => {
             <div className="flex items-center justify-center flex-wrap lg:gap-[26px] gap-4">
               <img
                 src="Footer/CNMC.png"
-                alt="NEOS logo"
+                alt="Neos logo"
                 width={55}
                 height={33}
                 className="lg:max-w-[55.38px] w-full max-h-[30px] h-full max-w-[51px]"
               />
               <img
                 src="Footer/REE-removebg-preview.png"
-                alt="NEOS logo"
+                alt="Neos logo"
                 width={160}
                 height={20}
                 className="lg:max-w-[160px] w-full max-h-[20px] h-full max-w-[144px]"
               />
               <img
                 src="Footer/OMIE-removebg-preview.png"
-                alt="NEOS logo"
+                alt="Neos logo"
                 width={62}
                 height={30}
                 className="lg:max-w-[62.46px] w-full max-h-[30px] h-full max-w-[58px]"
