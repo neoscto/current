@@ -1,5 +1,7 @@
-export const contentData= `
-Introduction: We take your right to privacy seriously and want you to feel comfortable using our web site. This Privacy Policy
+export const contentData = `Coming soon...`;
+
+/*  
+`Introduction: We take your right to privacy seriously and want you to feel comfortable using our web site. This Privacy Policy
 deals with personally identifiable information (referred to as "Data" below) that may be collected by us on our site. By using this site, you consent to the collection and use of personal information as detailed in this Privacy Policy.
 
 Collection of Data: If you provide us with any personal or contact information in order to receive anything from us, we may collect and store that personal data. We do not automatically collect your personal e-mail address simply because you visit our site. Our contact page provides several e-mail addresses for your convenience when contacting us. Information collected on these forms is only used to correspond with you regarding your message. Any personal information you provide us with via this website, including your e-mail address, will never be sold or rented to any third party without your expressed permission.
@@ -43,3 +45,4 @@ Contact Information: If you have any questions about this Policy or our web site
 
 Copyright: Copyright © 2024 , All Rights Reserved. All content, including text, copy, images, graphics, animation files, audio/video files are subject to copyright protection.
 `;
+*/
