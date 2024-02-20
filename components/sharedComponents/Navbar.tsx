@@ -57,9 +57,9 @@ const Navbar = () => {
           defaultValue={language}
         >
           {[
-            { name: "Spanish", flag: spanish, value: "es" },
+            { name: "Español", flag: spanish, value: "es" },
             { name: "English", flag: english, value: "en" },
-            { name: "Portuguese", flag: portugal, value: "pt" },
+            { name: "Português", flag: portugal, value: "pt" },
           ].map((item, index) => (
             <MenuItem
               key={index}
