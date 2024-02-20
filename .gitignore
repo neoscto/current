@@ -6,6 +6,8 @@ node_modules/
 
 # Ignore .env file
 .env
+.env.local
+
 
 # Ignore next-env.d.ts file
 next-env.d.ts

@@ -1,0 +1,14 @@
+.textInput {
+  background-color: transparent;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: "100%";
+  border: transparent;
+
+  &::placeholder {
+    color: white;
+  }
+}

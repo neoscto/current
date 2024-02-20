@@ -1,16 +1,16 @@
-"use client"
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from "react"
-import { fetchPosts } from '@/features/common/commonSlice'
-import { AppDispatch, RootState } from '@/store/store'
-import LandingPage from './landingpage/page'
+"use client";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchPosts } from "@/features/common/commonSlice";
+import { AppDispatch, RootState } from "@/store/store";
+import LandingPage from "./landingpage/page";
+import Launch from "./launch/page";
 interface postData {
-  title: string
+  title: string;
 }
 
 export default function Home() {
-
-  const dispath = useDispatch<AppDispatch>()
+  const dispath = useDispatch<AppDispatch>();
   // const { post } = useSelector((state: RootState) => state.commonSlice)
 
   // console.log(post)
@@ -25,11 +25,11 @@ export default function Home() {
     s.async = true;
     s.src = "https://widget.gotolstoy.com/widget/widget.js";
     document.head.appendChild(s);
-  }, [])
+  }, []);
 
   return (
-    <div className='w-full relative'>
-      <LandingPage />
+    <div className="w-full relative">
+      <Launch />
     </div>
-  )
+  );
 }

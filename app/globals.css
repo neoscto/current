@@ -108,7 +108,6 @@ body {
   width: auto !important;
 }
 
-
 .video-landscape .customwrap video {
   position: absolute;
   left: 1.25rem;
@@ -132,4 +131,21 @@ body {
 
 .PhoneInputInput:focus-visible {
   outline: none;
+}
+
+/* @layer base {
+  .font-outline-2 {
+    -webkit-text-stroke: 0.5px black;
+  }
+  .font-outline-4 {
+    -webkit-text-stroke: 4px black;
+  }
+} */
+
+@layer utilities {
+  .text-stroke {
+    -webkit-text-stroke-width: 1px; /* Adjust as needed */
+    -webkit-text-stroke-color: black; /* Adjust as needed */
+    color: white; /* Adjust as needed */
+  }
 }

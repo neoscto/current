@@ -6,7 +6,7 @@ import NeosButton from "@/components/NeosButton";
 import { MenuItem } from "@mui/material";
 import { useEffect, useState } from "react";
 import NeosSelect from "../NeosSelect";
-import english from "@/public/flags/gb-eng.png";
+import english from "@/public/flags/gb-eng.svg";
 import portugal from "@/public/flags/pt.png";
 import spanish from "@/public/flags/spanish.png";
 import { useRouter } from "next/navigation";
@@ -29,12 +29,13 @@ const Navbar = () => {
     }
   }, [language, i18n.language]);
   return (
-    <div className="xl:max-w-[1200px] px-5 xl:px-0 mx-auto w-full py-4 lg:py-6 flex justify-between items-center ">
+    <div className="xl:max-w-[1200px] px-6 md:px-10 xl:px-0 mx-auto w-full py-4 lg:py-6 flex justify-between items-center ">
       <Image
         src={neoslogo}
         alt="NEOS logo"
-        width={100}
-        className="h-[20px] md:h-auto lg:h-auto -ms-1 md:ms-0 lg:ms-0 cursor-pointer object-contain"
+        width={0}
+        height={0}
+        className=" w-24 md:w-32 -ms-1 md:ms-0 lg:ms-0 cursor-pointer object-contain"
         onClick={() => router.push("/")}
         unoptimized
       />
@@ -42,12 +43,12 @@ const Navbar = () => {
       <div className="items-center select-container ml-4 md:ml-0 sm:flex flex">
         <Link
           href="/faq"
-          className="font-bold border-[1px] py-[5px] rounded-[10px] text-center text-xs md:text-xl lg:text-xl text-white ml-0 sm:ml-[15px] mr-[10px] md:mr-[16px] sm:w-[80px] md:w-[100px] lg:w-[120px] w-[60px] pr-1 relative sm:static"
+          className="font-bold border-[1px] rounded-[10px] text-center text-lg md:text-xl lg:text-xl text-white ml-0 sm:ml-[15px] mr-[10px] md:mr-[16px] px-4 py-1 relative sm:static"
         >
           {t("Home.nav.faqs")}
         </Link>
         <NeosSelect
-          className="lg:min-w-[135px] md:min-w-[135px] w-[105px] -ml-1 mx-1"
+          className="  -ml-1 mx-1"
           value={language}
           onChange={(e: React.ChangeEvent<{ value: unknown }>) => {
             dispath(setLanguage(e.target.value as string));
@@ -68,7 +69,9 @@ const Navbar = () => {
               <Image
                 src={item.flag}
                 alt="NEOS logo"
-                className="w-3 h-3 mr-2 "
+                width={20}
+                className="mr-2 "
+                objectFit="contain"
               />
               {item.name}
             </MenuItem>

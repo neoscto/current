@@ -1,7 +1,7 @@
 {
   "Home": {
     "nav": {
-      "faqs": "Perguntas frequentes"
+      "faqs": "FAQs"
     },
     "title": "Bem-vindo ao Futuro",
     "description": "Descubra o Solar Virtual. Sem instalação. Energia barata. Conexão instantânea.",
@@ -200,5 +200,15 @@
     "title": "Parabéns!",
     "desc1": "Você assinou o contrato com sucesso e efetuou o pagamento.",
     "desc2": "Você pode baixar abaixo o contrato assinado."
+  },
+  "launch": {
+    "Pre_Sale_Launch": "Lançamento da pré-venda!",
+    "description1": "Imagine reduzir as suas contas de eletricidade até 75% e, ao mesmo tempo, apoiar um planeta mais verde!",
+    "description2": "Na Neos, estamos a redefinir a eletricidade para Espanha, oferecendo-lhe acesso direto a energia solar limpa a partir dos nossos parques solares de última geração. Não é necessário ter um telhado ou estar numa zona solarenga. Com a Neos, abrace a revolução verde a partir de qualquer local, seja uma casa, um apartamento ou uma empresa, independentemente das condições climatéricas, graças às nossas instalações solares virtuais.",
+    "description3": "O que é uma instalação solar virtual? É a sua participação pessoal na produção de energia solar, atribuída a si mas localizada nos nossos parques solares, que já estão ligados à rede nacional. Isto significa que começa a beneficiar da energia solar no momento em que compra uma instalação, evitando o período de espera habitual para a instalação de um painel no telhado e pagando 20% a 35% menos pela mesma capacidade.",
+    "Exclusive_Early_Access": "Acesso antecipado exclusivo",
+    "description4": "Temos o prazer de anunciar que as pré-vendas das nossas instalações solares virtuais começam no final deste mês! Desbloqueie o nosso desconto especial de lançamento introduzindo os seus dados abaixo.",
+    "Email_or_Phone_Number": "Correio ou Telefone",
+    "SUBMIT": "ENVIAR"
   }
 }
