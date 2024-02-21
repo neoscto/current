@@ -28,7 +28,7 @@ const faq = () => {
             <div
               style={{
                 height: "lg:49vh md:60vh",
-                // overflowY: "scroll",
+
                 padding: "0.5rem",
               }}
               className="flex flex-wrap"
