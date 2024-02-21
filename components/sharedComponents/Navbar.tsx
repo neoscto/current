@@ -6,11 +6,8 @@ import NeosButton from "@/components/NeosButton";
 import { MenuItem } from "@mui/material";
 import { useEffect, useState } from "react";
 import NeosSelect from "../NeosSelect";
-// import english from "@/public/flags/gb-eng.svg";
 import english from "@/public/flags/gb.svg";
-// import portugal from "@/public/flags/pt.png";
 import portugal from "@/public/flags/pt.svg";
-// import spanish from "@/public/flags/spanish.png";
 import spanish from "@/public/flags/es.svg";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
@@ -62,7 +59,6 @@ const Navbar = () => {
           {[
             { name: "Español", flag: spanish, value: "es" },
             { name: "English", flag: english, value: "en" },
-            { name: "Português", flag: portugal, value: "pt" },
           ].map((item, index) => (
             <MenuItem
               key={index}

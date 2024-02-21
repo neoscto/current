@@ -81,7 +81,6 @@ const Launch = () => {
               style={{
                 backgroundColor: "#FD7C7C",
                 borderRadius: "8px",
-                // height: "52px",
               }}
               size="md"
               loading={loading}
