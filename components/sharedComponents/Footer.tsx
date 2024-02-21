@@ -35,7 +35,7 @@ const Footer = () => {
               <span>+34 900 732 890</span>
             </Link>
 
-            <span className="text-white font-medium items-center lg:flex hidden">
+            <span className="text-white font-medium items-center md:flex hidden">
               {t("Footer.copyright")} {moment(new Date()).format("YYYY")} Neos.{" "}
               {t("Footer.rights")}
             </span>
@@ -92,7 +92,7 @@ const Footer = () => {
             </Link>
           </div>
 
-          <p className="text-white font-medium items-center flex lg:hidden text-center w-auto mx-auto">
+          <p className="text-white font-medium items-center flex md:hidden text-center w-auto mx-auto">
             {t("Footer.copyright")} {moment(new Date()).format("YYYY")} Neos.{" "}
             {t("Footer.rights")}
           </p>
