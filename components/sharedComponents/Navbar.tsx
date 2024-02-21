@@ -62,7 +62,6 @@ const Navbar = () => {
           {[
             { name: "Español", flag: spanish, value: "es" },
             { name: "English", flag: english, value: "en" },
-            { name: "Português", flag: portugal, value: "pt" },
           ].map((item, index) => (
             <MenuItem
               key={index}
