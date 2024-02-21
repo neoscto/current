@@ -5,6 +5,7 @@ import { fetchPosts } from "@/features/common/commonSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import LandingPage from "./landingpage/page";
 import Launch from "./launch/page";
+import { useTranslation } from "react-i18next";
 interface postData {
   title: string;
 }
@@ -26,6 +27,15 @@ export default function Home() {
   //   s.src = "https://widget.gotolstoy.com/widget/widget.js";
   //   document.head.appendChild(s);
   // }, []);
+
+  const { t } = useTranslation();
+  const { language }: any = useSelector(
+    (state: RootState) => state.commonSlice
+  );
+
+  useEffect(() => {
+    document.title = t("title");
+  }, [language]);
 
   return (
     <div className="w-full relative">

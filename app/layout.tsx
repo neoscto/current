@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>Neos | Cheaper Solar Energy, Without a Rooftop</title>
+        <title>Neos | Energía Solar Más Barata, Sin Tejado</title>
         <ColorSchemeScript />
       </head>
       <body className={outfit.className}>
