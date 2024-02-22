@@ -43,12 +43,12 @@ const Navbar = () => {
       <div className="items-center select-container gap-x-2 flex">
         <Link
           href="/faq"
-          className=" font-bold border rounded-lg text-center text-lg md:text-xl  text-white px-4 py-1 "
+          className=" hover:bg-hover-color hover:border-hover-color font-bold border rounded-lg text-center text-lg md:text-xl  text-white px-4 py-1 "
         >
           {t("Home.nav.faq")}
         </Link>
         <NeosSelect
-          className=""
+          className="hover:bg-hover-color hover:text-white"
           value={language}
           onChange={(e: React.ChangeEvent<{ value: unknown }>) => {
             dispath(setLanguage(e.target.value as string));
