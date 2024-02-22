@@ -10,8 +10,12 @@ import {
   getDataFromSessionStorage,
   saveDataToSessionStorage,
 } from "@/utils/utils";
-import 'react-phone-number-input/style.css'
-import PhoneInput, { Country, getCountryCallingCode, isValidPhoneNumber } from 'react-phone-number-input'
+import "react-phone-number-input/style.css";
+import PhoneInput, {
+  Country,
+  getCountryCallingCode,
+  isValidPhoneNumber,
+} from "react-phone-number-input";
 import { useState } from "react";
 
 interface GetOfferProps {
@@ -77,7 +81,6 @@ const GetOffer: React.FC<GetOfferProps> = ({
   const { t } = useTranslation();
   return (
     <>
-
       {showForm == "soffer" && (
         <div className=" w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9">
           <div className="w-[100%] md:w-[85%] lg:w-[85%]  mx-auto mt-6 md:mt-16 lg:mt-16 ">
@@ -152,15 +155,19 @@ const GetOffer: React.FC<GetOfferProps> = ({
                   countryCallingCodeEditable={false}
                   defaultCountry="GB"
                   onCountryChange={(country: Country) => {
-                    const dialCode = getCountryCallingCode(country)
-                    formik.setFieldValue('dialCode', dialCode);
+                    const dialCode = getCountryCallingCode(country);
+                    formik.setFieldValue("dialCode", dialCode);
                   }}
                   onChange={(value) => {
-                    formik.setFieldValue('phoneNumber', value);
+                    formik.setFieldValue("phoneNumber", value);
                   }}
                 />
                 <p className="font-sm text-[#2D9CDB] mt-1">
-                  {formik.values.phoneNumber ? (isValidPhoneNumber(formik.values.phoneNumber) ? undefined : 'Invalid phone number') : 'Phone number required'}
+                  {formik.values.phoneNumber
+                    ? isValidPhoneNumber(formik.values.phoneNumber)
+                      ? undefined
+                      : "Invalid phone number"
+                    : "Phone number required"}
                 </p>
               </Grid>
             </Grid>
@@ -252,15 +259,19 @@ const GetOffer: React.FC<GetOfferProps> = ({
                   countryCallingCodeEditable={false}
                   defaultCountry="GB"
                   onCountryChange={(country: Country) => {
-                    const dialCode = getCountryCallingCode(country)
-                    formik.setFieldValue('dialCode', dialCode);
+                    const dialCode = getCountryCallingCode(country);
+                    formik.setFieldValue("dialCode", dialCode);
                   }}
                   onChange={(value) => {
-                    formik.setFieldValue('phoneNumber', value);
+                    formik.setFieldValue("phoneNumber", value);
                   }}
                 />
                 <p className="font-sm text-[#2D9CDB] mt-1">
-                  {formik.values.phoneNumber ? (isValidPhoneNumber(formik.values.phoneNumber) ? undefined : 'Invalid phone number') : 'Phone number required'}
+                  {formik.values.phoneNumber
+                    ? isValidPhoneNumber(formik.values.phoneNumber)
+                      ? undefined
+                      : "Invalid phone number"
+                    : "Phone number required"}
                 </p>
               </Grid>
             </Grid>

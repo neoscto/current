@@ -2,6 +2,8 @@ import NeosButton from "@/components/NeosButton";
 import { useTranslation } from "react-i18next";
 import { setFormBack } from "@/features/common/commonSlice";
 import { useDispatch } from "react-redux";
+import PersonalisedOffer from "./../../public/PersonalisedOffer.png";
+import Image from "next/image";
 
 interface OfferCardProps {
   Data: {
@@ -24,11 +26,11 @@ const OfferCard = ({ Data, setShowForm }: OfferCardProps) => {
           : "border-[#E0E0E0] bg-white"
       }`}
     >
-      <h3 className="text-lg font-semibold flex justify-center items-center lg:w-109 md:w-[109%] sm:w-[109%] h-[30px]">
+      <h3 className="text-lg font-semibold flex justify-center items-center  h-[30px] gap-2">
         {Data?.is_premium && (
-          <img src="PersonalisedOffer.png" className="w-[30] h-[30] mr-3" />
+          <Image src={PersonalisedOffer} alt="image" width={30} />
         )}
-        {t(`Get-offer.${Data.title}`)}
+        <span>{t(`Get-offer.${Data.title}`)}</span>
       </h3>
       <hr className="h-px my-6 bg-[#E0E0E0] border-0 "></hr>
       <p className="text-base font-medium mb-12 min-h-[46px] line-clamp-2">
