@@ -17,7 +17,8 @@ const config: Config = {
         "button-text": "0px 4px 4px rgba(0, 0, 0, 0.25)",
       },
       colors: {
-        "hover-color": "#f8aeae",
+        "Primary-Color-Main": "#FD7C7C",
+        "Primary-Color-Light": "#ff9d9d",
       },
     },
   },
