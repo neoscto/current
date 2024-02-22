@@ -12,3 +12,10 @@
     color: white;
   }
 }
+
+.root {
+  background-color: #fd7c7c;
+}
+.root:hover {
+  background-color: #fb9393;
+}

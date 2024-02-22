@@ -10,29 +10,29 @@ const SelectBox = styled(Select)(() => ({
   borderRadius: "8px",
   border: "none",
   backgroundColor: "#fff",
-  height: "40px",
   textTransform: "capitalize",
   fontFamily: "inherit",
   fontWeight: 700,
-  padding: "10px 16px",
+
   "& .custom-input-class": {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: 0,
-    paddingRight: "0!important",
+    paddingRight: "16px !important",
   },
   svg: {
     display: "none",
   },
   [theme.breakpoints.down("md")]: {
     fontSize: "12px",
-    padding: "6px 12px",
+
     height: "36px",
   },
 }));
 
-const NeosSelect = (props) => {
+interface NeosSelectProps {}
+
+const NeosSelect = (props: any) => {
   const { value, defaultValue, ...otherProps } = props;
   return (
     <FormControl
@@ -57,7 +57,7 @@ const NeosSelect = (props) => {
               color: "#000",
             },
             "&& .MuiMenuItem-root:hover": {
-              backgroundColor: "#FD7C7C",
+              backgroundColor: "#f8aeae",
               color: "#fff",
             },
             "&& .MuiMenuItem-root": {

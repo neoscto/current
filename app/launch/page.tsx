@@ -78,10 +78,7 @@ const Launch = () => {
 
             <Button
               type="submit"
-              style={{
-                backgroundColor: "#FD7C7C",
-                borderRadius: "8px",
-              }}
+              classNames={{ root: classes.root }}
               size="md"
               loading={loading}
             >

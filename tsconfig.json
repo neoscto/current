@@ -30,7 +30,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "components/NeosSelect.jsx",
     "app/contractDetail/page.tsx",
     "app/get-quote/page.tsx"
   ],
