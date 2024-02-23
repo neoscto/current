@@ -1,31 +1,31 @@
-"use client";
-import React, { useCallback, useEffect, useState } from "react";
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import MainContainer from "@/components/sharedComponents/MainContainer";
-import GetOffer from "./GetOffer";
-import ContractDetail from "../contractDetail/page";
-import Success from "../success/page";
-import { pdfGenerate } from "./pdfGenerator";
-import { setUserData } from "@/features/common/commonSlice";
-import { AppDispatch, RootState } from "@/store/store";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import useHandleForm from "@/hooks/useHandleForm";
-import { offerStep1Schema } from "@/utils/validations/offers.validation";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import axios from "axios";
-import useDocusignService from "@/hooks/useDocusign";
-import { saveDataToSessionStorage } from "@/utils/utils";
-import { CircularProgress } from "@mui/material";
-import Congrats from "@/components/Congrats";
+'use client';
+import React, { useCallback, useEffect, useState } from 'react';
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import MainContainer from '@/components/sharedComponents/MainContainer';
+import GetOffer from './GetOffer';
+import ContractDetail from '../contractDetail/page';
+import Success from '../success/page';
+import { pdfGenerate } from './pdfGenerator';
+import { setUserData } from '@/features/common/commonSlice';
+import { AppDispatch, RootState } from '@/store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import useHandleForm from '@/hooks/useHandleForm';
+import { offerStep1Schema } from '@/utils/validations/offers.validation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import axios from 'axios';
+import useDocusignService from '@/hooks/useDocusign';
+import { saveDataToSessionStorage } from '@/utils/utils';
+import { CircularProgress } from '@mui/material';
+import Congrats from '@/components/Congrats';
 
-const steps = ["Receive Offer", "Sign Contract", "Enjoy Solar"];
+const steps = ['Receive Offer', 'Sign Contract', 'Enjoy Solar'];
 
 interface FormData {
   numberOfPeople: string;
@@ -42,35 +42,36 @@ const HorizontalLinearStepper = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const activeStep = searchParams.get("activeStep") || 0;
+  const activeStep = searchParams.get('activeStep') || 0;
 
   // const handleSuccessResponce = (res: any) => {
   //   saveDataToSessionStorage("UserOffer", res.data);
   // };
 
   const formikInitialValues = {
-    offerType: "",
-    numberOfPeople: "",
-    cups: "",
-    firstName: "",
-    lastName: "",
-    emailAddress: "",
-    phoneNumber: "",
-    dialCode: "44",
-    numberofpeopleAdditionValue: 1,
+    offerType: '',
+    numberOfPeople: '',
+    cups: '',
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
+    phoneNumber: '',
+    dialCode: '44',
+    numberofpeopleAdditionValue: 1
   };
-  const [showForm, setShowForm] = useState<string>("allOffers");
+  const [showForm, setShowForm] = useState<string>('allOffers');
 
   const [formik, isLoading]: any = useHandleForm({
-    method: "POST",
-    apiEndpoint: "/api/users-offers",
+    method: 'POST',
+    apiEndpoint: '/api/users-offers',
     formikInitialValues,
     validationSchema: offerStep1Schema,
-    handleSuccessResponce,
+    handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
-    saveDataToSessionStorage("UserOffer", res.data);
-    setShowForm("yourOffer");
+    saveDataToSessionStorage('UserOffer', res.data);
+    console.log('here');
+    setShowForm('yourOffer');
     const arrayData = Object.keys(res.data);
     arrayData.forEach((key: any) => {
       formik.setFieldValue(key, res.data[key]);
@@ -80,15 +81,13 @@ const HorizontalLinearStepper = () => {
     useDocusignService(formik);
 
   useEffect(() => {
-    window.addEventListener("message", (event) => {
-      if (event.data === "redirect_success_url") {
-        window.location.href = "/getoffer?activeStep=2";
-        window.removeEventListener("message", (event) => { });
+    window.addEventListener('message', (event) => {
+      if (event.data === 'redirect_success_url') {
+        window.location.href = '/getoffer?activeStep=2';
+        window.removeEventListener('message', (event) => {});
       }
     });
-
-  }, [signingUrl])
-
+  }, [signingUrl]);
 
   const [skipped, setSkipped] = useState<Set<number>>(new Set<number>());
 
@@ -124,8 +123,8 @@ const HorizontalLinearStepper = () => {
 
     router.push(
       pathname +
-      "?" +
-      createQueryString("activeStep", (Number(activeStep) + 1).toString())
+        '?' +
+        createQueryString('activeStep', (Number(activeStep) + 1).toString())
     );
     setSkipped(newSkipped);
   };
@@ -133,8 +132,8 @@ const HorizontalLinearStepper = () => {
   const handleBack = (): void => {
     router.push(
       pathname +
-      "?" +
-      createQueryString("activeStep", (Number(activeStep) - 1).toString())
+        '?' +
+        createQueryString('activeStep', (Number(activeStep) - 1).toString())
     );
   };
   const handleSkip = (): void => {
@@ -144,8 +143,8 @@ const HorizontalLinearStepper = () => {
 
     router.push(
       pathname +
-      "?" +
-      createQueryString("activeStep", (Number(activeStep) + 1).toString())
+        '?' +
+        createQueryString('activeStep', (Number(activeStep) + 1).toString())
     );
     setSkipped((prevSkipped) => {
       const newSkipped = new Set(prevSkipped.values());
@@ -156,31 +155,31 @@ const HorizontalLinearStepper = () => {
 
   const handleReset = (): void => {
     router.push(
-      pathname + "?" + createQueryString("activeStep", (0).toString())
+      pathname + '?' + createQueryString('activeStep', (0).toString())
     );
   };
 
   const [formData, setFormData] = useState<FormData>({
-    numberOfPeople: "",
-    firstName: "",
-    lastName: "",
-    emailAddress: "",
-    phoneNumber: "",
-    dialCode: "44",
-    numberofpeopleAdditionValue: 1,
+    numberOfPeople: '',
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
+    phoneNumber: '',
+    dialCode: '44',
+    numberofpeopleAdditionValue: 1
   });
 
   const handleChange = (key: string) => (event: any) => {
-    if (key === "numberOfPeople") {
+    if (key === 'numberOfPeople') {
       setFormData((prevData) => ({
         ...prevData,
         [key]: event.target.value.toString(),
-        ["numberofpeopleAdditionValue"]: event.target.value.toString(),
+        ['numberofpeopleAdditionValue']: event.target.value.toString()
       }));
     } else {
       setFormData((prevData) => ({
         ...prevData,
-        [key]: event.target.value,
+        [key]: event.target.value
       }));
     }
   };
@@ -193,26 +192,26 @@ const HorizontalLinearStepper = () => {
     pdfGenerate(formik.values);
   };
   const handleFormBack = () => {
-    if (showForm === "poffer" || showForm === "soffer") {
-      setShowForm("allOffers");
+    if (showForm === 'poffer' || showForm === 'soffer') {
+      setShowForm('allOffers');
       return;
     }
-    if (showForm === "paymentForm") {
-      router.push(pathname + "?" + createQueryString("activeStep", "1"));
-      setShowForm("emailSuccess");
+    if (showForm === 'paymentForm') {
+      router.push(pathname + '?' + createQueryString('activeStep', '1'));
+      setShowForm('emailSuccess');
       return;
     }
-    if (showForm === "yourOffer") {
-      setShowForm(formBack === "backpoffer" ? "poffer" : "soffer");
+    if (showForm === 'yourOffer') {
+      setShowForm(formBack === 'backpoffer' ? 'poffer' : 'soffer');
       return;
     }
-    if (showForm === "yourDetails") {
-      router.push(pathname + "?" + createQueryString("activeStep", "0"));
-      setShowForm("yourOffer");
+    if (showForm === 'yourDetails') {
+      router.push(pathname + '?' + createQueryString('activeStep', '0'));
+      setShowForm('yourOffer');
       return;
     }
-    if (showForm === "emailSuccess" && formBack === "emailDetails") {
-      setShowForm("yourDetails");
+    if (showForm === 'emailSuccess' && formBack === 'emailDetails') {
+      setShowForm('yourDetails');
       return;
     }
     if (showForm === 'allOffers') {
@@ -251,7 +250,7 @@ const HorizontalLinearStepper = () => {
             <ArrowBackIcon className=" cursor-pointer  lg:text-[30px] md:text-[30px] sm:text-[30px] text-[22px]" />
           </span>
         </div>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: '100%' }}>
           <div className="max-w-[630px] w-full mx-auto pt-[35px] pb-[26px]">
             <Stepper activeStep={Number(activeStep)}>
               {steps.map((label, index) => {
@@ -267,41 +266,41 @@ const HorizontalLinearStepper = () => {
                     key={label}
                     {...stepProps}
                     sx={{
-                      "& .MuiStepLabel-root": {
-                        flexDirection: ["column", "row"],
-                        height: "36px",
-                        alignItems: "center",
+                      '& .MuiStepLabel-root': {
+                        flexDirection: ['column', 'row'],
+                        height: '36px',
+                        alignItems: 'center'
                       },
-                      "@media (max-width: 700px)": {
-                        "& .MuiStepLabel-root": {
-                          flexDirection: "column",
-                          height: "32px",
+                      '@media (max-width: 700px)': {
+                        '& .MuiStepLabel-root': {
+                          flexDirection: 'column',
+                          height: '32px'
                         },
-                        "& .MuiStepLabel-label": {
-                          marginLeft: "-10px",
-                          fontSize: ["10px", "12px"],
+                        '& .MuiStepLabel-label': {
+                          marginLeft: '-10px',
+                          fontSize: ['10px', '12px']
                         },
                         svg: {
-                          paddingLeft: "2px",
-                        },
+                          paddingLeft: '2px'
+                        }
                       },
-                      "& .MuiStepLabel-root .Mui-active .MuiStepIcon-text": {
-                        fill: "#fff",
+                      '& .MuiStepLabel-root .Mui-active .MuiStepIcon-text': {
+                        fill: '#fff'
                       },
-                      "& .MuiStepLabel-label": {
-                        color: "#000",
-                        fontSize: ["10px", "14px"],
+                      '& .MuiStepLabel-label': {
+                        color: '#000',
+                        fontSize: ['10px', '14px'],
                         fontWeight: 500,
-                        marginTop: "4px",
-                        textAlign: "center",
-                        marginLeft: "0px",
+                        marginTop: '4px',
+                        textAlign: 'center',
+                        marginLeft: '0px'
                       },
                       svg: {
-                        width: "30px",
-                        height: "30px",
+                        width: '30px',
+                        height: '30px',
 
-                        color: "#EAEAED",
-                      },
+                        color: '#EAEAED'
+                      }
                     }}
                   >
                     <StepLabel
@@ -317,7 +316,7 @@ const HorizontalLinearStepper = () => {
           </div>
           {signingUrl || loading ? (
             signingUrl ? (
-              <div className="w-[90%] mx-auto mx-5 border-[2px] mb-5" >
+              <div className="w-[90%] mx-auto mx-5 border-[2px] mb-5">
                 <iframe
                   src={signingUrl}
                   width="100%"
@@ -328,14 +327,16 @@ const HorizontalLinearStepper = () => {
             ) : (
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100vh",
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh'
                 }}
               >
-                <p>We are loading contract document. Please do not click anyware.</p>
+                <p>
+                  We are loading contract document. Please do not click anyware.
+                </p>
                 <CircularProgress />
               </div>
             )
@@ -344,8 +345,8 @@ const HorizontalLinearStepper = () => {
               <Typography sx={{ mt: 2, mb: 1 }}>
                 All steps completed - you&apos;re finished
               </Typography>
-              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                <Box sx={{ flex: "1 1 auto" }} />
+              <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                <Box sx={{ flex: '1 1 auto' }} />
                 <Button onClick={handleReset}>Reset</Button>
               </Box>
             </React.Fragment>

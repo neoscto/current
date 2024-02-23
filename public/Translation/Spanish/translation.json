@@ -62,11 +62,12 @@
   },
   "Your-offer": {
     "title": "Precio a Pagar",
+    "subtitle": "más IVA",
     "desc": "por 25 años de energía solar",
     "validate-btn": "validar",
     "offer-title": "Tu Oferta",
     "offer-option1": "Paneles (Equivalentes a",
-    "offer-option1-unit": "KWp",
+    "offer-option1-unit": "kWp",
     "offer-saving-1": "ahorro anual",
     "offer-saving-2": "ahorro total",
     "offer-payback": "años de devolución",
@@ -76,11 +77,11 @@
     "Redeem-code-discount": "Código de referencia para un descuento"
   },
   "panel-charge": {
-    "installation-cost": "Costo de instalacion",
-    "grid-electricity": "Electricidad de red durante 25 años",
-    "payback": "Payback",
-    "savings": "Savings Over 25 Years",
-    "c02-reduction": "CO2 Reduction"
+    "installation-cost": "Coste de instalación con impuestos (€)",
+    "savings": "*Ahorro en 25 años (%)",
+    "grid-electricity": "*Ahorro en 25 años (€)",
+    "payback": "Amortización (años)",
+    "c02-reduction": "Ahorro de emisiones de CO2 (Tons)"
   },
   "panel-header": {
     "neos-panel-neos-provider": "Paneles Neos y \nNeos como proveedor",
@@ -260,5 +261,15 @@
       "question21": "¿Cómo empiezo con Neos?",
       "answer21": "<p>Empezar es fácil. Visite nuestra página web, calcule su oferta, firme su contrato y pague por su instalación, todo en 10 minutos. ¡Bienvenido al futuro de la energía!</p>"
     }
-  }
+  },
+  "Switch between the two plans above to compare our estimates": "Cambia entre los dos planes anteriores para comparar nuestras estimaciones",
+  "Percent savings in the first year": "Porcentaje de ahorro en el primer año",
+  "lower electricity bills": "facturas de electricidad más bajas",
+  "Total savings": "Ahorro total",
+  "saved over 25 years": "ahorrado más de 25 años",
+  "Your investment will have paid for itself": "Su inversión se habrá amortizado",
+  "years": "años",
+  "CO2 emission savings": "Ahorro de emisiones de CO2",
+  "over 25 years": "más de 25 años",
+  "elephants": "elefantes"
 }

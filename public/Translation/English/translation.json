@@ -62,11 +62,12 @@
   },
   "Your-offer": {
     "title": "Price to Pay",
+    "subtitle": "plus VAT",
     "desc": "for 25 years of solar power",
     "validate-btn": "validate",
     "offer-title": "Your Offer",
     "offer-option1": "Panels (Equivalent to",
-    "offer-option1-unit": "KWp",
+    "offer-option1-unit": "kWp",
     "offer-saving-1": "yearly savings",
     "offer-saving-2": "total savings over 25 years",
     "offer-payback": "years payback",
@@ -76,11 +77,11 @@
     "Redeem-code-discount": "Referral Code for a Discount"
   },
   "panel-charge": {
-    "installation-cost": "Installation Cost",
-    "grid-electricity": "Grid Electricity Over 25 Years",
-    "payback": "Payback",
-    "savings": "Savings Over 25 Years",
-    "c02-reduction": "CO2 Reduction"
+    "installation-cost": "Installation Cost with Tax (€) ",
+    "savings": "*Savings Over 25 Years (%)",
+    "grid-electricity": "*Savings Over 25 Years (€)",
+    "payback": "Payback (Years)",
+    "c02-reduction": "CO2 Emission Savings (Tons)"
   },
   "panel-header": {
     "neos-panel-neos-provider": "Neos Panels & \nNeos As Provider",
@@ -260,5 +261,15 @@
       "question21": "How do I get started with Neos?",
       "answer21": "<p>Starting is easy. Simply visit our website, estimate the number of solar panels that fit your needs, sign your contract, and pay for your extra awesome installation, all within 10 minutes. Welcome to the future of energy!</p>"
     }
-  }
+  },
+  "Switch between the two plans above to compare our estimates": "Switch between the two plans above to compare our estimates",
+  "Percent savings in the first year": "Percent savings in the first year",
+  "lower electricity bills": "lower electricity bills",
+  "Total savings": "Total savings",
+  "saved over 25 years": "saved over 25 years",
+  "Your investment will have paid for itself": "Your investment will have paid for itself",
+  "years": "years",
+  "CO2 emission savings": "CO2 emission savings",
+  "over 25 years": "over 25 years",
+  "elephants": "elephants"
 }
