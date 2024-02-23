@@ -26,7 +26,6 @@ import VideoPreview from '../videoPlayer/preview';
 import Rating from '@mui/material/Rating';
 import html2Canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPeriod';
 
 const barChatdata = [
   {
@@ -149,6 +148,7 @@ const YourOffer = ({ handleNext, data }: any) => {
   const [value, setValue] = useState<number | null>(5);
   const [isMobile, setIsMobile] = useState(false);
   const [userPlan, setUserPlan] = useState('neos');
+  const [userPlanBar, setUserPlanBar] = useState('neos');
 
   const handleResize = () => {
     if (window.innerWidth < 768) {
@@ -259,6 +259,10 @@ const YourOffer = ({ handleNext, data }: any) => {
     offerData.plan = plan;
     sessionStorage.setItem('UserOffer', JSON.stringify(offerData));
     setUserPlan(plan);
+  };
+
+  const updateUserPlanBarSelection = (plan: string) => () => {
+    setUserPlanBar(plan);
   };
 
   const downloadPagePdf = () => {
@@ -853,13 +857,24 @@ const YourOffer = ({ handleNext, data }: any) => {
               <div className="flex gap-4">
                 <NeosButton
                   category="outline"
-                  className="lg:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] !border-2 !border-[#66BCDA] !normal-case h-12"
+                  className={`lg:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] !border-2 ${
+                    userPlanBar == 'neos'
+                      ? '!border-[#66BCDA]'
+                      : '!border-[#E0E0E0]'
+                  } !normal-case h-12`}
                   title={t('How-it-work.chooseNeosPartner')}
+                  onClick={updateUserPlanBarSelection('neos')}
                 />
                 <NeosButton
                   category="outline"
-                  className="g:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] border-2 !border-[#E0E0E0] !normal-case h-12"
+                  className={` lg:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] border-2 ${
+                    userPlanBar == 'current'
+                      ? '!border-[#66BCDA]'
+                      : '!border-[#E0E0E0]'
+                  } !normal-case h-12
+                  `}
                   title={t('How-it-work.keepProvider')}
+                  onClick={updateUserPlanBarSelection('current')}
                 />
               </div>
             </div>
@@ -883,10 +898,10 @@ const YourOffer = ({ handleNext, data }: any) => {
           {/* chart container */}
           <div className="md:h-[312px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart width={150} height={40} data={barChatdata}>
+              <BarChart width={150} height={40} data={data.save_yearly_w_neos}>
                 <Bar
                   dataKey="saving"
-                  fill="#436DC6"
+                  fill={`${userPlanBar === 'neos' ? '#436DC6' : '#EB5757'}`}
                   barSize={24}
                   radius={[5, 5, 0, 0]}
                 />
