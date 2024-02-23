@@ -18,6 +18,21 @@ import PhoneInput, {
 } from "react-phone-number-input";
 import { useState } from "react";
 
+const validateCUPS = (cups: string): boolean => {
+  // Check if the CUPS starts with "ES"
+  if (!cups.startsWith("ES")) {
+    return false;
+  }
+
+  // Check if the length is either 20 or 22 characters
+  if (cups.length !== 20 && cups.length !== 22) {
+    return false;
+  }
+
+  // If both conditions are satisfied, return true
+  return true;
+};
+
 interface GetOfferProps {
   formik: any;
   handleChange: any;
@@ -134,15 +149,6 @@ const GetOffer: React.FC<GetOfferProps> = ({
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={6}>
-                {/* <NeosTextField
-                  placeholder={t("Get-offer-form.form-placeholder")}
-                  label={t("Get-offer-form.phone")}
-                  name="phoneNumber"
-                  value={formik.values.phoneNumber}
-                  onChange={formik.handleChange}
-                  error={Boolean(formik.errors.phoneNumber)}
-                  helperText={t(formik.errors.phoneNumber)}
-                /> */}
                 <label className="text-sm text-black  font-medium mb-1.5 block">
                   {t("Get-offer-form.phone")}
                 </label>
@@ -167,11 +173,11 @@ const GetOffer: React.FC<GetOfferProps> = ({
                     ? isValidPhoneNumber(formik.values.phoneNumber)
                       ? undefined
                       : "Invalid phone number"
-                    : "Phone number required"}
+                    : null}
                 </p>
               </Grid>
             </Grid>
-            <div className="text-center mt-8 md:mt-24 lg:mt-24">
+            <div className="text-center mt-14 ">
               <NeosButton
                 category="colored"
                 title={t("Calculate-saving-btn")}
@@ -193,7 +199,7 @@ const GetOffer: React.FC<GetOfferProps> = ({
                 <NeosTextField
                   placeholder={t("Get-offer-form.form-placeholder")}
                   label={t("Get-offer-form.cups")}
-                  type="number"
+                  type="text"
                   name="cups"
                   value={formik.values.cups}
                   onChange={formik.handleChange}
@@ -238,15 +244,6 @@ const GetOffer: React.FC<GetOfferProps> = ({
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={6}>
-                {/* <NeosTextField
-                  placeholder={t("Get-offer-form.form-placeholder")}
-                  label={t("Get-offer-form.phone")}
-                  name="phoneNumber"
-                  value={formik.values.phoneNumber}
-                  onChange={formik.handleChange}
-                  error={Boolean(formik.errors.phoneNumber)}
-                  helperText={t(formik.errors.phoneNumber)}
-                /> */}
                 <label className="text-sm text-black  font-medium mb-1.5 block">
                   {t("Get-offer-form.phone")}
                 </label>
@@ -271,11 +268,11 @@ const GetOffer: React.FC<GetOfferProps> = ({
                     ? isValidPhoneNumber(formik.values.phoneNumber)
                       ? undefined
                       : "Invalid phone number"
-                    : "Phone number required"}
+                    : null}
                 </p>
               </Grid>
             </Grid>
-            <div className="text-center mt-8 md:mt-24 lg:mt-24">
+            <div className="text-center mt-14">
               <NeosButton
                 category="colored"
                 title={t("Calculate-saving-btn")}
