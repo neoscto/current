@@ -230,11 +230,14 @@ export const calculateSolarPaybackPeriod = async (
   number_of_people?: number,
   user_cups_code?: string
 ) => {
+  console.log({ number_of_people }, { user_cups_code });
   let required_capacity: number = 0;
   let yearly_fixed_charge: number = 0;
   let UTILITY_PRICE: number = 0;
   let yearly_consumption: number = 0;
   let SERVICE_FEE_PER_MONTH: number = 0;
+  let yearly_variable_bill: number = 0;
+  let total_customer_fees: number = 0;
 
   if (number_of_people) {
     let mean_daily_average_consumption: number =
@@ -254,62 +257,91 @@ export const calculateSolarPaybackPeriod = async (
       SERVICE_FEE_PER_MONTH = 12;
       UTILITY_PRICE = 0.165449;
     }
+    yearly_variable_bill =
+      UTILITY_PRICE * (1 + GRID_TAX_PERCENT) * yearly_consumption;
+    total_customer_fees =
+      SERVICE_FEE_PER_MONTH * MONTHS_IN_YEAR * YEARS_IN_CONTRACT;
   } else if (user_cups_code) {
     // console.log({ user_cups_code });
-    let consumption_data = await getConsumptionDataFromApi(user_cups_code);
-    let technical_data = await getTechnicalDataFromApi(user_cups_code);
+    const cups_codes: string[] = user_cups_code
+      .split(',')
+      .map((cup) => cup.trim());
 
-    // console.log({ consumption_data }, { technical_data });
+    yearly_consumption = 0;
+    required_capacity = 0;
+    yearly_fixed_charge = 0;
+    yearly_variable_bill = 0;
+    total_customer_fees = 0;
 
-    if (consumption_data && technical_data) {
-      let final_df = processConsumptionData(consumption_data);
-      //   console.log({ final_df });
-      let mean_daily_average_consumption: number =
-        final_df.Total.reduce((acc, val) => acc + val, 0) /
-        (final_df.Year.length * DAYS_IN_MONTH);
-      //   console.log({ mean_daily_average_consumption });
-      yearly_consumption =
-        (final_df.Total.reduce((acc, val) => acc + val, 0) /
-          final_df.Year.length) *
-        MONTHS_IN_YEAR;
-      //   console.log({ yearly_consumption });
-      required_capacity =
-        mean_daily_average_consumption / SEVILLA_HSP / SYSTEM_EFFICIENCY;
-      let type_consumption_point = technical_data.tipoPerfilConsumo
-        ? technical_data.tipoPerfilConsumo.slice(1)
-        : null;
-      let relevant_prices = POWER_PRICES[type_consumption_point];
-      let contracted_powers: Record<string, number> = {};
+    for (const cups_code of cups_codes) {
+      let consumption_data = await getConsumptionDataFromApi(cups_code);
+      let technical_data = await getTechnicalDataFromApi(cups_code);
 
-      for (let i = 1; i <= 6; i++) {
-        contracted_powers[`P${i}`] = parseFloat(
-          technical_data[`potenciasContratadasEnWP${i}`] || '0'
+      // console.log({ consumption_data }, { technical_data });
+
+      if (consumption_data && technical_data) {
+        const final_df = processConsumptionData(consumption_data);
+        let mean_daily_average_consumption: number =
+          final_df.Total.reduce((acc, val) => acc + val, 0) /
+          (final_df.Year.length * DAYS_IN_MONTH);
+        //   console.log({ mean_daily_average_consumption });
+        const individual_required_capacity: number =
+          mean_daily_average_consumption / SEVILLA_HSP / SYSTEM_EFFICIENCY;
+        required_capacity += individual_required_capacity;
+
+        const individual_yearly_consumption: number =
+          (final_df.Total.reduce((acc, val) => acc + val, 0) /
+            final_df.Year.length) *
+          MONTHS_IN_YEAR;
+        yearly_consumption += individual_yearly_consumption;
+
+        let type_consumption_point = technical_data.tipoPerfilConsumo
+          ? technical_data.tipoPerfilConsumo.slice(1)
+          : null;
+        let relevant_prices = POWER_PRICES[type_consumption_point];
+        let contracted_powers: Record<string, number> = {};
+        for (let i = 1; i <= 7; i++) {
+          contracted_powers[`P${i}`] = parseFloat(
+            technical_data[`potenciasContratadasEnWP${i}`] || '0'
+          );
+        }
+
+        let final_charges: number[] = Object.entries(relevant_prices).map(
+          ([period, price]) => (price * contracted_powers[period]) / 1000
         );
-      }
+        const individual_yearly_fixed_charge: number = final_charges.reduce(
+          (acc, val) => acc + val,
+          0
+        ); // this year
+        yearly_fixed_charge += individual_yearly_fixed_charge;
+        //   console.log({ yearly_fixed_charge });
+        SERVICE_FEE_PER_MONTH = 0;
+        UTILITY_PRICE = 0;
+        if (type_consumption_point === '2.0TD') {
+          SERVICE_FEE_PER_MONTH = 6;
+          UTILITY_PRICE = 0.191649;
+        } else if (['3.0TD', '3.0TDVE'].includes(type_consumption_point)) {
+          SERVICE_FEE_PER_MONTH = 12;
+          UTILITY_PRICE = 0.165449;
+        } else {
+          SERVICE_FEE_PER_MONTH = 100;
+          UTILITY_PRICE = 0.11;
+        }
+        const individual_yearly_variable_bill: number =
+          UTILITY_PRICE *
+          (1 + GRID_TAX_PERCENT) *
+          individual_yearly_consumption;
+        yearly_variable_bill += individual_yearly_variable_bill;
 
-      let final_charges: number[] = Object.entries(relevant_prices).map(
-        ([period, price]) => (price * contracted_powers[period]) / 1000
-      );
-      yearly_fixed_charge = final_charges.reduce((acc, val) => acc + val, 0); // this year
-      //   console.log({ yearly_fixed_charge });
-      SERVICE_FEE_PER_MONTH = 0;
-      UTILITY_PRICE = 0;
-
-      if (type_consumption_point === '2.0TD') {
-        SERVICE_FEE_PER_MONTH = 6;
-        UTILITY_PRICE = 0.191649;
-      } else if (['3.0TD', '3.0TDVE'].includes(type_consumption_point)) {
-        SERVICE_FEE_PER_MONTH = 12;
-        UTILITY_PRICE = 0.165449;
+        const individual_total_customer_fees: number =
+          SERVICE_FEE_PER_MONTH * MONTHS_IN_YEAR * YEARS_IN_CONTRACT;
+        total_customer_fees += individual_total_customer_fees;
       } else {
-        SERVICE_FEE_PER_MONTH = 100;
-        UTILITY_PRICE = 0.11;
+        console.log(
+          'Error fetching data. Please check the CUPS code and try again.'
+        );
+        return;
       }
-    } else {
-      console.log(
-        'Error fetching data. Please check the CUPS code and try again.'
-      );
-      return;
     }
   }
   const number_of_panels: number = required_capacity * PANELS_PER_KW;
@@ -337,8 +369,8 @@ export const calculateSolarPaybackPeriod = async (
   //     `Total Fixed Charges Over 25 Years: €${total_fixed_charges.toFixed(2)}.`
   //   );
 
-  let yearly_variable_bill: number =
-    UTILITY_PRICE * (1 + GRID_TAX_PERCENT) * yearly_consumption;
+  //   let yearly_variable_bill: number =
+  //     UTILITY_PRICE * (1 + GRID_TAX_PERCENT) * yearly_consumption;
   const yearly_variable_bills_w_inflation: number[] = [];
   let total_variable_charges: number = 0;
   let total_spending_w_regular_provider: number = 0;
@@ -433,8 +465,8 @@ export const calculateSolarPaybackPeriod = async (
   let total_customers_spending_solar: number =
     customers_spending_solar_w_inflation.reduce((a, b) => a + b, 0);
 
-  let total_customer_fees: number =
-    SERVICE_FEE_PER_MONTH * MONTHS_IN_YEAR * YEARS_IN_CONTRACT;
+  //   let total_customer_fees: number =
+  //     SERVICE_FEE_PER_MONTH * MONTHS_IN_YEAR * YEARS_IN_CONTRACT;
 
   //   console.log(
   //     { total_fixed_charges },

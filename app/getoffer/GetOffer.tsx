@@ -56,6 +56,7 @@ const GetOffer: React.FC<GetOfferProps> = ({
     neos_installation_tax: 0,
     number_of_panels: 0,
     required_capacity: 0,
+    total_price_after_tax: 0,
     tableData: [
       {
         neosPanelProvider: '',
@@ -97,16 +98,19 @@ const GetOffer: React.FC<GetOfferProps> = ({
     neos_total_emissions_saved_in_tons: 0,
     neos_not_provider_total_emissions_saved_in_tons: 0,
     neos_elephants_carbon_capture: 0,
-    neos_not_provider_elephants_carbon_capture: 0
+    neos_not_provider_elephants_carbon_capture: 0,
+    save_yearly_w_neos: [{ years: 0, saving: '' }],
+    save_yearly_without_neos: [{ years: 0, saving: '' }]
   });
 
   const handleyourSaving = async () => {
+    console.log(formik.values.numberOfPeople);
+    console.log(formik.values.cups);
     const newData = await calculateSolarPaybackPeriod(
       formik.values.numberOfPeople,
       formik.values.cups
     );
-
-    setData(newData);
+    if (newData) setData(newData);
 
     const offerData: any = getDataFromSessionStorage('UserOffer');
     if (offerData) {
