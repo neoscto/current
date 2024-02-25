@@ -214,39 +214,6 @@ const YourOffer = ({ handleNext, data }: any) => {
     { title: 'keep-provider' }
   ];
 
-  const tempData = [
-    {
-      neosPanelProvider: '€ 3,600',
-      neosPanelKeepProvider: '€3600',
-      rooftopPanelKeepProvider: '€ 5000',
-      keepProvider: ''
-    },
-    {
-      neosPanelProvider: '€ 8,000',
-      neosPanelKeepProvider: '€ 14,000',
-      rooftopPanelKeepProvider: '€ 14,000',
-      keepProvider: '€ 26,000'
-    },
-    {
-      neosPanelProvider: '6 years',
-      neosPanelKeepProvider: '8 years',
-      rooftopPanelKeepProvider: '13 years',
-      keepProvider: ''
-    },
-    {
-      neosPanelProvider: '€ 14,400',
-      neosPanelKeepProvider: '€ 8,400',
-      rooftopPanelKeepProvider: '€ 6,600',
-      keepProvider: '0'
-    },
-    {
-      neosPanelProvider: '1.8 tons',
-      neosPanelKeepProvider: '1.5 tons',
-      rooftopPanelKeepProvider: '1.3 tons',
-      keepProvider: ''
-    }
-  ];
-
   const scrollToDiv = () => {
     const planSection = document.getElementById('plan-section');
     if (planSection) {
@@ -307,6 +274,10 @@ const YourOffer = ({ handleNext, data }: any) => {
       setReferralCodeError('invalid');
     }
   };
+
+  if (!data) {
+    return <></>;
+  }
 
   return (
     <div className="max-w-[1200px] w-full mx-auto" id="content-id">
