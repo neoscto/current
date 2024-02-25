@@ -19,18 +19,26 @@ import { useState } from 'react';
 import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPeriod';
 import YourOffer from '../youoffer/page';
 
-const validateCUPS = (cups: string): boolean => {
-  // Check if the CUPS starts with "ES"
-  if (!cups.startsWith('ES')) {
-    return false;
-  }
+const validateCUPS = (cups: string): boolean | string => {
+  const cupsArray = cups.replace(/\s/g, '').split(',');
 
-  // Check if the length is either 20 or 22 characters
-  if (cups.length !== 20 && cups.length !== 22) {
-    return false;
-  }
+  for (const cup of cupsArray) {
+    if (!cup.startsWith('ES')) {
+      return cupsArray.length === 1
+        ? 'You made a mistake in your CUPS, please enter a valid CUPS'
+        : 'You made a mistake in at least one of your CUPS, please enter valid CUPS';
+    }
+    if (cup.length > 22) {
+      return 'You’ve entered more than 1 CUPS, please separate your CUPS with commas';
+    }
 
-  // If both conditions are satisfied, return true
+    // Check if the length is either 20 or 22 characters
+    if (cup.length !== 20 && cup.length !== 22) {
+      return cupsArray.length === 1
+        ? 'You made a mistake in your CUPS, please enter a valid CUPS'
+        : 'You made a mistake in at least one of your CUPS, please enter valid CUPS';
+    }
+  }
   return true;
 };
 
@@ -104,8 +112,6 @@ const GetOffer: React.FC<GetOfferProps> = ({
   });
 
   const handleyourSaving = async () => {
-    console.log(formik.values.numberOfPeople);
-    console.log(formik.values.cups);
     const newData = await calculateSolarPaybackPeriod(
       formik.values.numberOfPeople,
       formik.values.cups
@@ -268,7 +274,13 @@ const GetOffer: React.FC<GetOfferProps> = ({
                   helperText={t(formik.errors.cups)}
                 />
                 <p className="font-sm text-[#2D9CDB] mt-1">
-                  {t('Get-offer-form.field-desc')}
+                  <p className="font-sm text-[#2D9CDB] mt-1">
+                    {formik.values.cups
+                      ? validateCUPS(formik.values.cups) === true
+                        ? undefined
+                        : t(`${validateCUPS(formik.values.cups)}`)
+                      : t('Get-offer-form.field-desc')}
+                  </p>
                 </p>
               </Grid>
               <Grid item xs={12} sm={6} md={6}>
