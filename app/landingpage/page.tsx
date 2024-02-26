@@ -1,28 +1,28 @@
-"use client";
-import React from "react";
-import NeosButton from "@/components/NeosButton";
-import MainContainer from "@/components/sharedComponents/MainContainer";
-import { useRouter } from "next/navigation";
-import { useTranslation } from "react-i18next";
-import VideoPreview from "../videoPlayer/preview";
-import Licensed from "@/components/Licensed";
+'use client';
+import React from 'react';
+import NeosButton from '@/components/NeosButton';
+import MainContainer from '@/components/sharedComponents/MainContainer';
+import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import VideoPreview from '../videoPlayer/preview';
+import Licensed from '@/components/Licensed';
+import Trusted from '@/components/Trusted';
 
 const LandingPage = () => {
   const router = useRouter();
   const { t } = useTranslation();
   return (
     <MainContainer>
-      <div className="flex flex-col gap-5">
-
+      <div className="flex flex-col gap-5 py-3">
         <div>
           <div className=" mt-4">
             <div className="block md:hidden lg:hidden relative flex justify-center items-center mb-6 h-[330px] w-[160px] mt-[-10px] rounded-[12px] overflow-hidden bg-white mx-auto">
               <VideoPreview
                 custonClass={
-                  "max-h-[330px] h-full z-10 relative w-[160px]  z-[1]"
+                  'max-h-[330px] h-full z-10 relative w-[160px]  z-[1]'
                 }
                 url={
-                  "https://videos.gotolstoy.com/public/41532226-45a4-45f6-a10f-a313cb492bc8/6c2ed4e4-393f-415d-8c6f-495ee6f13e80/6c2ed4e4-393f-415d-8c6f-495ee6f13e80.mp4"
+                  'https://videos.gotolstoy.com/public/41532226-45a4-45f6-a10f-a313cb492bc8/6c2ed4e4-393f-415d-8c6f-495ee6f13e80/6c2ed4e4-393f-415d-8c6f-495ee6f13e80.mp4'
                 }
                 controls={false}
               />
@@ -33,10 +33,10 @@ const LandingPage = () => {
               <div className="hidden sm:hidden md:block lg:block md:col-span-4 lg:col-span-3 relative">
                 <VideoPreview
                   custonClass={
-                    "max-h-[600px] z-10 absolute w-[85%] lg:mt-[-2em] md:mt-[-2em] h-[520px] sm:mt-[-0.9em] z-[1] rounded-[20px] overflow-hidden"
+                    'max-h-[600px] z-10 absolute w-[85%] lg:mt-[-2em] md:mt-[-2em] h-[520px] sm:mt-[-0.9em] z-[1] rounded-[20px] overflow-hidden'
                   }
                   url={
-                    "https://videos.gotolstoy.com/public/41532226-45a4-45f6-a10f-a313cb492bc8/6c2ed4e4-393f-415d-8c6f-495ee6f13e80/6c2ed4e4-393f-415d-8c6f-495ee6f13e80.mp4"
+                    'https://videos.gotolstoy.com/public/41532226-45a4-45f6-a10f-a313cb492bc8/6c2ed4e4-393f-415d-8c6f-495ee6f13e80/6c2ed4e4-393f-415d-8c6f-495ee6f13e80.mp4'
                   }
                   autoPlay={true}
                   muted={true}
@@ -46,23 +46,23 @@ const LandingPage = () => {
               <div className="col-span-8 sm:col-span-8 md:col-span-4 lg:col-span-5 px-5 md:px-4 lg:px-10 leading-[48px] flex justify-center lg:justify-start items-center pt-5 pb-5 md:mb-24  md:mt-20 lg:mb-24  lg:mt-24">
                 <div className=" text-center md:text-left lg:text-left">
                   <h6 className="font-bold text-white text-xl md:text-[2em] lg:text-[2.6em] leading-[6px]  md:leading-[46px] lg:leading-[46px]">
-                    {t("Home.title")}
+                    {t('Home.title')}
                   </h6>
                   <p className="font-normal text-sm md:text-md lg:text-xl text-white mt-4 md:mt-3.5 lg:mt-3.5 mb-6 md:mb-11 lg:mb-11">
-                    {t("Home.description")}
+                    {t('Home.description')}
                   </p>
                   <div className="flex">
                     <NeosButton
                       category="fill"
-                      title={t("Home.btn1txt")}
-                      onClick={() => router.push("/description")}
+                      title={t('Home.btn1txt')}
+                      onClick={() => router.push('/description')}
                       className="text-[.6em] md:text-[.8em] font-semibold"
                     />
                     <NeosButton
                       category="outline"
                       sx={{ ml: 2 }}
-                      title={t("Home.btn2txt")}
-                      onClick={() => router.push("/getoffer")}
+                      title={t('Home.btn2txt')}
+                      onClick={() => router.push('/getoffer')}
                       className="text-[.6em] md:text-[.8em] font-semibold"
                     />
                   </div>
@@ -73,6 +73,7 @@ const LandingPage = () => {
         </div>
 
         <Licensed />
+        <Trusted />
       </div>
     </MainContainer>
   );

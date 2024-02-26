@@ -274,5 +274,6 @@
   "elephants": "elephants",
   "You made a mistake in your CUPS, please enter a valid CUPS": "You made a mistake in your CUPS, please enter a valid CUPS",
   "You made a mistake in at least one of your CUPS, please enter valid CUPS": "You made a mistake in at least one of your CUPS, please enter valid CUPS",
-  "You’ve entered more than 1 CUPS, please separate your CUPS with commas": "You’ve entered more than 1 CUPS, please separate your CUPS with commas"
+  "You’ve entered more than 1 CUPS, please separate your CUPS with commas": "You’ve entered more than 1 CUPS, please separate your CUPS with commas",
+  "Trusted by": "Trusted by"
 }
