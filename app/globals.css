@@ -15,7 +15,7 @@ body {
 }
 
 .landing-page-container {
-  background: url("../public/landingpage-bg.png") no-repeat fixed;
+  background: url('../public/landingpage-bg.png') repeat fixed;
   /* background-size: 100% 100%;
   background-repeat: no-repeat;
   background-image: url("../public/landingpage-bg.png"); */
