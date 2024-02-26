@@ -712,11 +712,11 @@ const YourOffer = ({ handleNext, data }: any) => {
         {/* Chart Starts here */}
         <div className="flex justify-center flex-col w-full h-auto border mt-8 border-[#E0E0E0] !rounded-3xl px-4 pt-6 pb-4">
           {/*  chart header */}
-          <div className="flex justify-between lg:gap-4 lg:mb-[40px] lg:flex-row flex-col gap-[14px] mb-2.5">
-            <div className="flex flex-wrap lg:gap-[29px] gap-1.5 lg:items-center lg:flex-row flex-col items-start lg:pl-[18px]">
-              <span className="text-[20px] leading-[25px] font-semibold text-black text-left">
+          <div className="flex justify-between lg:gap-4 lg:mb-[40px] md:flex-row flex-col gap-[14px] mb-2.5">
+            <div className="flex flex-wrap lg:gap-[29px] gap-1.5 lg:items-center md:flex-row flex-col items-center ">
+              <div className="text-[20px] leading-[25px] font-semibold text-black text-left">
                 {t('panel-charge.payback')}
-              </span>
+              </div>
 
               <div className="flex gap-4">
                 <NeosButton
@@ -743,7 +743,7 @@ const YourOffer = ({ handleNext, data }: any) => {
               </div>
             </div>
 
-            <div className="flex lg:flex-col lg:justify-end flex-row gap-[10px] justify-start lg:pr-[23px]">
+            <div className="flex md:flex-col lg:justify-end flex-row gap-[10px] justify-start lg:pr-[23px]">
               <div className="flex items-center gap-2.5 max-w-1/2 lg:w-auto">
                 <div className="bg-[#436DC6] lg:w-[26px] w-[20px] h-[10px]"></div>
                 <span className="lg:text-[16px] lg:leading-[21px] text-[12px] leading-[15px] !font-medium text-[#4F4F4F]">
