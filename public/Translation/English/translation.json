@@ -63,7 +63,7 @@
   "Your-offer": {
     "title": "Price to Pay",
     "subtitle": "plus VAT",
-    "desc": "for 25 years of solar power",
+    "desc": "for 25 years of solar energía",
     "validate-btn": "validate",
     "offer-title": "Your Offer",
     "offer-option1": "Panels (Equivalent to",
@@ -151,7 +151,7 @@
   },
   "chart": {
     "savingWithNeos": "Savings with Neos",
-    "installationCost": "Installation Cost",
+    "installationCost": "Installation Cost with Tax",
     "years": "years",
     "savings": "savings",
     "peekSolarFarm": "Take a peek at YOUR solar farm!",

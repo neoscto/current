@@ -230,7 +230,6 @@ export const calculateSolarPaybackPeriod = async (
   number_of_people?: number,
   user_cups_code?: string
 ) => {
-  console.log({ number_of_people }, { user_cups_code });
   let required_capacity: number = 0;
   let yearly_fixed_charge: number = 0;
   let UTILITY_PRICE: number = 0;
@@ -611,7 +610,7 @@ export const calculateSolarPaybackPeriod = async (
   for (let i = 0; i < 25; i++) {
     total_savings_w_neos += savings_w_neos[i];
     save_yearly_w_neos.push({
-      years: i,
+      years: i + 1,
       saving: total_savings_w_neos.toFixed(2)
     });
     // console.log(`- Year ${i}: €${total_savings_w_neos.toFixed(2)}.`);
@@ -697,7 +696,7 @@ export const calculateSolarPaybackPeriod = async (
   for (let i = 0; i < 25; i++) {
     total_savings_without_neos += savings_without_neos[i];
     save_yearly_without_neos.push({
-      years: i,
+      years: i + 1,
       saving: total_savings_without_neos.toFixed(2)
     });
     // console.log(`- Year ${i}: €${total_savings_without_neos.toFixed(2)}.`);

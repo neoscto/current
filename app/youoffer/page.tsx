@@ -135,6 +135,8 @@ const barChatdata = [
 ];
 
 const YourOffer = ({ handleNext, data }: any) => {
+  // console.log(data.save_yearly_w_neos);
+  // console.log(data.total_price_after_tax);
   const { userData }: any = useSelector(
     (state: RootState) => state.commonSlice
   );
@@ -353,7 +355,7 @@ const YourOffer = ({ handleNext, data }: any) => {
           <div className="flex justify-center items-center lg:max-w-[500px] max-w-full w-full">
             <div className="max-w-full w-full">
               <div className="py-[11px] text-black">
-                <h1 className="flex flex-col justify-center lg:block">
+                <h1 className="flex flex-col justify-center lg:block text-center">
                   <span className="lg:text-[30px] lg:leading-[37.8px] lg:text-left font-bold text-[22px] leading-[27px] text-center">
                     {t('Your-offer.offer-title')}:
                   </span>
@@ -408,14 +410,14 @@ const YourOffer = ({ handleNext, data }: any) => {
                 </div>
               </div>
 
-              <p className=" font-bold mt-4">
+              <p className=" font-bold my-6">
                 {t(
                   'Switch between the two plans above to compare our estimates'
                 )}
                 :
               </p>
 
-              <div className="lg:py-[11px] mt-[22px] flex flex-col gap-2.5 py-[8.5px] ">
+              <div className=" flex flex-col gap-2.5  ">
                 <p className="text-[18px] leading-[22.68px] font-medium text-[#333333]">
                   • {t('Percent savings in the first year')}:{' '}
                   <b>
@@ -869,7 +871,15 @@ const YourOffer = ({ handleNext, data }: any) => {
           {/* chart container */}
           <div className="md:h-[312px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart width={150} height={40} data={data.save_yearly_w_neos}>
+              <BarChart
+                width={150}
+                height={40}
+                data={
+                  userPlanBar === 'neos'
+                    ? data.save_yearly_w_neos
+                    : data.save_yearly_without_neos
+                }
+              >
                 <Bar
                   dataKey="saving"
                   fill={`${userPlanBar === 'neos' ? '#436DC6' : '#EB5757'}`}
@@ -929,7 +939,7 @@ const YourOffer = ({ handleNext, data }: any) => {
           />
         </div>
 
-        <div className="w-full !rounded-3xl lg:h-[388px] h-[651px] relative overflow-hidden">
+        {/* <div className="w-full !rounded-3xl lg:h-[388px] h-[651px] relative overflow-hidden">
           <img
             src="video-placeholder.png"
             alt="video"
@@ -958,7 +968,7 @@ const YourOffer = ({ handleNext, data }: any) => {
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
