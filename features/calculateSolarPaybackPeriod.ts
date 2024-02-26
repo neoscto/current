@@ -609,12 +609,21 @@ export const calculateSolarPaybackPeriod = async (
 
   for (let i = 0; i < 25; i++) {
     total_savings_w_neos += savings_w_neos[i];
+
+    // console.log(`- Year ${i}: €${total_savings_w_neos.toFixed(2)}.`);
+  }
+  let sum = 0;
+  for (let i = 0; i < 25; i++) {
+    sum += savings_w_neos[i];
     save_yearly_w_neos.push({
       years: i + 1,
-      saving: total_savings_w_neos.toFixed(2)
+      saving: (sum / total_savings_w_neos).toFixed(2)
     });
     // console.log(`- Year ${i}: €${total_savings_w_neos.toFixed(2)}.`);
   }
+
+  //   console.log('saving with neos', { save_yearly_w_neos });
+
   let sum_w_neos: number = 0;
   let left: number = total_price_after_tax;
   let values: number[] = [];
@@ -695,12 +704,22 @@ export const calculateSolarPaybackPeriod = async (
   let save_yearly_without_neos = [];
   for (let i = 0; i < 25; i++) {
     total_savings_without_neos += savings_without_neos[i];
+    // save_yearly_without_neos.push({
+    //   years: i + 1,
+    //   saving: total_savings_without_neos.toFixed(2)
+    // });
+    // console.log(`- Year ${i}: €${total_savings_without_neos.toFixed(2)}.`);
+  }
+  sum = 0;
+  for (let i = 0; i < 25; i++) {
+    sum += savings_without_neos[i];
     save_yearly_without_neos.push({
       years: i + 1,
-      saving: total_savings_without_neos.toFixed(2)
+      saving: (sum / total_savings_w_neos).toFixed(2)
     });
     // console.log(`- Year ${i}: €${total_savings_without_neos.toFixed(2)}.`);
   }
+
   let sum_without_neos: number = 0;
   let payback_without_neos: number = 0;
 
@@ -913,6 +932,8 @@ export const calculateSolarPaybackPeriod = async (
     neos_elephants_carbon_capture,
     neos_not_provider_elephants_carbon_capture,
     save_yearly_w_neos,
-    save_yearly_without_neos
+    save_yearly_without_neos,
+    total_savings_w_neos,
+    total_savings_without_neos
   };
 };

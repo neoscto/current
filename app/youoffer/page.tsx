@@ -27,116 +27,7 @@ import Rating from '@mui/material/Rating';
 import html2Canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
-const barChatdata = [
-  {
-    years: '0',
-    saving: 500
-  },
-  {
-    years: '1',
-    saving: 1000
-  },
-  {
-    years: '2',
-    saving: 1500
-  },
-  {
-    years: '3',
-    saving: 2000
-  },
-  {
-    years: '4',
-    saving: 2500
-  },
-  {
-    years: '5',
-    saving: 3000
-  },
-  {
-    years: '6',
-    saving: 3500
-  },
-  {
-    years: '7',
-    saving: 4000
-  },
-  {
-    years: '8',
-    saving: 4500
-  },
-  {
-    years: '9',
-    saving: 5000
-  },
-  {
-    years: '10',
-    saving: 5500
-  },
-  {
-    years: '11',
-    saving: 6000
-  },
-  {
-    years: '12',
-    saving: 6500
-  },
-  {
-    years: '13',
-    saving: 7000
-  },
-  {
-    years: '14',
-    saving: 7500
-  },
-  {
-    years: '15',
-    saving: 8000
-  },
-  {
-    years: '16',
-    saving: 8500
-  },
-  {
-    years: '17',
-    saving: 9000
-  },
-  {
-    years: '18',
-    saving: 9500
-  },
-  {
-    years: '19',
-    saving: 10000
-  },
-  {
-    years: '20',
-    saving: 10500
-  },
-  {
-    years: '21',
-    saving: 11000
-  },
-  {
-    years: '22',
-    saving: 11500
-  },
-  {
-    years: '23',
-    saving: 12000
-  },
-  {
-    years: '24',
-    saving: 12500
-  },
-  {
-    years: '25',
-    saving: 13000
-  }
-];
-
 const YourOffer = ({ handleNext, data }: any) => {
-  // console.log(data.save_yearly_w_neos);
-  // console.log(data.total_price_after_tax);
   const { userData }: any = useSelector(
     (state: RootState) => state.commonSlice
   );
@@ -902,9 +793,11 @@ const YourOffer = ({ handleNext, data }: any) => {
                 <YAxis
                   tickCount={4}
                   tickLine={false}
-                  domain={[0, 15000]}
+                  domain={[0, 1]}
                   tickFormatter={(value) =>
-                    value > 0 ? `${value / 1000}K` : value
+                    value > 0
+                      ? `${((userPlanBar === 'neos' ? value * data.total_savings_w_neos : value * data.total_savings_w_neos) / 1000).toLocaleString()}K`
+                      : value
                   }
                   className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]"
                 >
