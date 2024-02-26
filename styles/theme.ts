@@ -1,5 +1,5 @@
-"use client";
-import { Outfit } from "next/font/google";
+'use client';
+import { Outfit } from 'next/font/google';
 import { createTheme, PaletteOptions } from '@mui/material/styles';
 
 interface CustomPaletteOptions extends PaletteOptions {
@@ -23,21 +23,21 @@ const theme = createTheme({
     primary: {
       main: '#FD7C7C',
       light: '#FFF8F8',
-      dark: '#ff8b8b',
+      dark: '#ffa4a4'
     },
     secondary: {
       main: '#000',
       light: '#F7F8F9',
-      contrastText: '#ffffff',
+      contrastText: '#ffffff'
     },
     basic: {
       white: '#ffffff',
       black: '#000000'
-    },
+    }
   } as CustomPaletteOptions,
   typography: {
-    fontFamily: outfit.style.fontFamily,
-  },
+    fontFamily: outfit.style.fontFamily
+  }
 });
 
 export default theme;

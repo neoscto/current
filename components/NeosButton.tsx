@@ -50,10 +50,10 @@ const getButtonStyles = (category: 'fill' | 'outline' | 'colored') => {
       return {
         border: `1px solid ${theme.palette.primary.main}`,
         color: '#fff',
-        backgroundColor: `${theme.palette.primary.main}!important`,
+        backgroundColor: `${theme.palette.primary.main} !important`,
         padding: theme.spacing(1.7, 2, 1.7, 2.4),
         '&:hover': {
-          backgroundColor: `${theme.palette.primary.dark}!important`
+          backgroundColor: `${theme.palette.primary.dark} !important`
         },
         '&:disabled': {
           border: '1px solid #999999',
