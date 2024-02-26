@@ -429,12 +429,12 @@ const YourOffer = ({ handleNext, data }: any) => {
                         key={index}
                         className={`w-full py-[21px] px-4 whitespace-pre border text-[#4F4F4F] text-[14px] leading-[17.64px] font-semibold border-b-0 flex items-center ${
                           index === 0
-                            ? 'rounded-tl-3xl px-3 border-[#0F9DD0] bg-[#E8F5FA] max-w-[180px] min-w-[180px] w-full'
+                            ? 'rounded-tl-3xl px-3 border-[#0F9DD0] bg-[#E8F5FA] max-w-[180px] min-w-[180px]'
                             : index === 1
-                              ? 'max-w-[138px] min-w-[138px] w-full'
+                              ? 'max-w-[138px] min-w-[138px]'
                               : index === 3
-                                ? ' border-[#E0E0E0] rounded-tr-3xl max-w-[108px] min-w-[108px] w-full'
-                                : 'border-[#E0E0E0] max-w-[156px] min-w-[156px] w-full'
+                                ? ' border-[#E0E0E0] rounded-tr-3xl max-w-[108px] min-w-[108px]'
+                                : 'border-[#E0E0E0] max-w-[156px] min-w-[156px]'
                         }`}
                       >
                         {index === 0 && (
@@ -773,7 +773,7 @@ const YourOffer = ({ handleNext, data }: any) => {
               >
                 <Bar
                   dataKey="saving"
-                  fill={`${userPlanBar === 'neos' ? '#436DC6' : '#EB5757'}`}
+                  fill={`#436DC6`}
                   barSize={24}
                   radius={[5, 5, 0, 0]}
                 />
@@ -812,7 +812,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                 <CartesianAxis className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]" />
                 {/* <Tooltip /> */}
                 <ReferenceLine
-                  y={data.total_price_after_tax}
+                  y={data.total_price_after_tax / data.total_savings_w_neos}
                   stroke="#EB5757"
                   strokeDasharray="5 0"
                   strokeWidth={3}

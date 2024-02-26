@@ -853,20 +853,17 @@ export const calculateSolarPaybackPeriod = async (
       },
       {
         neosPanelProvider:
-          '€' +
           percent_savings_w_neos.toLocaleString('en-US', {
             maximumFractionDigits: 2
-          }),
+          }) + '%',
         neosPanelKeepProvider:
-          '€' +
           percent_savings_without_neos.toLocaleString('en-US', {
             maximumFractionDigits: 2
-          }),
+          }) + '%',
         rooftopPanelKeepProvider:
-          '€' +
           percent_savings_retail_rooftop.toLocaleString('en-US', {
             maximumFractionDigits: 2
-          }),
+          }) + '%',
         keepProvider: '0'
       },
       {
