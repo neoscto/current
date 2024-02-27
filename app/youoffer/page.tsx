@@ -397,7 +397,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                 </p>
               </div>
 
-              <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3">
+              <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center">
                 <NeosButton
                   category="colored"
                   title={t('Your-offer.download-offer')}
