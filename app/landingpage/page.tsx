@@ -13,7 +13,7 @@ const LandingPage = () => {
   const { t } = useTranslation();
   return (
     <MainContainer>
-      <div className="flex flex-col gap-5 py-3">
+      <div className="flex flex-col gap-5  my-12">
         <div>
           <div className=" mt-4">
             <div className="block md:hidden lg:hidden relative flex justify-center items-center mb-6 h-[330px] w-[160px] mt-[-10px] rounded-[12px] overflow-hidden bg-white mx-auto">
@@ -73,7 +73,7 @@ const LandingPage = () => {
         </div>
 
         <Licensed />
-        <Trusted />
+        {/* <Trusted /> */}
       </div>
     </MainContainer>
   );

@@ -11,20 +11,20 @@ const Trusted = () => {
       </p>
       <div className="flex align-center flex-wrap">
         <img
-          src="investor/investor1.png"
+          src="investor/investor3.png"
           alt="Neos logo"
           className=" object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full invert brightness-0"
         />
         <img
-          src="investor/investor2.png"
+          src="investor/investor1.png"
           alt="Neos logo"
           className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full mx-4 my-2 md:my-0 brightness-0 invert"
         />
-        {/* <img
+        <img
           src="investor/investor2.png"
           alt="Neos logo"
           className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full invert brightness-0"
-        /> */}
+        />
       </div>
     </div>
   );
