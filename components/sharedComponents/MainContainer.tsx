@@ -1,19 +1,30 @@
-"use client";
-import React, { ReactNode, useEffect, useState } from "react";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import VideoPlayer from "@/app/videoPlayer/page";
-import { useTranslation } from "react-i18next";
-import { useSelector, useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "@/store/store";
+'use client';
+import React, { ReactNode, useEffect, useState } from 'react';
+import Navbar from './Navbar';
+import Footer from './Footer';
+import VideoPlayer from '@/app/videoPlayer/page';
+import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface MainContainerProps {
   children: ReactNode;
 }
 
+const notRestrictedPages = ['/', '/description', '/getoffer', '/faq'];
+
 const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
   const { language } = useSelector((state: RootState) => state.commonSlice);
   const { t, i18n } = useTranslation();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (!notRestrictedPages.includes(pathname)) {
+      router.push('/');
+    }
+  }, [pathname]);
 
   useEffect(() => {
     if (language !== i18n.language) {
