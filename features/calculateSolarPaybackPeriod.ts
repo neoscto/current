@@ -226,6 +226,19 @@ function processConsumptionData(
   return { Year, Month, P1, P2, P3, P4, P5, P6, Total };
 }
 
+const fetchData = async (cups_code: string) => {
+  try {
+    const [consumption_data, technical_data] = await Promise.all([
+      getConsumptionDataFromApi(cups_code),
+      getTechnicalDataFromApi(cups_code)
+    ]);
+    return { consumption_data, technical_data };
+  } catch (error) {
+    console.error('Error fetching data for CUPS code:', cups_code, error);
+    return null;
+  }
+};
+
 export const calculateSolarPaybackPeriod = async (
   number_of_people?: number,
   user_cups_code?: string
@@ -272,18 +285,23 @@ export const calculateSolarPaybackPeriod = async (
     yearly_variable_bill = 0;
     total_customer_fees = 0;
 
-    for (const cups_code of cups_codes) {
-      let consumption_data = await getConsumptionDataFromApi(cups_code);
-      let technical_data = await getTechnicalDataFromApi(cups_code);
+    const allData = await Promise.all(cups_codes.map(fetchData));
 
-      // console.log({ consumption_data }, { technical_data });
+    // console.log({ info });
+
+    for (const data of allData) {
+      // let consumption_data = await getConsumptionDataFromApi(cups_code);
+      // let technical_data = await getTechnicalDataFromApi(cups_code);
+
+      // const data = await fetchData(cups_code);
+      if (!data) return;
+      const { consumption_data, technical_data } = data;
 
       if (consumption_data && technical_data) {
         const final_df = processConsumptionData(consumption_data);
         let mean_daily_average_consumption: number =
           final_df.Total.reduce((acc, val) => acc + val, 0) /
           (final_df.Year.length * DAYS_IN_MONTH);
-        //   console.log({ mean_daily_average_consumption });
         const individual_required_capacity: number =
           mean_daily_average_consumption / SEVILLA_HSP / SYSTEM_EFFICIENCY;
         required_capacity += individual_required_capacity;

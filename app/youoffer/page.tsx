@@ -26,6 +26,7 @@ import VideoPreview from '../videoPlayer/preview';
 import Rating from '@mui/material/Rating';
 import html2Canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { usePDF } from 'react-to-pdf';
 
 const YourOffer = ({ handleNext, data }: any) => {
   const { userData }: any = useSelector(
@@ -168,12 +169,18 @@ const YourOffer = ({ handleNext, data }: any) => {
     }
   };
 
+  const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' });
+
   if (!data) {
     return <></>;
   }
 
   return (
-    <div className="max-w-[1200px] w-full mx-auto" id="content-id">
+    <div
+      className="max-w-[1200px] w-full mx-auto"
+      id="content-id"
+      ref={targetRef}
+    >
       <div className="w-full bg-white lg:px-[70px] lg:pb-[18px] px-5 py-4">
         {/* Offer and virtual solar */}
         <div className="flex lg:justify-end lg:gap-[131px] items-end flex-col lg:flex-row gap-[29px]">
@@ -402,7 +409,8 @@ const YourOffer = ({ handleNext, data }: any) => {
                   category="colored"
                   title={t('Your-offer.download-offer')}
                   className="lg:w-full w-auto lg:p-[17px]"
-                  onClick={downloadPagePdf}
+                  // onClick={downloadPagePdf}
+                  onClick={() => toPDF()}
                 />
 
                 <NeosButton

@@ -3,9 +3,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: Request, res: Response) {
-  console.log('here');
   const body = await req.json();
-  console.log(body); // Make sure you're receiving the body properly
+
   try {
     const { cupsCode, WEBTOKEN } = body;
 
@@ -17,7 +16,7 @@ export async function POST(req: Request, res: Response) {
         }
       }
     );
-    console.log(response.data);
+
     if (response.status === 200) {
       //   res.status(200).json(response.data);
       return new NextResponse(JSON.stringify(response.data), {

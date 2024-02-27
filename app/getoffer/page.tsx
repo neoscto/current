@@ -316,7 +316,7 @@ const HorizontalLinearStepper = () => {
           </div>
           {signingUrl || loading ? (
             signingUrl ? (
-              <div className="w-[90%] mx-auto mx-5 border-[2px] mb-5">
+              <div className="w-[90%] mx-5 border-[2px] mb-5">
                 <iframe
                   src={signingUrl}
                   width="100%"
