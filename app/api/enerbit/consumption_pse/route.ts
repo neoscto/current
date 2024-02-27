@@ -17,7 +17,7 @@ export async function POST(req: Request, res: Response) {
         }
       }
     );
-    console.log(response.data);
+
     if (response.status === 200) {
       //   res.status(200).json(response.data);
       return new NextResponse(JSON.stringify(response.data), {

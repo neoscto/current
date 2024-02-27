@@ -235,7 +235,7 @@ const fetchData = async (cups_code: string) => {
     return { consumption_data, technical_data };
   } catch (error) {
     console.error('Error fetching data for CUPS code:', cups_code, error);
-    return null;
+    throw new Error('Error fetching data for CUPS code:');
   }
 };
 
@@ -286,6 +286,10 @@ export const calculateSolarPaybackPeriod = async (
     total_customer_fees = 0;
 
     const allData = await Promise.all(cups_codes.map(fetchData));
+
+    if (!allData) {
+      throw new Error('erorr');
+    }
 
     // console.log({ info });
 
@@ -357,7 +361,9 @@ export const calculateSolarPaybackPeriod = async (
         console.log(
           'Error fetching data. Please check the CUPS code and try again.'
         );
-        return;
+        throw new Error(
+          'Error fetching data. Please check the CUPS code and try again.'
+        );
       }
     }
   }

@@ -111,12 +111,22 @@ const GetOffer: React.FC<GetOfferProps> = ({
     save_yearly_without_neos: [{ years: 0, saving: '' }]
   });
 
+  const [serverError, setServerError] = useState('');
+
   const handleyourSaving = async () => {
-    const newData = await calculateSolarPaybackPeriod(
-      formik.values.numberOfPeople,
-      formik.values.cups
-    );
-    if (newData) setData(newData);
+    try {
+      const newData = await calculateSolarPaybackPeriod(
+        formik.values.numberOfPeople,
+        formik.values.cups
+      );
+      if (newData) setData(newData);
+
+      setServerError('');
+    } catch (error) {
+      console.log('###error', error);
+      setServerError('Please try one more time?');
+      return;
+    }
 
     const offerData: any = getDataFromSessionStorage('UserOffer');
     if (offerData) {
@@ -277,7 +287,7 @@ const GetOffer: React.FC<GetOfferProps> = ({
                   <p className="font-sm text-[#2D9CDB] mt-1">
                     {formik.values.cups
                       ? validateCUPS(formik.values.cups) === true
-                        ? undefined
+                        ? t(`${serverError}`)
                         : t(`${validateCUPS(formik.values.cups)}`)
                       : t('Get-offer-form.field-desc')}
                   </p>
