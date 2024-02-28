@@ -12,7 +12,14 @@ interface MainContainerProps {
   children: ReactNode;
 }
 
-const notRestrictedPages = ['/', '/description', '/getoffer', '/faq'];
+const notRestrictedPages = [
+  '/',
+  '/description',
+  '/getoffer',
+  '/faq',
+  '/privacy-policy',
+  '/terms-of-use'
+];
 
 const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
   const { language } = useSelector((state: RootState) => state.commonSlice);

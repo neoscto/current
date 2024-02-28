@@ -169,7 +169,7 @@ const YourOffer = ({ handleNext, data }: any) => {
     }
   };
 
-  const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' });
+  const { toPDF, targetRef } = usePDF({ filename: 'offer.pdf' });
 
   if (!data) {
     return <></>;
