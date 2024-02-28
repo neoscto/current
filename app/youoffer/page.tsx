@@ -27,6 +27,7 @@ import Rating from '@mui/material/Rating';
 import html2Canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { usePDF } from 'react-to-pdf';
+import { sendOffer } from '@/lib/api';
 
 const YourOffer = ({ handleNext, data }: any) => {
   const { userData }: any = useSelector(
@@ -43,6 +44,8 @@ const YourOffer = ({ handleNext, data }: any) => {
   const [isMobile, setIsMobile] = useState(false);
   const [userPlan, setUserPlan] = useState('neos');
   const [userPlanBar, setUserPlanBar] = useState('neos');
+
+  console.log({ userData });
 
   const handleResize = () => {
     if (window.innerWidth < 768) {
@@ -170,6 +173,11 @@ const YourOffer = ({ handleNext, data }: any) => {
   };
 
   const { toPDF, targetRef } = usePDF({ filename: 'offer.pdf' });
+
+  const handleDownloadOffer = async () => {
+    // toPDF();
+    await sendOffer({ email: userData.emailAddress });
+  };
 
   if (!data) {
     return <></>;
@@ -410,7 +418,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                   title={t('Your-offer.download-offer')}
                   className="lg:w-full w-auto lg:p-[17px]"
                   // onClick={downloadPagePdf}
-                  onClick={() => toPDF()}
+                  onClick={handleDownloadOffer}
                 />
 
                 <NeosButton

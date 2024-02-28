@@ -123,7 +123,6 @@ const GetOffer: React.FC<GetOfferProps> = ({
 
       setServerError('');
     } catch (error) {
-      console.log('###error', error);
       setServerError('Please try one more time?');
       return;
     }
