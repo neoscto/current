@@ -639,11 +639,11 @@ const YourOffer = ({ handleNext, data }: any) => {
               <div className="flex gap-4 lg:mt-4 mt-[18px]">
                 <div className="w-[50px] radius-[50%] h-[50px]">
                   <img
-                    src="user.jpg"
+                    src="customer.png"
                     alt="user"
                     width={50}
                     height={50}
-                    className="object-cover"
+                    className="w-[50px] h-[50px] rounded-[50%] object-cover"
                   />
                 </div>
 
@@ -662,10 +662,10 @@ const YourOffer = ({ handleNext, data }: any) => {
                       }}
                     />
                   </div>
-                  <p className="text-[14px] leading-5 text-[#4F4F4F]">
-                    "I love Neos! Thanks to them, my electricity bills are near
-                    €0,00 month after month! I live in a flat, so without them,
-                    I would have never been able to access solar panels.”
+                  <p className="text-sm leading-5 text-[#4F4F4F]">
+                    "
+                    {`${t('I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.')}`}
+                    "
                   </p>
                 </div>
               </div>
@@ -683,12 +683,12 @@ const YourOffer = ({ handleNext, data }: any) => {
           </div>
 
           <div className="lg:max-w-[399px] w-full bg-[#E7F5FA] !rounded-3xl py-5 px-5 max-w-full">
-            <h1 className="whitespace-pre text-center text-[18px] leading-[21px] font-bold">
+            <h1 className="whitespace-pre text-center text-base font-bold">
               {t('review-your-offer-with-ceo')}
             </h1>
             <div className="flex flex-col items-center mt-[14px] mb-[21px]">
               <img
-                src="user.jpg"
+                src="ceo-image.jpg"
                 alt="user"
                 className="w-[50px] h-[50px] rounded-[50%] object-cover"
                 width={50}
@@ -707,6 +707,9 @@ const YourOffer = ({ handleNext, data }: any) => {
                 sx={{ mt: 2 }}
                 id="btn"
                 category="colored"
+                className={
+                  'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto mt-[21px] '
+                }
                 title={t('Get-offer.book-expert-txt')}
                 onClick={() => handleCalender()}
               />
