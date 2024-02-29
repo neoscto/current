@@ -244,7 +244,7 @@ const HorizontalLinearStepper = () => {
 
   return (
     <MainContainer>
-      <div className="xl:max-w-[1200px] max-w-[calc(100%_-_40px)] relative rounded-[30px] bg-[#01092299] w-full mx-auto bg-white overflow-hidden">
+      <div className=" my-4 xl:max-w-[1200px] max-w-[calc(100%_-_40px)] relative rounded-[30px] bg-[#01092299] w-full mx-auto bg-white overflow-hidden">
         <div className="flex items-center gap-x-[12px] absolute lg:top-[2em] lg:left-[20px] md:top-[20px] md:left-[20px] top-[10px] left-[10px]">
           <span onClick={() => handleFormBack()}>
             <ArrowBackIcon className=" cursor-pointer  lg:text-[30px] md:text-[30px] sm:text-[30px] text-[22px]" />
