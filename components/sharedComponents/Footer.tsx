@@ -1,14 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
-import { useTranslation } from "react-i18next";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import XIcon from "@mui/icons-material/X";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import CallIcon from "@mui/icons-material/Call";
-import moment from "moment";
-import neoslogo from "@/public/neos-logo.png";
-import AcceptCookie from "../AcceptCookie";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import XIcon from '@mui/icons-material/X';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import CallIcon from '@mui/icons-material/Call';
+import moment from 'moment';
+import neoslogo from '@/public/neos-logo.png';
+import AcceptCookie from '../AcceptCookie';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -36,13 +36,13 @@ const Footer = () => {
             </Link>
 
             <span className="text-white font-medium items-center md:flex hidden">
-              {t("Footer.copyright")} {moment(new Date()).format("YYYY")} Neos.{" "}
-              {t("Footer.rights")}
+              {t('Footer.copyright')} {moment(new Date()).format('YYYY')} Neos.{' '}
+              {t('Footer.rights')}
             </span>
           </div>
 
           {/* middle Container */}
-          <div className="hidden md:flex justify-center items-center max-w-[calc(33%_-_8px)] w-full">
+          <div className="hidden md:flex flex-col gap-4 justify-center items-center max-w-[calc(33%_-_8px)] w-full">
             <Image
               src={neoslogo}
               alt="Neos logo"
@@ -50,12 +50,33 @@ const Footer = () => {
               className="h-[20px] md:h-auto lg:h-auto -ms-1 md:ms-0 lg:ms-0 cursor-pointer object-contain"
               priority
             />
+            <div className="flex flex-row gap-2">
+              <Link
+                href="https://www.instagram.com/neos.energy/"
+                className="invert brightness-0"
+              >
+                <InstagramIcon />
+              </Link>
+
+              <Link
+                href="https://www.linkedin.com/company/neos-energy/"
+                className="invert brightness-0"
+              >
+                <LinkedInIcon />
+              </Link>
+              <Link
+                href="https://twitter.com/Neos_Energy"
+                className="invert brightness-0"
+              >
+                <XIcon />
+              </Link>
+            </div>
           </div>
 
           {/* Right Container */}
           <div className="md:max-w-[calc(33%_-_8px)] w-full flex flex-col gap-2 md:items-end items-center">
             {/* Social media Links */}
-            <div className="flex flex-row gap-2">
+            <div className="flex flex-row gap-2 md:hidden">
               <Link
                 href="https://www.instagram.com/neos.energy/"
                 className="invert brightness-0"
@@ -81,20 +102,23 @@ const Footer = () => {
               href="/privacy-policy"
               className="text-base text-white font-medium"
             >
-              {t("Footer.policy")}
+              {t('Footer.policy')}
             </Link>
 
             <Link
               href="/terms-of-use"
               className="text-base text-white font-medium"
             >
-              {t("Footer.terms")}
+              {t('Footer.terms')}
+            </Link>
+            <Link href="/cookies" className="text-base text-white font-medium">
+              {t('Footer.cookies')}
             </Link>
           </div>
 
           <p className="text-white font-medium items-center flex md:hidden text-center w-auto mx-auto">
-            {t("Footer.copyright")} {moment(new Date()).format("YYYY")} Neos.{" "}
-            {t("Footer.rights")}
+            {t('Footer.copyright')} {moment(new Date()).format('YYYY')} Neos.{' '}
+            {t('Footer.rights')}
           </p>
         </div>
       </div>
