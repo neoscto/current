@@ -259,12 +259,9 @@ export const calculateSolarPaybackPeriod = async (
       mean_daily_average_consumption / SEVILLA_HSP / SYSTEM_EFFICIENCY;
     yearly_fixed_charge = required_capacity * YEARLY_FIXED_CHARGE_PEOPLE_FACTOR;
 
-    if (required_capacity <= 10) {
+    if (required_capacity <= 15) {
       SERVICE_FEE_PER_MONTH = 6;
       UTILITY_PRICE = 0.191649;
-    } else if (required_capacity > 10 && required_capacity <= 15) {
-      SERVICE_FEE_PER_MONTH = 6;
-      UTILITY_PRICE = 0.210814;
     } else {
       SERVICE_FEE_PER_MONTH = 12;
       UTILITY_PRICE = 0.165449;
@@ -279,42 +276,30 @@ export const calculateSolarPaybackPeriod = async (
       .split(',')
       .map((cup) => cup.trim());
 
-    yearly_consumption = 0;
-    required_capacity = 0;
-    yearly_fixed_charge = 0;
-    yearly_variable_bill = 0;
-    total_customer_fees = 0;
-
     const allData = await Promise.all(cups_codes.map(fetchData));
 
     if (!allData) {
       throw new Error('erorr');
     }
 
-    // console.log({ info });
+    let industrial_customer = false;
 
-    for (const data of allData) {
-      // let consumption_data = await getConsumptionDataFromApi(cups_code);
-      // let technical_data = await getTechnicalDataFromApi(cups_code);
-
-      // const data = await fetchData(cups_code);
-      if (!data) return;
-      const { consumption_data, technical_data } = data;
+    if (cups_codes.length === 1) {
+      const { consumption_data, technical_data } = allData[0];
 
       if (consumption_data && technical_data) {
         const final_df = processConsumptionData(consumption_data);
         let mean_daily_average_consumption: number =
           final_df.Total.reduce((acc, val) => acc + val, 0) /
           (final_df.Year.length * DAYS_IN_MONTH);
-        const individual_required_capacity: number =
-          mean_daily_average_consumption / SEVILLA_HSP / SYSTEM_EFFICIENCY;
-        required_capacity += individual_required_capacity;
 
-        const individual_yearly_consumption: number =
+        required_capacity =
+          mean_daily_average_consumption / SEVILLA_HSP / SYSTEM_EFFICIENCY;
+
+        yearly_consumption =
           (final_df.Total.reduce((acc, val) => acc + val, 0) /
             final_df.Year.length) *
           MONTHS_IN_YEAR;
-        yearly_consumption += individual_yearly_consumption;
 
         let type_consumption_point = technical_data.tipoPerfilConsumo
           ? technical_data.tipoPerfilConsumo.slice(1)
@@ -330,11 +315,8 @@ export const calculateSolarPaybackPeriod = async (
         let final_charges: number[] = Object.entries(relevant_prices).map(
           ([period, price]) => (price * contracted_powers[period]) / 1000
         );
-        const individual_yearly_fixed_charge: number = final_charges.reduce(
-          (acc, val) => acc + val,
-          0
-        ); // this year
-        yearly_fixed_charge += individual_yearly_fixed_charge;
+
+        yearly_fixed_charge += final_charges.reduce((acc, val) => acc + val, 0);
         //   console.log({ yearly_fixed_charge });
         SERVICE_FEE_PER_MONTH = 0;
         UTILITY_PRICE = 0;
@@ -346,17 +328,13 @@ export const calculateSolarPaybackPeriod = async (
           UTILITY_PRICE = 0.165449;
         } else {
           SERVICE_FEE_PER_MONTH = 100;
-          UTILITY_PRICE = 0.11;
+          UTILITY_PRICE = 0.137538;
         }
-        const individual_yearly_variable_bill: number =
-          UTILITY_PRICE *
-          (1 + GRID_TAX_PERCENT) *
-          individual_yearly_consumption;
-        yearly_variable_bill += individual_yearly_variable_bill;
+        yearly_variable_bill =
+          UTILITY_PRICE * (1 + GRID_TAX_PERCENT) * yearly_consumption;
 
         const individual_total_customer_fees: number =
           SERVICE_FEE_PER_MONTH * MONTHS_IN_YEAR * YEARS_IN_CONTRACT;
-        total_customer_fees += individual_total_customer_fees;
       } else {
         console.log(
           'Error fetching data. Please check the CUPS code and try again.'
@@ -365,7 +343,97 @@ export const calculateSolarPaybackPeriod = async (
           'Error fetching data. Please check the CUPS code and try again.'
         );
       }
+    } else {
+      yearly_consumption = 0;
+      required_capacity = 0;
+      yearly_fixed_charge = 0;
+      yearly_variable_bill = 0;
+      total_customer_fees = 0;
+
+      // console.log({ info });
+
+      for (const data of allData) {
+        // let consumption_data = await getConsumptionDataFromApi(cups_code);
+        // let technical_data = await getTechnicalDataFromApi(cups_code);
+
+        // const data = await fetchData(cups_code);
+        if (!data) return;
+        const { consumption_data, technical_data } = data;
+
+        if (consumption_data && technical_data) {
+          const final_df = processConsumptionData(consumption_data);
+          let mean_daily_average_consumption: number =
+            final_df.Total.reduce((acc, val) => acc + val, 0) /
+            (final_df.Year.length * DAYS_IN_MONTH);
+          const individual_required_capacity: number =
+            mean_daily_average_consumption / SEVILLA_HSP / SYSTEM_EFFICIENCY;
+          required_capacity += individual_required_capacity;
+
+          const individual_yearly_consumption: number =
+            (final_df.Total.reduce((acc, val) => acc + val, 0) /
+              final_df.Year.length) *
+            MONTHS_IN_YEAR;
+          yearly_consumption += individual_yearly_consumption;
+
+          let type_consumption_point = technical_data.tipoPerfilConsumo
+            ? technical_data.tipoPerfilConsumo.slice(1)
+            : null;
+          let relevant_prices = POWER_PRICES[type_consumption_point];
+          let contracted_powers: Record<string, number> = {};
+          for (let i = 1; i <= 7; i++) {
+            contracted_powers[`P${i}`] = parseFloat(
+              technical_data[`potenciasContratadasEnWP${i}`] || '0'
+            );
+          }
+
+          let final_charges: number[] = Object.entries(relevant_prices).map(
+            ([period, price]) => (price * contracted_powers[period]) / 1000
+          );
+          const individual_yearly_fixed_charge: number = final_charges.reduce(
+            (acc, val) => acc + val,
+            0
+          ); // this year
+          yearly_fixed_charge += individual_yearly_fixed_charge;
+          //   console.log({ yearly_fixed_charge });
+          SERVICE_FEE_PER_MONTH = 0;
+          UTILITY_PRICE = 0;
+          if (type_consumption_point === '2.0TD') {
+            industrial_customer = false;
+            UTILITY_PRICE = 0.191649;
+          } else if (['3.0TD', '3.0TDVE'].includes(type_consumption_point)) {
+            industrial_customer = false;
+            UTILITY_PRICE = 0.165449;
+          } else {
+            industrial_customer = true;
+            UTILITY_PRICE = 0.137538;
+          }
+          const individual_yearly_variable_bill: number =
+            UTILITY_PRICE *
+            (1 + GRID_TAX_PERCENT) *
+            individual_yearly_consumption;
+          yearly_variable_bill += individual_yearly_variable_bill;
+
+          const individual_total_customer_fees: number =
+            SERVICE_FEE_PER_MONTH * MONTHS_IN_YEAR * YEARS_IN_CONTRACT;
+          total_customer_fees += individual_total_customer_fees;
+        } else {
+          console.log(
+            'Error fetching data. Please check the CUPS code and try again.'
+          );
+          throw new Error(
+            'Error fetching data. Please check the CUPS code and try again.'
+          );
+        }
+      }
+
+      if (industrial_customer) {
+        SERVICE_FEE_PER_MONTH = 100;
+      } else {
+        SERVICE_FEE_PER_MONTH = 12;
+      }
     }
+    total_customer_fees =
+      SERVICE_FEE_PER_MONTH * MONTHS_IN_YEAR * YEARS_IN_CONTRACT;
   }
   const number_of_panels: number = required_capacity * PANELS_PER_KW;
   const total_price_before_tax: number = calculateTotalPrice(required_capacity);
@@ -534,12 +602,12 @@ export const calculateSolarPaybackPeriod = async (
     total_variable_charges -
     total_customers_profit_100;
 
-  //   console.log(`\nRecommended Capacity: ${required_capacity.toFixed(2)} kW.`);
-  //   console.log(`Number of Panels: ${number_of_panels.toFixed(2)}.`);
-  //   console.log(
-  //     `Total Price: €${total_price_before_tax.toFixed(2)} (+ VAT: €${neos_installation_tax.toFixed(2)}).\n`
-  //   );
-  //   console.log(`Your yearly consumption: ${yearly_consumption.toFixed(2)} kWh.`);
+  // console.log(`\nRecommended Capacity: ${required_capacity.toFixed(2)} kW.`);
+  // console.log(`Number of Panels: ${number_of_panels.toFixed(2)}.`);
+  // console.log(
+  //   `Total Price: €${total_price_before_tax.toFixed(2)} (+ VAT: €${neos_installation_tax.toFixed(2)}).\n`
+  // );
+  // console.log(`Your yearly consumption: ${yearly_consumption.toFixed(2)} kWh.`);
 
   let electricity_costs_rooftop: number =
     total_spending_w_rooftop - rooftop_installation_price_after_tax;
@@ -578,7 +646,7 @@ export const calculateSolarPaybackPeriod = async (
     (100 * savings_with_installation_w_neos) /
     total_spending_w_regular_provider;
 
-  //   console.log(`We estimate that:
+  // console.log(`We estimate that:
   //       - With a regular provider:
   //       1. You'd spend €${total_spending_w_regular_provider.toFixed(2)} over 25 years.
   //       - With Neos virtual installations and Neos as a provider:
@@ -597,7 +665,7 @@ export const calculateSolarPaybackPeriod = async (
   //       3. Saving €${savings_retail_rooftop.toFixed(2)} (${percent_savings_retail_rooftop.toFixed(2)}%) off your monthly electricity bills.
   //       4. Saving €${savings_with_installation_rooftop.toFixed(2)} (${percent_savings_ultimate_rooftop.toFixed(2)}%) if we include the installation cost.\n`);
 
-  //   console.log('Neos as Provider:');
+  // console.log('Neos as Provider:');
   let total_savings_w_neos: number = 0;
   let net_spendings_w_neos_provider: number[] = [];
   let savings_w_neos: number[] = [];
@@ -613,7 +681,7 @@ export const calculateSolarPaybackPeriod = async (
       fixed_charge +
         spend_non_solar +
         spend_solar +
-        SERVICE_FEE_PER_MONTH * MONTHS_IN_YEAR -
+        total_customer_fees / YEARS_IN_CONTRACT -
         revenue
     );
     savings_w_neos.push(
@@ -624,10 +692,10 @@ export const calculateSolarPaybackPeriod = async (
   percent_savings_year1_w_neos =
     (100 * savings_w_neos[0]) / total_regular_bills_w_inflation[0];
 
-  //   console.log(
-  //     `First-year savings: ${percent_savings_year1_w_neos.toFixed(2)}%.`
-  //   );
-  //   console.log('Your cumulative savings in:');
+  // console.log(
+  //   `First-year savings: ${percent_savings_year1_w_neos.toFixed(2)}%.`
+  // );
+  // console.log('Your cumulative savings in:');
 
   let save_yearly_w_neos = [];
 
@@ -646,7 +714,7 @@ export const calculateSolarPaybackPeriod = async (
     // console.log(`- Year ${i}: €${total_savings_w_neos.toFixed(2)}.`);
   }
 
-  //   console.log('saving with neos', { save_yearly_w_neos });
+  // console.log('saving with neos', { save_yearly_w_neos });
 
   let sum_w_neos: number = 0;
   let left: number = total_price_after_tax;
@@ -663,9 +731,9 @@ export const calculateSolarPaybackPeriod = async (
       const precision: number =
         -values[year - 1] / (values[year] - values[year - 1]);
       payback_w_neos = parseFloat((year + precision).toFixed(2));
-      //   console.log(
-      //     `\nWith Neos virtual installations and Neos as a provider, your investment will have paid for itself in ${payback_w_neos.toFixed(2)} years.`
-      //   );
+      // console.log(
+      //   `\nWith Neos virtual installations and Neos as a provider, your investment will have paid for itself in ${payback_w_neos.toFixed(2)} years.`
+      // );
       break;
     }
   }
@@ -683,15 +751,15 @@ export const calculateSolarPaybackPeriod = async (
     neos_total_emissions_saved_in_tons /
     MALE_ADULT_ASIAN_ELEPHANT_WEIGHT_IN_TONS;
 
-  //   console.log(
-  //     `With Neos virtual solar installations and Neos as a provider, you will help the country save ${neos_total_emissions_saved_in_tons.toFixed(2)} tons in CO2 emissions over the next 25 years.`
-  //   );
-  //   console.log(
-  //     `This reduction in CO2 emissions is comparable to the collective weight of ${neos_elephants_carbon_capture.toFixed(2)} adult male Asian elephants.\n`
-  //   );
+  // console.log(
+  //   `With Neos virtual solar installations and Neos as a provider, you will help the country save ${neos_total_emissions_saved_in_tons.toFixed(2)} tons in CO2 emissions over the next 25 years.`
+  // );
+  // console.log(
+  //   `This reduction in CO2 emissions is comparable to the collective weight of ${neos_elephants_carbon_capture.toFixed(2)} adult male Asian elephants.\n`
+  // );
 
-  //   // Yearly Savings without Neos as Provider
-  //   console.log('Neos & Regular Provider:');
+  // Yearly Savings without Neos as Provider
+  // console.log('Neos & Regular Provider:');
 
   const profits_without_neos_provider: number[] = [];
 
@@ -720,10 +788,10 @@ export const calculateSolarPaybackPeriod = async (
   const percent_savings_year1_without_neos: number =
     (100 * savings_without_neos[0]) / total_regular_bills_w_inflation[0];
 
-  //   console.log(
-  //     `First-year savings: ${percent_savings_year1_without_neos.toFixed(2)}%.`
-  //   );
-  //   console.log('Your cumulative savings in:');
+  // console.log(
+  //   `First-year savings: ${percent_savings_year1_without_neos.toFixed(2)}%.`
+  // );
+  // console.log('Your cumulative savings in:');
 
   let save_yearly_without_neos = [];
   for (let i = 0; i < 25; i++) {
@@ -758,9 +826,9 @@ export const calculateSolarPaybackPeriod = async (
     if (left <= 0) {
       let precision = -values[year - 1] / (values[year] - values[year - 1]);
       payback_without_neos = parseFloat((year + precision).toFixed(2));
-      //   console.log(
-      //     `With Neos virtual installations and a regular provider, your investment will have paid for itself in ${payback_without_neos.toFixed(2)} years.`
-      //   );
+      // console.log(
+      //   `With Neos virtual installations and a regular provider, your investment will have paid for itself in ${payback_without_neos.toFixed(2)} years.`
+      // );
 
       break;
     }
@@ -773,13 +841,13 @@ export const calculateSolarPaybackPeriod = async (
     neos_total_emissions_saved_in_tons;
   let total_savings_rooftop: number = 0;
 
-  //   console.log(
-  //     `With Neos virtual solar installations and a regular provider, you will help the country save ${neos_not_provider_total_emissions_saved_in_tons.toFixed(2)} tons in CO2 emissions over the next 25 years.`
-  //   );
-  //   console.log(
-  //     `This reduction in CO2 emissions is comparable to the collective weight of ${neos_not_provider_elephants_carbon_capture.toFixed(2)} adult male Asian elephants.\n`
-  //   );
-  //   console.log('Rooftop Panels:');
+  // console.log(
+  //   `With Neos virtual solar installations and a regular provider, you will help the country save ${neos_not_provider_total_emissions_saved_in_tons.toFixed(2)} tons in CO2 emissions over the next 25 years.`
+  // );
+  // console.log(
+  //   `This reduction in CO2 emissions is comparable to the collective weight of ${neos_not_provider_elephants_carbon_capture.toFixed(2)} adult male Asian elephants.\n`
+  // );
+  // console.log('Rooftop Panels:');
 
   let net_rooftop_spendings: number[] = yearly_variable_bills_w_inflation.map(
     (bill, index) => {
@@ -802,10 +870,10 @@ export const calculateSolarPaybackPeriod = async (
   let percent_savings_year1_rooftop: number =
     (100 * rooftop_savings[0]) / total_regular_bills_w_inflation[0];
 
-  //   console.log(
-  //     `First-year savings: ${percent_savings_year1_rooftop.toFixed(2)}%.`
-  //   );
-  //   console.log('Your cumulative savings in:');
+  // console.log(
+  //   `First-year savings: ${percent_savings_year1_rooftop.toFixed(2)}%.`
+  // );
+  // console.log('Your cumulative savings in:');
 
   for (let i = 1; i <= 25; i++) {
     total_savings_rooftop += rooftop_savings[i - 1];
@@ -826,9 +894,9 @@ export const calculateSolarPaybackPeriod = async (
     if (left <= 0) {
       let precision = -values[year - 1] / (values[year] - values[year - 1]);
       payback_rooftop = parseFloat((year + precision).toFixed(2));
-      //   console.log(
-      //     `With rooftop panels and a regular provider, your investment will have paid for itself in ${payback_rooftop.toFixed(2)} years.`
-      //   );
+      // console.log(
+      //   `With rooftop panels and a regular provider, your investment will have paid for itself in ${payback_rooftop.toFixed(2)} years.`
+      // );
 
       break;
     }
@@ -844,12 +912,12 @@ export const calculateSolarPaybackPeriod = async (
     rooftop_total_emissions_saved_in_tons /
     MALE_ADULT_ASIAN_ELEPHANT_WEIGHT_IN_TONS;
 
-  //   console.log(
-  //     `With rooftop panels and a regular provider, you will help the country save ${rooftop_total_emissions_saved_in_tons.toFixed(2)} tons in CO2 emissions over the next 25 years.`
-  //   );
-  //   console.log(
-  //     `This reduction in CO2 emissions is comparable to the collective weight of ${rooftop_elephants_carbon_capture.toFixed(2)} adult male Asian elephants.\n`
-  //   );
+  // console.log(
+  //   `With rooftop panels and a regular provider, you will help the country save ${rooftop_total_emissions_saved_in_tons.toFixed(2)} tons in CO2 emissions over the next 25 years.`
+  // );
+  // console.log(
+  //   `This reduction in CO2 emissions is comparable to the collective weight of ${rooftop_elephants_carbon_capture.toFixed(2)} adult male Asian elephants.\n`
+  // );
   return {
     total_price_before_tax,
     neos_installation_tax,

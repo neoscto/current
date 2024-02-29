@@ -45,8 +45,6 @@ const YourOffer = ({ handleNext, data }: any) => {
   const [userPlan, setUserPlan] = useState('neos');
   const [userPlanBar, setUserPlanBar] = useState('neos');
 
-  console.log({ userData });
-
   const handleResize = () => {
     if (window.innerWidth < 768) {
       setIsMobile(true);
@@ -176,7 +174,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
   const handleDownloadOffer = async () => {
     // toPDF();
-    await sendOffer({ email: userData.emailAddress });
+    // await sendOffer({ email: userData.emailAddress });
   };
 
   if (!data) {
