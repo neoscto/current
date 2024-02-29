@@ -113,8 +113,8 @@
       }
     },
     "selectPlan": "Select Plan",
-    "buyPanelProviderNeos": "Buy Installations &\nMake Neos My Provider",
-    "buyPanelProviderCurrent": "Buy Installations &\nKeep My Provider"
+    "buyPanelProviderNeos": "Buy Installations & \nMake Neos My Provider",
+    "buyPanelProviderCurrent": "Buy Installations & \nKeep My Provider"
   },
   "How-it-work": {
     "title": "How it works?",

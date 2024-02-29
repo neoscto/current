@@ -727,18 +727,18 @@ const YourOffer = ({ handleNext, data }: any) => {
         {/* Customer review ends */}
 
         {/* Chart Starts here */}
-        <div className="flex justify-center flex-col w-full h-auto border mt-8 border-[#E0E0E0] !rounded-3xl px-4 pt-6 pb-4">
+        <div className="flex justify-center flex-col  h-auto border mt-8 border-[#E0E0E0] !rounded-3xl px-4 pt-6 pb-4">
           {/*  chart header */}
-          <div className="flex justify-between lg:gap-4 lg:mb-[40px] md:flex-row flex-col gap-[14px] mb-2.5">
-            <div className="flex flex-wrap lg:gap-[29px] gap-1.5 lg:items-center md:flex-row flex-col items-center ">
-              <div className="text-[20px] leading-[25px] font-semibold text-black text-left">
+          <div className="flex justify-between lg:gap-0 lg:mb-[40px] md:flex-row flex-col gap-[14px] mb-2.5">
+            <div className=" lg:max-w-lg max-w-sm  flex  flex-wrap lg:gap-[29px] gap-1.5 lg:items-center md:flex-row flex-col items-center ">
+              <div className="text-lg  font-semibold text-black text-left">
                 {t('panel-charge.payback')}
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex gap-2">
                 <NeosButton
                   category="outline"
-                  className={`lg:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] !border-2 ${
+                  className={`lg:px-3 lg:py-4 px-[14px] py-2 lg:text-sm text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] !border-2 ${
                     userPlanBar == 'neos'
                       ? '!border-[#66BCDA]'
                       : '!border-[#E0E0E0]'
@@ -748,7 +748,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                 />
                 <NeosButton
                   category="outline"
-                  className={` lg:px-[24px] lg:py-[14px] px-[14px] py-2 lg:text-[16px] text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] border-2 ${
+                  className={` lg:px-3 lg:py-4 px-[14px] py-2 lg:text-sm text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] border-2 ${
                     userPlanBar == 'current'
                       ? '!border-[#66BCDA]'
                       : '!border-[#E0E0E0]'
@@ -760,16 +760,16 @@ const YourOffer = ({ handleNext, data }: any) => {
               </div>
             </div>
 
-            <div className="flex md:flex-col lg:justify-end flex-row gap-[10px] justify-start lg:pr-[23px]">
-              <div className="flex items-center gap-2.5 max-w-1/2 lg:w-auto">
-                <div className="bg-[#436DC6] lg:w-[26px] w-[20px] h-[10px]"></div>
-                <span className="lg:text-[16px] lg:leading-[21px] text-[12px] leading-[15px] !font-medium text-[#4F4F4F]">
+            <div className="  flex md:flex-col lg:justify-end flex-row gap-[10px] justify-start ">
+              <div className="flex items-center gap-2.5 ">
+                <span className="bg-[#436DC6]  w-[20px] h-[10px]"></span>
+                <span className="lg:text-sm md:text-xs text-[8px] !font-medium text-[#4F4F4F]">
                   {t('chart.savingWithNeos')}
                 </span>
               </div>
-              <div className="flex items-center gap-2.5 max-w-1/2 lg:w-auto">
-                <div className="bg-[#EB5757] lg:w-[26px] w-[20px] h-[10px]"></div>
-                <span className="lg:text-[16px] lg:leading-[21px] text-[12px] leading-[15px] !font-medium text-[#4F4F4F]">
+              <div className="flex items-center gap-2.5  lg:w-auto">
+                <span className="bg-[#EB5757]  w-[20px] h-[10px]"></span>
+                <span className="lg:text-sm md:text-xs text-[8px] !font-medium text-[#4F4F4F]">
                   {t('chart.installationCost')}
                 </span>
               </div>
@@ -777,7 +777,7 @@ const YourOffer = ({ handleNext, data }: any) => {
           </div>
 
           {/* chart container */}
-          <div className="md:h-[312px]">
+          <div className=" h-80 ">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 width={150}
@@ -811,19 +811,25 @@ const YourOffer = ({ handleNext, data }: any) => {
                   tickCount={4}
                   tickLine={false}
                   domain={[0, 1]}
+                  dy={0.5}
+                  ticks={[
+                    0,
+                    data.total_price_after_tax / data.total_savings_w_neos,
+                    1
+                  ]}
                   tickFormatter={(value) =>
                     value > 0
                       ? `${((userPlanBar === 'neos' ? value * data.total_savings_w_neos : value * data.total_savings_w_neos) / 1000).toLocaleString()}K`
                       : value
                   }
-                  className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]"
+                  className="lg:text-[12px] text-[6px] "
                 >
                   <Label
                     offset={0}
                     angle={-90}
                     position={'insideLeft'}
                     value={`${t('Savings')} (€)`}
-                    className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]"
+                    className="lg:text-[12px] text-[6px] bg-red-400"
                   />
                 </YAxis>
                 <CartesianAxis className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]" />
