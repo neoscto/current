@@ -1,11 +1,11 @@
-"use client";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchPosts } from "@/features/common/commonSlice";
-import { AppDispatch, RootState } from "@/store/store";
-import LandingPage from "./landingpage/page";
-import Launch from "./launch/page";
-import { useTranslation } from "react-i18next";
+'use client';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchPosts } from '@/features/common/commonSlice';
+import { AppDispatch, RootState } from '@/store/store';
+import LandingPage from './landingpage/page';
+import Launch from './launch/page';
+import { useTranslation } from 'react-i18next';
 interface postData {
   title: string;
 }
@@ -34,12 +34,12 @@ export default function Home() {
   );
 
   useEffect(() => {
-    document.title = t("title");
+    document.title = t('title');
   }, [language]);
 
   return (
     <div className="w-full relative">
-      <Launch />
+      <LandingPage />
     </div>
   );
 }

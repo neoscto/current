@@ -9,7 +9,7 @@
     "btn1txt": "PARA EXPLORAR",
     "btn2txt": "CALCULAR MIS AHORROS",
     "cookie": {
-      "description": "Utilizamos cookies para garantizar que obtenga la mejor experiencia en nuestro sitio web. Al continuar utilizando nuestro sitio web, acepta nuestro uso de cookies.",
+      "description": "Utilizamos cookies para ofrecerte la mejor experiencia en nuestra web. Al continuar, aceptas nuestro uso de cookies.",
       "acceptBtn": "Aceptar"
     }
   },
@@ -17,13 +17,13 @@
     "title": "¿Qué es la energía solar virtual?",
     "description": "<b>Neos</b> permite ser propietario de toda la electricidad producida por las placas solares de los parques solares españoles. Esto significa que generarás tu propia electricidad renovable y la recibirás en tu hogar o negocio a través de la red eléctrica del país, ¡el primer día del próximo mes!",
     "point1": "Ahorros de costos significativos",
-    "point1Description": "Hasta un 80% de reducción en las facturas de electricidad y hasta un 35% más barato que las instalaciones solares en tejados.",
+    "point1Description": "Hasta un 75% de reducción en la factura de la luz, y hasta un 35% más barato que los paneles de los tejados.",
     "point2": "Acceda desde cualquier lugar, al instante",
-    "point2Description": "Conexión instantánea a la red. No requiere panel de techo ni ningún tipo de instalación.",
+    "point2Description": "Conexión instantánea a la red. No requiere panel en el tejado ni ningún tipo de configuración.",
     "point3": "Retorno financiero",
-    "point3Description": "Periodo de recuperación de alrededor de 6,9 ​​años, en comparación con los 14 años de los paneles para tejados.",
+    "point3Description": "Periodo de amortización de unos 6 años, frente a los más de 12 años de los paneles de tejado.",
     "point4": "Energía renovable a largo plazo",
-    "point4Description": "Los paneles solares tienen una vida útil de 25 años, proporcionando energía 100% renovable.",
+    "point4Description": "Los paneles solares tienen una vida útil de 25 años y proporcionan energía 100% renovable.",
     "benefits": "Beneficios"
   },
   "Calculate-saving-btn": "CALCULAR MIS AHORROS",
@@ -62,25 +62,26 @@
   },
   "Your-offer": {
     "title": "Precio a Pagar",
+    "subtitle": "más IVA",
     "desc": "por 25 años de energía solar",
     "validate-btn": "validar",
     "offer-title": "Tu Oferta",
     "offer-option1": "Paneles (Equivalentes a",
-    "offer-option1-unit": "KWp",
+    "offer-option1-unit": "kWp",
     "offer-saving-1": "ahorro anual",
     "offer-saving-2": "ahorro total",
     "offer-payback": "años de devolución",
     "offer-consumption": "de consumo cubierto por energía solar",
     "contract-btn-txt": "descargar oferta",
-    "download-offer": "download offer",
+    "download-offer": "descargar oferta",
     "Redeem-code-discount": "Código de referencia para un descuento"
   },
   "panel-charge": {
-    "installation-cost": "Costo de instalacion",
-    "grid-electricity": "Electricidad de red durante 25 años",
-    "payback": "Payback",
-    "savings": "Savings Over 25 Years",
-    "c02-reduction": "CO2 Reduction"
+    "installation-cost": "Coste de instalación con impuestos (€)",
+    "savings": "*Ahorro en 25 años (%)",
+    "grid-electricity": "*Ahorro en 25 años (€)",
+    "payback": "Amortización (años)",
+    "c02-reduction": "Ahorro de emisiones de CO2 (Tons)"
   },
   "panel-header": {
     "neos-panel-neos-provider": "Paneles Neos y \nNeos como proveedor",
@@ -112,7 +113,7 @@
       }
     },
     "selectPlan": "Seleccionar plan",
-    "buyPanelProviderNeos": "Comprar instalaciones y hacer de Neos mi proveedor",
+    "buyPanelProviderNeos": "Comprar instalaciones y \nhacer de Neos mi proveedor",
     "buyPanelProviderCurrent": "Comprar instalaciones y\nmantener mi proveedor"
   },
   "How-it-work": {
@@ -138,7 +139,7 @@
     }
   },
   "customer-review": "Opinión del cliente",
-  "review-your-offer-with-ceo": "Revise su oferta \nen una llamada rápida con nuestro director ejecutivo.",
+  "review-your-offer-with-ceo": "Revise su oferta \nen una llamada rápida con nuestro\n director ejecutivo.",
   "book-call-btn": "reservar una llamada",
   "select-plan-btn": "Seleccionar plan",
   "Compare-our-offer": {
@@ -150,7 +151,7 @@
   },
   "chart": {
     "savingWithNeos": "Ahorros con Neos",
-    "installationCost": "Costo de instalacion",
+    "installationCost": "Coste de instalación con impuestos",
     "years": "años",
     "savings": "ahorros",
     "peekSolarFarm": "¡Eche un vistazo a SU granja solar!",
@@ -190,7 +191,8 @@
     "rights": "Reservados todos los derechos.",
     "license": "Licenciado por",
     "policy": "Política de Privacidad",
-    "terms": "Términos de Uso"
+    "terms": "Términos de Uso",
+    "cookies": "Cookies"
   },
   "Email-failed": {
     "title": "email failed",
@@ -260,5 +262,23 @@
       "question21": "¿Cómo empiezo con Neos?",
       "answer21": "<p>Empezar es fácil. Visite nuestra página web, calcule su oferta, firme su contrato y pague por su instalación, todo en 10 minutos. ¡Bienvenido al futuro de la energía!</p>"
     }
-  }
+  },
+  "Switch between the two plans above to compare our estimates": "Cambia entre los dos planes anteriores para comparar nuestras estimaciones",
+  "Percent savings in the first year": "Porcentaje de ahorro en el primer año",
+  "lower electricity bills": "facturas de electricidad más bajas",
+  "Total savings": "Ahorro total",
+  "saved over 25 years": "ahorrado más de 25 años",
+  "Your investment will have paid for itself": "Su inversión se habrá amortizado",
+  "years": "años",
+  "CO2 emission savings": "Ahorro de emisiones de CO2",
+  "over 25 years": "más de 25 años",
+  "elephants": "elefantes",
+  "You made a mistake in your CUPS, please enter a valid CUPS": "Ha cometido un error en su CUPS, por favor introduzca un CUPS válido",
+  "You made a mistake in at least one of your CUPS, please enter valid CUPS": "Ha cometido un error en al menos uno de sus CUPS, por favor introduzca un CUPS válido",
+  "You’ve entered more than 1 CUPS, please separate your CUPS with commas": "Ha introducido más de 1 CUPS, por favor separe sus CUPS con comas",
+  "Trusted by": "De confianza",
+  "Please try one more time?": "¿Por favor, inténtalo una vez más?",
+  "Access the most affordable solar energy, easily, without any rooftop or in-home installations. Our large-scale solar farms deliver electricity directly to your home or business through the existing electricity grid, immediately providing you with solar power in a cheaper manner than rooftop installations.": "Acceda fácilmente a la energía solar más asequible, sin necesidad de instalaciones en tejados o viviendas. Nuestras huertas solares a gran escala suministran electricidad directamente a tu casa o negocio a través de la red eléctrica existente, proporcionándote inmediatamente energía solar de forma más barata que las instalaciones en tejados.",
+  "I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.": "¡Me encanta Neos! Gracias a ellos, mis facturas de electricidad se acercan a ¡0,00 € mes tras mes! Vivo en un piso, así que sin ellos nunca habría podido acceder a los paneles solares."
 }
+

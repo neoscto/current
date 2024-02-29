@@ -3,13 +3,13 @@ import {
   Severity,
   getModelForClass,
   index,
-  prop,
-} from "@typegoose/typegoose";
-import mongoose, { Document } from "mongoose";
+  prop
+} from '@typegoose/typegoose';
+import mongoose, { Document } from 'mongoose';
 
 enum OfferType {
-  Standard = "Standard",
-  Personalised = "Personalised",
+  Standard = 'Standard',
+  Personalised = 'Personalised'
 }
 
 export type UsersOffersSchemaProps = {
@@ -49,11 +49,11 @@ export type UsersOffersDocument = Document & UsersOffersSchemaType;
 @ModelOptions({
   schemaOptions: {
     timestamps: true,
-    collection: "usersOffers",
+    collection: 'usersOffers'
   },
   options: {
-    allowMixed: Severity.ALLOW,
-  },
+    allowMixed: Severity.ALLOW
+  }
 })
 @index({ email: 1 })
 class UsersOffersSchema {
@@ -79,7 +79,7 @@ class UsersOffersSchema {
   plan: string;
 
   @prop({ required: false })
-  cups: number;
+  cups: string;
 
   @prop({ required: false })
   numberOfPeople: number;
