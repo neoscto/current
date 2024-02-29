@@ -543,9 +543,9 @@ const YourOffer = ({ handleNext, data }: any) => {
           </div>
         </div>
 
-        <div className="flex lg:items-center lg:justify-end lg:gap-[196px] lg:flex-row flex-col gap-8 items-center justify-center lg:mb-0 mb-[22px]">
+        <div className="flex lg:items-center lg:justify-end lg:gap-[160px] lg:flex-row flex-col gap-8 items-center justify-center lg:mb-0 mb-[22px]">
           {/* Licensed  */}
-          <div className="flex lg:justify-between align-center flex-1 md:flex-none lg:flex-none max-w-[548px] w-full lg:px-[43px] lg:py-[47px] lg:flex-row flex-col justify-center gap-3 lg:gap-0 mt-8 lg:mt-0">
+          <div className=" flex lg:justify-center align-center flex-1 md:flex-none lg:flex-none max-w-[500px] w-full  lg:py-[47px] lg:flex-row flex-col justify-center gap-8  mt-8 lg:mt-0">
             <p className="text-[20px] leading-[25px] text-black font-semibold text-center lg:text-left">
               {t('Footer.license')}
             </p>
@@ -576,7 +576,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
           <NeosButton
             className={
-              'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold lg:!mr-[36px] w-auto'
+              ' text-sm whitespace-nowrap font-semibold lg:!mr-[28px] w-40 '
             }
             category="colored"
             title={t('select-plan-btn')}
