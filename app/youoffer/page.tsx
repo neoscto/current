@@ -431,7 +431,7 @@ const YourOffer = ({ handleNext, data }: any) => {
           </div>
         </div>
 
-        <div className="w-full gap-[30px] justify-between lg:mt-[46px] flex items-center flex-col-reverse lg:flex-row mt-[23px]">
+        <div className="w-full gap-[30px] justify-between lg:mt-[46px] flex  flex-col-reverse lg:flex-row mt-[23px]">
           <div className="overflow-x-auto w-full lg:max-w-[100%_-_253px]">
             <div className="flex">
               <div className="flex flex-col items-end max-w-[807px] min-w-[807px] w-full mx-auto">
@@ -530,7 +530,7 @@ const YourOffer = ({ handleNext, data }: any) => {
             </p>
           </div>
 
-          <div className="lg:max-w-[223px] w-full max-w-full flex justify-center items-center">
+          <div className="lg:max-w-[223px] w-full max-w-full flex justify-center ">
             <div className="relative w-full lg:h-[347px] max-w-[310px] lg:max-w-[223px] h-[405px] video-container !rounded-3xl overflow-hidden">
               <VideoPreview
                 custonClass="lg:max-h-[347px] h-full lg:w-[223px] w-[310px] max-h-[405px]"
