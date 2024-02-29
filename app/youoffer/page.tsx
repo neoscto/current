@@ -415,7 +415,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                   category="colored"
                   title={t('Your-offer.download-offer')}
                   className="lg:w-full w-auto lg:p-[17px]"
-                  // onClick={downloadPagePdf}
+                  disabled={true}
                   onClick={handleDownloadOffer}
                 />
 
@@ -431,7 +431,7 @@ const YourOffer = ({ handleNext, data }: any) => {
           </div>
         </div>
 
-        <div className="w-full gap-[30px] justify-between lg:mt-[46px] flex flex-col-reverse lg:flex-row mt-[23px]">
+        <div className="w-full gap-[30px] justify-between lg:mt-[46px] flex items-center flex-col-reverse lg:flex-row mt-[23px]">
           <div className="overflow-x-auto w-full lg:max-w-[100%_-_253px]">
             <div className="flex">
               <div className="flex flex-col items-end max-w-[807px] min-w-[807px] w-full mx-auto">
@@ -480,7 +480,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                         </div>
                         <div className="flex max-w-[calc(100%_-_225px)] w-full">
                           <div
-                            className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#0F9DD0] bg-[#E8F5FA] border-b-0 max-w-[180px] min-w-[180px] w-full ${
+                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#0F9DD0] bg-[#E8F5FA] border-b-0 max-w-[180px] min-w-[180px] w-full ${
                               index === panelChargeDetails.length - 1
                                 ? 'border-b-[1px]'
                                 : ''
@@ -489,7 +489,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                             {data.tableData[index].neosPanelProvider || '-'}
                           </div>
                           <div
-                            className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[138px] w-full ${
+                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[138px] w-full ${
                               index === panelChargeDetails.length - 1
                                 ? 'border-b-[1px]'
                                 : ''
@@ -498,7 +498,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                             {data.tableData[index].neosPanelKeepProvider || '-'}
                           </div>
                           <div
-                            className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[156px] w-full ${
+                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[156px] w-full ${
                               index === panelChargeDetails.length - 1
                                 ? 'border-b-[1px]'
                                 : ''
@@ -508,7 +508,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                               '-'}
                           </div>
                           <div
-                            className={`p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-b-0 max-w-[108px] w-full ${
+                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-b-0 max-w-[108px] w-full ${
                               index === panelChargeDetails.length - 1
                                 ? 'rounded-br-3xl border-b-[1px]'
                                 : ''
