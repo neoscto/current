@@ -114,6 +114,8 @@ const GetOffer: React.FC<GetOfferProps> = ({
   const [serverError, setServerError] = useState('');
 
   const handleyourSaving = async () => {
+    console.log(formik.values);
+    console.log(formik.values.phoneNumber);
     try {
       const newData = await calculateSolarPaybackPeriod(
         formik.values.numberOfPeople,
@@ -248,7 +250,7 @@ const GetOffer: React.FC<GetOfferProps> = ({
                   {formik.values.phoneNumber
                     ? isValidPhoneNumber(formik.values.phoneNumber)
                       ? undefined
-                      : 'Invalid phone number'
+                      : t('Invalid phone number')
                     : null}
                 </p>
               </Grid>
