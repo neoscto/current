@@ -412,22 +412,25 @@ const YourOffer = ({ handleNext, data }: any) => {
                 </p>
               </div>
 
-              <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center">
-                <NeosButton
-                  category="colored"
-                  title={t('Your-offer.download-offer')}
-                  className="lg:w-full w-auto lg:p-[17px]"
-                  disabled={true}
-                  onClick={handleDownloadOffer}
-                />
+              <div className=" ">
+                <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center ">
+                  <NeosButton
+                    category="colored"
+                    title={t('Your-offer.download-offer')}
+                    className="lg:w-full w-auto lg:p-[17px]"
+                    disabled={true}
+                    onClick={handleDownloadOffer}
+                  />
 
-                <NeosButton
-                  category="colored"
-                  title={t('Your-offer.contract-btn-txt')}
-                  onClick={handleNext}
-                  className="lg:w-full w-auto lg:p-[17px] "
-                  disabled={true}
-                />
+                  <NeosButton
+                    category="colored"
+                    title={t('Your-offer.contract-btn-txt')}
+                    onClick={handleNext}
+                    className="lg:w-full w-auto lg:p-[17px] "
+                    disabled={true}
+                  />
+                </div>
+                <p className="flex text-[#4F4F4F] text-xs  ">Coming Soon...</p>
               </div>
             </div>
           </div>
