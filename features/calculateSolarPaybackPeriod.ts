@@ -240,6 +240,7 @@ const fetchData = async (cups_code: string) => {
 };
 
 export const calculateSolarPaybackPeriod = async (
+  offerType: string,
   number_of_people?: number,
   user_cups_code?: string
 ) => {
@@ -251,7 +252,7 @@ export const calculateSolarPaybackPeriod = async (
   let yearly_variable_bill: number = 0;
   let total_customer_fees: number = 0;
 
-  if (number_of_people) {
+  if (offerType === 'Standard' && number_of_people) {
     let mean_daily_average_consumption: number =
       number_of_people * AVERAGE_CONSUMPTION_PER_PERSON_PER_DAY;
     yearly_consumption = mean_daily_average_consumption * DAYS_IN_YEAR;

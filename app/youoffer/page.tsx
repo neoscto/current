@@ -430,7 +430,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                     disabled={true}
                   />
                 </div>
-                <p className="flex text-[#4F4F4F] text-xs  ">Coming Soon...</p>
+                <p className="font-sm text-[#2D9CDB] mt-1 ">Coming Soon...</p>
               </div>
             </div>
           </div>

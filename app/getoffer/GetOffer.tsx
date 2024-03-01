@@ -18,6 +18,7 @@ import PhoneInput, {
 import { useState } from 'react';
 import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPeriod';
 import YourOffer from '../youoffer/page';
+import { Button } from '@mantine/core';
 
 const validateCUPS = (cups: string): boolean | string => {
   const cupsArray = cups.replace(/\s/g, '').split(',');
@@ -111,13 +112,15 @@ const GetOffer: React.FC<GetOfferProps> = ({
     save_yearly_without_neos: [{ years: 0, saving: '' }]
   });
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const [serverError, setServerError] = useState('');
 
   const handleyourSaving = async () => {
-    console.log(formik.values);
-    console.log(formik.values.phoneNumber);
+    setLoading(true);
     try {
       const newData = await calculateSolarPaybackPeriod(
+        formik.values.offerType,
         formik.values.numberOfPeople,
         formik.values.cups
       );
@@ -152,10 +155,13 @@ const GetOffer: React.FC<GetOfferProps> = ({
         saveDataToSessionStorage('UserOffer', data.data);
         setShowForm('yourOffer');
       }
+      setLoading(false);
       return;
     }
     formik.handleSubmit();
+    setLoading(false);
   };
+
   const chooseOfferType = async (type: string) => {
     switch (type) {
       case 'soffer':
@@ -255,12 +261,26 @@ const GetOffer: React.FC<GetOfferProps> = ({
                 </p>
               </Grid>
             </Grid>
-            <div className="text-center mt-14 ">
-              <NeosButton
+            <div className="text-center mt-14  ">
+              <Button
+                variant="filled"
+                size="lg"
+                style={{
+                  backgroundColor: '#FD7C7C',
+                  borderRadius: '16px',
+                  height: '56px'
+                }}
+                classNames={{}}
+                onClick={() => handleyourSaving()}
+                loading={loading}
+              >
+                {t('Calculate-saving-btn')}
+              </Button>
+              {/* <NeosButton
                 category="colored"
                 title={t('Calculate-saving-btn')}
                 onClick={() => handleyourSaving()}
-              />
+              /> */}
             </div>
           </div>
         </div>
@@ -357,11 +377,25 @@ const GetOffer: React.FC<GetOfferProps> = ({
               </Grid>
             </Grid>
             <div className="text-center mt-14">
-              <NeosButton
+              <Button
+                variant="filled"
+                size="lg"
+                style={{
+                  backgroundColor: '#FD7C7C',
+                  borderRadius: '16px',
+                  height: '56px'
+                }}
+                classNames={{}}
+                onClick={() => handleyourSaving()}
+                loading={loading}
+              >
+                {t('Calculate-saving-btn')}
+              </Button>
+              {/* <NeosButton
                 category="colored"
                 title={t('Calculate-saving-btn')}
                 onClick={() => handleyourSaving()}
-              />
+              /> */}
             </div>
           </div>
         </div>
