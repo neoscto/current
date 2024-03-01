@@ -30,7 +30,7 @@ const LandingPage = () => {
               />
             </div>
           </div>
-          <div className="rounded-[30px] bg-[#01092299] max-w-[90%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[970px] w-full mx-auto max-h-[177px] md:max-h-[455px] lg:max-h-[455px] h-full relative md:mt-[4em] lg:mt-[3.5em] lg:mb-[4.9em] md:mb-[4.9em]">
+          <div className="rounded-[30px] bg-[#01092299] max-w-[90%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[970px] w-full mx-auto md:max-h-[455px] lg:max-h-[455px] h-full relative md:mt-[4em] lg:mt-[3.5em] lg:mb-[4.9em] md:mb-[4.9em]">
             <div className="grid grid-cols-8 gap-4 h-full">
               <div className="hidden sm:hidden md:block lg:block md:col-span-4 lg:col-span-3 relative">
                 <VideoPreview
@@ -53,7 +53,7 @@ const LandingPage = () => {
                   <p className="font-normal text-sm md:text-md lg:text-xl text-white mt-4 md:mt-3.5 lg:mt-3.5 mb-6 md:mb-11 lg:mb-11">
                     {t('Home.description')}
                   </p>
-                  <div className="flex whitespace-nowrap md:whitespace-normal">
+                  <div className="flex">
                     <NeosButton
                       category="fill"
                       title={t('Home.btn1txt')}
