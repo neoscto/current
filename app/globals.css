@@ -27,6 +27,7 @@ body {
 
 @media only screen and (max-width: 600px) {
   .landing-page-container {
+    background-size: cover;
     /* background-image: url("../public/landingpage-bg-mbl.png"); */
   }
 }
