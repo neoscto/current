@@ -451,7 +451,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                               : index === 3
                                 ? ' border-[#E0E0E0] rounded-tr-3xl max-w-[108px] min-w-[108px]'
                                 : 'border-[#E0E0E0] max-w-[156px] min-w-[156px]'
-                        }`}
+                        } flex items-center justify-center`}
                       >
                         {index === 0 && (
                           <img
