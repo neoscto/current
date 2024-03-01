@@ -53,7 +53,7 @@ const LandingPage = () => {
                   <p className="font-normal text-sm md:text-md lg:text-xl text-white mt-4 md:mt-3.5 lg:mt-3.5 mb-6 md:mb-11 lg:mb-11">
                     {t('Home.description')}
                   </p>
-                  <div className="flex">
+                  <div className="flex whitespace-nowrap md:whitespace-normal">
                     <NeosButton
                       category="fill"
                       title={t('Home.btn1txt')}
