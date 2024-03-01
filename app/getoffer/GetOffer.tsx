@@ -128,6 +128,7 @@ const GetOffer: React.FC<GetOfferProps> = ({
 
       setServerError('');
     } catch (error) {
+      setLoading(false);
       setServerError('Please try one more time?');
       return;
     }
