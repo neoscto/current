@@ -443,7 +443,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                     return (
                       <div
                         key={index}
-                        className={`w-full py-[21px] px-4 whitespace-pre border text-[#4F4F4F] text-[14px] leading-[17.64px] font-semibold border-b-0 flex items-center ${
+                        className={`w-full h-24 px-4 whitespace-pre border text-[#4F4F4F] text-[14px] leading-[17.64px] font-semibold border-b-0 flex items-center ${
                           index === 0
                             ? 'rounded-tl-3xl px-3 border-[#0F9DD0] bg-[#E8F5FA] max-w-[180px] min-w-[180px]'
                             : index === 1
@@ -472,11 +472,11 @@ const YourOffer = ({ handleNext, data }: any) => {
                     return (
                       <div className="flex w-full" key={index}>
                         <div
-                          className={`w-[225px] pl-[20px] p-[18px] border border-[#E0E0E0] border-r-0 border-b-0 text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium ${
+                          className={`w-[225px] h-16 pl-[20px]  border border-[#E0E0E0] border-r-0 border-b-0 text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium ${
                             index === panelChargeDetails.length - 1
                               ? 'rounded-bl-3xl border-b-[1px]'
                               : ''
-                          }`}
+                          } flex items-center`}
                         >
                           {t(`panel-charge.${charge.title}`)}
                         </div>
@@ -533,9 +533,9 @@ const YourOffer = ({ handleNext, data }: any) => {
           </div>
 
           <div className="lg:max-w-[223px] w-full max-w-full flex justify-center ">
-            <div className="relative w-full lg:h-[347px] max-w-[310px] lg:max-w-[223px] h-[405px] video-container !rounded-3xl overflow-hidden">
+            <div className="relative w-full  max-w-[310px] lg:max-w-[223px] h-[405px] video-container !rounded-3xl overflow-hidden bg-blue-500">
               <VideoPreview
-                custonClass="lg:max-h-[347px] h-full lg:w-[223px] w-[310px] max-h-[405px]"
+                custonClass=" h-full lg:w-[223px] w-[310px] "
                 url="https://videos.gotolstoy.com/public/41532226-45a4-45f6-a10f-a313cb492bc8/6c2ed4e4-393f-415d-8c6f-495ee6f13e80/6c2ed4e4-393f-415d-8c6f-495ee6f13e80.mp4"
                 controls={false}
                 muted
