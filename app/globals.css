@@ -15,10 +15,10 @@ body {
 }
 
 .landing-page-container {
-  background: url('../public/landingpage-bg.png') repeat fixed;
-  /* background-size: 100% 100%;
+  /* background: url('../public/landingpage-bg.png') repeat fixed; */
+  background-size: 100% 100%;
   background-repeat: no-repeat;
-  background-image: url("../public/landingpage-bg.png"); */
+  background-image: url('../public/landingpage-bg.png');
 }
 
 .work-list-marker ::marker {

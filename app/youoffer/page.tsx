@@ -28,6 +28,8 @@ import html2Canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { usePDF } from 'react-to-pdf';
 import { sendOffer } from '@/lib/api';
+import { CustomTooltip } from '@/features/YouOffer/CustomTooltip';
+import BarChartComponent from '@/features/YouOffer/BarChart';
 
 const YourOffer = ({ handleNext, data }: any) => {
   const { userData }: any = useSelector(
@@ -190,9 +192,9 @@ const YourOffer = ({ handleNext, data }: any) => {
       <div className="w-full bg-white lg:px-[70px] lg:pb-[18px] px-5 py-4">
         {/* Offer and virtual solar */}
         <div className="flex lg:justify-end lg:gap-[131px] items-end flex-col lg:flex-row gap-[29px]">
-          <div className="lg:max-w-[354px] w-full flex flex-col items-center max-w-full">
+          <div className="lg:max-w-[354px] w-full flex flex-col items-center max-w-full ">
             <img
-              src="virtual-solar-small.png"
+              src="description.png"
               alt="Description image"
               width={348}
               height={296}
@@ -410,22 +412,34 @@ const YourOffer = ({ handleNext, data }: any) => {
                 </p>
               </div>
 
-              <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center">
-                <NeosButton
-                  category="colored"
-                  title={t('Your-offer.download-offer')}
-                  className="lg:w-full w-auto lg:p-[17px]"
-                  disabled={true}
-                  onClick={handleDownloadOffer}
-                />
+              <div className=" ">
+                <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center ">
+                  <div className="lg:w-full w-auto  flex flex-col">
+                    <NeosButton
+                      category="colored"
+                      title={t('Your-offer.download-offer')}
+                      className="lg:w-full w-auto lg:p-[17px]"
+                      disabled={true}
+                      onClick={handleDownloadOffer}
+                    />
+                    <p className="font-sm text-[#2D9CDB] mt-1 ">
+                      Coming Soon...
+                    </p>
+                  </div>
 
-                <NeosButton
-                  category="colored"
-                  title={t('Your-offer.contract-btn-txt')}
-                  onClick={handleNext}
-                  className="lg:w-full w-auto lg:p-[17px] "
-                  disabled={true}
-                />
+                  <div className="lg:w-full w-auto  flex flex-col">
+                    <NeosButton
+                      category="colored"
+                      title={t('Your-offer.contract-btn-txt')}
+                      onClick={handleNext}
+                      className="lg:w-full w-auto lg:p-[17px] "
+                      disabled={true}
+                    />
+                    <p className="font-sm text-[#2D9CDB] mt-1 ">
+                      Coming Soon...
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -441,7 +455,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                     return (
                       <div
                         key={index}
-                        className={`w-full py-[21px] px-4 whitespace-pre border text-[#4F4F4F] text-[14px] leading-[17.64px] font-semibold border-b-0 flex items-center ${
+                        className={`w-full h-24 px-4 whitespace-pre border text-[#4F4F4F] text-[14px] leading-[17.64px] font-semibold border-b-0 flex items-center ${
                           index === 0
                             ? 'rounded-tl-3xl px-3 border-[#0F9DD0] bg-[#E8F5FA] max-w-[180px] min-w-[180px]'
                             : index === 1
@@ -449,7 +463,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                               : index === 3
                                 ? ' border-[#E0E0E0] rounded-tr-3xl max-w-[108px] min-w-[108px]'
                                 : 'border-[#E0E0E0] max-w-[156px] min-w-[156px]'
-                        }`}
+                        } flex items-center justify-center`}
                       >
                         {index === 0 && (
                           <img
@@ -470,11 +484,11 @@ const YourOffer = ({ handleNext, data }: any) => {
                     return (
                       <div className="flex w-full" key={index}>
                         <div
-                          className={`w-[225px] pl-[20px] p-[18px] border border-[#E0E0E0] border-r-0 border-b-0 text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium ${
+                          className={`w-[225px] h-16 pl-[20px]  border border-[#E0E0E0] border-r-0 border-b-0 text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium ${
                             index === panelChargeDetails.length - 1
                               ? 'rounded-bl-3xl border-b-[1px]'
                               : ''
-                          }`}
+                          } flex items-center`}
                         >
                           {t(`panel-charge.${charge.title}`)}
                         </div>
@@ -531,11 +545,11 @@ const YourOffer = ({ handleNext, data }: any) => {
           </div>
 
           <div className="lg:max-w-[223px] w-full max-w-full flex justify-center ">
-            <div className="relative w-full lg:h-[347px] max-w-[310px] lg:max-w-[223px] h-[405px] video-container !rounded-3xl overflow-hidden">
+            <div className="relative w-full  max-w-[223px] h-[405px] video-container !rounded-3xl overflow-hidden bg-blue-500">
               <VideoPreview
-                custonClass="lg:max-h-[347px] h-full lg:w-[223px] w-[310px] max-h-[405px]"
-                url="https://videos.gotolstoy.com/public/41532226-45a4-45f6-a10f-a313cb492bc8/6c2ed4e4-393f-415d-8c6f-495ee6f13e80/6c2ed4e4-393f-415d-8c6f-495ee6f13e80.mp4"
-                controls={false}
+                custonClass=" h-full w-[223px]  "
+                url="https://videos.gotolstoy.com/public/1a4a4880-dbaf-4a4c-91da-c0ae18ec5f3f/473c2922-a01d-4ec3-8c9e-64f88b6d9dd5/473c2922-a01d-4ec3-8c9e-64f88b6d9dd5.mp4"
+                controls={true}
                 muted
                 autoPlay
               />
@@ -545,7 +559,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
         <div className="flex lg:items-center lg:justify-end lg:gap-[160px] lg:flex-row flex-col gap-8 items-center justify-center lg:mb-0 mb-[22px]">
           {/* Licensed  */}
-          <div className=" flex lg:justify-center align-center flex-1 md:flex-none lg:flex-none max-w-[500px] w-full  lg:py-[47px] lg:flex-row flex-col justify-center gap-8  mt-8 lg:mt-0">
+          <div className="  flex lg:justify-center align-center flex-1 md:flex-none lg:flex-none max-w-[500px] w-full  lg:py-[47px] lg:flex-row flex-col justify-center gap-8  mt-8 lg:mt-0">
             <p className="text-[20px] leading-[25px] text-black font-semibold text-center lg:text-left">
               {t('Footer.license')}
             </p>
@@ -576,7 +590,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
           <NeosButton
             className={
-              ' text-sm whitespace-nowrap font-semibold lg:!mr-[28px] w-40 '
+              ' text-sm whitespace-nowrap font-semibold lg:!mr-[12px] w-48 '
             }
             category="colored"
             title={t('select-plan-btn')}
@@ -673,7 +687,7 @@ const YourOffer = ({ handleNext, data }: any) => {
             <div className="flex justify-center">
               <NeosButton
                 className={
-                  'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto mt-[21px] '
+                  'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto mt-[28px] '
                 }
                 category="colored"
                 title={t('select-plan-btn')}
@@ -726,125 +740,11 @@ const YourOffer = ({ handleNext, data }: any) => {
         </div>
         {/* Customer review ends */}
 
-        {/* Chart Starts here */}
-        <div className="flex justify-center flex-col  h-auto border mt-8 border-[#E0E0E0] !rounded-3xl px-4 pt-6 pb-4">
-          {/*  chart header */}
-          <div className="flex justify-between lg:gap-0 lg:mb-[40px] md:flex-row flex-col gap-[14px] mb-2.5">
-            <div className=" lg:max-w-lg max-w-sm  flex  flex-wrap lg:gap-[29px] gap-1.5 lg:items-center md:flex-row flex-col items-center ">
-              <div className="text-lg  font-semibold text-black text-left">
-                {t('panel-charge.payback')}
-              </div>
-
-              <div className="flex gap-2">
-                <NeosButton
-                  category="outline"
-                  className={`lg:px-3 lg:py-4 px-[14px] py-2 lg:text-sm text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] !border-2 ${
-                    userPlanBar == 'neos'
-                      ? '!border-[#66BCDA]'
-                      : '!border-[#E0E0E0]'
-                  } !normal-case h-12`}
-                  title={t('How-it-work.chooseNeosPartner')}
-                  onClick={updateUserPlanBarSelection('neos')}
-                />
-                <NeosButton
-                  category="outline"
-                  className={` lg:px-3 lg:py-4 px-[14px] py-2 lg:text-sm text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] border-2 ${
-                    userPlanBar == 'current'
-                      ? '!border-[#66BCDA]'
-                      : '!border-[#E0E0E0]'
-                  } !normal-case h-12
-                  `}
-                  title={t('How-it-work.keepProvider')}
-                  onClick={updateUserPlanBarSelection('current')}
-                />
-              </div>
-            </div>
-
-            <div className="  flex md:flex-col lg:justify-end flex-row gap-[10px] justify-start ">
-              <div className="flex items-center gap-2.5 ">
-                <span className="bg-[#436DC6]  w-[20px] h-[10px]"></span>
-                <span className="lg:text-sm md:text-xs text-[8px] !font-medium text-[#4F4F4F]">
-                  {t('chart.savingWithNeos')}
-                </span>
-              </div>
-              <div className="flex items-center gap-2.5  lg:w-auto">
-                <span className="bg-[#EB5757]  w-[20px] h-[10px]"></span>
-                <span className="lg:text-sm md:text-xs text-[8px] !font-medium text-[#4F4F4F]">
-                  {t('chart.installationCost')}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* chart container */}
-          <div className=" h-80 ">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                width={150}
-                height={40}
-                data={
-                  userPlanBar === 'neos'
-                    ? data.save_yearly_w_neos
-                    : data.save_yearly_without_neos
-                }
-              >
-                <Bar
-                  dataKey="saving"
-                  fill={`#436DC6`}
-                  barSize={24}
-                  radius={[5, 5, 0, 0]}
-                />
-                <XAxis
-                  dataKey="years"
-                  tickLine={false}
-                  className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px] mt-[10px]"
-                >
-                  <Label
-                    offset={-4}
-                    position="insideBottom"
-                    fontSize={20}
-                    value={t('Years')}
-                    className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]"
-                  />
-                </XAxis>
-                <YAxis
-                  tickCount={4}
-                  tickLine={false}
-                  domain={[0, 1]}
-                  dy={0.5}
-                  ticks={[
-                    0,
-                    data.total_price_after_tax / data.total_savings_w_neos,
-                    1
-                  ]}
-                  tickFormatter={(value) =>
-                    value > 0
-                      ? `${((userPlanBar === 'neos' ? value * data.total_savings_w_neos : value * data.total_savings_w_neos) / 1000).toLocaleString()}K`
-                      : value
-                  }
-                  className="lg:text-[12px] text-[6px] "
-                >
-                  <Label
-                    offset={0}
-                    angle={-90}
-                    position={'insideLeft'}
-                    value={`${t('Savings')} (€)`}
-                    className="lg:text-[12px] text-[6px] bg-red-400"
-                  />
-                </YAxis>
-                <CartesianAxis className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]" />
-                {/* <Tooltip /> */}
-                <ReferenceLine
-                  y={data.total_price_after_tax / data.total_savings_w_neos}
-                  stroke="#EB5757"
-                  strokeDasharray="5 0"
-                  strokeWidth={3}
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-        {/* Chart ends */}
+        <BarChartComponent
+          userPlanBar={userPlanBar}
+          updateUserPlanBarSelection={updateUserPlanBarSelection}
+          data={data}
+        />
 
         <div className="flex justify-center my-8">
           <NeosButton

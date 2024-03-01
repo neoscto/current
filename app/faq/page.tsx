@@ -1,35 +1,35 @@
-"use client";
-import { useState } from "react";
-import MainContainer from "@/components/sharedComponents/MainContainer";
+'use client';
+import { useState } from 'react';
+import MainContainer from '@/components/sharedComponents/MainContainer';
 import {
   Box,
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Typography,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import parse from "html-react-parser";
-import { useTranslation } from "react-i18next";
-import { faqData } from "./faq.data";
+  Typography
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import parse from 'html-react-parser';
+import { useTranslation } from 'react-i18next';
+import { faqData } from './faq.data';
 
 const faq = () => {
-  const [expandedId, setExpandedId] = useState("");
+  const [expandedId, setExpandedId] = useState('');
   const { t } = useTranslation();
 
   return (
     <MainContainer>
-      <Box sx={{ width: "100%" }} marginBottom={6} marginTop={4}>
+      <Box sx={{ width: '100%' }} marginBottom={6} marginTop={4}>
         <div className="rounded-[30px] bg-[#01092299] max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white">
           <div className="w-[94%] mx-auto py-6 md:py-9 lg:py-9 ">
-            <Typography variant="h4" className="text-center" gutterBottom>
-              {t("faq.title")}
-            </Typography>
+            <h4 className=" mx-auto text-center text-4xl font-medium flex justify-center items-center w-48 md:w-full mb-3">
+              {t('faq.title')}
+            </h4>
             <div
               style={{
-                height: "lg:49vh md:60vh",
+                height: 'lg:49vh md:60vh',
 
-                padding: "0.5rem",
+                padding: '0.5rem'
               }}
               className="flex flex-wrap"
             >
@@ -41,7 +41,7 @@ const faq = () => {
                   className="lg:max-w-[100%] md:max-w-[100%] sm:max-w-[100%] w-full"
                   onChange={() => {
                     setExpandedId(
-                      expandedId === index.toString() ? "" : index.toString()
+                      expandedId === index.toString() ? '' : index.toString()
                     );
                   }}
                 >
@@ -73,7 +73,7 @@ const faq = () => {
 export default faq;
 
 const accorSyle = {
-  boxShadow: "none !important",
-  transition: "none !important",
-  position: "inherit !important",
+  boxShadow: 'none !important',
+  transition: 'none !important',
+  position: 'inherit !important'
 };

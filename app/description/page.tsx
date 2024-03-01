@@ -13,8 +13,8 @@ const Description = () => {
 
   return (
     <MainContainer>
-      <div className="relative rounded-[30px] bg-[#01092299] md:w-full max-w-[calc(100%_-_40px)] xl:max-w-[1200px] w-full mx-auto bg-white overflow-hidden">
-        <div className="w-full mx-auto bg-white  flex lg:flex-row flex-col items-center lg:gap-[23px] justify-center lg:pt-[40px] lg:pb-[75px] lg:pl-[51px] lg:pr-4 pt-[34px] pb-[40px] pl-4 pr-6 gap-[27px]">
+      <div className=" my-8 relative rounded-[30px] bg-[#01092299] md:w-full max-w-[calc(100%_-_40px)] xl:max-w-[1200px] w-full mx-auto bg-white overflow-hidden">
+        <div className="w-full mx-auto bg-white  flex lg:flex-row flex-col flex-1 items-center lg:gap-[23px] justify-center lg:pt-[40px] lg:pb-[75px] lg:pl-[51px] lg:pr-4 pt-[34px] pb-[40px] pl-4 pr-6 gap-[27px]">
           <div className="text-center md:text-left lg:text-left lg:max-w-[calc(62%_-_13px)] w-full max-w-full">
             <h1 className="text-[28px] leading-[35px] font-bold text-center">
               {t('Description.title')}
@@ -27,11 +27,7 @@ const Description = () => {
             </div>
 
             <div className="flex flex-col items-center justify-center lg:hidden mt-3">
-              <img
-                src="virtual-solar-small.png"
-                alt="Description image"
-                width={267}
-              />
+              <img src="description.png" alt="Description image" width={267} />
               <div className="text-center mt-[23px]">
                 <NeosButton
                   className={
@@ -69,14 +65,14 @@ const Description = () => {
             </div>
           </div>
 
-          <div className="lg:ml-auto relative ml-0 h-full lg:max-w-[calc(38%_-_13px)] w-full flex lg:flex-col items-center justify-center">
+          <div className=" lg:ml-auto relative ml-0 h-full lg:max-w-[calc(38%_-_13px)] w-full flex lg:flex-col items-center justify-center">
             <img
               src="description.png"
               alt="Description image"
               width={425}
               className="lg:flex hidden"
             />
-            <div className="lg:mt-[3px]">
+            <div className="lg:mt-[36px] mb-0">
               <NeosButton
                 className={
                   'px-[24px] lg:py-[17px] py-[14px] text-sm leading-4 font-semibold'

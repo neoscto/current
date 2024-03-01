@@ -18,7 +18,7 @@
     "description": "<b>Neos</b> permite ser propietario de toda la electricidad producida por las placas solares de los parques solares españoles. Esto significa que generarás tu propia electricidad renovable y la recibirás en tu hogar o negocio a través de la red eléctrica del país, ¡el primer día del próximo mes!",
     "point1": "Ahorros de costos significativos",
     "point1Description": "Hasta un 75% de reducción en la factura de la luz, y hasta un 35% más barato que los paneles de los tejados.",
-    "point2": "Acceda desde cualquier lugar, al instante",
+    "point2": "Acceda cualquier lugar, al instante",
     "point2Description": "Conexión instantánea a la red. No requiere panel en el tejado ni ningún tipo de configuración.",
     "point3": "Retorno financiero",
     "point3Description": "Periodo de amortización de unos 6 años, frente a los más de 12 años de los paneles de tejado.",
@@ -84,10 +84,10 @@
     "c02-reduction": "Ahorro de emisiones de CO2 (Tons)"
   },
   "panel-header": {
-    "neos-panel-neos-provider": "Paneles Neos y \nNeos como proveedor",
+    "neos-panel-neos-provider": "Paneles Neos y \nNeos como\nproveedor",
     "neos-panels-keep-provider": "Paneles Neos y \nproveedor Keep",
-    "rooftop-panels-keep-provider": "Paneles de techo y \nproveedor de mantenimiento",
-    "keep-provider": "mantener\nproveedor"
+    "rooftop-panels-keep-provider": "Paneles de techo y \nproveedor de\nmantenimiento",
+    "keep-provider": "Mantener\nproveedor"
   },
   "offer": {
     "validation": {
@@ -106,10 +106,10 @@
         "valid": "El número de teléfono debe ser válido"
       },
       "cups": {
-        "required": "Se requiere el campo"
+        "required": "Se necesitan vasos"
       },
       "numberOfPeople": {
-        "required": "Se requiere el campo"
+        "required": "Se requiere el número de personas que viven en la casa"
       }
     },
     "selectPlan": "Seleccionar plan",
@@ -279,6 +279,6 @@
   "Trusted by": "De confianza",
   "Please try one more time?": "¿Por favor, inténtalo una vez más?",
   "Access the most affordable solar energy, easily, without any rooftop or in-home installations. Our large-scale solar farms deliver electricity directly to your home or business through the existing electricity grid, immediately providing you with solar power in a cheaper manner than rooftop installations.": "Acceda fácilmente a la energía solar más asequible, sin necesidad de instalaciones en tejados o viviendas. Nuestras huertas solares a gran escala suministran electricidad directamente a tu casa o negocio a través de la red eléctrica existente, proporcionándote inmediatamente energía solar de forma más barata que las instalaciones en tejados.",
-  "I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.": "¡Me encanta Neos! Gracias a ellos, mis facturas de electricidad se acercan a ¡0,00 € mes tras mes! Vivo en un piso, así que sin ellos nunca habría podido acceder a los paneles solares."
+  "I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.": "¡Me encanta Neos! Gracias a ellos, mis facturas de electricidad se acercan a ¡0,00 € mes tras mes! Vivo en un piso, así que sin ellos nunca habría podido acceder a los paneles solares.",
+  "Invalid phone number": "Número de teléfono no válido"
 }
-
