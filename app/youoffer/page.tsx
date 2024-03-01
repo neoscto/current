@@ -549,7 +549,7 @@ const YourOffer = ({ handleNext, data }: any) => {
               <VideoPreview
                 custonClass=" h-full w-[223px]  "
                 url="https://videos.gotolstoy.com/public/1a4a4880-dbaf-4a4c-91da-c0ae18ec5f3f/473c2922-a01d-4ec3-8c9e-64f88b6d9dd5/473c2922-a01d-4ec3-8c9e-64f88b6d9dd5.mp4"
-                controls={false}
+                controls={true}
                 muted
                 autoPlay
               />
