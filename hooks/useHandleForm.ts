@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { FormikState, FormikValues, useFormik } from "formik";
-import { InferType } from "yup";
+import { useState } from 'react';
+import { FormikState, FormikValues, useFormik } from 'formik';
+import { InferType } from 'yup';
 
 interface HandleFormType {
   method: string;
@@ -15,7 +15,7 @@ export default function useHandleForm({
   apiEndpoint,
   formikInitialValues,
   validationSchema,
-  handleSuccessResponce = (res) => {},
+  handleSuccessResponce = (res) => {}
 }: HandleFormType) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,14 +25,14 @@ export default function useHandleForm({
     validateOnChange: false,
     onSubmit: (values, { resetForm }) => {
       switch (method) {
-        case "POST":
+        case 'POST':
           POST(values, resetForm);
           break;
 
         default:
           break;
       }
-    },
+    }
   });
 
   async function POST(
@@ -42,11 +42,11 @@ export default function useHandleForm({
     setIsLoading(true); // Loading Start
     try {
       const response = await fetch(apiEndpoint, {
-        method: "POST",
-        body: JSON.stringify(value),
+        method: 'POST',
+        body: JSON.stringify(value)
       });
       const data = await response.json();
-      if (data?.type === "validationError") {
+      if (data?.type === 'validationError') {
         const validationError: InferType<typeof validationSchema> = data?.error;
         const arrayData = Object.keys(data?.error);
         arrayData.forEach((errorForm) =>
@@ -55,7 +55,7 @@ export default function useHandleForm({
       } else {
         resetForm();
       }
-      if (handleSuccessResponce && data?.status === "success")
+      if (handleSuccessResponce && data?.status === 'success')
         handleSuccessResponce(data);
       return data;
     } catch (error) {
