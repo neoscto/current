@@ -28,6 +28,7 @@ import html2Canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { usePDF } from 'react-to-pdf';
 import { sendOffer } from '@/lib/api';
+import { CustomTooltip } from '@/features/YouOffer/CustomTooltip';
 
 const YourOffer = ({ handleNext, data }: any) => {
   const { userData }: any = useSelector(
@@ -788,6 +789,13 @@ const YourOffer = ({ handleNext, data }: any) => {
                     : data.save_yearly_without_neos
                 }
               >
+                <Tooltip
+                  content={
+                    <CustomTooltip
+                      total_savings_w_neos={data.total_savings_w_neos}
+                    />
+                  }
+                />
                 <Bar
                   dataKey="saving"
                   fill={`#436DC6`}
@@ -815,6 +823,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                   ticks={[
                     0,
                     data.total_price_after_tax / data.total_savings_w_neos,
+                    data.total_savings_without_neos / data.total_savings_w_neos,
                     1
                   ]}
                   tickFormatter={(value) =>
@@ -824,6 +833,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                             ? value * data.total_savings_w_neos
                             : value * data.total_savings_w_neos) / 1000
                         ).toLocaleString('en-US', {
+                          minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}K`
                       : value
@@ -838,8 +848,9 @@ const YourOffer = ({ handleNext, data }: any) => {
                     className="lg:text-[12px] text-[6px] bg-red-400"
                   />
                 </YAxis>
+
                 <CartesianAxis className="lg:text-[12px] lg:leading-[15px] text-[6px] leading-[7px]" />
-                {/* <Tooltip /> */}
+
                 <ReferenceLine
                   y={data.total_price_after_tax / data.total_savings_w_neos}
                   stroke="#EB5757"
