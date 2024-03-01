@@ -244,13 +244,13 @@ const HorizontalLinearStepper = () => {
   return (
     <MainContainer>
       <div className=" my-4 xl:max-w-[1200px] max-w-[calc(100%_-_40px)] relative rounded-[30px] bg-[#01092299] w-full mx-auto bg-white overflow-hidden">
-        <div className="flex items-center gap-x-[12px] absolute lg:top-[2em] lg:left-[20px] md:top-[20px] md:left-[20px] top-[10px] left-[10px]">
+        <div className="flex items-center gap-x-[12px] absolute lg:top-[2em] lg:left-[20px] md:top-[20px] md:left-[20px] top-[10px] left-[18px]">
           <span onClick={() => handleFormBack()}>
             <ArrowBackIcon className=" cursor-pointer  lg:text-[30px] md:text-[30px] sm:text-[30px] text-[22px]" />
           </span>
         </div>
         <Box sx={{ width: '100%' }}>
-          <div className="max-w-[630px] w-full mx-auto pt-[35px] pb-[26px]">
+          <div className="max-w-[630px] w-full mx-auto pt-[35px] pb-[26px] mt-2 md:mt-0">
             <Stepper activeStep={Number(activeStep)}>
               {steps.map((label, index) => {
                 const stepProps: { completed?: boolean } = {};
