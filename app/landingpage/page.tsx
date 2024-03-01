@@ -13,7 +13,7 @@ const LandingPage = () => {
   const { t } = useTranslation();
   return (
     <MainContainer>
-      <div className="flex flex-col gap-5  my-12">
+      <div className="flex flex-col gap-5  mt-12 mb-4 md:mb-12">
         <div>
           <div className=" mt-4">
             <div className=" md:hidden lg:hidden relative flex justify-center items-center mb-6 h-[420px] w-[260px] mt-[-10px] rounded-[12px] overflow-hidden bg-white mx-auto">
