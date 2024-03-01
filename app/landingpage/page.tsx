@@ -43,7 +43,7 @@ const LandingPage = () => {
                   controls={true}
                 />
               </div>
-              <div className="col-span-8 sm:col-span-8 md:col-span-4 lg:col-span-5 px-5 md:px-4 lg:px-10 leading-[48px] flex justify-center lg:justify-start items-center pt-5 pb-5 md:mb-24  md:mt-20 lg:mb-24  lg:mt-24">
+              <div className="  col-span-8 sm:col-span-8 md:col-span-4 lg:col-span-5 px-5 md:px-4 lg:px-10 leading-[48px] flex justify-center lg:justify-start items-center py-6 md:mb-24  md:mt-20 lg:mb-24  lg:mt-24">
                 <div className=" text-center md:text-left lg:text-left">
                   <h6 className="font-bold text-white text-xl md:text-[2em] lg:text-[2.6em] leading-[6px]  md:leading-[46px] lg:leading-[46px]">
                     {t('Home.title')}
@@ -56,14 +56,14 @@ const LandingPage = () => {
                       category="fill"
                       title={t('Home.btn1txt')}
                       onClick={() => router.push('/description')}
-                      className="text-[.6em] md:text-[.8em] font-semibold"
+                      className="text-[.5em] md:text-[.8em] font-semibold"
                     />
                     <NeosButton
                       category="outline"
                       sx={{ ml: 2 }}
                       title={t('Home.btn2txt')}
                       onClick={() => router.push('/getoffer')}
-                      className="text-[.6em] md:text-[.8em] font-semibold"
+                      className="text-[.5em] md:text-[.8em] font-semibold"
                     />
                   </div>
                 </div>

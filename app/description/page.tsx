@@ -27,11 +27,7 @@ const Description = () => {
             </div>
 
             <div className="flex flex-col items-center justify-center lg:hidden mt-3">
-              <img
-                src="virtual-solar-small.png"
-                alt="Description image"
-                width={267}
-              />
+              <img src="description.png" alt="Description image" width={267} />
               <div className="text-center mt-[23px]">
                 <NeosButton
                   className={

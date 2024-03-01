@@ -14,7 +14,7 @@ export const offerStep1Schema = yup.object().shape({
     .email('offer.validation.email.valid')
     .required('offer.validation.email.required'),
   phoneNumber: yup.string().required('offer.validation.phoneNumber.required'),
-  cups: yup.number().when('offerType', {
+  cups: yup.string().when('offerType', {
     is: (v: string) => v === 'Personalised',
     then: (schema) => schema.required('offer.validation.cups.required')
   }),

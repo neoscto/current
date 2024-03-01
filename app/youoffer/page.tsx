@@ -192,9 +192,9 @@ const YourOffer = ({ handleNext, data }: any) => {
       <div className="w-full bg-white lg:px-[70px] lg:pb-[18px] px-5 py-4">
         {/* Offer and virtual solar */}
         <div className="flex lg:justify-end lg:gap-[131px] items-end flex-col lg:flex-row gap-[29px]">
-          <div className="lg:max-w-[354px] w-full flex flex-col items-center max-w-full">
+          <div className="lg:max-w-[354px] w-full flex flex-col items-center max-w-full ">
             <img
-              src="virtual-solar-small.png"
+              src="description.png"
               alt="Description image"
               width={348}
               height={296}
@@ -687,7 +687,7 @@ const YourOffer = ({ handleNext, data }: any) => {
             <div className="flex justify-center">
               <NeosButton
                 className={
-                  'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto mt-[21px] '
+                  'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto mt-[28px] '
                 }
                 category="colored"
                 title={t('select-plan-btn')}
