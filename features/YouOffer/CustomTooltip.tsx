@@ -4,11 +4,7 @@ export const CustomTooltip = ({
   label,
   total_savings_w_neos
 }: any) => {
-  console.log({ payload }, { label });
-
   if (active && payload && payload.length) {
-    console.log(payload[0].payload.years);
-    console.log(payload[0].payload.saving);
     return (
       <div className="custom-tooltip bg-slate-50 p-2">
         <p className="label">{`Year : ${payload[0].payload.years}`}</p>
