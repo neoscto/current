@@ -545,10 +545,10 @@ const YourOffer = ({ handleNext, data }: any) => {
           </div>
 
           <div className="lg:max-w-[223px] w-full max-w-full flex justify-center ">
-            <div className="relative w-full  max-w-[310px] lg:max-w-[223px] h-[405px] video-container !rounded-3xl overflow-hidden bg-blue-500">
+            <div className="relative w-full  max-w-[223px] h-[405px] video-container !rounded-3xl overflow-hidden bg-blue-500">
               <VideoPreview
-                custonClass=" h-full lg:w-[223px] w-[310px] "
-                url="https://videos.gotolstoy.com/public/41532226-45a4-45f6-a10f-a313cb492bc8/6c2ed4e4-393f-415d-8c6f-495ee6f13e80/6c2ed4e4-393f-415d-8c6f-495ee6f13e80.mp4"
+                custonClass=" h-full w-[223px]  "
+                url="https://videos.gotolstoy.com/public/1a4a4880-dbaf-4a4c-91da-c0ae18ec5f3f/473c2922-a01d-4ec3-8c9e-64f88b6d9dd5/473c2922-a01d-4ec3-8c9e-64f88b6d9dd5.mp4"
                 controls={false}
                 muted
                 autoPlay

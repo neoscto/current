@@ -16,15 +16,17 @@ const LandingPage = () => {
       <div className="flex flex-col gap-5  my-12">
         <div>
           <div className=" mt-4">
-            <div className=" md:hidden lg:hidden relative flex justify-center items-center mb-6 h-[330px] w-[160px] mt-[-10px] rounded-[12px] overflow-hidden bg-white mx-auto">
+            <div className=" md:hidden lg:hidden relative flex justify-center items-center mb-6 h-[420px] w-[260px] mt-[-10px] rounded-[12px] overflow-hidden bg-white mx-auto">
               <VideoPreview
                 custonClass={
-                  'max-h-[330px] h-full z-10 relative w-[160px]  z-[1]'
+                  'max-h-[420px] h-full z-10 relative w-[260px]  z-[1]'
                 }
                 url={
-                  'https://videos.gotolstoy.com/public/41532226-45a4-45f6-a10f-a313cb492bc8/6c2ed4e4-393f-415d-8c6f-495ee6f13e80/6c2ed4e4-393f-415d-8c6f-495ee6f13e80.mp4'
+                  'https://videos.gotolstoy.com/public/1a4a4880-dbaf-4a4c-91da-c0ae18ec5f3f/42c8eefc-851b-4b4f-8cf5-6a136a084a5d/42c8eefc-851b-4b4f-8cf5-6a136a084a5d.mp4'
                 }
-                controls={false}
+                autoPlay={true}
+                muted={true}
+                controls={true}
               />
             </div>
           </div>
@@ -36,7 +38,7 @@ const LandingPage = () => {
                     'max-h-[600px] z-10 absolute w-[85%] lg:mt-[-2em] md:mt-[-2em] h-[520px] sm:mt-[-0.9em] z-[1] rounded-[20px] overflow-hidden'
                   }
                   url={
-                    'https://videos.gotolstoy.com/public/41532226-45a4-45f6-a10f-a313cb492bc8/6c2ed4e4-393f-415d-8c6f-495ee6f13e80/6c2ed4e4-393f-415d-8c6f-495ee6f13e80.mp4'
+                    'https://videos.gotolstoy.com/public/1a4a4880-dbaf-4a4c-91da-c0ae18ec5f3f/42c8eefc-851b-4b4f-8cf5-6a136a084a5d/42c8eefc-851b-4b4f-8cf5-6a136a084a5d.mp4'
                   }
                   autoPlay={true}
                   muted={true}
