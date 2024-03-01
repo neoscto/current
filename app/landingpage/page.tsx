@@ -35,7 +35,7 @@ const LandingPage = () => {
               <div className="hidden sm:hidden md:block lg:block md:col-span-4 lg:col-span-3 relative">
                 <VideoPreview
                   custonClass={
-                    'max-h-[600px] z-10 absolute w-[85%] lg:mt-[-2em] md:mt-[-2em] h-[520px] sm:mt-[-0.9em] z-[1] rounded-[20px] overflow-hidden'
+                    'max-h-[600px]  absolute w-[85%] lg:mt-[-2em] md:mt-[-2em] h-[520px] sm:mt-[-0.9em]  rounded-[20px] overflow-hidden'
                   }
                   url={
                     'https://videos.gotolstoy.com/public/1a4a4880-dbaf-4a4c-91da-c0ae18ec5f3f/42c8eefc-851b-4b4f-8cf5-6a136a084a5d/42c8eefc-851b-4b4f-8cf5-6a136a084a5d.mp4'

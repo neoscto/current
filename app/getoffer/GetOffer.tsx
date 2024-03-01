@@ -252,7 +252,7 @@ const GetOffer: React.FC<GetOfferProps> = ({
                     formik.setFieldValue('phoneNumber', value);
                   }}
                 />
-                <p className="font-sm text-[#2D9CDB] mt-1">
+                <p className="text-xs text-[#d32f2f] mt-1 ml-3">
                   {formik.values.phoneNumber
                     ? isValidPhoneNumber(formik.values.phoneNumber)
                       ? undefined
@@ -367,11 +367,11 @@ const GetOffer: React.FC<GetOfferProps> = ({
                     formik.setFieldValue('phoneNumber', value);
                   }}
                 />
-                <p className="font-sm text-[#2D9CDB] mt-1">
+                <p className="text-xs text-[#d32f2f] mt-1 ml-3">
                   {formik.values.phoneNumber
                     ? isValidPhoneNumber(formik.values.phoneNumber)
                       ? undefined
-                      : 'Invalid phone number'
+                      : t('Invalid phone number')
                     : null}
                 </p>
               </Grid>
