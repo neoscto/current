@@ -414,23 +414,32 @@ const YourOffer = ({ handleNext, data }: any) => {
 
               <div className=" ">
                 <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center ">
-                  <NeosButton
-                    category="colored"
-                    title={t('Your-offer.download-offer')}
-                    className="lg:w-full w-auto lg:p-[17px]"
-                    disabled={true}
-                    onClick={handleDownloadOffer}
-                  />
+                  <div className="lg:w-full w-auto  flex flex-col">
+                    <NeosButton
+                      category="colored"
+                      title={t('Your-offer.download-offer')}
+                      className="lg:w-full w-auto lg:p-[17px]"
+                      disabled={true}
+                      onClick={handleDownloadOffer}
+                    />
+                    <p className="font-sm text-[#2D9CDB] mt-1 ">
+                      Coming Soon...
+                    </p>
+                  </div>
 
-                  <NeosButton
-                    category="colored"
-                    title={t('Your-offer.contract-btn-txt')}
-                    onClick={handleNext}
-                    className="lg:w-full w-auto lg:p-[17px] "
-                    disabled={true}
-                  />
+                  <div className="lg:w-full w-auto  flex flex-col">
+                    <NeosButton
+                      category="colored"
+                      title={t('Your-offer.contract-btn-txt')}
+                      onClick={handleNext}
+                      className="lg:w-full w-auto lg:p-[17px] "
+                      disabled={true}
+                    />
+                    <p className="font-sm text-[#2D9CDB] mt-1 ">
+                      Coming Soon...
+                    </p>
+                  </div>
                 </div>
-                <p className="font-sm text-[#2D9CDB] mt-1 ">Coming Soon...</p>
               </div>
             </div>
           </div>
