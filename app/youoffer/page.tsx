@@ -29,7 +29,7 @@ import jsPDF from 'jspdf';
 import { usePDF } from 'react-to-pdf';
 import { sendOffer } from '@/lib/api';
 
-export const CustomTooltip = ({
+const CustomTooltip = ({
   active,
   payload,
   label,
