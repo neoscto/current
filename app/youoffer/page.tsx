@@ -436,7 +436,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
               <div className=" ">
                 <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center ">
-                  <div className="lg:w-full w-auto  flex flex-col">
+                  <div className="lg:w-full w-auto  flex flex-col items-center">
                     <NeosButton
                       category="colored"
                       title={t('Your-offer.download-offer')}
@@ -449,7 +449,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                     </p>
                   </div>
 
-                  <div className="lg:w-full w-auto  flex flex-col">
+                  <div className="lg:w-full w-auto  flex flex-col items-center">
                     <NeosButton
                       category="colored"
                       title={t('Your-offer.contract-btn-txt')}
