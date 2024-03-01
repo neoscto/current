@@ -819,7 +819,13 @@ const YourOffer = ({ handleNext, data }: any) => {
                   ]}
                   tickFormatter={(value) =>
                     value > 0
-                      ? `${((userPlanBar === 'neos' ? value * data.total_savings_w_neos : value * data.total_savings_w_neos) / 1000).toLocaleString()}K`
+                      ? `${(
+                          (userPlanBar === 'neos'
+                            ? value * data.total_savings_w_neos
+                            : value * data.total_savings_w_neos) / 1000
+                        ).toLocaleString('en-US', {
+                          maximumFractionDigits: 2
+                        })}K`
                       : value
                   }
                   className="lg:text-[12px] text-[6px] "
