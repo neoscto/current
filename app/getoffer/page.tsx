@@ -70,7 +70,6 @@ const HorizontalLinearStepper = () => {
   });
   function handleSuccessResponce(res: any) {
     saveDataToSessionStorage('UserOffer', res.data);
-    console.log('here');
     setShowForm('yourOffer');
     const arrayData = Object.keys(res.data);
     arrayData.forEach((key: any) => {
