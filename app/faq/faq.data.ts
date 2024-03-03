@@ -35,7 +35,7 @@ export const faqData = [
   {
     question: "What installation size will meet my needs?",
     answer:
-      "<p>Our optimized offer simulator asks just one question and instantly calculates the precise capacity you need, its cost, and your potential savings over 25 years. For a standard apartment housing 3 people, the simulator would recommend a 2.19 kW virtual solar installation, which represents around 4.80 panels. This costs €3,504 before VAT, a figure markedly lower than equivalent rooftop installations. With the applicable 10% VAT for virtual solar installations, the total comes to €3,854, compared to the €4,782 this household would spend on rooftop panels of the same capacity, after applying the 21% VAT. In this scenario, opting for Neos as your provider would not only cut installation costs but also generate savings of around €21,478 in your electricity bills over 25 years, and savings of around €17,624 if we include the price of the virtual installation.</p>",
+      "<p>Our optimized offer simulator asks just one question and instantly calculates the precise capacity you need, its cost, and your potential savings over 25 years. For a standard apartment housing 3 people, the simulator would recommend a 2.17 kW virtual solar installation, which represents around 4.77 panels. This costs €3,478 before VAT, a figure markedly lower than equivalent rooftop installations. With the applicable 10% VAT for virtual solar installations, the total comes to €3,826, compared to the €4,747 this household would spend on rooftop panels of the same capacity, after applying the 21% VAT. In this scenario, opting for Neos as your provider would not only cut installation costs but also generate savings of around €21,953 in your electricity bills over 25 years, and savings of around €18,126 if we include the price of the virtual installation.</p>",
   },
   {
     question:
@@ -79,7 +79,7 @@ export const faqData = [
     question:
       "How long does it take to recover my investment in a Neos virtual solar installation?",
     answer:
-      "<p>When you buy a Neos installation, there are two possible scenarios:</p> <br><ul><li><b>• Neos is your electricity provider:</b> Your investment will have paid for itself in about 6.56 years, after which you still continue to save on your electricity bill for the 25-year lifespan of the panels linked to your name, making 5.57 times your initial investment.</li><li><b>• Neos isn’t your electricity provider:</b> Your investment will have paid for itself in about 8.66 years, after which you still continue to save on your electricity bill for the 25-year lifespan of the panels linked to your name, making 3.99 times your initial investment.</li></ul><br><p>On a side note, if you were to buy rooftop panels, your payback period would be about 12.60 years, and you would make 2.62 times your initial investment.</p>",
+      "<p>When you buy a Neos installation, there are two possible scenarios:</p> <br><ul><li><b>• Neos is your electricity provider:</b> Your investment will have paid for itself in about 6.39 years, after which you still continue to save on your electricity bill for the 25-year lifespan of the panels linked to your name, making 5.74 times your initial investment.</li><li><b>• Neos isn’t your electricity provider:</b> Your investment will have paid for itself in about 8.93 years, after which you still continue to save on your electricity bill for the 25-year lifespan of the panels linked to your name, making 3.85 times your initial investment.</li></ul><br><p>On a side note, if you were to buy rooftop panels, your payback period would be about 12.42 years, and you would make 2.67 times your initial investment.</p>",
   },
   {
     question:
@@ -102,7 +102,7 @@ export const faqData = [
     question:
       "What are the environmental benefits to adopting solar energy with Neos?",
     answer:
-      "<p>A 3-person household that purchases a 2.19 kW virtual solar installation, which is equivalent to 4.80 solar panels, will save around 79.62 tons in CO2 emissions over the next 25 years, or 3.18 tons per year. To put this into perspective, the total CO2 savings are akin to the combined weight of nearly 19.90 adult male Asian elephants, or about 0.80 of such elephants each year.</p>",
+      "<p>A 3-person household that purchases a 2.17 kW virtual solar installation, which is equivalent to 4.77 solar panels, will save around 79.04 tons in CO2 emissions over the next 25 years, or 3.16 tons per year. To put this into perspective, the total CO2 savings are akin to the combined weight of nearly 19.76 adult male Asian elephants, or about 0.79 of such elephants each year.</p>",
   },
   {
     question: "How clean and renewable is the electricity supplied by Neos?",
