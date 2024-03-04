@@ -8,6 +8,9 @@ import VideoPreview from '../videoPlayer/preview';
 import Licensed from '@/components/Licensed';
 import Trusted from '@/components/Trusted';
 
+const VIDEO_URL =
+  'https://videos.gotolstoy.com/public/1a4a4880-dbaf-4a4c-91da-c0ae18ec5f3f/473c2922-a01d-4ec3-8c9e-64f88b6d9dd5/473c2922-a01d-4ec3-8c9e-64f88b6d9dd5.mp4';
+
 const LandingPage = () => {
   const router = useRouter();
   const { t } = useTranslation();
@@ -21,7 +24,7 @@ const LandingPage = () => {
                 custonClass={
                   'max-h-[420px] h-full z-10 relative w-[260px]  z-[1]'
                 }
-                url={'https://player.gotolstoy.com/imcd6drjfnsgh'}
+                url={VIDEO_URL}
                 autoPlay={true}
                 muted={true}
                 controls={true}
@@ -35,7 +38,7 @@ const LandingPage = () => {
                   custonClass={
                     'max-h-[600px]  absolute w-[85%] lg:mt-[-2em] md:mt-[-2em] h-[520px] sm:mt-[-0.9em]  rounded-[20px] overflow-hidden'
                   }
-                  url={'https://player.gotolstoy.com/imcd6drjfnsgh'}
+                  url={VIDEO_URL}
                   autoPlay={true}
                   muted={true}
                   controls={true}
