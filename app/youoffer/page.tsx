@@ -38,8 +38,8 @@ const CustomTooltip = ({
   if (active && payload && payload.length) {
     return (
       <div className="custom-tooltip bg-slate-50 p-2">
-        <p className="label">{`Year : ${payload[0].payload.years}`}</p>
-        <p className="label">{`Saving : ${(
+        <p className="label">{`Year: ${payload[0].payload.years}`}</p>
+        <p className="label">{`Savings: ${(
           (payload[0].payload.saving * total_savings_w_neos) /
           1000
         ).toLocaleString('en-US', {
