@@ -13,6 +13,7 @@ import './i18n';
 import { ColorSchemeScript, MantineProvider, createTheme } from '@mantine/core';
 import '@mantine/core/styles.css';
 import { useTranslation } from 'react-i18next';
+import Script from 'next/script';
 
 const mantineTheme = createTheme({});
 
@@ -40,6 +41,10 @@ export default function RootLayout({
         <meta property="og:url" content="https://www.neosenergia.com" />
         <meta property="og:type" content="website" />
         <ColorSchemeScript />
+        {/* <Script tolstoyAppKey="098ddbd5-1968-4dda-8fdd-d473c7cdc84d" /> */}
+        <Script src="https://widget.gotolstoy.com/widget/widget.js" defer />
+        <script>tolstoyAppKey=“098ddbd5-1968-4dda-8fdd-d473c7cdc84d”</script>
+        {/* <script src=“https://widget.gotolstoy.com/widget/widget.js” defer></script> */}
       </head>
       <body className={outfit.className}>
         <ThemeProvider theme={theme}>

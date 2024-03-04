@@ -927,87 +927,99 @@ export const calculateSolarPaybackPeriod = async (
     total_price_after_tax,
     tableData: [
       {
-        neosPanelProvider:
-          '€' +
-          total_price_after_tax.toLocaleString('en-US', {
-            maximumFractionDigits: 2
-          }),
-        neosPanelKeepProvider:
-          '€' +
-          total_price_after_tax.toLocaleString('en-US', {
-            maximumFractionDigits: 2
-          }),
+        neosPanelProvider: total_price_after_tax.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }),
+        neosPanelKeepProvider: total_price_after_tax.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }),
         rooftopPanelKeepProvider:
-          '€' +
           rooftop_installation_price_after_tax.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
             maximumFractionDigits: 2
           }),
         keepProvider: '-'
       },
       {
-        neosPanelProvider:
-          percent_savings_w_neos.toLocaleString('en-US', {
+        neosPanelProvider: percent_savings_w_neos.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }),
+        neosPanelKeepProvider: percent_savings_without_neos.toLocaleString(
+          'en-US',
+          {
+            minimumFractionDigits: 2,
             maximumFractionDigits: 2
-          }) + '%',
-        neosPanelKeepProvider:
-          percent_savings_without_neos.toLocaleString('en-US', {
+          }
+        ),
+        rooftopPanelKeepProvider: percent_savings_retail_rooftop.toLocaleString(
+          'en-US',
+          {
+            minimumFractionDigits: 2,
             maximumFractionDigits: 2
-          }) + '%',
-        rooftopPanelKeepProvider:
-          percent_savings_retail_rooftop.toLocaleString('en-US', {
-            maximumFractionDigits: 2
-          }) + '%',
+          }
+        ),
         keepProvider: '0'
       },
       {
-        neosPanelProvider:
-          '€' +
-          savings_retail_w_neos.toLocaleString('en-US', {
+        neosPanelProvider: savings_retail_w_neos.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }),
+        neosPanelKeepProvider: savings_retail_without_neos.toLocaleString(
+          'en-US',
+          {
+            minimumFractionDigits: 2,
             maximumFractionDigits: 2
-          }),
-        neosPanelKeepProvider:
-          '€' +
-          savings_retail_without_neos.toLocaleString('en-US', {
+          }
+        ),
+        rooftopPanelKeepProvider: savings_retail_rooftop.toLocaleString(
+          'en-US',
+          {
+            minimumFractionDigits: 2,
             maximumFractionDigits: 2
-          }),
-        rooftopPanelKeepProvider:
-          '€' +
-          savings_retail_rooftop.toLocaleString('en-US', {
-            maximumFractionDigits: 2
-          }),
+          }
+        ),
         keepProvider: '0'
       },
       {
-        neosPanelProvider:
-          payback_w_neos.toLocaleString('en-US', {
-            maximumFractionDigits: 2
-          }) + ' Years',
-        neosPanelKeepProvider:
-          payback_without_neos.toLocaleString('en-US', {
-            maximumFractionDigits: 2
-          }) + ' Years',
-        rooftopPanelKeepProvider:
-          payback_rooftop.toLocaleString('en-US', {
-            maximumFractionDigits: 2
-          }) + ' Years',
+        neosPanelProvider: payback_w_neos.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }),
+        neosPanelKeepProvider: payback_without_neos.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }),
+        rooftopPanelKeepProvider: payback_rooftop.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }),
         keepProvider: '-'
       },
       {
-        neosPanelProvider:
-          neos_total_emissions_saved_in_tons.toLocaleString('en-US', {
+        neosPanelProvider: neos_total_emissions_saved_in_tons.toLocaleString(
+          'en-US',
+          {
+            minimumFractionDigits: 2,
             maximumFractionDigits: 2
-          }) + ' Tons',
+          }
+        ),
         neosPanelKeepProvider:
           neos_not_provider_total_emissions_saved_in_tons.toLocaleString(
             'en-US',
             {
+              minimumFractionDigits: 2,
               maximumFractionDigits: 2
             }
-          ) + ' Tons',
+          ),
         rooftopPanelKeepProvider:
           rooftop_total_emissions_saved_in_tons.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
             maximumFractionDigits: 2
-          }) + ' Tons',
+          }),
         keepProvider: '0'
       }
     ],
