@@ -21,9 +21,7 @@ const LandingPage = () => {
                 custonClass={
                   'max-h-[420px] h-full z-10 relative w-[260px]  z-[1]'
                 }
-                url={
-                  'https://videos.gotolstoy.com/public/1a4a4880-dbaf-4a4c-91da-c0ae18ec5f3f/42c8eefc-851b-4b4f-8cf5-6a136a084a5d/42c8eefc-851b-4b4f-8cf5-6a136a084a5d.mp4'
-                }
+                url={'https://player.gotolstoy.com/imcd6drjfnsgh'}
                 autoPlay={true}
                 muted={true}
                 controls={true}
@@ -37,9 +35,7 @@ const LandingPage = () => {
                   custonClass={
                     'max-h-[600px]  absolute w-[85%] lg:mt-[-2em] md:mt-[-2em] h-[520px] sm:mt-[-0.9em]  rounded-[20px] overflow-hidden'
                   }
-                  url={
-                    'https://videos.gotolstoy.com/public/1a4a4880-dbaf-4a4c-91da-c0ae18ec5f3f/42c8eefc-851b-4b4f-8cf5-6a136a084a5d/42c8eefc-851b-4b4f-8cf5-6a136a084a5d.mp4'
-                  }
+                  url={'https://player.gotolstoy.com/imcd6drjfnsgh'}
                   autoPlay={true}
                   muted={true}
                   controls={true}

@@ -1,19 +1,19 @@
-"use client";
-import Link from "next/link";
-import Image from "next/image";
-import neoslogo from "@/public/neos-logo.png";
-import NeosButton from "@/components/NeosButton";
-import { MenuItem } from "@mui/material";
-import { useEffect, useState } from "react";
-import english from "@/public/flags/gb.svg";
-import portugal from "@/public/flags/pt.svg";
-import spanish from "@/public/flags/es.svg";
-import { useRouter } from "next/navigation";
-import { useTranslation } from "react-i18next";
-import { useSelector, useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "@/store/store";
-import { setLanguage } from "@/features/common/commonSlice";
-import NeosSelect from "../NeosSelect";
+'use client';
+import Link from 'next/link';
+import Image from 'next/image';
+import neoslogo from '@/public/neos-logo.png';
+import NeosButton from '@/components/NeosButton';
+import { MenuItem } from '@mui/material';
+import { useEffect, useState } from 'react';
+import english from '@/public/flags/gb.svg';
+import portugal from '@/public/flags/pt.svg';
+import spanish from '@/public/flags/es.svg';
+import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
+import { setLanguage } from '@/features/common/commonSlice';
+import NeosSelect from '../NeosSelect';
 
 const Navbar = () => {
   const router = useRouter();
@@ -36,19 +36,19 @@ const Navbar = () => {
         width={0}
         height={0}
         className=" w-24 md:w-32 -ms-1 md:ms-0 lg:ms-0 cursor-pointer object-contain"
-        onClick={() => router.push("/")}
+        onClick={() => router.push('/')}
         unoptimized
       />
 
       <div className="items-center select-container gap-x-2 flex">
         <Link
           href="/faq"
-          className=" hover:bg-Primary-Color-Light hover:border-Primary-Color-Light font-bold border rounded-lg text-center text-lg md:text-xl  text-white px-4 py-1 "
+          className=" hover:opacity-70 font-bold border rounded-lg text-center text-lg md:text-xl  text-white px-4 py-1 "
         >
-          {t("Home.nav.faq")}
+          {t('Home.nav.faq')}
         </Link>
         <NeosSelect
-          className="hover:bg-Primary-Color-Light hover:text-white"
+          className="hover:opacity-70"
           value={language}
           onChange={(e: React.ChangeEvent<{ value: unknown }>) => {
             dispath(setLanguage(e.target.value as string));
@@ -57,13 +57,13 @@ const Navbar = () => {
           defaultValue={language}
         >
           {[
-            { name: "Español", flag: spanish, value: "es" },
-            { name: "English", flag: english, value: "en" },
+            { name: 'Español', flag: spanish, value: 'es' },
+            { name: 'English', flag: english, value: 'en' }
           ].map((item, index) => (
             <MenuItem
               key={index}
               value={item.value}
-              sx={{ display: "flex", fontWeight: "500" }}
+              sx={{ display: 'flex', fontWeight: '500' }}
             >
               <Image
                 src={item.flag}

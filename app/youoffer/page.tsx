@@ -225,12 +225,14 @@ const YourOffer = ({ handleNext, data }: any) => {
               <h1 className="lg:text-[30px] lg:leading-[37px] text-[24px] leading-[30px] font-bold">
                 {t('Your-offer.title')}: €
                 {data.total_price_before_tax.toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
                   maximumFractionDigits: 2
                 })}
               </h1>
               <h1 className="text-lg font-bold">
                 ({t('Your-offer.subtitle')}: €
                 {data.neos_installation_tax.toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
                   maximumFractionDigits: 2
                 })}
                 )
@@ -290,12 +292,14 @@ const YourOffer = ({ handleNext, data }: any) => {
                   <span className="lg:text-[24px] lg:leading-[30px] text-[20px] leading-[25px] pl-1 lg:text-left text-center">
                     <b>
                       {data.number_of_panels.toLocaleString('en-US', {
+                        minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                       })}
                     </b>{' '}
                     {t('Your-offer.offer-option1')}{' '}
                     <b>
                       {data.required_capacity.toLocaleString('en-US', {
+                        minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                       })}
                     </b>{' '}
@@ -353,12 +357,14 @@ const YourOffer = ({ handleNext, data }: any) => {
                       ? data.percent_savings_year1_w_neos.toLocaleString(
                           'en-US',
                           {
+                            minimumFractionDigits: 2,
                             maximumFractionDigits: 2
                           }
                         )
                       : data.percent_savings_year1_without_neos.toLocaleString(
                           'en-US',
                           {
+                            minimumFractionDigits: 2,
                             maximumFractionDigits: 2
                           }
                         )}
@@ -372,11 +378,13 @@ const YourOffer = ({ handleNext, data }: any) => {
                     €
                     {userPlan === 'neos'
                       ? data.savings_retail_w_neos.toLocaleString('en-US', {
+                          minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })
                       : data.savings_retail_without_neos.toLocaleString(
                           'en-US',
                           {
+                            minimumFractionDigits: 2,
                             maximumFractionDigits: 2
                           }
                         )}{' '}
@@ -389,9 +397,11 @@ const YourOffer = ({ handleNext, data }: any) => {
                     {' '}
                     {userPlan === 'neos'
                       ? data.payback_w_neos.toLocaleString('en-US', {
+                          minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })
                       : data.payback_without_neos.toLocaleString('en-US', {
+                          minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}{' '}
                     {t('years')}
@@ -405,12 +415,14 @@ const YourOffer = ({ handleNext, data }: any) => {
                       ? data.neos_total_emissions_saved_in_tons.toLocaleString(
                           'en-US',
                           {
+                            minimumFractionDigits: 2,
                             maximumFractionDigits: 2
                           }
                         )
                       : data.neos_not_provider_total_emissions_saved_in_tons.toLocaleString(
                           'en-US',
                           {
+                            minimumFractionDigits: 2,
                             maximumFractionDigits: 2
                           }
                         )}{' '}
@@ -421,12 +433,14 @@ const YourOffer = ({ handleNext, data }: any) => {
                     ? data.neos_elephants_carbon_capture.toLocaleString(
                         'en-US',
                         {
+                          minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         }
                       )
                     : data.neos_not_provider_elephants_carbon_capture.toLocaleString(
                         'en-US',
                         {
+                          minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         }
                       )}{' '}
