@@ -144,13 +144,10 @@ const GetOffer: React.FC<GetOfferProps> = ({
         dialCode: formik.values.dialCode,
         cups: formik.values.cups
       };
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/users-offers/${offerData?._id}`,
-        {
-          method: 'PATCH',
-          body: JSON.stringify(updatedData)
-        }
-      );
+      const response = await fetch(`api/users-offers/${offerData?._id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(updatedData)
+      });
       const data = await response.json();
       if (data) {
         saveDataToSessionStorage('UserOffer', data.data);
