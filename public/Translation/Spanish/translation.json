@@ -61,7 +61,7 @@
     "view-contract-txt": "VER CONTRATO"
   },
   "Your-offer": {
-    "title": "Precio a Pagar",
+    "title": "Precio",
     "subtitle": "más IVA",
     "desc": "por 25 años de energía solar",
     "validate-btn": "validar",
@@ -112,7 +112,7 @@
         "required": "Se requiere el número de personas que viven en la casa"
       }
     },
-    "selectPlan": "Elige tu plan",
+    "selectPlan": "Elige tu Plan",
     "buyPanelProviderNeos": "Instalación Solar y\nSuministro Neos",
     "buyPanelProviderCurrent": "Instalación Solar Neos"
   },
