@@ -41,7 +41,7 @@
     "85% Accurate": "Oferta apróximada",
     "btn": "OBTENER OFERTA",
     "review-expert-txt": "Revisa tu propuesta con tu Experto Solar",
-    "book-expert-txt": "HABLA CON TU EXPERTO"
+    "book-expert-txt": "HABLA CON UN EXPERTO"
   },
   "Get-offer-form": {
     "form-placeholder": "Ingresa aquí",
@@ -138,8 +138,8 @@
       "point3": "Es probable que tu comercializadora te cobre precios más altos de los que te cobrará Neos, por lo que tu ahorro total disminuirá."
     }
   },
-  "customer-review": "Opinión del cliente",
-  "review-your-offer-with-ceo": "Revise su oferta \nen una llamada rápida con nuestro\n director ejecutivo.",
+  "customer-review": "Nuestros clientes nos recomiendan",
+  "review-your-offer-with-ceo": "Revise su oferta\nen una llamada con uno de\nnuestros expertos",
   "book-call-btn": "reservar una llamada",
   "select-plan-btn": "Elige tu plan",
   "Compare-our-offer": {
