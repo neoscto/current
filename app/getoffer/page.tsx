@@ -25,7 +25,7 @@ import { saveDataToSessionStorage } from '@/utils/utils';
 import { CircularProgress } from '@mui/material';
 import Congrats from '@/components/Congrats';
 
-const steps = ['Receive Offer', 'Sign Contract', 'Enjoy Solar'];
+const steps = ['Receive Your Offer', 'Sign Your Contract', 'Enjoy Solar Energy'];
 
 interface FormData {
   numberOfPeople: string;
@@ -83,7 +83,7 @@ const HorizontalLinearStepper = () => {
     window.addEventListener('message', (event) => {
       if (event.data === 'redirect_success_url') {
         window.location.href = '/getoffer?activeStep=2';
-        window.removeEventListener('message', (event) => {});
+        window.removeEventListener('message', (event) => { });
       }
     });
   }, [signingUrl]);
@@ -122,8 +122,8 @@ const HorizontalLinearStepper = () => {
 
     router.push(
       pathname +
-        '?' +
-        createQueryString('activeStep', (Number(activeStep) + 1).toString())
+      '?' +
+      createQueryString('activeStep', (Number(activeStep) + 1).toString())
     );
     setSkipped(newSkipped);
   };
@@ -131,8 +131,8 @@ const HorizontalLinearStepper = () => {
   const handleBack = (): void => {
     router.push(
       pathname +
-        '?' +
-        createQueryString('activeStep', (Number(activeStep) - 1).toString())
+      '?' +
+      createQueryString('activeStep', (Number(activeStep) - 1).toString())
     );
   };
   const handleSkip = (): void => {
@@ -142,8 +142,8 @@ const HorizontalLinearStepper = () => {
 
     router.push(
       pathname +
-        '?' +
-        createQueryString('activeStep', (Number(activeStep) + 1).toString())
+      '?' +
+      createQueryString('activeStep', (Number(activeStep) + 1).toString())
     );
     setSkipped((prevSkipped) => {
       const newSkipped = new Set(prevSkipped.values());

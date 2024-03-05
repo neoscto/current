@@ -27,9 +27,9 @@
     "benefits": "Benefits"
   },
   "Calculate-saving-btn": "CALCULATE MY SAVINGS",
-  "Receive Offer": "Receive Offer",
-  "Sign Contract": "Sign Contract",
-  "Enjoy Solar": "Enjoy Solar",
+  "Receive Your Offer": "Receive Your Offer",
+  "Sign Your Contract": "Sign Your Contract",
+  "Enjoy Solar Energy": "Enjoy Solar Energy",
   "Get-offer": {
     "Standard Offer": "Standard Offer",
     "Personalized Offer": "Personalized Offer",
@@ -84,10 +84,10 @@
     "c02-reduction": "CO2 Emission Savings (Tons)"
   },
   "panel-header": {
-    "neos-panel-neos-provider": "Neos Panels &\nNeos As Provider",
-    "neos-panels-keep-provider": "Neos Panels &\nKeep Provider",
-    "rooftop-panels-keep-provider": "Rooftop Panels &\nKeep Provider",
-    "keep-provider": "Keep\nProvider"
+    "neos-panel-neos-provider": "Neos Installations\n& Neos as Provider",
+    "neos-panels-keep-provider": "Neos Installations\nOnly",
+    "rooftop-panels-keep-provider": "Rooftop Panels",
+    "keep-provider": "Keep Current\nProvider"
   },
   "offer": {
     "validation": {
@@ -106,15 +106,15 @@
         "valid": "Phone number should be valid"
       },
       "cups": {
-        "required": "Cups is required"
+        "required": "CUPS is required"
       },
       "numberOfPeople": {
         "required": "Number of people living in house is required"
       }
     },
-    "selectPlan": "Select Plan",
-    "buyPanelProviderNeos": "Buy Installations & \nMake Neos My Provider",
-    "buyPanelProviderCurrent": "Buy Installations & \nKeep My Provider"
+    "selectPlan": "Select Your Plan",
+    "buyPanelProviderNeos": "Neos Installations\n& Neos Provider",
+    "buyPanelProviderCurrent": "Neos Installations Only"
   },
   "How-it-work": {
     "title": "How it works?",
@@ -141,7 +141,7 @@
   "customer-review": "Customer Review",
   "review-your-offer-with-ceo": "Review your offer \non a quick call with our CEO!",
   "book-call-btn": "Book a call",
-  "select-plan-btn": "Select plan",
+  "select-plan-btn": "Select Plan",
   "Compare-our-offer": {
     "title": "Compare Our Offer",
     "point1": "cheaper than rooftop solar panels",
@@ -264,18 +264,18 @@
     }
   },
   "Switch between the two plans above to compare our estimates": "Switch between the two plans above to compare our estimates",
-  "Percent savings in the first year": "Percent savings in the first year",
-  "lower electricity bills": "lower electricity bills",
-  "Total savings": "Total savings",
+  "Percent savings in your first year": "Percent savings in your first year",
+  "lower electricity bills": "",
+  "Total savings over 25 years": "Total savings over 25 years",
   "saved over 25 years": "saved over 25 years",
-  "Your investment will have paid for itself": "Your investment will have paid for itself",
+  "Payback period": "Payback period",
   "years": "years",
-  "CO2 emission savings": "CO2 emission savings",
-  "over 25 years": "over 25 years",
+  "CO2 emissions avoided": "CO2 emission avoided",
+  "tons": "tons",
   "elephants": "elephants",
   "You made a mistake in your CUPS, please enter a valid CUPS": "You made a mistake in your CUPS, please enter a valid CUPS",
   "You made a mistake in at least one of your CUPS, please enter valid CUPS": "You made a mistake in at least one of your CUPS, please enter valid CUPS",
-  "You’ve entered more than 1 CUPS, please separate your CUPS with commas": "You’ve entered more than 1 CUPS, please separate your CUPS with commas",
+  "You’ve entered more than one CUPS, please separate your CUPS with commas": "You’ve entered more than one CUPS, please separate your CUPS with commas",
   "Trusted by": "Trusted by",
   "Please try one more time?": "Please try one more time?",
   "Access the most affordable solar energy, easily, without any rooftop or in-home installations. Our large-scale solar farms deliver electricity directly to your home or business through the existing electricity grid, immediately providing you with solar power in a cheaper manner than rooftop installations.": "Access the most affordable solar energy, easily, without any rooftop or in-home installations. Our large-scale solar farms deliver electricity directly to your home or business through the existing electricity grid, immediately providing you with solar power in a cheaper manner than rooftop installations.",

@@ -374,7 +374,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
               <div className=" flex flex-col gap-2.5  ">
                 <p className="text-[18px] leading-[22.68px] font-medium text-[#333333]">
-                  • {t('Percent savings in the first year')}:{' '}
+                  • {t('Percent savings in your first year')}:{' '}
                   <b>
                     {userPlan === 'neos'
                       ? data.percent_savings_year1_w_neos.toLocaleString(
@@ -393,10 +393,10 @@ const YourOffer = ({ handleNext, data }: any) => {
                       )}
                     %
                   </b>{' '}
-                  {t('lower electricity bills')}
+                  {t('')}
                 </p>
                 <p className="text-[18px] leading-[22.68px] font-medium text-[#333333]">
-                  • {t('Total savings')}:{' '}
+                  • {t('Total savings over 25 years')}:{' '}
                   <b>
                     €
                     {userPlan === 'neos'
@@ -412,10 +412,10 @@ const YourOffer = ({ handleNext, data }: any) => {
                         }
                       )}{' '}
                   </b>
-                  {t('saved over 25 years')}
+                  {t('')}
                 </p>
                 <p className="text-[18px] leading-[22.68px] font-medium text-[#333333]">
-                  • {t('Your investment will have paid for itself')}:
+                  • {t('Payback period')}:
                   <b>
                     {' '}
                     {userPlan === 'neos'
