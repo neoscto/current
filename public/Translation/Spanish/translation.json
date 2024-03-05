@@ -77,11 +77,11 @@
     "Redeem-code-discount": "Código de referencia para un descuento"
   },
   "panel-charge": {
-    "installation-cost": "Coste de instalación con impuestos (€)",
-    "savings": "*Ahorro en 25 años (%)",
-    "grid-electricity": "*Ahorro en 25 años (€)",
-    "payback": "Amortización (años)",
-    "c02-reduction": "Ahorro de emisiones de CO2 (toneladas)"
+    "installation-cost": "Coste de Instalación con Impuestos (€)",
+    "savings": "*Ahorro en 25 Años (%)",
+    "grid-electricity": "*Ahorro en 25 Años (€)",
+    "payback": "Amortización (Años)",
+    "c02-reduction": "Ahorro de Emisiones de CO2 (Toneladas)"
   },
   "panel-header": {
     "neos-panel-neos-provider": "Instalación Solar y\nSuministro Neos",
