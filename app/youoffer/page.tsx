@@ -450,7 +450,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                         }
                       )}{' '}
                   </b>{' '}
-                  (
+                  {t('over 25 years')} (
                   {userPlan === 'neos'
                     ? data.neos_elephants_carbon_capture.toLocaleString(
                       'en-US',
@@ -466,7 +466,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                         maximumFractionDigits: 2
                       }
                     )}{' '}
-                  {t('elephants')}) {t('over 25 years')}
+                  {t('elephants')})
                 </p>
               </div>
 

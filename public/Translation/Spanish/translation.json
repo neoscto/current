@@ -81,13 +81,13 @@
     "savings": "*Ahorro en 25 años (%)",
     "grid-electricity": "*Ahorro en 25 años (€)",
     "payback": "Amortización (años)",
-    "c02-reduction": "Ahorro de emisiones de CO2 (Toneladas)"
+    "c02-reduction": "Ahorro de emisiones de CO2 (toneladas)"
   },
   "panel-header": {
     "neos-panel-neos-provider": "Instalación Solar y\nSuministro Neos",
     "neos-panels-keep-provider": "Instalación Solar\nNeos",
-    "rooftop-panels-keep-provider": "Instalación Solar\nen tejado",
-    "keep-provider": "Mantener\ntu proveedor"
+    "rooftop-panels-keep-provider": "Instalación Solar\nen Tejado",
+    "keep-provider": "Mantener\ntu Proveedor"
   },
   "offer": {
     "validation": {
@@ -114,7 +114,7 @@
     },
     "selectPlan": "Elige tu plan",
     "buyPanelProviderNeos": "Instalación Solar y\nSuministro Neos",
-    "buyPanelProviderCurrent": "Instalación Solar Neos y otro suministro"
+    "buyPanelProviderCurrent": "Instalación Solar Neos y\nOtro Suministro"
   },
   "How-it-work": {
     "title": "¿Cómo funciona?",
