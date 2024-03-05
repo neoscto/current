@@ -74,7 +74,7 @@ const LandingPage = () => {
                         'We’re thrilled to announce that pre-sales for our virtual solar installations start later this month! Unlock our special launch discount by calculating your savings.'
                       )}
                     </p>
-                    <ul className=" ml-5 md:ml-0 font-normal text-left text-sm md:text-md lg:text-xl text-white list-disc my-2">
+                    <ul className=" ml-5 md:ml-3 font-normal text-left text-sm md:text-md lg:text-xl text-white list-disc my-2">
                       <li>
                         {t(
                           'The cheapest source of electricity, for your home or business.'
