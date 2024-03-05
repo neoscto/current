@@ -449,8 +449,8 @@ const YourOffer = ({ handleNext, data }: any) => {
                           maximumFractionDigits: 2
                         }
                       )}{' '}
-                  </b>{' '}
-                  {t('over 25 years')} (
+                    {' '}
+                    {t('over 25 years')}</b> (
                   {userPlan === 'neos'
                     ? data.neos_elephants_carbon_capture.toLocaleString(
                       'en-US',
