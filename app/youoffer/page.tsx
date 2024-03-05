@@ -450,7 +450,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                         }
                       )}{' '}
                     {' '}
-                    {t('over 25 years')}</b> (
+                    {t('tons')}</b> (
                   {userPlan === 'neos'
                     ? data.neos_elephants_carbon_capture.toLocaleString(
                       'en-US',
