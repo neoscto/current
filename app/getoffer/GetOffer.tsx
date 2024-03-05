@@ -30,7 +30,7 @@ const validateCUPS = (cups: string): boolean | string => {
         : 'You made a mistake in at least one of your CUPS, please enter valid CUPS';
     }
     if (cup.length > 22) {
-      return 'You’ve entered more than 1 CUPS, please separate your CUPS with commas';
+      return 'You’ve entered more than one CUPS, please separate your CUPS with commas';
     }
 
     // Check if the length is either 20 or 22 characters
