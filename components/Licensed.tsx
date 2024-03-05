@@ -5,7 +5,7 @@ const Licensed = () => {
   const { t } = useTranslation();
 
   return (
-    <div className=" grid grid-cols-4 gap-y-3 md:gap-y-7   mx-auto rounded-[30px] bg-[#01092299] md:px-20 px-5 py-5">
+    <div className=" grid grid-cols-4 gap-x-2 gap-y-3 md:gap-y-7 mx-auto rounded-[30px] bg-[#01092299] md:px-20 px-5 py-5">
       <div className=" flex justify-center items-center h-8 md:h-11 lg:h-16 ">
         <p className=" text-[8px] md:text-base text-white font-medium  whitespace-nowrap text-center ">
           {t('Footer.license')}
