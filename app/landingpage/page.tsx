@@ -50,13 +50,13 @@ const LandingPage = () => {
       <div className="flex flex-col gap-5  mt-12 mb-4 md:mb-12">
         <div>
           <div className=" mt-4">
-            <div className=" md:hidden lg:hidden relative flex justify-center items-center mb-6 h-[540px] w-[360px] rounded-[20px] overflow-hidden bg-white mx-auto">
+            <div className=" md:hidden lg:hidden relative flex justify-center items-center mb-6 h-[540px] max-w-[310px] w-[85%] rounded-[20px] overflow-hidden bg-white mx-auto">
               <div className="   w-full h-full  rounded-[20px] overflow-hidden">
                 <TolstoyHero />
               </div>
             </div>
           </div>
-          <div className="rounded-[30px] bg-[#01092299] max-w-[90%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[970px] w-full mx-auto md:max-h-[455px] lg:max-h-[455px] h-full relative md:mt-[4em] lg:mt-[3.5em] lg:mb-[4.9em] md:mb-[4.9em]">
+          <div className="rounded-[30px] bg-[#01092299] max-w-[90%] sm:max-w-[600px] md:max-w-[90%] lg:max-w-[970px] w-full mx-auto md:max-h-[455px] lg:max-h-[455px] h-full relative md:mt-[4em] lg:mt-[3.5em] lg:mb-[4.9em] md:mb-[4.9em]">
             <div className="grid grid-cols-8 gap-4 h-full">
               <div className="hidden sm:hidden md:block lg:block md:col-span-4 lg:col-span-3 relative">
                 <div className="max-h-[600px]  absolute w-[85%] lg:mt-[-2em] md:mt-[-2em] h-[520px] sm:mt-[-0.9em]  rounded-[20px] overflow-hidden">
@@ -64,32 +64,34 @@ const LandingPage = () => {
                 </div>
               </div>
               <div className=" col-span-8 sm:col-span-8 md:col-span-4 lg:col-span-5 flex justify-center lg:justify-start items-center">
-                <div className=" pr-8 p-3 sm:py-0  md:my-12 lg:my-20 text-center md:text-left lg:text-left">
-                  <h6 className="font-bold text-white text-xl md:text-2xl lg:text-3xl my-1 ">
+                <div className="  p-3 sm:py-0 my-4  md:my-16 lg:my-16 text-center md:text-left lg:text-left">
+                  <h6 className="font-bold text-white text-xl md:text-2xl lg:text-3xl my-4 md:my-2 ">
                     {t('Pre-Sale Launch!')}
                   </h6>
-                  <p className="font-normal ml-2 sm:ml-0 text-left text-sm md:text-base lg:text-xl text-white my-1 ">
-                    {t(
-                      'We’re thrilled to announce that pre-sales for our virtual solar installations start later this month! Unlock our special launch discount by calculating your savings.'
-                    )}
-                  </p>
-                  <ul className=" ml-5 md:ml-0 font-normal text-left text-sm md:text-md lg:text-xl text-white list-disc my-2">
-                    <li>
+                  <div className=" my-6">
+                    <p className="font-normal ml-2 sm:ml-0 text-left text-sm md:text-base lg:text-xl text-white md:my-1 ">
                       {t(
-                        'The cheapest source of electricity, for your home or business.'
+                        'We’re thrilled to announce that pre-sales for our virtual solar installations start later this month! Unlock our special launch discount by calculating your savings.'
                       )}
-                    </li>
-                    <li>
-                      {t(
-                        'No installation required: no rooftop panels, no in-home setup.'
-                      )}
-                    </li>
-                    <li>
-                      {t(
-                        'Instant connection: receive your electricity right away.'
-                      )}
-                    </li>
-                  </ul>
+                    </p>
+                    <ul className=" ml-5 md:ml-0 font-normal text-left text-sm md:text-md lg:text-xl text-white list-disc my-2">
+                      <li>
+                        {t(
+                          'The cheapest source of electricity, for your home or business.'
+                        )}
+                      </li>
+                      <li>
+                        {t(
+                          'No installation required: no rooftop panels, no in-home setup.'
+                        )}
+                      </li>
+                      <li>
+                        {t(
+                          'Instant connection: receive your electricity right away.'
+                        )}
+                      </li>
+                    </ul>
+                  </div>
                   <div className="flex my-4">
                     <NeosButton
                       category="fill"
