@@ -92,20 +92,47 @@ const LandingPage = () => {
                       </li>
                     </ul>
                   </div>
-                  <div className="flex my-4">
+                  <div className="md:flex my-4 hidden">
                     <NeosButton
                       category="fill"
                       title={t('Home.btn1txt')}
                       onClick={() => router.push('/description')}
-                      className="text-[.5em] md:text-[.8em] font-semibold"
+                      // className="text-[.5em] md:text-[.8em] font-semibold"
                     />
                     <NeosButton
                       category="outline"
                       sx={{ ml: 2 }}
                       title={t('Home.btn2txt')}
                       onClick={() => router.push('/getoffer')}
-                      className="text-[.5em] md:text-[.8em] font-semibold"
+                      // className="text-[.5em] md:text-[.8em] font-semibold"
                     />
+                  </div>
+                  <div className="md:hidden my-4 flex gap-3">
+                    <button
+                      className="w-1/2 rounded-xl bg-white text-black text-[10px] py-3 font-semibold"
+                      onClick={() => router.push('/description')}
+                    >
+                      {t('Home.btn1txt')}
+                    </button>
+                    <button
+                      className="w-1/2 rounded-xl bg-transparent text-white border border-white text-[10px] py-3 font-semibold"
+                      onClick={() => router.push('/getoffer')}
+                    >
+                      {t('Home.btn2txt')}
+                    </button>
+                    {/* <NeosButton
+                      category="fill"
+                      title={t('Home.btn1txt')}
+                      onClick={() => router.push('/description')}
+                      // className="text-[.5em] md:text-[.8em] font-semibold"
+                    /> */}
+                    {/* <NeosButton
+                      category="outline"
+                      sx={{ ml: 2 }}
+                      title={t('Home.btn2txt')}
+                      onClick={() => router.push('/getoffer')}
+                      // className="text-[.5em] md:text-[.8em] font-semibold"
+                    /> */}
                   </div>
                 </div>
               </div>
