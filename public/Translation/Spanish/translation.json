@@ -72,7 +72,7 @@
     "offer-saving-2": "ahorro total",
     "offer-payback": "años de devolución",
     "offer-consumption": "de consumo cubierto por energía solar",
-    "contract-btn-txt": "descargar oferta",
+    "contract-btn-txt": "ver tu contrato",
     "download-offer": "descargar oferta",
     "Redeem-code-discount": "Código de referencia para un descuento"
   },
@@ -81,13 +81,13 @@
     "savings": "*Ahorro en 25 años (%)",
     "grid-electricity": "*Ahorro en 25 años (€)",
     "payback": "Amortización (años)",
-    "c02-reduction": "Ahorro de emisiones de CO2 (Tons)"
+    "c02-reduction": "Ahorro de emisiones de CO2 (Toneladas)"
   },
   "panel-header": {
-    "neos-panel-neos-provider": "Paneles Neos y \nNeos como\nproveedor",
-    "neos-panels-keep-provider": "Paneles Neos y \nproveedor Keep",
-    "rooftop-panels-keep-provider": "Paneles de techo y \nproveedor de\nmantenimiento",
-    "keep-provider": "Mantener\nproveedor"
+    "neos-panel-neos-provider": "Instalación Solar y\nSuministro Neos",
+    "neos-panels-keep-provider": "Instalación Solar\nNeos",
+    "rooftop-panels-keep-provider": "Instalación Solar\nen tejado",
+    "keep-provider": "Mantener\ntu proveedor"
   },
   "offer": {
     "validation": {
@@ -112,9 +112,9 @@
         "required": "Se requiere el número de personas que viven en la casa"
       }
     },
-    "selectPlan": "Seleccionar plan",
-    "buyPanelProviderNeos": "Comprar instalaciones y \nhacer de Neos mi proveedor",
-    "buyPanelProviderCurrent": "Comprar instalaciones y\nmantener mi proveedor"
+    "selectPlan": "Elige tu plan",
+    "buyPanelProviderNeos": "Instalación Solar y\nSuministro Neos",
+    "buyPanelProviderCurrent": "Instalación Solar Neos"
   },
   "How-it-work": {
     "title": "¿Cómo funciona?",
@@ -264,15 +264,15 @@
     }
   },
   "Switch between the two plans above to compare our estimates": "Cambia entre los dos planes anteriores para comparar nuestras estimaciones",
-  "Percent savings in the first year": "Porcentaje de ahorro en el primer año",
-  "lower electricity bills": "facturas de electricidad más bajas",
-  "Total savings": "Ahorro total",
-  "saved over 25 years": "ahorrado más de 25 años",
-  "Your investment will have paid for itself": "Su inversión se habrá amortizado",
-  "years": "años",
-  "CO2 emission savings": "Ahorro de emisiones de CO2",
-  "over 25 years": "más de 25 años",
-  "elephants": "elefantes",
+  "Percent savings in the first year": "Porcentaje de ahorro en tu primer año",
+  "lower electricity bills": "",
+  "Total savings": "Ahorro total durante 25 años",
+  "saved over 25 years": "",
+  "Your investment will have paid for itself": "Amortización de la inversión en",
+  "years": "<b>años</b>",
+  "CO2 emission savings": "Emisiones de CO2 evitadas",
+  "over 25 years": "",
+  "elephants": "toneladas",
   "You made a mistake in your CUPS, please enter a valid CUPS": "Ha cometido un error en su CUPS, por favor introduzca un CUPS válido",
   "You made a mistake in at least one of your CUPS, please enter valid CUPS": "Ha cometido un error en al menos uno de sus CUPS, por favor introduzca un CUPS válido",
   "You’ve entered more than 1 CUPS, please separate your CUPS with commas": "Ha introducido más de 1 CUPS, por favor separe sus CUPS con comas",
