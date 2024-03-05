@@ -71,23 +71,23 @@ const LandingPage = () => {
                   <div className=" my-6">
                     <p className="font-normal ml-2 sm:ml-0 text-left text-sm md:text-base lg:text-xl text-white md:my-1 ">
                       {t(
-                        'We’re thrilled to announce that pre-sales for our virtual solar installations start later this month!'
+                        'We’re thrilled to announce that pre-sales for our virtual solar installations start later this month! Get exclusive access by calculating your savings.'
                       )}
                     </p>
                     <ul className=" ml-5 md:ml-3 font-normal text-left text-sm md:text-md lg:text-xl text-white list-disc my-2">
                       <li>
                         {t(
-                          'The cheapest source of electricity, for your home or business.'
+                          'The cheapest source of electricity, for your home or business'
                         )}
                       </li>
                       <li>
                         {t(
-                          'No installation required: no rooftop panels, no in-home setup.'
+                          'No installation required: no rooftop panels, no in-home setup'
                         )}
                       </li>
                       <li>
                         {t(
-                          'Instant connection: receive your electricity right away.'
+                          'Instant connection: receive your electricity right away'
                         )}
                       </li>
                     </ul>
@@ -97,14 +97,14 @@ const LandingPage = () => {
                       category="fill"
                       title={t('Home.btn1txt')}
                       onClick={() => router.push('/description')}
-                      // className="text-[.5em] md:text-[.8em] font-semibold"
+                    // className="text-[.5em] md:text-[.8em] font-semibold"
                     />
                     <NeosButton
                       category="outline"
                       sx={{ ml: 2 }}
                       title={t('Home.btn2txt')}
                       onClick={() => router.push('/getoffer')}
-                      // className="text-[.5em] md:text-[.8em] font-semibold"
+                    // className="text-[.5em] md:text-[.8em] font-semibold"
                     />
                   </div>
                   <div className="md:hidden my-4 flex gap-3">

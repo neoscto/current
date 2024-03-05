@@ -15,11 +15,11 @@
   },
   "Description": {
     "title": "¿Qué es la Energía Solar Virtual?",
-    "description": "Las <b>Instalaciones Solares Neos</b> te permiten acceder a la energía generada por paneles solares dentro de parques solares. Esto significa que, a cambio de una inversión inicial, recibirás energía solar gratis durante 25 años.",
-    "point1": "35% más barato",
-    "point1Description": "Una Instalación Solar Neos es 35% más barata que una instalación de autoconsumo en techo del mismo tamaño.",
-    "point2": "Hasta 75% de ahorro",
-    "point2Description": "Reduce tus facturas de la luz hasta entre un 60% y un 75% gracias a la energía solar producida por tu Instalación Solar Neos.",
+    "description": "Las <b>Instalaciones Solares Virtuales de Neos</b> te permiten acceder a la energía generada por paneles solares ubicados en grandes parques solares. Con un pequeño costo inicial, obtienes 25 años de energía solar gratuita, sin importar dónde esté ubicada tu casa o negocio.",
+    "point1": "Instalación un 35% más barata",
+    "point1Description": "Una Instalación Solar de Neos es hasta un 35% más barata que una instalación de autoconsumo en techo del mismo tamaño.",
+    "point2": "Facturas de electricidad un 75% más bajas",
+    "point2Description": "Reduce tus facturas de electricidad entre un 60% y un 75% gracias a la energía solar producida por paneles solares óptimamente ubicados.",
     "point3": "Acceso remoto e instantáneo",
     "point3Description": "Accede a tu Instalación Solar Neos a través de la red eléctrica, sin necesidad de obra, techo, o espera.",
     "point4": "Energía renovable",
@@ -282,8 +282,8 @@
   "I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.": "¡Me encanta Neos! Gracias a ellos, mis facturas de electricidad se acercan a ¡0,00 € mes tras mes! Vivo en un piso, así que sin ellos nunca habría podido acceder a los paneles solares.",
   "Invalid phone number": "Número de teléfono no válido",
   "Pre-Sale Launch!": "¡Lanzamiento de la preventa!",
-  "We’re thrilled to announce that pre-sales for our virtual solar installations start later this month!": "El periodo de pre-ventas de nuestras Instalaciones Solares Virtuales comenzará a final de este mes. Consigue acceso exclusivo calculando tu ahorro.",
-  "The cheapest source of electricity, for your home or business.": "La energía más barata que existe para tu hogar o empresa",
-  "No installation required: no rooftop panels, no in-home setup.": "Sin instalación: no hace falta tejado ni obra",
-  "Instant connection: receive your electricity right away.": "Conexión instantánea: recibe tu electricidad desde el momento de compra"
+  "We’re thrilled to announce that pre-sales for our virtual solar installations start later this month! Get exclusive access by calculating your savings.": "El periodo de pre-ventas de nuestras Instalaciones Solares Virtuales comenzará a final de este mes. Consigue acceso exclusivo calculando tu ahorro.",
+  "The cheapest source of electricity, for your home or business": "La energía más barata que existe para tu hogar o empresa",
+  "No installation required: no rooftop panels, no in-home setup": "Sin instalación: no hace falta tejado ni obra",
+  "Instant connection: receive your electricity right away": "Conexión instantánea: recibe tu electricidad desde el momento de compra"
 }
