@@ -14,14 +14,14 @@ export const GetOfferCardData: {
     {
       is_premium: false,
       title: "Standard Offer",
-      desc: "You will not need anything else to get the offer",
-      feature: ["Instant Calculation", "Answer 4 Questions", "85% Accurate"],
+      desc: "85% accuracy based on your estimated consumption",
+      feature: ["Instant calculation", "Answer one question", "Approximate offer"],
     },
     {
       is_premium: true,
       title: "Personalized Offer",
-      desc: "You will need your latest electricity bill to get the offer",
-      feature: ["Instant Calculation", "Answer 4 Questions", "100% Accurate"],
+      desc: "100% accuracy based on your actual consumption",
+      feature: ["Instant calculation", "Answer one question", "Exact offer"],
     },
   ];
 

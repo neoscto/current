@@ -33,12 +33,12 @@
   "Get-offer": {
     "Standard Offer": "Standard Offer",
     "Personalized Offer": "Personalized Offer",
-    "You will not need anything else to get the offer": "You will not need anything else to get the offer",
-    "You will need your latest electricity bill to get the offer": "You will need your latest electricity bill to get the offer",
-    "Instant Calculation": "Instant Calculation",
-    "Answer 4 Questions": "Answer 1 Question",
-    "100% Accurate": "100% Accurate",
-    "85% Accurate": "85% Accurate",
+    "85% accuracy based on your estimated consumption": "85% accuracy based on your estimated consumption",
+    "100% accuracy based on your actual consumption": "100% accuracy based on your actual consumption",
+    "Instant calculation": "Instant calculation",
+    "Answer one question": "Answer one question",
+    "Exact offer": "Exact offer",
+    "Approximate offer": "Approximate offer",
     "btn": "GET OFFER",
     "review-expert-txt": "Review your proposal with your Solar Expert",
     "book-expert-txt": "TALK TO YOUR EXPERT"

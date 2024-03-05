@@ -33,8 +33,8 @@
   "Get-offer": {
     "Standard Offer": "Oferta Estándar",
     "Personalized Offer": "Oferta Personalizada",
-    "You will not need anything else to get the offer": "85% de precisión basado en tu consumo estimado",
-    "You will need your latest electricity bill to get the offer": "100% de precisión basado en tu consumo real",
+    "85% accuracy based on your estimated consumption": "85% de precisión basado en tu consumo estimado",
+    "100% accuracy based on your actual consumption": "100% de precisión basado en tu consumo real",
     "Instant Calculation": "Cálculo instantáneo",
     "Answer 4 Questions": "Responde une pregunta",
     "100% Accurate": "Oferta exacta",
