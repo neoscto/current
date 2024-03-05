@@ -810,7 +810,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                   className={`lg:px-3 lg:py-4 px-[14px] py-2 lg:text-sm text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] !border-2 ${userPlanBar == 'neos'
                     ? '!border-[#66BCDA]'
                     : '!border-[#E0E0E0]'
-                    } !normal-case h-12`}
+                    } !normal-case h-10`}
                   title={t('How-it-work.chooseNeosPartner')}
                   onClick={updateUserPlanBarSelection('neos')}
                 />
@@ -819,7 +819,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                   className={` lg:px-3 lg:py-4 px-[14px] py-2 lg:text-sm text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] border-2 ${userPlanBar == 'current'
                     ? '!border-[#66BCDA]'
                     : '!border-[#E0E0E0]'
-                    } !normal-case h-12
+                    } !normal-case h-10
                   `}
                   title={t('How-it-work.keepProvider')}
                   onClick={updateUserPlanBarSelection('current')}
