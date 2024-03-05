@@ -114,7 +114,7 @@
     },
     "selectPlan": "Elige tu plan",
     "buyPanelProviderNeos": "Instalación Solar y\nSuministro Neos",
-    "buyPanelProviderCurrent": "Instalación Solar Neos y\nOtro Suministro"
+    "buyPanelProviderCurrent": "Instalación Solar Neos"
   },
   "How-it-work": {
     "title": "¿Cómo funciona?",
@@ -126,7 +126,7 @@
     "point6": "Si decides que no quieres a Neos como tu proveedor, no hay compromiso de permanecer con nosotros, y puedes elegir otro proveedor en cualquier momento.",
     "point7": "Si eliges otro proveedor, te enviaremos cada mes los ingresos generados por la venta de tu energía solar al mercado eléctrico, equivalentes a los ahorros que obtendrías si aún estuvieras con Neos.",
     "chooseNeosPartner": "Instalación Solar y Suministro Neos",
-    "keepProvider": "Instalación Solar Neos y Otro Suministro",
+    "keepProvider": "Instalación Solar Neos",
     "NeosPartner": {
       "point1": "Neos se convierte en tu comercializadora eléctrica. No te preocupes, nosotros nos encargamos del papeleo.",
       "point2": "Recibirás gratis toda la electricidad generada por tu Instalación Solar Virtual. Si tus paneles no están produciendo, cubriremos tu consumo con electricidad del mercado eléctrico a coste, sin ningún margen comercial. Cualquier excedente de electricidad que produzca su instalación genera ingresos y reduce aún más el costo de la electricidad que le suministramos.",
