@@ -15,7 +15,7 @@ const Description = () => {
   return (
     <MainContainer>
       <div className=" my-8 relative rounded-[30px] bg-[#01092299] md:w-full max-w-[calc(100%_-_40px)] xl:max-w-[1200px] w-full mx-auto bg-white overflow-hidden">
-        <div className="w-full mx-auto bg-white  flex lg:flex-row flex-col flex-1 items-center lg:gap-[23px] justify-center lg:pt-[40px] lg:pb-[75px] lg:pl-[51px] lg:pr-4 pt-[34px] pb-[40px] pl-4 pr-6 gap-[27px]">
+        <div className="w-full mx-auto bg-white  flex lg:flex-row flex-col flex-1 items-center lg:gap-[23px] justify-center lg:pt-[40px] lg:pb-[75px] lg:pl-[51px] lg:pr-4 pt-[34px] pb-[40px] pl-4 pr-4 gap-[27px]">
           <div className="text-center md:text-left lg:text-left lg:max-w-[calc(62%_-_13px)] w-full max-w-full">
             <h1 className="text-[28px] leading-[35px] font-bold text-center">
               {t('Description.title')}
@@ -54,6 +54,7 @@ const Description = () => {
                 {descriptionList.map((item, index) => {
                   return (
                     <div
+                      key={index}
                       className={`flex flex-col gap-2.5 lg:gap-1 items-center w-full lg:px-0 p-4 lg:pt-[19px] lg:pb-[12px] lg:bg-[#1D3E6A] rounded-3xl bg-[#1D3E6A]`}
                     >
                       <p
