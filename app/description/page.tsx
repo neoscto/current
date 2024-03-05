@@ -6,6 +6,7 @@ import { descriptionList } from '@/utils/StaticData';
 import { useTranslation } from 'react-i18next';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import parse from 'html-react-parser';
+import { Button } from '@mantine/core';
 
 const Description = () => {
   const router = useRouter();
@@ -14,7 +15,7 @@ const Description = () => {
   return (
     <MainContainer>
       <div className=" my-8 relative rounded-[30px] bg-[#01092299] md:w-full max-w-[calc(100%_-_40px)] xl:max-w-[1200px] w-full mx-auto bg-white overflow-hidden">
-        <div className="w-full mx-auto bg-white  flex lg:flex-row flex-col flex-1 items-center lg:gap-[23px] justify-center lg:pt-[40px] lg:pb-[75px] lg:pl-[51px] lg:pr-4 pt-[34px] pb-[40px] pl-4 pr-6 gap-[27px]">
+        <div className="w-full mx-auto bg-white  flex lg:flex-row flex-col flex-1 items-center lg:gap-[23px] justify-center lg:pt-[40px] lg:pb-[75px] lg:pl-[51px] lg:pr-4 pt-[34px] pb-[40px] pl-4 pr-4 gap-[27px]">
           <div className="text-center md:text-left lg:text-left lg:max-w-[calc(62%_-_13px)] w-full max-w-full">
             <h1 className="text-[28px] leading-[35px] font-bold text-center">
               {t('Description.title')}
@@ -29,14 +30,19 @@ const Description = () => {
             <div className="flex flex-col items-center justify-center lg:hidden mt-3">
               <img src="description.png" alt="Description image" width={267} />
               <div className="text-center mt-[23px]">
-                <NeosButton
-                  className={
-                    'px-[24px] py-[14px] text-sm leading-4 font-semibold'
-                  }
-                  category="colored"
-                  title={t('Calculate-saving-btn')}
+                <Button
+                  variant="filled"
+                  size="lg"
+                  style={{
+                    backgroundColor: '#FD7C7C',
+                    borderRadius: '16px',
+                    height: '56px'
+                  }}
+                  classNames={{}}
                   onClick={() => router.push('/getoffer')}
-                />
+                >
+                  {t('Calculate-saving-btn')}
+                </Button>
               </div>
             </div>
 
@@ -48,6 +54,7 @@ const Description = () => {
                 {descriptionList.map((item, index) => {
                   return (
                     <div
+                      key={index}
                       className={`flex flex-col gap-2.5 lg:gap-1 items-center w-full lg:px-0 p-4 lg:pt-[19px] lg:pb-[12px] lg:bg-[#1D3E6A] rounded-3xl bg-[#1D3E6A]`}
                     >
                       <p
@@ -73,14 +80,19 @@ const Description = () => {
               className="lg:flex hidden"
             />
             <div className="lg:mt-[36px] mb-0">
-              <NeosButton
-                className={
-                  'px-[24px] lg:py-[17px] py-[14px] text-sm leading-4 font-semibold'
-                }
-                category="colored"
-                title={t('Calculate-saving-btn')}
+              <Button
+                variant="filled"
+                size="lg"
+                style={{
+                  backgroundColor: '#FD7C7C',
+                  borderRadius: '16px',
+                  height: '56px'
+                }}
+                classNames={{}}
                 onClick={() => router.push('/getoffer')}
-              />
+              >
+                {t('Calculate-saving-btn')}
+              </Button>
             </div>
           </div>
         </div>
