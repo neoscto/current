@@ -85,9 +85,9 @@
   },
   "panel-header": {
     "neos-panel-neos-provider": "Instalación Neos\ny Suministro Neos",
-    "neos-panels-keep-provider": "Instalación Neos\ny Proveedor Actual",
-    "rooftop-panels-keep-provider": "Instalación en Tejado\ny Proveedor Actual",
-    "keep-provider": "Mantener Tu\nProveedor Actual"
+    "neos-panels-keep-provider": "Instalación Neos\ny Suministro Actual",
+    "rooftop-panels-keep-provider": "Instalación en Tejado\ny Suministro Actual",
+    "keep-provider": "Suministro Actual"
   },
   "offer": {
     "validation": {
@@ -114,7 +114,7 @@
     },
     "selectPlan": "Elige Tu Plan",
     "buyPanelProviderNeos": "Instalación Neos\ny Suministro Neos",
-    "buyPanelProviderCurrent": "Instalación Neos\ny Proveedor Actual"
+    "buyPanelProviderCurrent": "Instalación Neos\ny Suministro Actual"
   },
   "How-it-work": {
     "title": "¿Cómo funciona?",
@@ -126,7 +126,7 @@
     "point6": "Si decides que no quieres a Neos como tu proveedor, no hay compromiso de permanecer con nosotros, y puedes elegir otro proveedor en cualquier momento.",
     "point7": "Si eliges otro proveedor, te enviaremos cada mes los ingresos generados por la venta de tu energía solar al mercado eléctrico, equivalentes a los ahorros que obtendrías si aún estuvieras con Neos.",
     "chooseNeosPartner": "Instalación Neos\ny Suministro Neos",
-    "keepProvider": "Instalación Neos\ny Proveedor Actual",
+    "keepProvider": "Instalación Neos\ny Suministro Actual",
     "NeosPartner": {
       "point1": "Neos se convierte en tu comercializadora eléctrica. No te preocupes, nosotros nos encargamos del papeleo.",
       "point2": "Recibirás gratis toda la electricidad generada por tu Instalación Solar Virtual. Si tus paneles no están produciendo, cubriremos tu consumo con electricidad del mercado eléctrico a coste, sin ningún margen comercial. Cualquier excedente de electricidad que produzca su instalación genera ingresos y reduce aún más el costo de la electricidad que le suministramos.",
@@ -139,9 +139,9 @@
     }
   },
   "customer-review": "Nuestros clientes nos recomiendan",
-  "review-your-offer-with-ceo": "Revise su oferta\nen una llamada con uno de\nnuestros expertos",
-  "book-call-btn": "reservar una llamada",
-  "select-plan-btn": "Elige Tu plan",
+  "review-your-offer-with-ceo": "Revise su oferta\nen una llamada con\nuno de nuestros expertos",
+  "book-call-btn": "Habla con un Experto",
+  "select-plan-btn": "Elige Tu Plan",
   "Compare-our-offer": {
     "title": "Compara Nuestra Oferta",
     "point1": "más económico que los paneles solares en el techo",
