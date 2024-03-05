@@ -53,6 +53,31 @@ const CustomTooltip = ({
   return null;
 };
 
+const TolstoyEmbed = () => {
+  return (
+    <div
+      id="tolstoy-container"
+      style={{
+        lineHeight: 0,
+        overflow: 'hidden',
+        height: '100%',
+        width: '100%',
+        textAlign: 'center'
+      }}
+    >
+      <iframe
+        id="tolstoy"
+        src="https://player.gotolstoy.com/e6b7pwurxkh8s?host"
+        style={{ width: '100%', height: '405px', maxWidth: '400px' }}
+        scrolling="no"
+        frameBorder="0"
+        allow="autoplay *; clipboard-write *;camera *; microphone *; encrypted-media *; fullscreen *; display-capture *;"
+      ></iframe>
+      <script src="https://widget.gotolstoy.com/script.js" defer></script>
+    </div>
+  );
+};
+
 const YourOffer = ({ handleNext, data }: any) => {
   const { userData }: any = useSelector(
     (state: RootState) => state.commonSlice
@@ -582,13 +607,14 @@ const YourOffer = ({ handleNext, data }: any) => {
 
           <div className="lg:max-w-[223px] w-full max-w-full flex justify-center ">
             <div className="relative w-full  max-w-[223px] h-[405px] video-container !rounded-3xl overflow-hidden bg-blue-500">
-              <VideoPreview
+              {/* <VideoPreview
                 custonClass=" h-full w-[223px]  "
                 url="https://videos.gotolstoy.com/public/1a4a4880-dbaf-4a4c-91da-c0ae18ec5f3f/473c2922-a01d-4ec3-8c9e-64f88b6d9dd5/473c2922-a01d-4ec3-8c9e-64f88b6d9dd5.mp4"
                 controls={true}
                 muted
                 autoPlay
-              />
+              /> */}
+              <TolstoyEmbed />
             </div>
           </div>
         </div>
