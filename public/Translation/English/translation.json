@@ -32,7 +32,7 @@
   "Enjoy Solar": "Enjoy Solar",
   "Get-offer": {
     "Standard Offer": "Standard Offer",
-    "Personalised Offer": "Personalised Offer",
+    "Personalized Offer": "Personalized Offer",
     "You will not need anything else to get the offer": "You will not need anything else to get the offer",
     "You will need your latest electricity bill to get the offer": "You will need your latest electricity bill to get the offer",
     "Instant Calculation": "Instant Calculation",
@@ -61,7 +61,7 @@
     "view-contract-txt": "VIEW CONTRACT"
   },
   "Your-offer": {
-    "title": "Price to Pay",
+    "title": "Price",
     "subtitle": "plus VAT",
     "desc": "for 25 years of solar energy",
     "validate-btn": "validate",
@@ -84,9 +84,9 @@
     "c02-reduction": "CO2 Emission Savings (Tons)"
   },
   "panel-header": {
-    "neos-panel-neos-provider": "Neos Panels & \nNeos As Provider",
-    "neos-panels-keep-provider": "Neos Panels & \nKeep Provider",
-    "rooftop-panels-keep-provider": "Rooftop Panels & \nKeep Provider",
+    "neos-panel-neos-provider": "Neos Panels &\nNeos As Provider",
+    "neos-panels-keep-provider": "Neos Panels &\nKeep Provider",
+    "rooftop-panels-keep-provider": "Rooftop Panels &\nKeep Provider",
     "keep-provider": "Keep\nProvider"
   },
   "offer": {

@@ -32,7 +32,7 @@
   "Enjoy Solar": "Disfruta la Energía Solar",
   "Get-offer": {
     "Standard Offer": "Oferta Estándar",
-    "Personalised Offer": "Oferta Personalizada",
+    "Personalized Offer": "Oferta Personalizada",
     "You will not need anything else to get the offer": "85% de precisión basado en tu consumo estimado",
     "You will need your latest electricity bill to get the offer": "100% de precisión basado en tu consumo real",
     "Instant Calculation": "Cálculo instantáneo",
@@ -41,7 +41,7 @@
     "85% Accurate": "Oferta apróximada",
     "btn": "OBTENER OFERTA",
     "review-expert-txt": "Revisa tu propuesta con tu Experto Solar",
-    "book-expert-txt": "HABLA CON TU EXPERTO"
+    "book-expert-txt": "HABLA CON UN EXPERTO"
   },
   "Get-offer-form": {
     "form-placeholder": "Ingresa aquí",
@@ -61,7 +61,7 @@
     "view-contract-txt": "VER CONTRATO"
   },
   "Your-offer": {
-    "title": "Precio a Pagar",
+    "title": "Precio",
     "subtitle": "más IVA",
     "desc": "por 25 años de energía solar",
     "validate-btn": "validar",
@@ -72,22 +72,22 @@
     "offer-saving-2": "ahorro total",
     "offer-payback": "años de devolución",
     "offer-consumption": "de consumo cubierto por energía solar",
-    "contract-btn-txt": "descargar oferta",
+    "contract-btn-txt": "ver tu contrato",
     "download-offer": "descargar oferta",
     "Redeem-code-discount": "Código de referencia para un descuento"
   },
   "panel-charge": {
-    "installation-cost": "Coste de instalación con impuestos (€)",
-    "savings": "*Ahorro en 25 años (%)",
-    "grid-electricity": "*Ahorro en 25 años (€)",
-    "payback": "Amortización (años)",
-    "c02-reduction": "Ahorro de emisiones de CO2 (Tons)"
+    "installation-cost": "Coste de Instalación con Impuestos (€)",
+    "savings": "*Ahorro en 25 Años (%)",
+    "grid-electricity": "*Ahorro en 25 Años (€)",
+    "payback": "Amortización (Años)",
+    "c02-reduction": "Ahorro de Emisiones de CO2 (Toneladas)"
   },
   "panel-header": {
-    "neos-panel-neos-provider": "Paneles Neos y \nNeos como\nproveedor",
-    "neos-panels-keep-provider": "Paneles Neos y \nproveedor Keep",
-    "rooftop-panels-keep-provider": "Paneles de techo y \nproveedor de\nmantenimiento",
-    "keep-provider": "Mantener\nproveedor"
+    "neos-panel-neos-provider": "Instalación Solar y\nSuministro Neos",
+    "neos-panels-keep-provider": "Instalación Solar\nNeos",
+    "rooftop-panels-keep-provider": "Instalación Solar\nen Tejado",
+    "keep-provider": "Mantener\ntu Proveedor"
   },
   "offer": {
     "validation": {
@@ -112,9 +112,9 @@
         "required": "Se requiere el número de personas que viven en la casa"
       }
     },
-    "selectPlan": "Seleccionar plan",
-    "buyPanelProviderNeos": "Comprar instalaciones y \nhacer de Neos mi proveedor",
-    "buyPanelProviderCurrent": "Comprar instalaciones y\nmantener mi proveedor"
+    "selectPlan": "Elige tu Plan",
+    "buyPanelProviderNeos": "Instalación Solar y\nSuministro Neos",
+    "buyPanelProviderCurrent": "Instalación Solar Neos"
   },
   "How-it-work": {
     "title": "¿Cómo funciona?",
@@ -125,23 +125,23 @@
     "point5": "Deberás pagar peajes y costos asociados al uso de la red, estimados en €0.02 por KWh.",
     "point6": "Si decides que no quieres a Neos como tu proveedor, no hay compromiso de permanecer con nosotros, y puedes elegir otro proveedor en cualquier momento.",
     "point7": "Si eliges otro proveedor, te enviaremos cada mes los ingresos generados por la venta de tu energía solar al mercado eléctrico, equivalentes a los ahorros que obtendrías si aún estuvieras con Neos.",
-    "chooseNeosPartner": "Hacer de Neos mi proveedor",
-    "keepProvider": "Manter meu provedor atual",
+    "chooseNeosPartner": "Instalación Solar y\nSuministro Neos",
+    "keepProvider": "Instalación Solar Neos",
     "NeosPartner": {
-      "point1": "Neos se convierte en tu proveedor. No te preocupes, nosotros nos encargamos de todo. Nos pondremos en contacto con su proveedor para cambiar su contrato.",
-      "point2": "La electricidad generada por tu instalación te la proporcionamos de forma gratuita. Cuando tu instalación no produce electricidad, te suministramos electricidad a nuestro coste base, sin añadir ningún margen de beneficio.",
-      "point3": "Cualquier excedente de electricidad que produzca su instalación genera ingresos y reduce aún más el coste de la electricidad que le suministramos."
+      "point1": "Neos se convierte en tu comercializadora eléctrica. No te preocupes, nosotros nos encargamos del papeleo.",
+      "point2": "Recibirás gratis toda la electricidad generada por tu Instalación Solar Virtual. Si tus paneles no están produciendo, cubriremos tu consumo con electricidad del mercado eléctrico a coste, sin ningún margen comercial. Cualquier excedente de electricidad que produzca su instalación genera ingresos y reduce aún más el costo de la electricidad que le suministramos.",
+      "point3": "Sin compromiso de permanencia, cambia de comercializadora cuando quieras. Todo esto por una cuota mensual de €6,00."
     },
     "providerPartner": {
-      "point1": "Compras una instalación de Neos y mantienes tu proveedor actual.",
-      "point2": "Tu factura con tu proveedor sigue siendo la misma y, a final de mes, depositamos tus ingresos en tu cuenta bancaria.",
-      "point3": "Tu proveedor actual te sigue cobrando un margen por la electricidad que te suministra cuando tu instalación no genera electricidad, como durante la noche."
+      "point1": "Puedes comprar Paneles Neos y mantener tu comercializadora actual. También podrás cambiar de comercializadora tantas veces como desees durante la vida útil de los Paneles Neos.",
+      "point2": "Tu factura de la luz no cambiará, y será responsabilidad de tu comercializadora. Mes a mes, Neos ingresará el ahorro de tus Paneles Neos en tu cuenta bancaria. Por tanto, en vez de ver el ahorro reflejado en tu factura, lo verás en tu cuenta bancaria.",
+      "point3": "Es probable que tu comercializadora te cobre precios más altos de los que te cobrará Neos, por lo que tu ahorro total disminuirá."
     }
   },
-  "customer-review": "Opinión del cliente",
-  "review-your-offer-with-ceo": "Revise su oferta \nen una llamada rápida con nuestro\n director ejecutivo.",
+  "customer-review": "Nuestros clientes nos recomiendan",
+  "review-your-offer-with-ceo": "Revise su oferta\nen una llamada con uno de\nnuestros expertos",
   "book-call-btn": "reservar una llamada",
-  "select-plan-btn": "Seleccionar plan",
+  "select-plan-btn": "Elige tu plan",
   "Compare-our-offer": {
     "title": "Compara Nuestra Oferta",
     "point1": "más económico que los paneles solares en el techo",
@@ -264,14 +264,14 @@
     }
   },
   "Switch between the two plans above to compare our estimates": "Cambia entre los dos planes anteriores para comparar nuestras estimaciones",
-  "Percent savings in the first year": "Porcentaje de ahorro en el primer año",
-  "lower electricity bills": "facturas de electricidad más bajas",
-  "Total savings": "Ahorro total",
-  "saved over 25 years": "ahorrado más de 25 años",
-  "Your investment will have paid for itself": "Su inversión se habrá amortizado",
+  "Percent savings in the first year": "Porcentaje de ahorro en tu primer año",
+  "lower electricity bills": "",
+  "Total savings": "Ahorro total durante 25 años",
+  "saved over 25 years": "",
+  "Your investment will have paid for itself": "Amortización de la inversión en",
   "years": "años",
-  "CO2 emission savings": "Ahorro de emisiones de CO2",
-  "over 25 years": "más de 25 años",
+  "CO2 emission savings": "Emisiones de CO2 evitadas",
+  "over 25 years": "toneladas",
   "elephants": "elefantes",
   "You made a mistake in your CUPS, please enter a valid CUPS": "Ha cometido un error en su CUPS, por favor introduzca un CUPS válido",
   "You made a mistake in at least one of your CUPS, please enter valid CUPS": "Ha cometido un error en al menos uno de sus CUPS, por favor introduzca un CUPS válido",

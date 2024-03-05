@@ -345,22 +345,20 @@ const YourOffer = ({ handleNext, data }: any) => {
                 <div className="flex lg:gap-4 lg:justify-normal justify-center md:flex-row flex-col gap-3">
                   <NeosButton
                     category="outline"
-                    className={`!text-black py-[14px] lg:px-[24px] !outline-[2px] !outline ${
-                      userPlan == 'neos'
-                        ? '!outline-[#66BCDA]'
-                        : '!outline-[#E0E0E0]'
-                    } !font-medium text-[16px] !leading-5 !normal-case px-[53px] whitespace-pre md:whitespace-normal`}
+                    className={`!text-black py-[14px] lg:px-[24px] !outline-[2px] !outline ${userPlan == 'neos'
+                      ? '!outline-[#66BCDA]'
+                      : '!outline-[#E0E0E0]'
+                      } !font-medium text-[16px] !leading-5 !normal-case px-[53px] whitespace-pre md:whitespace-normal`}
                     title={t('offer.buyPanelProviderNeos')}
                     onClick={updateUserPlanSelection('neos')}
                   />
 
                   <NeosButton
                     category="outline"
-                    className={`!text-black py-[14px] lg:px-[24px] !outline-[2px] !outline ${
-                      userPlan == 'current'
-                        ? '!outline-[#66BCDA]'
-                        : '!outline-[#E0E0E0]'
-                    } !font-medium text-[16px] !leading-5 !normal-case px-[53px] whitespace-pre md:whitespace-normal`}
+                    className={`!text-black py-[14px] lg:px-[24px] !outline-[2px] !outline ${userPlan == 'current'
+                      ? '!outline-[#66BCDA]'
+                      : '!outline-[#E0E0E0]'
+                      } !font-medium text-[16px] !leading-5 !normal-case px-[53px] whitespace-pre md:whitespace-normal`}
                     title={t('offer.buyPanelProviderCurrent')}
                     onClick={updateUserPlanSelection('current')}
                   />
@@ -380,19 +378,19 @@ const YourOffer = ({ handleNext, data }: any) => {
                   <b>
                     {userPlan === 'neos'
                       ? data.percent_savings_year1_w_neos.toLocaleString(
-                          'en-US',
-                          {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                          }
-                        )
+                        'en-US',
+                        {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        }
+                      )
                       : data.percent_savings_year1_without_neos.toLocaleString(
-                          'en-US',
-                          {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                          }
-                        )}
+                        'en-US',
+                        {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        }
+                      )}
                     %
                   </b>{' '}
                   {t('lower electricity bills')}
@@ -403,16 +401,16 @@ const YourOffer = ({ handleNext, data }: any) => {
                     €
                     {userPlan === 'neos'
                       ? data.savings_retail_w_neos.toLocaleString('en-US', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                      })
+                      : data.savings_retail_without_neos.toLocaleString(
+                        'en-US',
+                        {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
-                        })
-                      : data.savings_retail_without_neos.toLocaleString(
-                          'en-US',
-                          {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                          }
-                        )}{' '}
+                        }
+                      )}{' '}
                   </b>
                   {t('saved over 25 years')}
                 </p>
@@ -422,13 +420,13 @@ const YourOffer = ({ handleNext, data }: any) => {
                     {' '}
                     {userPlan === 'neos'
                       ? data.payback_w_neos.toLocaleString('en-US', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
-                        })
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                      })
                       : data.payback_without_neos.toLocaleString('en-US', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
-                        })}{' '}
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                      })}{' '}
                     {t('years')}
                   </b>
                 </p>
@@ -438,38 +436,37 @@ const YourOffer = ({ handleNext, data }: any) => {
                     {' '}
                     {userPlan === 'neos'
                       ? data.neos_total_emissions_saved_in_tons.toLocaleString(
-                          'en-US',
-                          {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                          }
-                        )
-                      : data.neos_not_provider_total_emissions_saved_in_tons.toLocaleString(
-                          'en-US',
-                          {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                          }
-                        )}{' '}
-                    tons
-                  </b>{' '}
-                  (
-                  {userPlan === 'neos'
-                    ? data.neos_elephants_carbon_capture.toLocaleString(
                         'en-US',
                         {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         }
                       )
-                    : data.neos_not_provider_elephants_carbon_capture.toLocaleString(
+                      : data.neos_not_provider_total_emissions_saved_in_tons.toLocaleString(
                         'en-US',
                         {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         }
                       )}{' '}
-                  {t('elephants')}) {t('over 25 years')}
+                    {' '}
+                    {t('over 25 years')}</b> (
+                  {userPlan === 'neos'
+                    ? data.neos_elephants_carbon_capture.toLocaleString(
+                      'en-US',
+                      {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                      }
+                    )
+                    : data.neos_not_provider_elephants_carbon_capture.toLocaleString(
+                      'en-US',
+                      {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                      }
+                    )}{' '}
+                  {t('elephants')})
                 </p>
               </div>
 
@@ -516,15 +513,14 @@ const YourOffer = ({ handleNext, data }: any) => {
                     return (
                       <div
                         key={index}
-                        className={`w-full h-24 px-4 whitespace-pre border text-[#4F4F4F] text-[14px] leading-[17.64px] font-semibold border-b-0 flex items-center ${
-                          index === 0
-                            ? 'rounded-tl-3xl px-3 border-[#0F9DD0] bg-[#E8F5FA] max-w-[180px] min-w-[180px]'
-                            : index === 1
-                              ? 'max-w-[138px] min-w-[138px]'
-                              : index === 3
-                                ? ' border-[#E0E0E0] rounded-tr-3xl max-w-[108px] min-w-[108px]'
-                                : 'border-[#E0E0E0] max-w-[156px] min-w-[156px]'
-                        } flex items-center justify-center`}
+                        className={`w-full h-24 px-4 whitespace-pre border text-[#4F4F4F] text-[14px] leading-[17.64px] font-semibold border-b-0 flex items-center ${index === 0
+                          ? 'rounded-tl-3xl px-3 border-[#0F9DD0] bg-[#E8F5FA] max-w-[180px] min-w-[180px]'
+                          : index === 1
+                            ? 'max-w-[138px] min-w-[138px]'
+                            : index === 3
+                              ? ' border-[#E0E0E0] rounded-tr-3xl max-w-[108px] min-w-[108px]'
+                              : 'border-[#E0E0E0] max-w-[156px] min-w-[156px]'
+                          } flex items-center justify-center`}
                       >
                         {index === 0 && (
                           <img
@@ -545,49 +541,44 @@ const YourOffer = ({ handleNext, data }: any) => {
                     return (
                       <div className="flex w-full" key={index}>
                         <div
-                          className={`w-[225px] h-16 pl-[20px]  border border-[#E0E0E0] border-r-0 border-b-0 text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium ${
-                            index === panelChargeDetails.length - 1
-                              ? 'rounded-bl-3xl border-b-[1px]'
-                              : ''
-                          } flex items-center`}
+                          className={`w-[225px] h-16 pl-[20px]  border border-[#E0E0E0] border-r-0 border-b-0 text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium ${index === panelChargeDetails.length - 1
+                            ? 'rounded-bl-3xl border-b-[1px]'
+                            : ''
+                            } flex items-center`}
                         >
                           {t(`panel-charge.${charge.title}`)}
                         </div>
                         <div className="flex max-w-[calc(100%_-_225px)] w-full">
                           <div
-                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#0F9DD0] bg-[#E8F5FA] border-b-0 max-w-[180px] min-w-[180px] w-full ${
-                              index === panelChargeDetails.length - 1
-                                ? 'border-b-[1px]'
-                                : ''
-                            }`}
+                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#0F9DD0] bg-[#E8F5FA] border-b-0 max-w-[180px] min-w-[180px] w-full ${index === panelChargeDetails.length - 1
+                              ? 'border-b-[1px]'
+                              : ''
+                              }`}
                           >
                             {data.tableData[index].neosPanelProvider || '-'}
                           </div>
                           <div
-                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[138px] w-full ${
-                              index === panelChargeDetails.length - 1
-                                ? 'border-b-[1px]'
-                                : ''
-                            }`}
+                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[138px] w-full ${index === panelChargeDetails.length - 1
+                              ? 'border-b-[1px]'
+                              : ''
+                              }`}
                           >
                             {data.tableData[index].neosPanelKeepProvider || '-'}
                           </div>
                           <div
-                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[156px] w-full ${
-                              index === panelChargeDetails.length - 1
-                                ? 'border-b-[1px]'
-                                : ''
-                            }`}
+                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[156px] w-full ${index === panelChargeDetails.length - 1
+                              ? 'border-b-[1px]'
+                              : ''
+                              }`}
                           >
                             {data.tableData[index].rooftopPanelKeepProvider ||
                               '-'}
                           </div>
                           <div
-                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-b-0 max-w-[108px] w-full ${
-                              index === panelChargeDetails.length - 1
-                                ? 'rounded-br-3xl border-b-[1px]'
-                                : ''
-                            }`}
+                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-b-0 max-w-[108px] w-full ${index === panelChargeDetails.length - 1
+                              ? 'rounded-br-3xl border-b-[1px]'
+                              : ''
+                              }`}
                           >
                             {data.tableData[index].keepProvider || '-'}
                           </div>
@@ -602,7 +593,7 @@ const YourOffer = ({ handleNext, data }: any) => {
             <p className=" text-[#4F4F4F] text-xs mt-2">
               *
               {t(
-                'Savings are calculated assuming a conservative 3% annual increase in electricity prices.'
+                'Savings are calculated assuming a conservative 3.5% annual increase in electricity prices.'
               )}
             </p>
           </div>
@@ -816,21 +807,19 @@ const YourOffer = ({ handleNext, data }: any) => {
               <div className="flex gap-2">
                 <NeosButton
                   category="outline"
-                  className={`lg:px-3 lg:py-4 px-[14px] py-2 lg:text-sm text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] !border-2 ${
-                    userPlanBar == 'neos'
-                      ? '!border-[#66BCDA]'
-                      : '!border-[#E0E0E0]'
-                  } !normal-case h-12`}
+                  className={`lg:px-3 lg:py-4 px-[14px] py-2 lg:text-sm text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] !border-2 ${userPlanBar == 'neos'
+                    ? '!border-[#66BCDA]'
+                    : '!border-[#E0E0E0]'
+                    } !normal-case h-10`}
                   title={t('How-it-work.chooseNeosPartner')}
                   onClick={updateUserPlanBarSelection('neos')}
                 />
                 <NeosButton
                   category="outline"
-                  className={` lg:px-3 lg:py-4 px-[14px] py-2 lg:text-sm text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] border-2 ${
-                    userPlanBar == 'current'
-                      ? '!border-[#66BCDA]'
-                      : '!border-[#E0E0E0]'
-                  } !normal-case h-12
+                  className={` lg:px-3 lg:py-4 px-[14px] py-2 lg:text-sm text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] border-2 ${userPlanBar == 'current'
+                    ? '!border-[#66BCDA]'
+                    : '!border-[#E0E0E0]'
+                    } !normal-case h-10
                   `}
                   title={t('How-it-work.keepProvider')}
                   onClick={updateUserPlanBarSelection('current')}
@@ -906,13 +895,13 @@ const YourOffer = ({ handleNext, data }: any) => {
                   tickFormatter={(value) =>
                     value > 0
                       ? `${(
-                          (userPlanBar === 'neos'
-                            ? value * data.total_savings_w_neos
-                            : value * data.total_savings_w_neos) / 1000
-                        ).toLocaleString('en-US', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
-                        })}K`
+                        (userPlanBar === 'neos'
+                          ? value * data.total_savings_w_neos
+                          : value * data.total_savings_w_neos) / 1000
+                      ).toLocaleString('en-US', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                      })}K`
                       : value
                   }
                   className="lg:text-[12px] text-[6px] "

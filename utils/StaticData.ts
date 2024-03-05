@@ -19,7 +19,7 @@ export const GetOfferCardData: {
     },
     {
       is_premium: true,
-      title: "Personalised Offer",
+      title: "Personalized Offer",
       desc: "You will need your latest electricity bill to get the offer",
       feature: ["Instant Calculation", "Answer 4 Questions", "100% Accurate"],
     },

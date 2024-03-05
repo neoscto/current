@@ -9,7 +9,7 @@ import mongoose, { Document } from 'mongoose';
 
 enum OfferType {
   Standard = 'Standard',
-  Personalised = 'Personalised'
+  Personalized = 'Personalized'
 }
 
 export type UsersOffersSchemaProps = {
