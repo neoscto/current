@@ -71,7 +71,7 @@ const LandingPage = () => {
                   <div className=" my-6">
                     <p className="font-normal ml-2 sm:ml-0 text-left text-sm md:text-base lg:text-xl text-white md:my-1 ">
                       {t(
-                        'We’re thrilled to announce that pre-sales for our virtual solar installations start later this month! Unlock our special launch discount by calculating your savings.'
+                        'We’re thrilled to announce that pre-sales for our virtual solar installations start later this month!'
                       )}
                     </p>
                     <ul className=" ml-5 md:ml-3 font-normal text-left text-sm md:text-md lg:text-xl text-white list-disc my-2">
