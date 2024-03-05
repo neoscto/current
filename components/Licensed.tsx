@@ -5,9 +5,9 @@ const Licensed = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="flex justify-center align-center flex-1 md:flex-none  mx-auto rounded-[30px] bg-[#01092299] lg:px-20 px-5 py-5">
+    <div className="flex justify-center align-center flex-none  mx-auto rounded-[30px] bg-[#01092299] lg:px-20 px-5 py-5">
       <div className=" flex flex-col gap-3 lg:gap-7">
-        <div className="flex justify-center align-center flex-1 md:flex-none h-12 ">
+        <div className="flex justify-center align-center flex-none h-12 ">
           <p className="text-base text-white font-medium me-4 lg:me-11 whitespace-nowrap flex items-center">
             {t('Footer.license')}
           </p>
@@ -29,7 +29,7 @@ const Licensed = () => {
             />
           </div>
         </div>
-        <div className="flex justify-center align-center flex-1 md:flex-none h-12 ">
+        <div className="flex justify-center align-center flex-none h-12 ">
           <p className="text-base text-white font-medium me-4 lg:me-11 whitespace-nowrap flex items-center">
             {t('Trusted by')}
           </p>
