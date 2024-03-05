@@ -56,7 +56,7 @@ const LandingPage = () => {
               </div>
             </div>
           </div>
-          <div className="rounded-[30px] bg-[#01092299] max-w-[90%] sm:max-w-[600px] md:max-w-[90%] lg:max-w-[970px] w-full mx-auto md:max-h-[455px] lg:max-h-[455px] h-full relative md:mt-[4em] lg:mt-[3.5em] lg:mb-[4.9em] md:mb-[4.9em]">
+          <div className="rounded-[30px] bg-[#01092299] max-w-[90%] sm:max-w-[600px] md:max-w-[90%] lg:max-w-[970px] w-full mx-auto md:max-h-[480px] lg:max-h-[455px] h-full relative md:mt-[4em] lg:mt-[3.5em] lg:mb-[4.9em] md:mb-[4.9em]">
             <div className="grid grid-cols-8 gap-4 h-full">
               <div className="hidden sm:hidden md:block lg:block md:col-span-4 lg:col-span-3 relative">
                 <div className="max-h-[600px]  absolute w-[85%] lg:mt-[-2em] md:mt-[-2em] h-[520px] sm:mt-[-0.9em]  rounded-[20px] overflow-hidden">
@@ -64,7 +64,7 @@ const LandingPage = () => {
                 </div>
               </div>
               <div className=" col-span-8 sm:col-span-8 md:col-span-4 lg:col-span-5 flex justify-center lg:justify-start items-center">
-                <div className="  p-3 sm:py-0 my-4  md:my-16 lg:my-16 text-center md:text-left lg:text-left">
+                <div className="  p-3 sm:py-0 my-4  md:my-12 lg:my-16 text-center md:text-left lg:text-left">
                   <h6 className="font-bold text-white text-xl md:text-2xl lg:text-3xl my-4 md:my-2 ">
                     {t('Pre-Sale Launch!')}
                   </h6>
