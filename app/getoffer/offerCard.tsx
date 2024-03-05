@@ -2,7 +2,7 @@ import NeosButton from "@/components/NeosButton";
 import { useTranslation } from "react-i18next";
 import { setFormBack } from "@/features/common/commonSlice";
 import { useDispatch } from "react-redux";
-import PersonalizedOffer from "./../../public/Personalizedffer.png";
+import PersonalizedOffer from "./../../public/PersonalizedOffer.png";
 import Image from "next/image";
 
 interface OfferCardProps {
@@ -21,8 +21,8 @@ const OfferCard = ({ Data, setShowForm }: OfferCardProps) => {
   return (
     <div
       className={`border border-[#E0E0E0] rounded-2xl px-6 text-center py-7  ${Data?.is_premium
-          ? "bg-[#E7F5FA] border-[#E7F5FA]"
-          : "border-[#E0E0E0] bg-white"
+        ? "bg-[#E7F5FA] border-[#E7F5FA]"
+        : "border-[#E0E0E0] bg-white"
         }`}
     >
       <h3 className="text-lg font-semibold flex justify-center items-center  h-[30px] gap-2">
