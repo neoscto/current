@@ -166,7 +166,7 @@ const GetOffer: React.FC<GetOfferProps> = ({
         formik.setFieldValue('offerType', 'Standard');
         break;
       case 'poffer':
-        formik.setFieldValue('offerType', 'Personalised');
+        formik.setFieldValue('offerType', 'Personalized');
         break;
       default:
         break;
@@ -288,7 +288,7 @@ const GetOffer: React.FC<GetOfferProps> = ({
         <div className=" w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9">
           <div className="w-[100%] md:w-[85%] lg:w-[85%]  mx-auto mt-6 md:mt-16 lg:mt-16 ">
             <h1 className="font-bold text-3xl mb-8 md:mb-11 lg:mb-11 text-center">
-              {t('Get-offer.Personalised Offer')}
+              {t('Get-offer.Personalized Offer')}
             </h1>
             <Grid container rowSpacing={3} columnSpacing={3}>
               <Grid item xs={12}>
