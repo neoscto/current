@@ -114,7 +114,7 @@
     },
     "selectPlan": "Elige tu plan",
     "buyPanelProviderNeos": "Instalación Solar y\nSuministro Neos",
-    "buyPanelProviderCurrent": "Instalación Solar Neos"
+    "buyPanelProviderCurrent": "Instalación Solar Neos y otro suministro"
   },
   "How-it-work": {
     "title": "¿Cómo funciona?",
@@ -125,23 +125,23 @@
     "point5": "Deberás pagar peajes y costos asociados al uso de la red, estimados en €0.02 por KWh.",
     "point6": "Si decides que no quieres a Neos como tu proveedor, no hay compromiso de permanecer con nosotros, y puedes elegir otro proveedor en cualquier momento.",
     "point7": "Si eliges otro proveedor, te enviaremos cada mes los ingresos generados por la venta de tu energía solar al mercado eléctrico, equivalentes a los ahorros que obtendrías si aún estuvieras con Neos.",
-    "chooseNeosPartner": "Hacer de Neos mi proveedor",
-    "keepProvider": "Manter meu provedor atual",
+    "chooseNeosPartner": "Instalación Solar y Suministro Neos",
+    "keepProvider": "Instalación Solar Neos y Otro Suministro",
     "NeosPartner": {
-      "point1": "Neos se convierte en tu proveedor. No te preocupes, nosotros nos encargamos de todo. Nos pondremos en contacto con su proveedor para cambiar su contrato.",
-      "point2": "La electricidad generada por tu instalación te la proporcionamos de forma gratuita. Cuando tu instalación no produce electricidad, te suministramos electricidad a nuestro coste base, sin añadir ningún margen de beneficio.",
-      "point3": "Cualquier excedente de electricidad que produzca su instalación genera ingresos y reduce aún más el coste de la electricidad que le suministramos."
+      "point1": "Neos se convierte en tu comercializadora eléctrica. No te preocupes, nosotros nos encargamos del papeleo.",
+      "point2": "Recibirás gratis toda la electricidad generada por tu Instalación Solar Virtual. Si tus paneles no están produciendo, cubriremos tu consumo con electricidad del mercado eléctrico a coste, sin ningún margen comercial. Cualquier excedente de electricidad que produzca su instalación genera ingresos y reduce aún más el costo de la electricidad que le suministramos.",
+      "point3": "Sin compromiso de permanencia, cambia de comercializadora cuando quieras. Todo esto por una cuota mensual de €6,00."
     },
     "providerPartner": {
-      "point1": "Compras una instalación de Neos y mantienes tu proveedor actual.",
-      "point2": "Tu factura con tu proveedor sigue siendo la misma y, a final de mes, depositamos tus ingresos en tu cuenta bancaria.",
-      "point3": "Tu proveedor actual te sigue cobrando un margen por la electricidad que te suministra cuando tu instalación no genera electricidad, como durante la noche."
+      "point1": "Puedes comprar Paneles Neos y mantener tu comercializadora actual. También podrás cambiar de comercializadora tantas veces como desees durante la vida útil de los Paneles Neos.",
+      "point2": "Tu factura de la luz no cambiará, y será responsabilidad de tu comercializadora. Mes a mes, Neos ingresará el ahorro de tus Paneles Neos en tu cuenta bancaria. Por tanto, en vez de ver el ahorro reflejado en tu factura, lo verás en tu cuenta bancaria.",
+      "point3": "Es probable que tu comercializadora te cobre precios más altos de los que te cobrará Neos, por lo que tu ahorro total disminuirá."
     }
   },
   "customer-review": "Opinión del cliente",
   "review-your-offer-with-ceo": "Revise su oferta \nen una llamada rápida con nuestro\n director ejecutivo.",
   "book-call-btn": "reservar una llamada",
-  "select-plan-btn": "Seleccionar plan",
+  "select-plan-btn": "Elige tu plan",
   "Compare-our-offer": {
     "title": "Compara Nuestra Oferta",
     "point1": "más económico que los paneles solares en el techo",
