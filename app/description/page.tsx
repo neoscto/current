@@ -6,6 +6,7 @@ import { descriptionList } from '@/utils/StaticData';
 import { useTranslation } from 'react-i18next';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import parse from 'html-react-parser';
+import { Button } from '@mantine/core';
 
 const Description = () => {
   const router = useRouter();
@@ -29,14 +30,19 @@ const Description = () => {
             <div className="flex flex-col items-center justify-center lg:hidden mt-3">
               <img src="description.png" alt="Description image" width={267} />
               <div className="text-center mt-[23px]">
-                <NeosButton
-                  className={
-                    'px-[24px] py-[14px] text-sm leading-4 font-semibold'
-                  }
-                  category="colored"
-                  title={t('Calculate-saving-btn')}
+                <Button
+                  variant="filled"
+                  size="lg"
+                  style={{
+                    backgroundColor: '#FD7C7C',
+                    borderRadius: '16px',
+                    height: '56px'
+                  }}
+                  classNames={{}}
                   onClick={() => router.push('/getoffer')}
-                />
+                >
+                  {t('Calculate-saving-btn')}
+                </Button>
               </div>
             </div>
 
@@ -73,14 +79,19 @@ const Description = () => {
               className="lg:flex hidden"
             />
             <div className="lg:mt-[36px] mb-0">
-              <NeosButton
-                className={
-                  'px-[24px] lg:py-[17px] py-[14px] text-sm leading-4 font-semibold'
-                }
-                category="colored"
-                title={t('Calculate-saving-btn')}
+              <Button
+                variant="filled"
+                size="lg"
+                style={{
+                  backgroundColor: '#FD7C7C',
+                  borderRadius: '16px',
+                  height: '56px'
+                }}
+                classNames={{}}
                 onClick={() => router.push('/getoffer')}
-              />
+              >
+                {t('Calculate-saving-btn')}
+              </Button>
             </div>
           </div>
         </div>
