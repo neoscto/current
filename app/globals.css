@@ -18,6 +18,7 @@ body {
   /* background: url('../public/landingpage-bg.png') repeat fixed; */
   background-size: 100% 100%;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-image: url('../public/landingpage-bg.png');
 }
 
