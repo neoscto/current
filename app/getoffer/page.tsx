@@ -25,7 +25,11 @@ import { saveDataToSessionStorage } from '@/utils/utils';
 import { CircularProgress } from '@mui/material';
 import Congrats from '@/components/Congrats';
 
-const steps = ['Receive Your Offer', 'Sign Your Contract', 'Enjoy Solar Energy'];
+const steps = [
+  'Receive Your Offer',
+  'Sign Your Contract',
+  'Enjoy Solar Energy'
+];
 
 interface FormData {
   numberOfPeople: string;
@@ -83,7 +87,7 @@ const HorizontalLinearStepper = () => {
     window.addEventListener('message', (event) => {
       if (event.data === 'redirect_success_url') {
         window.location.href = '/getoffer?activeStep=2';
-        window.removeEventListener('message', (event) => { });
+        window.removeEventListener('message', (event) => {});
       }
     });
   }, [signingUrl]);
@@ -122,8 +126,8 @@ const HorizontalLinearStepper = () => {
 
     router.push(
       pathname +
-      '?' +
-      createQueryString('activeStep', (Number(activeStep) + 1).toString())
+        '?' +
+        createQueryString('activeStep', (Number(activeStep) + 1).toString())
     );
     setSkipped(newSkipped);
   };
@@ -131,8 +135,8 @@ const HorizontalLinearStepper = () => {
   const handleBack = (): void => {
     router.push(
       pathname +
-      '?' +
-      createQueryString('activeStep', (Number(activeStep) - 1).toString())
+        '?' +
+        createQueryString('activeStep', (Number(activeStep) - 1).toString())
     );
   };
   const handleSkip = (): void => {
@@ -142,8 +146,8 @@ const HorizontalLinearStepper = () => {
 
     router.push(
       pathname +
-      '?' +
-      createQueryString('activeStep', (Number(activeStep) + 1).toString())
+        '?' +
+        createQueryString('activeStep', (Number(activeStep) + 1).toString())
     );
     setSkipped((prevSkipped) => {
       const newSkipped = new Set(prevSkipped.values());
@@ -220,98 +224,80 @@ const HorizontalLinearStepper = () => {
     router.back();
   };
 
-  // useEffect(() => {
-  //   const fetchToken = async () => {
-  //     if (params.get("code")) {
-  //       const code = params.get("code");
-  //       var options = {
-  //         method: "POST",
-  //         url: `${process.env.NEXT_PUBLIC_API_URL}/calendly?code=${code}`,
-  //         headers: {
-  //           "Content-Type": "application/x-www-form-urlencoded",
-  //         },
-  //       };
-  //       const response: any = await axios.request(options);
-  //       if (response && response.data && response.data.token) {
-  //         saveDataToSessionStorage("calendlyToken", response.data.token);
-  //         setShowForm("yourOffer");
-  //       }
-  //     }
-  //   };
-  //   fetchToken();
-  // }, [params]);
-
   return (
     <MainContainer>
       <div className=" my-4 xl:max-w-[1200px] max-w-[calc(100%_-_40px)] relative rounded-[30px] bg-[#01092299] w-full mx-auto bg-white overflow-hidden">
-        <div className="flex items-center gap-x-[12px] absolute lg:top-[2em] lg:left-[20px] md:top-[20px] md:left-[20px] top-[10px] left-[18px]">
-          <span onClick={() => handleFormBack()}>
-            <ArrowBackIcon className=" cursor-pointer  lg:text-[30px] md:text-[30px] sm:text-[30px] text-[22px]" />
-          </span>
-        </div>
         <Box sx={{ width: '100%' }}>
-          <div className="max-w-[630px] w-full mx-auto pt-[35px] pb-[26px] mt-2 md:mt-0">
-            <Stepper activeStep={Number(activeStep)}>
-              {steps.map((label, index) => {
-                const stepProps: { completed?: boolean } = {};
-                const labelProps: {
-                  optional?: React.ReactNode;
-                } = {};
-                if (isStepSkipped(index)) {
-                  stepProps.completed = false;
-                }
-                return (
-                  <Step
-                    key={label}
-                    {...stepProps}
-                    sx={{
-                      '& .MuiStepLabel-root': {
-                        flexDirection: ['column', 'row'],
-                        height: '36px',
-                        alignItems: 'center'
-                      },
-                      '@media (max-width: 700px)': {
+          <div className=" flex flex-row items-center justify-center">
+            <span
+              onClick={() => handleFormBack()}
+              className=" w-[1%] ml-1 sm:ml-4"
+            >
+              <ArrowBackIcon className=" cursor-pointer sm:text-3xl text-xl" />
+            </span>
+            <div className="max-w-[630px] w-[100%] mx-auto py-4 sm:py-8">
+              <Stepper activeStep={Number(activeStep)}>
+                {steps.map((label, index) => {
+                  const stepProps: { completed?: boolean } = {};
+                  const labelProps: {
+                    optional?: React.ReactNode;
+                  } = {};
+                  if (isStepSkipped(index)) {
+                    stepProps.completed = false;
+                  }
+                  return (
+                    <Step
+                      key={label}
+                      {...stepProps}
+                      sx={{
                         '& .MuiStepLabel-root': {
-                          flexDirection: 'column',
-                          height: '32px'
+                          flexDirection: ['column', 'row'],
+                          height: '36px',
+                          alignItems: 'center'
+                        },
+                        '@media (max-width: 700px)': {
+                          '& .MuiStepLabel-root': {
+                            flexDirection: 'column',
+                            height: '32px'
+                          },
+                          '& .MuiStepLabel-label': {
+                            marginLeft: '-10px',
+                            fontSize: ['10px', '12px']
+                          },
+                          svg: {
+                            paddingLeft: '2px'
+                          }
+                        },
+                        '& .MuiStepLabel-root .Mui-active .MuiStepIcon-text': {
+                          fill: '#fff'
                         },
                         '& .MuiStepLabel-label': {
-                          marginLeft: '-10px',
-                          fontSize: ['10px', '12px']
+                          color: '#000',
+                          fontSize: ['10px', '14px'],
+                          fontWeight: 500,
+                          marginTop: '4px',
+                          textAlign: 'center',
+                          marginLeft: '0px'
                         },
                         svg: {
-                          paddingLeft: '2px'
-                        }
-                      },
-                      '& .MuiStepLabel-root .Mui-active .MuiStepIcon-text': {
-                        fill: '#fff'
-                      },
-                      '& .MuiStepLabel-label': {
-                        color: '#000',
-                        fontSize: ['10px', '14px'],
-                        fontWeight: 500,
-                        marginTop: '4px',
-                        textAlign: 'center',
-                        marginLeft: '0px'
-                      },
-                      svg: {
-                        width: '30px',
-                        height: '30px',
+                          width: '30px',
+                          height: '30px',
 
-                        color: '#EAEAED'
-                      }
-                    }}
-                  >
-                    <StepLabel
-                      {...labelProps}
-                      className="w-12 pl-2 sm:w-24 md:w-auto flex item"
+                          color: '#EAEAED'
+                        }
+                      }}
                     >
-                      {t(label)}
-                    </StepLabel>
-                  </Step>
-                );
-              })}
-            </Stepper>
+                      <StepLabel
+                        {...labelProps}
+                        className="w-12 pl-2 sm:w-24 md:w-auto flex item"
+                      >
+                        {t(label)}
+                      </StepLabel>
+                    </Step>
+                  );
+                })}
+              </Stepper>
+            </div>
           </div>
           {signingUrl || loading ? (
             signingUrl ? (
