@@ -153,7 +153,7 @@
     "savingWithNeos": "Ahorros con Neos",
     "installationCost": "Coste de instalación con impuestos",
     "years": "años",
-    "savings": "ahorros",
+    "Savings": "ahorros",
     "peekSolarFarm": "¡Eche un vistazo a SU granja solar!",
     "solar": "Parque Solar La Solanilla",
     "solarPoints": {
@@ -285,5 +285,10 @@
   "We’re thrilled to announce that pre-sales for our virtual solar installations start later this month! Get exclusive access by calculating your savings.": "El periodo de pre-ventas de nuestras Instalaciones Solares Virtuales comenzará a final de este mes. Consigue acceso exclusivo calculando tu ahorro.",
   "The cheapest source of electricity, for your home or business": "La energía más barata que existe para tu hogar o empresa",
   "No installation required: no rooftop panels, no in-home setup": "Sin instalación: no hace falta tejado ni obra",
-  "Instant connection: receive your electricity right away": "Conexión instantánea: recibe tu electricidad desde el momento de compra"
+  "Instant connection: receive your electricity right away": "Conexión instantánea: recibe tu electricidad desde el momento de compra",
+  "Savings are calculated assuming a conservative 3.5% annual increase in electricity prices.": "El ahorro se calcula suponiendo un aumento anual conservador del 3.5% en los precios de la electricidad.",
+  "Coming Soon...": "Próximamente...",
+  "Enter here": "Entre aquí",
+  "Savings": "Ahorros",
+  "Years": "Años"
 }
