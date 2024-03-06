@@ -1,25 +1,14 @@
 'use client';
 import React, { useCallback, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Typography from '@mui/material/Typography';
 import MainContainer from '@/components/sharedComponents/MainContainer';
-import ContractDetail from '../contractDetail/page';
-import Success from '../success/page';
 import { setUserData } from '@/features/common/commonSlice';
-import { AppDispatch, RootState } from '@/store/store';
-import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '@/store/store';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import useHandleForm from '@/hooks/useHandleForm';
 import { offerStep1Schema } from '@/utils/validations/offers.validation';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import useDocusignService from '@/hooks/useDocusign';
-import { CircularProgress } from '@mui/material';
-import Congrats from '@/components/Congrats';
-
 import { Grid } from '@mui/material';
 import NeosTextField from '@/components/NeosTextField';
 import {
@@ -35,12 +24,7 @@ import PhoneInput, {
 import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPeriod';
 import YourOffer from '../youoffer/page';
 import { Button } from '@mantine/core';
-
-const steps = [
-  'Receive Your Offer',
-  'Sign Your Contract',
-  'Enjoy Solar Energy'
-];
+import ProgressBar from '@/components/ProgressBar';
 
 interface FormData {
   numberOfPeople: string;
@@ -194,92 +178,11 @@ const StandardOffer = () => {
     dispath(setUserData(formik.values));
   }, [formik.values]);
 
-  const handleFormBack = () => {
-    router.back();
-  };
-
-  const [skipped, setSkipped] = useState<Set<number>>(new Set<number>());
-
-  const isStepSkipped = (step: number): boolean => {
-    return skipped.has(step);
-  };
-
   return (
     <MainContainer>
       <div className=" my-4 xl:max-w-[1200px] max-w-[calc(100%_-_40px)] relative rounded-[30px] bg-[#01092299] w-full mx-auto bg-white overflow-hidden">
         <Box sx={{ width: '100%' }}>
-          <div className=" flex flex-row items-center justify-center">
-            <span
-              onClick={() => handleFormBack()}
-              className=" w-[1%] ml-1 sm:ml-4"
-            >
-              <ArrowBackIcon className=" cursor-pointer sm:text-3xl text-xl" />
-            </span>
-            <div className="max-w-[630px] w-[100%] mx-auto py-4 sm:py-8">
-              <Stepper activeStep={Number(activeStep)}>
-                {steps.map((label, index) => {
-                  const stepProps: { completed?: boolean } = {};
-                  const labelProps: {
-                    optional?: React.ReactNode;
-                  } = {};
-                  if (isStepSkipped(index)) {
-                    stepProps.completed = false;
-                  }
-                  return (
-                    <Step
-                      key={label}
-                      {...stepProps}
-                      sx={{
-                        '& .MuiStepLabel-root': {
-                          flexDirection: ['column', 'row'],
-                          height: '36px',
-                          alignItems: 'center'
-                        },
-                        '@media (max-width: 700px)': {
-                          '& .MuiStepLabel-root': {
-                            flexDirection: 'column',
-                            height: '32px'
-                          },
-                          '& .MuiStepLabel-label': {
-                            marginLeft: '-10px',
-                            fontSize: ['10px', '12px']
-                          },
-                          svg: {
-                            paddingLeft: '2px'
-                          }
-                        },
-                        '& .MuiStepLabel-root .Mui-active .MuiStepIcon-text': {
-                          fill: '#fff'
-                        },
-                        '& .MuiStepLabel-label': {
-                          color: '#000',
-                          fontSize: ['10px', '14px'],
-                          fontWeight: 500,
-                          marginTop: '4px',
-                          textAlign: 'center',
-                          marginLeft: '0px'
-                        },
-                        svg: {
-                          width: '30px',
-                          height: '30px',
-
-                          color: '#EAEAED'
-                        }
-                      }}
-                    >
-                      <StepLabel
-                        {...labelProps}
-                        className="w-12 pl-2 sm:w-24 md:w-auto flex item"
-                      >
-                        {t(label)}
-                      </StepLabel>
-                    </Step>
-                  );
-                })}
-              </Stepper>
-            </div>
-          </div>
-
+          <ProgressBar activeStep={activeStep} />
           <div className=" w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9 my-14 md:my-0">
             <div className="w-[100%] md:w-[85%] lg:w-[85%]  mx-auto ">
               <h1 className="font-bold text-3xl mb-8 md:mb-11 lg:mb-11 text-center">
