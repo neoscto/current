@@ -15,11 +15,11 @@
   },
   "Description": {
     "title": "¿Qué es la Energía Solar Virtual?",
-    "description": "Las <b>Instalaciones Solares Neos</b> te permiten acceder a la energía generada por paneles solares dentro de parques solares. Esto significa que, a cambio de una inversión inicial, recibirás energía solar gratis durante 25 años.",
-    "point1": "35% más barato",
-    "point1Description": "Una Instalación Solar Neos es 35% más barata que una instalación de autoconsumo en techo del mismo tamaño.",
-    "point2": "Hasta 75% de ahorro",
-    "point2Description": "Reduce tus facturas de la luz hasta entre un 60% y un 75% gracias a la energía solar producida por tu Instalación Solar Neos.",
+    "description": "Las <b>Instalaciones Solares Virtuales de Neos</b> te permiten acceder a la energía generada por paneles solares ubicados en grandes parques solares. Con un pequeño costo inicial, obtienes 25 años de energía solar gratuita, sin importar dónde esté ubicada tu casa o negocio.",
+    "point1": "Instalación un 35% más barata",
+    "point1Description": "Una Instalación Solar de Neos es hasta un 35% más barata que una instalación de autoconsumo en techo del mismo tamaño.",
+    "point2": "Facturas un 75% más bajas",
+    "point2Description": "Reduce tus facturas de electricidad entre un 60% y un 75% gracias a la energía solar producida por paneles solares óptimamente ubicados.",
     "point3": "Acceso remoto e instantáneo",
     "point3Description": "Accede a tu Instalación Solar Neos a través de la red eléctrica, sin necesidad de obra, techo, o espera.",
     "point4": "Energía renovable",
@@ -27,18 +27,18 @@
     "benefits": "Beneficios"
   },
   "Calculate-saving-btn": "CALCULAR MIS AHORROS",
-  "Receive Offer": "Recibe tu Oferta",
-  "Sign Contract": "Firma el Contrato",
-  "Enjoy Solar": "Disfruta la Energía Solar",
+  "Receive Your Offer": "Recibe Tu Oferta",
+  "Sign Your Contract": "Firma el Contrato",
+  "Enjoy Solar Energy": "Disfruta la Energía Solar",
   "Get-offer": {
     "Standard Offer": "Oferta Estándar",
     "Personalized Offer": "Oferta Personalizada",
-    "You will not need anything else to get the offer": "85% de precisión basado en tu consumo estimado",
-    "You will need your latest electricity bill to get the offer": "100% de precisión basado en tu consumo real",
-    "Instant Calculation": "Cálculo instantáneo",
-    "Answer 4 Questions": "Responde une pregunta",
-    "100% Accurate": "Oferta exacta",
-    "85% Accurate": "Oferta apróximada",
+    "85% accuracy based on your estimated consumption": "85% de precisión basado en tu consumo estimado",
+    "100% accuracy based on your actual consumption": "100% de precisión basado en tu consumo real",
+    "Instant calculation": "Cálculo instantáneo",
+    "Answer one question": "Responde une pregunta",
+    "Exact offer": "Oferta exacta",
+    "Approximate offer": "Oferta apróximada",
     "btn": "OBTENER OFERTA",
     "review-expert-txt": "Revisa tu propuesta con tu Experto Solar",
     "book-expert-txt": "HABLA CON UN EXPERTO"
@@ -84,10 +84,10 @@
     "c02-reduction": "Ahorro de Emisiones de CO2 (Toneladas)"
   },
   "panel-header": {
-    "neos-panel-neos-provider": "Instalación Solar y\nSuministro Neos",
-    "neos-panels-keep-provider": "Instalación Solar\nNeos",
-    "rooftop-panels-keep-provider": "Instalación Solar\nen Tejado",
-    "keep-provider": "Mantener\ntu Proveedor"
+    "neos-panel-neos-provider": "Instalación Neos\ny Suministro Neos",
+    "neos-panels-keep-provider": "Instalación Neos\ny Suministro Actual",
+    "rooftop-panels-keep-provider": "Instalación en Tejado\ny Suministro Actual",
+    "keep-provider": "Suministro\nActual"
   },
   "offer": {
     "validation": {
@@ -112,9 +112,9 @@
         "required": "Se requiere el número de personas que viven en la casa"
       }
     },
-    "selectPlan": "Elige tu Plan",
-    "buyPanelProviderNeos": "Instalación Solar y\nSuministro Neos",
-    "buyPanelProviderCurrent": "Instalación Solar Neos"
+    "selectPlan": "Elige Tu Plan",
+    "buyPanelProviderNeos": "Instalación Neos\ny Suministro Neos",
+    "buyPanelProviderCurrent": "Instalación Neos\ny Suministro Actual"
   },
   "How-it-work": {
     "title": "¿Cómo funciona?",
@@ -125,12 +125,12 @@
     "point5": "Deberás pagar peajes y costos asociados al uso de la red, estimados en €0.02 por KWh.",
     "point6": "Si decides que no quieres a Neos como tu proveedor, no hay compromiso de permanecer con nosotros, y puedes elegir otro proveedor en cualquier momento.",
     "point7": "Si eliges otro proveedor, te enviaremos cada mes los ingresos generados por la venta de tu energía solar al mercado eléctrico, equivalentes a los ahorros que obtendrías si aún estuvieras con Neos.",
-    "chooseNeosPartner": "Instalación Solar y\nSuministro Neos",
-    "keepProvider": "Instalación Solar Neos",
+    "chooseNeosPartner": "Instalación Neos\ny Suministro Neos",
+    "keepProvider": "Instalación Neos\ny Suministro Actual",
     "NeosPartner": {
-      "point1": "Neos se convierte en tu comercializadora eléctrica. No te preocupes, nosotros nos encargamos del papeleo.",
-      "point2": "Recibirás gratis toda la electricidad generada por tu Instalación Solar Virtual. Si tus paneles no están produciendo, cubriremos tu consumo con electricidad del mercado eléctrico a coste, sin ningún margen comercial. Cualquier excedente de electricidad que produzca su instalación genera ingresos y reduce aún más el costo de la electricidad que le suministramos.",
-      "point3": "Sin compromiso de permanencia, cambia de comercializadora cuando quieras. Todo esto por una cuota mensual de €6,00."
+      "point1": "Neos se convierte en su proveedor de electricidad. No se preocupe, nosotros nos encargamos del papeleo.",
+      "point2": "Usted consumirá gratuitamente la electricidad generada por su Instalación Neos. Si no está produciendo electricidad, como por la noche, cubriremos su consumo con electricidad del mercado mayorista, sin margen de beneficio, a diferencia de otros proveedores. Cualquier excedente de electricidad producido por su Instalación Neos genera ingresos y reduce aún más el coste de la electricidad que le suministramos.",
+      "point3": "Benefíciese de todo lo anterior por una cuota mensual de €6,00."
     },
     "providerPartner": {
       "point1": "Puedes comprar Paneles Neos y mantener tu comercializadora actual. También podrás cambiar de comercializadora tantas veces como desees durante la vida útil de los Paneles Neos.",
@@ -139,9 +139,9 @@
     }
   },
   "customer-review": "Nuestros clientes nos recomiendan",
-  "review-your-offer-with-ceo": "Revise su oferta\nen una llamada con uno de\nnuestros expertos",
-  "book-call-btn": "reservar una llamada",
-  "select-plan-btn": "Elige tu plan",
+  "review-your-offer-with-ceo": "Revise su oferta\nen una llamada con\nuno de nuestros expertos",
+  "book-call-btn": "Habla con un Experto",
+  "select-plan-btn": "Elige Tu Plan",
   "Compare-our-offer": {
     "title": "Compara Nuestra Oferta",
     "point1": "más económico que los paneles solares en el techo",
@@ -264,26 +264,26 @@
     }
   },
   "Switch between the two plans above to compare our estimates": "Cambia entre los dos planes anteriores para comparar nuestras estimaciones",
-  "Percent savings in the first year": "Porcentaje de ahorro en tu primer año",
+  "Percent savings in your first year": "Porcentaje de ahorro en tu primer año",
   "lower electricity bills": "",
-  "Total savings": "Ahorro total durante 25 años",
+  "Total savings over 25 years": "Ahorro total durante 25 años",
   "saved over 25 years": "",
-  "Your investment will have paid for itself": "Amortización de la inversión en",
+  "Payback period": "Amortización de la inversión en",
   "years": "años",
   "CO2 emission savings": "Emisiones de CO2 evitadas",
-  "over 25 years": "toneladas",
+  "tons": "toneladas",
   "elephants": "elefantes",
   "You made a mistake in your CUPS, please enter a valid CUPS": "Ha cometido un error en su CUPS, por favor introduzca un CUPS válido",
   "You made a mistake in at least one of your CUPS, please enter valid CUPS": "Ha cometido un error en al menos uno de sus CUPS, por favor introduzca un CUPS válido",
-  "You’ve entered more than 1 CUPS, please separate your CUPS with commas": "Ha introducido más de 1 CUPS, por favor separe sus CUPS con comas",
+  "You’ve entered more than one CUPS, please separate your CUPS with commas": "Ha introducido más de un CUPS, por favor separe sus CUPS con comas",
   "Trusted by": "Con la confianza de",
   "Please try one more time?": "¿Por favor, inténtalo una vez más?",
   "Access the most affordable solar energy, easily, without any rooftop or in-home installations. Our large-scale solar farms deliver electricity directly to your home or business through the existing electricity grid, immediately providing you with solar power in a cheaper manner than rooftop installations.": "Acceda fácilmente a la energía solar más asequible, sin necesidad de instalaciones en tejados o viviendas. Nuestras huertas solares a gran escala suministran electricidad directamente a tu casa o negocio a través de la red eléctrica existente, proporcionándote inmediatamente energía solar de forma más barata que las instalaciones en tejados.",
   "I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.": "¡Me encanta Neos! Gracias a ellos, mis facturas de electricidad se acercan a ¡0,00 € mes tras mes! Vivo en un piso, así que sin ellos nunca habría podido acceder a los paneles solares.",
   "Invalid phone number": "Número de teléfono no válido",
   "Pre-Sale Launch!": "¡Lanzamiento de la preventa!",
-  "We’re thrilled to announce that pre-sales for our virtual solar installations start later this month!": "El periodo de pre-ventas de nuestras Instalaciones Solares Virtuales comenzará a final de este mes. Consigue acceso exclusivo calculando tu ahorro.",
-  "The cheapest source of electricity, for your home or business.": "La energía más barata que existe para tu hogar o empresa",
-  "No installation required: no rooftop panels, no in-home setup.": "Sin instalación: no hace falta tejado ni obra",
-  "Instant connection: receive your electricity right away.": "Conexión instantánea: recibe tu electricidad desde el momento de compra"
+  "We’re thrilled to announce that pre-sales for our virtual solar installations start later this month! Get exclusive access by calculating your savings.": "El periodo de pre-ventas de nuestras Instalaciones Solares Virtuales comenzará a final de este mes. Consigue acceso exclusivo calculando tu ahorro.",
+  "The cheapest source of electricity, for your home or business": "La energía más barata que existe para tu hogar o empresa",
+  "No installation required: no rooftop panels, no in-home setup": "Sin instalación: no hace falta tejado ni obra",
+  "Instant connection: receive your electricity right away": "Conexión instantánea: recibe tu electricidad desde el momento de compra"
 }
