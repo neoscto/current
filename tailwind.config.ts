@@ -19,6 +19,10 @@ const config: Config = {
       colors: {
         'Primary-Color-Main': '#FD7C7C',
         'Primary-Color-Light': '#febfbf'
+      },
+      fontSize: {
+        '2xs': '10px',
+        '3xs': '8px'
       }
     }
   },
