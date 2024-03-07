@@ -701,50 +701,49 @@ const YourOffer = ({ handleNext, data }: any) => {
 
         {/* Customer review starts */}
         <div className="flex lg:gap-[26px] lg:mt-8 mt-[19px] gap-[17px] lg:flex-row flex-col">
-          <div className="lg:max-w-[635px] w-full lg:py-6 lg:pl-5 lg:pr-[31px] pt-[22px] pb-[17px] px-[16px] border flex flex-col justify-between gap-2 border-[#E0E0E0] !rounded-3xl max-w-full">
-            <div className="">
-              <h1 className="text-[18px] leading-[21px] font-bold flex flex-col lg:text-left text-center">
-                {t('customer-review')}
-              </h1>
+          <div className="lg:max-w-[635px] w-full lg:py-6 lg:pl-5 lg:pr-[31px] pt-[22px] pb-[17px] px-[16px] border flex flex-col justify-between gap-4 border-[#E0E0E0] !rounded-3xl max-w-full">
+            <h1 className="text-[18px] leading-[21px] font-bold flex flex-col lg:text-left text-center">
+              {t('customer-review')}
+            </h1>
 
-              <div className="flex gap-4 lg:mt-4 mt-[18px]">
-                <div className="w-[50px] radius-[50%] h-[50px]">
-                  <img
-                    src="customer.png"
-                    alt="user"
-                    width={50}
-                    height={50}
-                    className="w-[50px] h-[50px] rounded-[50%] object-cover"
+            <div className="flex gap-4 ">
+              <div className="w-[50px] radius-[50%] h-[50px]">
+                <img
+                  src="customer.png"
+                  alt="user"
+                  width={50}
+                  height={50}
+                  className="w-[50px] h-[50px] rounded-[50%] object-cover"
+                />
+              </div>
+
+              <div className="max-w-[calc(100%_-_66px)] w-full ">
+                <p className="text-[16px] leading-5 font-medium text-black">
+                  Manuel Fernández
+                </p>
+                <div className="my-2">
+                  <Rating
+                    readOnly
+                    size={'small'}
+                    name="simple-controlled"
+                    value={value || 0}
+                    onChange={(event, newValue) => {
+                      setValue(newValue);
+                    }}
                   />
                 </div>
-
-                <div className="max-w-[calc(100%_-_66px)] w-full ">
-                  <p className="text-[16px] leading-5 font-medium text-black">
-                    Manuel Fernández
-                  </p>
-                  <div className="my-2">
-                    <Rating
-                      readOnly
-                      size={'small'}
-                      name="simple-controlled"
-                      value={value || 0}
-                      onChange={(event, newValue) => {
-                        setValue(newValue);
-                      }}
-                    />
-                  </div>
-                  <p className="text-sm leading-5 text-[#4F4F4F]">
-                    "
-                    {`${t('I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.')}`}
-                    "
-                  </p>
-                </div>
+                <p className="text-sm leading-5 text-[#4F4F4F]">
+                  "
+                  {`${t('I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.')}`}
+                  "
+                </p>
               </div>
             </div>
+
             <div className="flex justify-center">
               <NeosButton
                 className={
-                  'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto mt-[28px] '
+                  'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto  '
                 }
                 category="colored"
                 title={t('select-plan-btn')}
@@ -753,11 +752,11 @@ const YourOffer = ({ handleNext, data }: any) => {
             </div>
           </div>
 
-          <div className="lg:max-w-[399px] w-full bg-[#E7F5FA] !rounded-3xl py-5 px-5 max-w-full">
+          <div className="lg:max-w-[399px] w-full bg-[#E7F5FA] !rounded-3xl py-5 px-5 max-w-full flex flex-col justify-between items-center gap-4">
             <h1 className="whitespace-pre text-center text-base font-bold">
               {t('review-your-offer-with-ceo')}
             </h1>
-            <div className="flex flex-col items-center mt-[14px] mb-[21px]">
+            <div className="flex flex-col justify-center items-center gap-2 ">
               <img
                 src="ceo-image.jpg"
                 alt="user"
@@ -766,7 +765,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                 height={50}
               />
 
-              <p className="text-[14px] leading-[17.64px] text-black font-medium mt-2 text-center">
+              <p className="text-[14px] leading-[17.64px] text-black font-medium  text-center">
                 Jose Laffitte
               </p>
               <p className="text-[14px] leading-[17.64px] text-black text-center">
@@ -775,11 +774,10 @@ const YourOffer = ({ handleNext, data }: any) => {
             </div>
             <div className="flex justify-center">
               <NeosButton
-                sx={{ mt: 2 }}
                 id="btn"
                 category="colored"
                 className={
-                  'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto mt-[21px] '
+                  'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto  '
                 }
                 title={t('Get-offer.book-expert-txt')}
                 onClick={() => handleCalender()}
