@@ -2,10 +2,9 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import VideoPlayer from '@/app/videoPlayer/page';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
-import { AppDispatch, RootState } from '@/store/store';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 import { usePathname, useRouter } from 'next/navigation';
 
 interface MainContainerProps {
@@ -19,7 +18,9 @@ const notRestrictedPages = [
   '/faq',
   '/privacy-policy',
   '/terms-of-use',
-  '/cookies'
+  '/cookies',
+  '/standardoffer',
+  '/personalizedoffer'
 ];
 
 const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
@@ -45,8 +46,6 @@ const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
       <div className="flex-1 flex justify-center items-center">{children}</div>
 
       <Footer />
-
-      {/* <VideoPlayer /> */}
     </div>
   );
 };

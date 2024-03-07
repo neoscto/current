@@ -1,9 +1,6 @@
 'use client';
 import React, { useCallback, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import MainContainer from '@/components/sharedComponents/MainContainer';
@@ -18,14 +15,17 @@ import { useTranslation } from 'react-i18next';
 import useHandleForm from '@/hooks/useHandleForm';
 import { offerStep1Schema } from '@/utils/validations/offers.validation';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import axios from 'axios';
 import useDocusignService from '@/hooks/useDocusign';
 import { saveDataToSessionStorage } from '@/utils/utils';
 import { CircularProgress } from '@mui/material';
 import Congrats from '@/components/Congrats';
+import ProgressBar from '@/components/ProgressBar';
 
-const steps = ['Receive Your Offer', 'Sign Your Contract', 'Enjoy Solar Energy'];
+const steps = [
+  'Receive Your Offer',
+  'Sign Your Contract',
+  'Enjoy Solar Energy'
+];
 
 interface FormData {
   numberOfPeople: string;
@@ -43,10 +43,6 @@ const HorizontalLinearStepper = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const activeStep = searchParams.get('activeStep') || 0;
-
-  // const handleSuccessResponce = (res: any) => {
-  //   saveDataToSessionStorage("UserOffer", res.data);
-  // };
 
   const formikInitialValues = {
     offerType: '',
@@ -83,21 +79,12 @@ const HorizontalLinearStepper = () => {
     window.addEventListener('message', (event) => {
       if (event.data === 'redirect_success_url') {
         window.location.href = '/getoffer?activeStep=2';
-        window.removeEventListener('message', (event) => { });
+        window.removeEventListener('message', (event) => {});
       }
     });
   }, [signingUrl]);
 
   const [skipped, setSkipped] = useState<Set<number>>(new Set<number>());
-
-  const { formBack }: any = useSelector(
-    (state: RootState) => state.commonSlice
-  );
-  const { t } = useTranslation();
-  const params = new URLSearchParams(searchParams.toString());
-  const isStepOptional = (step: number): boolean => {
-    return step === 1;
-  };
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -122,34 +109,10 @@ const HorizontalLinearStepper = () => {
 
     router.push(
       pathname +
-      '?' +
-      createQueryString('activeStep', (Number(activeStep) + 1).toString())
+        '?' +
+        createQueryString('activeStep', (Number(activeStep) + 1).toString())
     );
     setSkipped(newSkipped);
-  };
-
-  const handleBack = (): void => {
-    router.push(
-      pathname +
-      '?' +
-      createQueryString('activeStep', (Number(activeStep) - 1).toString())
-    );
-  };
-  const handleSkip = (): void => {
-    if (!isStepOptional(Number(activeStep))) {
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    router.push(
-      pathname +
-      '?' +
-      createQueryString('activeStep', (Number(activeStep) + 1).toString())
-    );
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(Number(activeStep));
-      return newSkipped;
-    });
   };
 
   const handleReset = (): void => {
@@ -187,132 +150,11 @@ const HorizontalLinearStepper = () => {
     dispath(setUserData(formik.values));
   }, [formik.values]);
 
-  const generatePDF = () => {
-    pdfGenerate(formik.values);
-  };
-  const handleFormBack = () => {
-    if (showForm === 'poffer' || showForm === 'soffer') {
-      setShowForm('allOffers');
-      return;
-    }
-    if (showForm === 'paymentForm') {
-      router.push(pathname + '?' + createQueryString('activeStep', '1'));
-      setShowForm('emailSuccess');
-      return;
-    }
-    if (showForm === 'yourOffer') {
-      setShowForm(formBack === 'backpoffer' ? 'poffer' : 'soffer');
-      return;
-    }
-    if (showForm === 'yourDetails') {
-      router.push(pathname + '?' + createQueryString('activeStep', '0'));
-      setShowForm('yourOffer');
-      return;
-    }
-    if (showForm === 'emailSuccess' && formBack === 'emailDetails') {
-      setShowForm('yourDetails');
-      return;
-    }
-    // if (showForm === 'allOffers') {
-    //   router.replace('/getoffer');
-    //   return;
-    // }
-    router.back();
-  };
-
-  // useEffect(() => {
-  //   const fetchToken = async () => {
-  //     if (params.get("code")) {
-  //       const code = params.get("code");
-  //       var options = {
-  //         method: "POST",
-  //         url: `${process.env.NEXT_PUBLIC_API_URL}/calendly?code=${code}`,
-  //         headers: {
-  //           "Content-Type": "application/x-www-form-urlencoded",
-  //         },
-  //       };
-  //       const response: any = await axios.request(options);
-  //       if (response && response.data && response.data.token) {
-  //         saveDataToSessionStorage("calendlyToken", response.data.token);
-  //         setShowForm("yourOffer");
-  //       }
-  //     }
-  //   };
-  //   fetchToken();
-  // }, [params]);
-
   return (
     <MainContainer>
       <div className=" my-4 xl:max-w-[1200px] max-w-[calc(100%_-_40px)] relative rounded-[30px] bg-[#01092299] w-full mx-auto bg-white overflow-hidden">
-        <div className="flex items-center gap-x-[12px] absolute lg:top-[2em] lg:left-[20px] md:top-[20px] md:left-[20px] top-[10px] left-[18px]">
-          <span onClick={() => handleFormBack()}>
-            <ArrowBackIcon className=" cursor-pointer  lg:text-[30px] md:text-[30px] sm:text-[30px] text-[22px]" />
-          </span>
-        </div>
         <Box sx={{ width: '100%' }}>
-          <div className="max-w-[630px] w-full mx-auto pt-[35px] pb-[26px] mt-2 md:mt-0">
-            <Stepper activeStep={Number(activeStep)}>
-              {steps.map((label, index) => {
-                const stepProps: { completed?: boolean } = {};
-                const labelProps: {
-                  optional?: React.ReactNode;
-                } = {};
-                if (isStepSkipped(index)) {
-                  stepProps.completed = false;
-                }
-                return (
-                  <Step
-                    key={label}
-                    {...stepProps}
-                    sx={{
-                      '& .MuiStepLabel-root': {
-                        flexDirection: ['column', 'row'],
-                        height: '36px',
-                        alignItems: 'center'
-                      },
-                      '@media (max-width: 700px)': {
-                        '& .MuiStepLabel-root': {
-                          flexDirection: 'column',
-                          height: '32px'
-                        },
-                        '& .MuiStepLabel-label': {
-                          marginLeft: '-10px',
-                          fontSize: ['10px', '12px']
-                        },
-                        svg: {
-                          paddingLeft: '2px'
-                        }
-                      },
-                      '& .MuiStepLabel-root .Mui-active .MuiStepIcon-text': {
-                        fill: '#fff'
-                      },
-                      '& .MuiStepLabel-label': {
-                        color: '#000',
-                        fontSize: ['10px', '14px'],
-                        fontWeight: 500,
-                        marginTop: '4px',
-                        textAlign: 'center',
-                        marginLeft: '0px'
-                      },
-                      svg: {
-                        width: '30px',
-                        height: '30px',
-
-                        color: '#EAEAED'
-                      }
-                    }}
-                  >
-                    <StepLabel
-                      {...labelProps}
-                      className="w-12 pl-2 sm:w-24 md:w-auto flex item"
-                    >
-                      {t(label)}
-                    </StepLabel>
-                  </Step>
-                );
-              })}
-            </Stepper>
-          </div>
+          <ProgressBar activeStep={activeStep} />
           {signingUrl || loading ? (
             signingUrl ? (
               <div className="w-[90%] mx-5 border-[2px] mb-5">
@@ -351,16 +193,7 @@ const HorizontalLinearStepper = () => {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {Number(activeStep) == 0 && (
-                <GetOffer
-                  formik={formik}
-                  handleChange={handleChange}
-                  handleNext={handleNext}
-                  showForm={showForm}
-                  setShowForm={setShowForm}
-                  signature={signature}
-                />
-              )}
+              {Number(activeStep) == 0 && <GetOffer />}
               {Number(activeStep) == 1 && (
                 <ContractDetail
                   handleNext={handleNext}
