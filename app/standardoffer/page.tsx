@@ -56,6 +56,8 @@ const StandardOffer = () => {
     numberofpeopleAdditionValue: 1
   };
 
+  const [showForm, setShowForm] = useState<string>('soffer');
+
   const [data, setData] = useState({
     total_price_before_tax: 0,
     neos_installation_tax: 0,
@@ -155,7 +157,6 @@ const StandardOffer = () => {
     formik.handleSubmit();
     setLoading(false);
   };
-  const [showForm, setShowForm] = useState<string>('soffer');
 
   const [formik, isLoading]: any = useHandleForm({
     method: 'POST',
@@ -187,104 +188,107 @@ const StandardOffer = () => {
       <div className=" my-4 xl:max-w-[1200px] max-w-[calc(100%_-_40px)] relative rounded-[30px] bg-[#01092299] w-full mx-auto bg-white overflow-hidden">
         <Box sx={{ width: '100%' }}>
           <ProgressBar activeStep={activeStep} />
-          <div className=" w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9 my-14 md:my-0">
-            <div className="w-[100%] md:w-[85%] lg:w-[85%]  mx-auto ">
-              <h1 className="font-bold text-3xl mb-8 md:mb-11 lg:mb-11 text-center">
-                {t('Get-offer.Standard Offer')}
-              </h1>
-              <Grid container rowSpacing={3} columnSpacing={3}>
-                <Grid item xs={12}>
-                  <NeosTextField
-                    placeholder={t('Get-offer-form.form-placeholder')}
-                    label={t('Get-offer-form.field-label1')}
-                    type="number"
-                    name="numberOfPeople"
-                    value={formik.values.numberOfPeople}
-                    onChange={formik.handleChange}
-                    error={Boolean(formik.errors.numberOfPeople)}
-                    helperText={t(formik.errors.numberOfPeople)}
-                  />
+          {showForm === 'soffer' && (
+            <div className=" w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9 my-14 md:my-0">
+              <div className="w-[100%] md:w-[85%] lg:w-[85%]  mx-auto ">
+                <h1 className="font-bold text-3xl mb-8 md:mb-11 lg:mb-11 text-center">
+                  {t('Get-offer.Standard Offer')}
+                </h1>
+                <Grid container rowSpacing={3} columnSpacing={3}>
+                  <Grid item xs={12}>
+                    <NeosTextField
+                      placeholder={t('Get-offer-form.form-placeholder')}
+                      label={t('Get-offer-form.field-label1')}
+                      type="number"
+                      name="numberOfPeople"
+                      value={formik.values.numberOfPeople}
+                      onChange={formik.handleChange}
+                      error={Boolean(formik.errors.numberOfPeople)}
+                      helperText={t(formik.errors.numberOfPeople)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <NeosTextField
+                      placeholder={t('Get-offer-form.form-placeholder')}
+                      label={t('Get-offer-form.first-name')}
+                      name="firstName"
+                      value={formik.values.firstName}
+                      onChange={formik.handleChange}
+                      error={Boolean(formik.errors.firstName)}
+                      helperText={t(formik.errors.firstName)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <NeosTextField
+                      placeholder={t('Get-offer-form.form-placeholder')}
+                      label={t('Get-offer-form.last-name')}
+                      name="lastName"
+                      value={formik.values.lastName}
+                      onChange={formik.handleChange}
+                      error={Boolean(formik.errors.lastName)}
+                      helperText={t(formik.errors.lastName)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <NeosTextField
+                      placeholder={t('Get-offer-form.form-placeholder')}
+                      label={t('Get-offer-form.email')}
+                      name="emailAddress"
+                      value={formik.values.emailAddress}
+                      onChange={formik.handleChange}
+                      error={Boolean(formik.errors.emailAddress)}
+                      helperText={t(formik.errors.emailAddress)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <label className="text-sm text-black  font-medium mb-1.5 block">
+                      {t('Get-offer-form.phone')}
+                    </label>
+                    <PhoneInput
+                      placeholder={t('Get-offer-form.form-placeholder')}
+                      name="phoneNumber"
+                      className="border border-[#E0E0E0] rounded-[8px] p-3 w-full"
+                      international
+                      value={formik.values.phoneNumber}
+                      countryCallingCodeEditable={false}
+                      defaultCountry="GB"
+                      onCountryChange={(country: Country) => {
+                        const dialCode = getCountryCallingCode(country);
+                        formik.setFieldValue('dialCode', dialCode);
+                      }}
+                      onChange={(value) => {
+                        formik.setFieldValue('phoneNumber', value);
+                      }}
+                    />
+                    <p className="text-xs text-[#d32f2f] mt-1 ml-3">
+                      {formik.values.phoneNumber
+                        ? isValidPhoneNumber(formik.values.phoneNumber)
+                          ? undefined
+                          : t('Invalid phone number')
+                        : null}
+                    </p>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6} md={6}>
-                  <NeosTextField
-                    placeholder={t('Get-offer-form.form-placeholder')}
-                    label={t('Get-offer-form.first-name')}
-                    name="firstName"
-                    value={formik.values.firstName}
-                    onChange={formik.handleChange}
-                    error={Boolean(formik.errors.firstName)}
-                    helperText={t(formik.errors.firstName)}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={6}>
-                  <NeosTextField
-                    placeholder={t('Get-offer-form.form-placeholder')}
-                    label={t('Get-offer-form.last-name')}
-                    name="lastName"
-                    value={formik.values.lastName}
-                    onChange={formik.handleChange}
-                    error={Boolean(formik.errors.lastName)}
-                    helperText={t(formik.errors.lastName)}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={6}>
-                  <NeosTextField
-                    placeholder={t('Get-offer-form.form-placeholder')}
-                    label={t('Get-offer-form.email')}
-                    name="emailAddress"
-                    value={formik.values.emailAddress}
-                    onChange={formik.handleChange}
-                    error={Boolean(formik.errors.emailAddress)}
-                    helperText={t(formik.errors.emailAddress)}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={6}>
-                  <label className="text-sm text-black  font-medium mb-1.5 block">
-                    {t('Get-offer-form.phone')}
-                  </label>
-                  <PhoneInput
-                    placeholder={t('Get-offer-form.form-placeholder')}
-                    name="phoneNumber"
-                    className="border border-[#E0E0E0] rounded-[8px] p-3 w-full"
-                    international
-                    value={formik.values.phoneNumber}
-                    countryCallingCodeEditable={false}
-                    defaultCountry="GB"
-                    onCountryChange={(country: Country) => {
-                      const dialCode = getCountryCallingCode(country);
-                      formik.setFieldValue('dialCode', dialCode);
+                <div className="text-center mt-14  ">
+                  <Button
+                    variant="filled"
+                    size="lg"
+                    style={{
+                      backgroundColor: '#FD7C7C',
+                      borderRadius: '16px',
+                      height: '56px'
                     }}
-                    onChange={(value) => {
-                      formik.setFieldValue('phoneNumber', value);
-                    }}
-                  />
-                  <p className="text-xs text-[#d32f2f] mt-1 ml-3">
-                    {formik.values.phoneNumber
-                      ? isValidPhoneNumber(formik.values.phoneNumber)
-                        ? undefined
-                        : t('Invalid phone number')
-                      : null}
-                  </p>
-                </Grid>
-              </Grid>
-              <div className="text-center mt-14  ">
-                <Button
-                  variant="filled"
-                  size="lg"
-                  style={{
-                    backgroundColor: '#FD7C7C',
-                    borderRadius: '16px',
-                    height: '56px'
-                  }}
-                  classNames={{}}
-                  onClick={() => handleyourSaving()}
-                  loading={buttonLoading}
-                >
-                  {t('Calculate-saving-btn')}
-                </Button>
+                    classNames={{}}
+                    onClick={() => handleyourSaving()}
+                    loading={buttonLoading}
+                  >
+                    {t('Calculate-saving-btn')}
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
+          )}
+          {showForm === 'yourOffer' && <YourOffer data={data} />}
         </Box>
       </div>
     </MainContainer>
