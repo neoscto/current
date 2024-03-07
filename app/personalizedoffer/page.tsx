@@ -204,7 +204,12 @@ const PersonalizedOffer = () => {
     <MainContainer>
       <div className=" my-4 xl:max-w-[1200px] max-w-[calc(100%_-_40px)] relative rounded-[30px] bg-[#01092299] w-full mx-auto bg-white overflow-hidden">
         <Box sx={{ width: '100%' }}>
-          <ProgressBar activeStep={activeStep} />
+          <ProgressBar
+            activeStep={activeStep}
+            initialForm="poffer"
+            setShowForm={setShowForm}
+            showForm={showForm}
+          />
           {showForm === 'poffer' && (
             <div className="  w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9 my-14 md:my-0">
               <div className="w-[100%] md:w-[85%] lg:w-[85%]  mx-auto ">

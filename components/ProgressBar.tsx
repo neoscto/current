@@ -14,12 +14,21 @@ const steps = [
   'Enjoy Solar Energy'
 ];
 
-const ProgressBar = ({ activeStep }: any) => {
+const ProgressBar = ({
+  activeStep,
+  initialForm,
+  showForm,
+  setShowForm
+}: any) => {
   const router = useRouter();
   const { t } = useTranslation();
 
   const handleFormBack = () => {
-    router.back();
+    if (showForm === 'yourOffer') {
+      setShowForm(initialForm);
+    } else {
+      router.back();
+    }
   };
 
   const [skipped, setSkipped] = useState<Set<number>>(new Set<number>());
