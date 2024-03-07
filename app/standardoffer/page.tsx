@@ -289,7 +289,11 @@ const StandardOffer = () => {
               </div>
             </div>
           )}
-          {showForm === 'yourOffer' && <YourOffer data={data} />}
+          {showForm === 'yourOffer' && (
+            <div className="mt-10">
+              <YourOffer data={data} />
+            </div>
+          )}
         </Box>
       </div>
     </MainContainer>
