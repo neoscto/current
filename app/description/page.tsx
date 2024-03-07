@@ -22,7 +22,7 @@ const Description = () => {
             {parse(t('Description.description'))}
           </p>
 
-          <div className=" lg:hidden">
+          <div className=" flex justify-center items-center flex-col lg:hidden">
             <img
               src="description.png"
               alt="Description image"
@@ -51,7 +51,7 @@ const Description = () => {
             <h1 className=" text-2xl font-bold mb-4">
               {t('Description.benefits')}
             </h1>
-            <div className=" grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-3">
+            <div className=" grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-3">
               {descriptionList.map((item, index) => {
                 return (
                   <div

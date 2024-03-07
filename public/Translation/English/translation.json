@@ -109,12 +109,13 @@
         "required": "CUPS is required"
       },
       "numberOfPeople": {
-        "required": "Number of people living in house is required"
+        "required": "Number of people living in house is required",
+        "min": "There must be at least 1 person in the house"
       }
     },
     "selectPlan": "Select Your Plan",
-    "buyPanelProviderNeos": "Neos Installation\n& Neos Provider",
-    "buyPanelProviderCurrent": "Neos Installation\n& Current Provider"
+    "buyPanelProviderNeos": "Neos Installation<br>& Neos Provider",
+    "buyPanelProviderCurrent": "Neos Installation<br>& Current Provider"
   },
   "How-it-work": {
     "title": "How it works?",

@@ -21,7 +21,9 @@ export const offerStep1Schema = yup.object().shape({
   numberOfPeople: yup.number().when('offerType', {
     is: (v: string) => v === 'Standard',
     then: (schema) =>
-      schema.required('offer.validation.numberOfPeople.required')
+      schema
+        .required('offer.validation.numberOfPeople.required')
+        .min(1, 'offer.validation.numberOfPeople.min')
   })
 });
 

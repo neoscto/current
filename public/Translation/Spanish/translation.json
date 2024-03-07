@@ -109,12 +109,13 @@
         "required": "Se necesitan vasos"
       },
       "numberOfPeople": {
-        "required": "Se requiere el número de personas que viven en la casa"
+        "required": "Se requiere el número de personas que viven en la casa",
+        "min": "Debe haber al menos al menos 1 persona en la casa"
       }
     },
     "selectPlan": "Elige Tu Plan",
-    "buyPanelProviderNeos": "Instalación Neos\ny Suministro Neos",
-    "buyPanelProviderCurrent": "Instalación Neos\ny Suministro Actual"
+    "buyPanelProviderNeos": "Instalación Neos<br>y Suministro Neos",
+    "buyPanelProviderCurrent": "Instalación Neos<br>y Suministro Actual"
   },
   "How-it-work": {
     "title": "¿Cómo funciona?",
