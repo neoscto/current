@@ -109,7 +109,8 @@
         "required": "Se necesitan vasos"
       },
       "numberOfPeople": {
-        "required": "Se requiere el número de personas que viven en la casa"
+        "required": "Se requiere el número de personas que viven en la casa",
+        "min": "Debe haber al menos al menos 1 persona en la casa"
       }
     },
     "selectPlan": "Elige Tu Plan",

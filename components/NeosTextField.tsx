@@ -72,7 +72,7 @@ const NeosTextField: React.FC<NeosTextFieldProps> = (props) => {
         placeholder={placeholder}
         onBlur={onBlur}
         defaultValue={defaultValue}
-        inputProps={{ min: 0 }}
+        inputProps={{ min: 1 }}
       />
     </Box>
   );
