@@ -28,12 +28,8 @@ import PhoneInput, {
 import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPeriod';
 import YourOffer from '../youoffer/page';
 import { Button } from '@mantine/core';
-
-const steps = [
-  'Receive Your Offer',
-  'Sign Your Contract',
-  'Enjoy Solar Energy'
-];
+import useDocusignService from '@/hooks/useDocusign';
+import ProgressBar from '@/components/ProgressBar';
 
 const validateCUPS = (cups: string): boolean | string => {
   const cupsArray = cups.replace(/\s/g, '').split(',');
@@ -129,7 +125,7 @@ const PersonalizedOffer = () => {
     save_yearly_without_neos: [{ years: 0, saving: '' }]
   });
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const [buttonLoading, setLoading] = useState<boolean>(false);
 
   const [serverError, setServerError] = useState('');
 
@@ -200,91 +196,14 @@ const PersonalizedOffer = () => {
     dispath(setUserData(formik.values));
   }, [formik.values]);
 
-  const handleFormBack = () => {
-    router.back();
-  };
-
-  const [skipped, setSkipped] = useState<Set<number>>(new Set<number>());
-
-  const isStepSkipped = (step: number): boolean => {
-    return skipped.has(step);
-  };
+  const { loading, signature, signingUrl, downloadPdf } =
+    useDocusignService(formik);
 
   return (
     <MainContainer>
       <div className=" my-4 xl:max-w-[1200px] max-w-[calc(100%_-_40px)] relative rounded-[30px] bg-[#01092299] w-full mx-auto bg-white overflow-hidden">
         <Box sx={{ width: '100%' }}>
-          <div className=" flex flex-row items-center justify-center">
-            <span
-              onClick={() => handleFormBack()}
-              className=" w-[1%] ml-1 sm:ml-4"
-            >
-              <ArrowBackIcon className=" cursor-pointer sm:text-3xl text-xl" />
-            </span>
-            <div className="max-w-[630px] w-[100%] mx-auto py-4 sm:py-8">
-              <Stepper activeStep={Number(activeStep)}>
-                {steps.map((label, index) => {
-                  const stepProps: { completed?: boolean } = {};
-                  const labelProps: {
-                    optional?: React.ReactNode;
-                  } = {};
-                  if (isStepSkipped(index)) {
-                    stepProps.completed = false;
-                  }
-                  return (
-                    <Step
-                      key={label}
-                      {...stepProps}
-                      sx={{
-                        '& .MuiStepLabel-root': {
-                          flexDirection: ['column', 'row'],
-                          height: '36px',
-                          alignItems: 'center'
-                        },
-                        '@media (max-width: 700px)': {
-                          '& .MuiStepLabel-root': {
-                            flexDirection: 'column',
-                            height: '32px'
-                          },
-                          '& .MuiStepLabel-label': {
-                            marginLeft: '-10px',
-                            fontSize: ['10px', '12px']
-                          },
-                          svg: {
-                            paddingLeft: '2px'
-                          }
-                        },
-                        '& .MuiStepLabel-root .Mui-active .MuiStepIcon-text': {
-                          fill: '#fff'
-                        },
-                        '& .MuiStepLabel-label': {
-                          color: '#000',
-                          fontSize: ['10px', '14px'],
-                          fontWeight: 500,
-                          marginTop: '4px',
-                          textAlign: 'center',
-                          marginLeft: '0px'
-                        },
-                        svg: {
-                          width: '30px',
-                          height: '30px',
-
-                          color: '#EAEAED'
-                        }
-                      }}
-                    >
-                      <StepLabel
-                        {...labelProps}
-                        className="w-12 pl-2 sm:w-24 md:w-auto flex item"
-                      >
-                        {t(label)}
-                      </StepLabel>
-                    </Step>
-                  );
-                })}
-              </Stepper>
-            </div>
-          </div>
+          <ProgressBar activeStep={activeStep} />
 
           <div className="  w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9 my-14 md:my-0">
             <div className="w-[100%] md:w-[85%] lg:w-[85%]  mx-auto ">
@@ -386,7 +305,7 @@ const PersonalizedOffer = () => {
                   }}
                   classNames={{}}
                   onClick={() => handleyourSaving()}
-                  loading={loading}
+                  loading={buttonLoading}
                 >
                   {t('Calculate-saving-btn')}
                 </Button>

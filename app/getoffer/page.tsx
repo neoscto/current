@@ -86,15 +86,6 @@ const HorizontalLinearStepper = () => {
 
   const [skipped, setSkipped] = useState<Set<number>>(new Set<number>());
 
-  const { formBack }: any = useSelector(
-    (state: RootState) => state.commonSlice
-  );
-  const { t } = useTranslation();
-  const params = new URLSearchParams(searchParams.toString());
-  const isStepOptional = (step: number): boolean => {
-    return step === 1;
-  };
-
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -122,30 +113,6 @@ const HorizontalLinearStepper = () => {
         createQueryString('activeStep', (Number(activeStep) + 1).toString())
     );
     setSkipped(newSkipped);
-  };
-
-  const handleBack = (): void => {
-    router.push(
-      pathname +
-        '?' +
-        createQueryString('activeStep', (Number(activeStep) - 1).toString())
-    );
-  };
-  const handleSkip = (): void => {
-    if (!isStepOptional(Number(activeStep))) {
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    router.push(
-      pathname +
-        '?' +
-        createQueryString('activeStep', (Number(activeStep) + 1).toString())
-    );
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(Number(activeStep));
-      return newSkipped;
-    });
   };
 
   const handleReset = (): void => {
@@ -182,39 +149,6 @@ const HorizontalLinearStepper = () => {
   useEffect(() => {
     dispath(setUserData(formik.values));
   }, [formik.values]);
-
-  const generatePDF = () => {
-    pdfGenerate(formik.values);
-  };
-  const handleFormBack = () => {
-    if (showForm === 'poffer' || showForm === 'soffer') {
-      setShowForm('allOffers');
-      return;
-    }
-    if (showForm === 'paymentForm') {
-      router.push(pathname + '?' + createQueryString('activeStep', '1'));
-      setShowForm('emailSuccess');
-      return;
-    }
-    if (showForm === 'yourOffer') {
-      setShowForm(formBack === 'backpoffer' ? 'poffer' : 'soffer');
-      return;
-    }
-    if (showForm === 'yourDetails') {
-      router.push(pathname + '?' + createQueryString('activeStep', '0'));
-      setShowForm('yourOffer');
-      return;
-    }
-    if (showForm === 'emailSuccess' && formBack === 'emailDetails') {
-      setShowForm('yourDetails');
-      return;
-    }
-    // if (showForm === 'allOffers') {
-    //   router.replace('/getoffer');
-    //   return;
-    // }
-    router.back();
-  };
 
   return (
     <MainContainer>
@@ -259,16 +193,7 @@ const HorizontalLinearStepper = () => {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {Number(activeStep) == 0 && (
-                <GetOffer
-                  formik={formik}
-                  handleChange={handleChange}
-                  handleNext={handleNext}
-                  showForm={showForm}
-                  setShowForm={setShowForm}
-                  signature={signature}
-                />
-              )}
+              {Number(activeStep) == 0 && <GetOffer />}
               {Number(activeStep) == 1 && (
                 <ContractDetail
                   handleNext={handleNext}

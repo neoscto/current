@@ -32,7 +32,7 @@ const ProgressBar = ({ activeStep }: any) => {
       <span onClick={() => handleFormBack()} className=" w-[1%] ml-1 sm:ml-4">
         <ArrowBackIcon className=" cursor-pointer sm:text-3xl text-xl" />
       </span>
-      <div className="max-w-[630px] w-[100%] mx-auto py-4 sm:py-8">
+      <div className="max-w-[630px] w-[100%] mx-auto p-4 sm:py-8">
         <Stepper activeStep={Number(activeStep)}>
           {steps.map((label, index) => {
             const stepProps: { completed?: boolean } = {};

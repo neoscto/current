@@ -25,6 +25,7 @@ import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPer
 import YourOffer from '../youoffer/page';
 import { Button } from '@mantine/core';
 import ProgressBar from '@/components/ProgressBar';
+import useDocusignService from '@/hooks/useDocusign';
 
 interface FormData {
   numberOfPeople: string;
@@ -107,7 +108,7 @@ const StandardOffer = () => {
     save_yearly_without_neos: [{ years: 0, saving: '' }]
   });
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const [buttonLoading, setLoading] = useState<boolean>(false);
 
   const [serverError, setServerError] = useState('');
 
@@ -177,6 +178,9 @@ const StandardOffer = () => {
   useEffect(() => {
     dispath(setUserData(formik.values));
   }, [formik.values]);
+
+  const { loading, signature, signingUrl, downloadPdf } =
+    useDocusignService(formik);
 
   return (
     <MainContainer>
@@ -274,7 +278,7 @@ const StandardOffer = () => {
                   }}
                   classNames={{}}
                   onClick={() => handleyourSaving()}
-                  loading={loading}
+                  loading={buttonLoading}
                 >
                   {t('Calculate-saving-btn')}
                 </Button>
