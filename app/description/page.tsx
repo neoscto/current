@@ -22,7 +22,7 @@ const Description = () => {
             {parse(t('Description.description'))}
           </p>
 
-          <div className=" lg:hidden">
+          <div className=" flex justify-center items-center flex-col lg:hidden">
             <img
               src="description.png"
               alt="Description image"
