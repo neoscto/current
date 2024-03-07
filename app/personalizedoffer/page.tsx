@@ -315,7 +315,7 @@ const PersonalizedOffer = () => {
             </div>
           )}
           {showForm === 'yourOffer' && (
-            <div className="mt-10">
+            <div className="mt-8 md:mt-0">
               <YourOffer data={data} />
             </div>
           )}
