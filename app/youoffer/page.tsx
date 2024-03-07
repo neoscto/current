@@ -477,26 +477,18 @@ const YourOffer = ({ handleNext, data }: any) => {
               <div className=" ">
                 <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center ">
                   <div className="lg:w-full w-auto  flex flex-col items-center">
-                    <NeosButton
-                      category="colored"
-                      title={t('Your-offer.download-offer')}
-                      className="lg:w-full w-auto lg:p-[17px]"
-                      disabled={true}
-                      onClick={handleDownloadOffer}
-                    />
+                    <button className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase">
+                      {t('Your-offer.download-offer')}
+                    </button>
                     <p className="font-sm text-[#2D9CDB] mt-1 ">
                       {t('Coming Soon...')}
                     </p>
                   </div>
 
                   <div className="lg:w-full w-auto  flex flex-col items-center">
-                    <NeosButton
-                      category="colored"
-                      title={t('Your-offer.contract-btn-txt')}
-                      onClick={handleNext}
-                      className="lg:w-full w-auto lg:p-[17px] "
-                      disabled={true}
-                    />
+                    <button className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase">
+                      {t('Your-offer.contract-btn-txt')}
+                    </button>
                     <p className="font-sm text-[#2D9CDB] mt-1 ">
                       {t('Coming Soon...')}
                     </p>
