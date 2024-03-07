@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { CompareOfferList, HowItWorksList } from '@/utils/StaticData';
+
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { useTranslation } from 'react-i18next';
@@ -22,12 +22,12 @@ import {
   Label,
   CartesianAxis
 } from 'recharts';
-import VideoPreview from '../videoPlayer/preview';
 import Rating from '@mui/material/Rating';
 import html2Canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { usePDF } from 'react-to-pdf';
 import { sendOffer } from '@/lib/api';
+import parse from 'html-react-parser';
 
 const CustomTooltip = ({
   active,
@@ -343,28 +343,28 @@ const YourOffer = ({ handleNext, data }: any) => {
                 </div>
 
                 {/* Plan Buttons */}
-                <div className="flex lg:gap-4 lg:justify-normal justify-center md:flex-row flex-col gap-3">
-                  <NeosButton
-                    category="outline"
-                    className={`!text-black py-[14px] lg:px-[24px] !outline-[2px] !outline ${
+                <div className=" lg:w-full w-auto font-medium flex lg:gap-4 lg:justify-normal justify-center md:flex-row flex-col gap-3">
+                  <button
+                    className={` w-full  outline outline-2 rounded-2xl  p-4 ${
                       userPlan == 'neos'
-                        ? '!outline-[#66BCDA]'
-                        : '!outline-[#E0E0E0]'
-                    } !font-medium text-[16px] !leading-5 !normal-case px-[53px] whitespace-pre md:whitespace-normal`}
-                    title={t('offer.buyPanelProviderNeos')}
+                        ? 'outline-[#66BCDA]'
+                        : 'outline-[#E0E0E0]'
+                    }`}
                     onClick={updateUserPlanSelection('neos')}
-                  />
+                  >
+                    {parse(t('offer.buyPanelProviderNeos'))}
+                  </button>
 
-                  <NeosButton
-                    category="outline"
-                    className={`!text-black py-[14px] lg:px-[24px] !outline-[2px] !outline ${
+                  <button
+                    className={` w-full font-medium  outline outline-2 rounded-2xl  p-4 ${
                       userPlan == 'current'
-                        ? '!outline-[#66BCDA]'
-                        : '!outline-[#E0E0E0]'
-                    } !font-medium text-[16px] !leading-5 !normal-case px-[53px] whitespace-pre md:whitespace-normal`}
-                    title={t('offer.buyPanelProviderCurrent')}
+                        ? 'outline-[#66BCDA]'
+                        : 'outline-[#E0E0E0]'
+                    }`}
                     onClick={updateUserPlanSelection('current')}
-                  />
+                  >
+                    {parse(t('offer.buyPanelProviderNeos'))}
+                  </button>
                 </div>
               </div>
 
@@ -477,7 +477,10 @@ const YourOffer = ({ handleNext, data }: any) => {
               <div className=" ">
                 <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center ">
                   <div className="lg:w-full w-auto  flex flex-col items-center">
-                    <button className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase">
+                    <button
+                      className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
+                      disabled
+                    >
                       {t('Your-offer.download-offer')}
                     </button>
                     <p className="font-sm text-[#2D9CDB] mt-1 ">
@@ -486,7 +489,10 @@ const YourOffer = ({ handleNext, data }: any) => {
                   </div>
 
                   <div className="lg:w-full w-auto  flex flex-col items-center">
-                    <button className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase">
+                    <button
+                      className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
+                      disabled
+                    >
                       {t('Your-offer.contract-btn-txt')}
                     </button>
                     <p className="font-sm text-[#2D9CDB] mt-1 ">

@@ -114,8 +114,8 @@
       }
     },
     "selectPlan": "Elige Tu Plan",
-    "buyPanelProviderNeos": "Instalación Neos\ny Suministro Neos",
-    "buyPanelProviderCurrent": "Instalación Neos\ny Suministro Actual"
+    "buyPanelProviderNeos": "Instalación Neos<br>y Suministro Neos",
+    "buyPanelProviderCurrent": "Instalación Neos<br>y Suministro Actual"
   },
   "How-it-work": {
     "title": "¿Cómo funciona?",

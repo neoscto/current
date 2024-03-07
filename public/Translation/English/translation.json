@@ -114,8 +114,8 @@
       }
     },
     "selectPlan": "Select Your Plan",
-    "buyPanelProviderNeos": "Neos Installation\n& Neos Provider",
-    "buyPanelProviderCurrent": "Neos Installation\n& Current Provider"
+    "buyPanelProviderNeos": "Neos Installation<br>& Neos Provider",
+    "buyPanelProviderCurrent": "Neos Installation<br>& Current Provider"
   },
   "How-it-work": {
     "title": "How it works?",
