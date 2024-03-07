@@ -796,49 +796,49 @@ const YourOffer = ({ handleNext, data }: any) => {
         {/* Customer review ends */}
 
         {/* Chart Starts here */}
-        <div className="flex justify-center flex-col  h-auto border mt-8 border-[#E0E0E0] !rounded-3xl px-4 pt-6 pb-4">
+        <div className="flex justify-center flex-col h-auto border mt-8 border-[#E0E0E0] !rounded-3xl p-4">
           {/*  chart header */}
-          <div className="flex justify-between lg:gap-0 lg:mb-[40px] md:flex-row flex-col gap-[14px] mb-2.5">
-            <div className=" lg:max-w-lg max-w-sm  flex  flex-wrap lg:gap-[29px] gap-1.5 lg:items-center md:flex-row flex-col items-center ">
+          <div className="flex justify-between items-center  md:flex-row flex-col my-3 gap-4 px-4">
+            <div className="  flex justify-center gap-2 flex-col items-center md:items-start ">
               <div className="text-lg  font-semibold text-black text-left">
                 {t('panel-charge.payback')}
               </div>
 
               <div className="flex gap-2">
-                <NeosButton
-                  category="outline"
-                  className={`lg:px-3 lg:py-4 px-[14px] py-2 lg:text-sm text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] !border-2 ${
+                <button
+                  className={` p-4 border-2 rounded-3xl text-xs md:text-sm font-medium ${
                     userPlanBar == 'neos'
-                      ? '!border-[#66BCDA]'
-                      : '!border-[#E0E0E0]'
-                  } !normal-case h-12`}
-                  title={t('How-it-work.chooseNeosPartner')}
+                      ? 'border-[#66BCDA]'
+                      : 'border-[#E0E0E0]'
+                  }`}
                   onClick={updateUserPlanBarSelection('neos')}
-                />
-                <NeosButton
-                  category="outline"
-                  className={` lg:px-3 lg:py-4 px-[14px] py-2 lg:text-sm text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] border-2 ${
-                    userPlanBar == 'current'
-                      ? '!border-[#66BCDA]'
-                      : '!border-[#E0E0E0]'
-                  } !normal-case h-12
-                  `}
-                  title={t('How-it-work.keepProvider')}
+                >
+                  {parse(t('How-it-work.chooseNeosPartner'))}
+                </button>
+
+                <button
+                  className={` p-4 border-2 rounded-3xl text-xs md:text-sm font-medium ${
+                    userPlanBar == 'neos'
+                      ? 'border-[#66BCDA]'
+                      : 'border-[#E0E0E0]'
+                  }`}
                   onClick={updateUserPlanBarSelection('current')}
-                />
+                >
+                  {parse(t('How-it-work.keepProvider'))}
+                </button>
               </div>
             </div>
 
             <div className="  flex md:flex-col lg:justify-end flex-row gap-[10px] justify-start ">
               <div className="flex items-center gap-2.5 ">
                 <span className="bg-[#436DC6]  w-[20px] h-[10px]"></span>
-                <span className="lg:text-sm md:text-xs text-[8px] !font-medium text-[#4F4F4F]">
+                <span className=" text-3xs md:text-sm !font-medium text-[#4F4F4F]">
                   {t('chart.savingWithNeos')}
                 </span>
               </div>
               <div className="flex items-center gap-2.5  lg:w-auto">
                 <span className="bg-[#EB5757]  w-[20px] h-[10px]"></span>
-                <span className="lg:text-sm md:text-xs text-[8px] !font-medium text-[#4F4F4F]">
+                <span className=" text-3xs md:text-sm !font-medium text-[#4F4F4F]">
                   {t('chart.installationCost')}
                 </span>
               </div>
