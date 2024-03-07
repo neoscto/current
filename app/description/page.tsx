@@ -36,7 +36,9 @@ const Description = () => {
               style={{
                 backgroundColor: '#FD7C7C',
                 borderRadius: '16px',
-                height: '56px'
+                height: '56px',
+                width: '240px',
+                fontSize: '14px'
               }}
               classNames={{}}
               onClick={() => router.push('/getoffer')}
@@ -46,7 +48,7 @@ const Description = () => {
           </div>
 
           <div className="flex flex-col justify-center items-center mt-4">
-            <h1 className=" text-xl font-bold mb-4">
+            <h1 className=" text-2xl font-bold mb-4">
               {t('Description.benefits')}
             </h1>
             <div className=" grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-3">
@@ -78,11 +80,13 @@ const Description = () => {
           <div className=" ">
             <Button
               variant="filled"
-              size="lg"
+              size="md"
               style={{
                 backgroundColor: '#FD7C7C',
                 borderRadius: '16px',
-                height: '56px'
+                height: '56px',
+                width: '240px',
+                fontSize: '14px'
               }}
               className=""
               onClick={() => router.push('/getoffer')}
