@@ -130,11 +130,18 @@ const PersonalizedOffer = () => {
   const [serverError, setServerError] = useState('');
 
   const handleyourSaving = async () => {
+    await formik.setFieldValue('offerType', 'Personalized');
+
+    const response = await formik.validateForm();
+
+    if (Object.keys(response).length > 0) {
+      return;
+    }
     setLoading(true);
-    formik.setFieldValue('offerType', 'Personalised');
+
     try {
       const newData = await calculateSolarPaybackPeriod(
-        'Personalised',
+        'Personalized',
         formik.values.numberOfPeople,
         formik.values.cups
       );
@@ -194,6 +201,7 @@ const PersonalizedOffer = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
+    formik.setFieldValue('offerType', 'Personalized');
     dispath(setUserData(formik.values));
   }, [formik.values]);
 

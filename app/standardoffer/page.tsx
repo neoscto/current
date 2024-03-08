@@ -115,8 +115,14 @@ const StandardOffer = () => {
   const [serverError, setServerError] = useState('');
 
   const handleyourSaving = async () => {
+    const response = await formik.validateForm();
+
+    if (Object.keys(response).length > 0) {
+      return;
+    }
     setLoading(true);
     formik.setFieldValue('offerType', 'Standard');
+
     try {
       const newData = await calculateSolarPaybackPeriod(
         'Standard',

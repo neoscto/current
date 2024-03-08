@@ -14,10 +14,14 @@ export const offerStep1Schema = yup.object().shape({
     .email('offer.validation.email.valid')
     .required('offer.validation.email.required'),
   // phoneNumber: yup.string().required('offer.validation.phoneNumber.required'),
-  cups: yup.string().when('offerType', {
-    is: (v: string) => v === 'Personalized',
-    then: (schema) => schema.required('offer.validation.cups.required')
-  }),
+  cups: yup
+    .string()
+    .min(1, 'offer.validation.cups.required')
+    .when('offerType', {
+      is: (v: string) => v === 'Personalized', // careful with spelling as I found there some place where it was written Personalised
+      then: (schema) => schema.required('offer.validation.cups.required')
+    }),
+
   numberOfPeople: yup.number().when('offerType', {
     is: (v: string) => v === 'Standard',
     then: (schema) =>
