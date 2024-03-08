@@ -133,6 +133,11 @@ const PersonalizedOffer = () => {
   const handleyourSaving = async () => {
     formik.setFieldValue('offerType', 'Personalized');
 
+    if (validateCUPS(formik.values.cups) !== true) {
+      formik.setFieldError('cups', validateCUPS(formik.values.cups));
+      return;
+    }
+
     const response = await formik.validateForm();
 
     if (Object.keys(response).length > 0) {
@@ -245,9 +250,7 @@ const PersonalizedOffer = () => {
                     <p className="font-sm text-[#2D9CDB] mt-1">
                       <p className="font-sm text-[#2D9CDB] mt-1">
                         {formik.values.cups
-                          ? validateCUPS(formik.values.cups) === true
-                            ? t(`${serverError}`)
-                            : t(`${validateCUPS(formik.values.cups)}`)
+                          ? null
                           : t('Get-offer-form.field-desc')}
                       </p>
                     </p>
