@@ -107,9 +107,17 @@ const YourOffer = ({ handleNext, data }: any) => {
     window.addEventListener('resize', handleResize);
   });
 
+  const isBrowser = () => typeof window !== 'undefined'; //The approach recommended by Next.js
+
+  function scrollToTop() {
+    if (!isBrowser()) return;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   useEffect(() => {
     const offerData: any = getDataFromSessionStorage('UserOffer');
     setUserPlan(offerData?.plan ? offerData?.plan : 'neos');
+    scrollToTop();
   }, []);
 
   useCalendlyEventListener({

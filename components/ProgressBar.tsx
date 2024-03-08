@@ -38,10 +38,10 @@ const ProgressBar = ({
   };
   return (
     <div className=" flex flex-row items-center justify-center">
-      <span onClick={() => handleFormBack()} className="  ml-1 sm:ml-4">
+      <span onClick={() => handleFormBack()} className="  ml-2 sm:mx-4">
         <ArrowBackIcon className=" cursor-pointer sm:text-3xl text-2xl" />
       </span>
-      <div className="max-w-[630px] w-full mx-auto p-4 sm:py-8">
+      <div className="max-w-[630px] w-full mx-auto py-4 sm:py-8">
         <Stepper activeStep={Number(activeStep)}>
           {steps.map((label, index) => {
             const stepProps: { completed?: boolean } = {};
@@ -95,7 +95,7 @@ const ProgressBar = ({
               >
                 <StepLabel
                   {...labelProps}
-                  className="w-12 pl-2 sm:w-24 md:w-auto flex item"
+                  className="w-12  sm:w-24 md:w-auto flex item"
                 >
                   {t(label)}
                 </StepLabel>

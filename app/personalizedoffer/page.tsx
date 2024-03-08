@@ -128,13 +128,26 @@ const PersonalizedOffer = () => {
   const [buttonLoading, setLoading] = useState<boolean>(false);
 
   const [serverError, setServerError] = useState('');
+  const [phoneNumberError, setPhoneNumberError] = useState<string>('');
 
   const handleyourSaving = async () => {
+    formik.setFieldValue('offerType', 'Personalized');
+
+    const response = await formik.validateForm();
+
+    if (Object.keys(response).length > 0) {
+      if (response.phoneNumber) {
+        setPhoneNumberError(response.phoneNumber);
+      }
+      return;
+    }
+    setPhoneNumberError('');
+
     setLoading(true);
-    formik.setFieldValue('offerType', 'Personalised');
+
     try {
       const newData = await calculateSolarPaybackPeriod(
-        'Personalised',
+        'Personalized',
         formik.values.numberOfPeople,
         formik.values.cups
       );
@@ -194,6 +207,7 @@ const PersonalizedOffer = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
+    formik.setFieldValue('offerType', 'Personalized');
     dispath(setUserData(formik.values));
   }, [formik.values]);
 
@@ -296,7 +310,7 @@ const PersonalizedOffer = () => {
                         ? isValidPhoneNumber(formik.values.phoneNumber)
                           ? undefined
                           : t('Invalid phone number')
-                        : null}
+                        : t(`${phoneNumberError}`)}
                     </p>
                   </Grid>
                 </Grid>
