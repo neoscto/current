@@ -273,6 +273,7 @@ export const calculateSolarPaybackPeriod = async (
       SERVICE_FEE_PER_MONTH * MONTHS_IN_YEAR * YEARS_IN_CONTRACT;
   } else if (user_cups_code) {
     const cups_codes: string[] = user_cups_code
+      .toUpperCase()
       .replace(/\s/g, '')
       .split(',')
       .map((cup) => cup.trim());

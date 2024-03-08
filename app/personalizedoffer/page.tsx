@@ -32,7 +32,7 @@ import useDocusignService from '@/hooks/useDocusign';
 import ProgressBar from '@/components/ProgressBar';
 
 const validateCUPS = (cups: string): boolean | string => {
-  const cupsArray = cups.replace(/\s/g, '').split(',');
+  const cupsArray = cups.toUpperCase().replace(/\s/g, '').split(',');
 
   for (const cup of cupsArray) {
     if (!cup.startsWith('ES')) {

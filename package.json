@@ -34,6 +34,7 @@
     "mongoose": "^8.0.3",
     "next": "14.0.4",
     "nodemailer": "^6.9.10",
+    "puppeteer": "^22.4.1",
     "react-calendly": "^4.3.0",
     "react-dom": "^18",
     "react-i18next": "^14.0.0",
