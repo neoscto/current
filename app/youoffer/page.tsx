@@ -67,7 +67,7 @@ const TolstoyEmbed = () => {
     >
       <iframe
         id="tolstoy"
-        src="https://player.gotolstoy.com/k71mlzqzwrqzo?host"
+        src="https://player.gotolstoy.com/fhxu96gim1qek?host"
         style={{ width: '100%', height: '405px', maxWidth: '400px' }}
         scrolling="no"
         frameBorder="0"
@@ -354,8 +354,8 @@ const YourOffer = ({ handleNext, data }: any) => {
                 <div className=" lg:w-full w-auto font-medium flex lg:gap-4 lg:justify-normal justify-center md:flex-row flex-col gap-3">
                   <button
                     className={` w-full  outline outline-2 rounded-2xl  p-4 ${userPlan == 'neos'
-                        ? 'outline-[#66BCDA]'
-                        : 'outline-[#E0E0E0]'
+                      ? 'outline-[#66BCDA]'
+                      : 'outline-[#E0E0E0]'
                       }`}
                     onClick={updateUserPlanSelection('neos')}
                   >
@@ -364,8 +364,8 @@ const YourOffer = ({ handleNext, data }: any) => {
 
                   <button
                     className={` w-full font-medium  outline outline-2 rounded-2xl  p-4 ${userPlan == 'current'
-                        ? 'outline-[#66BCDA]'
-                        : 'outline-[#E0E0E0]'
+                      ? 'outline-[#66BCDA]'
+                      : 'outline-[#E0E0E0]'
                       }`}
                     onClick={updateUserPlanSelection('current')}
                   >
@@ -522,12 +522,12 @@ const YourOffer = ({ handleNext, data }: any) => {
                       <div
                         key={index}
                         className={`w-full h-24 px-4 whitespace-pre border text-[#4F4F4F] text-[14px] leading-[17.64px] font-semibold border-b-0 flex items-center ${index === 0
-                            ? 'rounded-tl-3xl px-3 border-[#0F9DD0] bg-[#E8F5FA] max-w-[180px] min-w-[180px]'
-                            : index === 1
-                              ? 'max-w-[138px] min-w-[138px]'
-                              : index === 3
-                                ? ' border-[#E0E0E0] rounded-tr-3xl max-w-[108px] min-w-[108px]'
-                                : 'border-[#E0E0E0] max-w-[156px] min-w-[156px]'
+                          ? 'rounded-tl-3xl px-3 border-[#0F9DD0] bg-[#E8F5FA] max-w-[180px] min-w-[180px]'
+                          : index === 1
+                            ? 'max-w-[138px] min-w-[138px]'
+                            : index === 3
+                              ? ' border-[#E0E0E0] rounded-tr-3xl max-w-[108px] min-w-[108px]'
+                              : 'border-[#E0E0E0] max-w-[156px] min-w-[156px]'
                           } flex items-center justify-center gap-1 text-center`}
                       >
                         {index === 0 && (
@@ -551,8 +551,8 @@ const YourOffer = ({ handleNext, data }: any) => {
                       <div className="flex w-full" key={index}>
                         <div
                           className={`w-[225px] h-16 pl-[20px]  border border-[#E0E0E0] border-r-0 border-b-0 text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium ${index === panelChargeDetails.length - 1
-                              ? 'rounded-bl-3xl border-b-[1px]'
-                              : ''
+                            ? 'rounded-bl-3xl border-b-[1px]'
+                            : ''
                             } flex items-center`}
                         >
                           {t(`panel-charge.${charge.title}`)}
@@ -560,24 +560,24 @@ const YourOffer = ({ handleNext, data }: any) => {
                         <div className="flex max-w-[calc(100%_-_225px)] w-full">
                           <div
                             className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#0F9DD0] bg-[#E8F5FA] border-b-0 max-w-[180px] min-w-[180px] w-full ${index === panelChargeDetails.length - 1
-                                ? 'border-b-[1px]'
-                                : ''
+                              ? 'border-b-[1px]'
+                              : ''
                               }`}
                           >
                             {data.tableData[index].neosPanelProvider || '-'}
                           </div>
                           <div
                             className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[138px] w-full ${index === panelChargeDetails.length - 1
-                                ? 'border-b-[1px]'
-                                : ''
+                              ? 'border-b-[1px]'
+                              : ''
                               }`}
                           >
                             {data.tableData[index].neosPanelKeepProvider || '-'}
                           </div>
                           <div
                             className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[156px] w-full ${index === panelChargeDetails.length - 1
-                                ? 'border-b-[1px]'
-                                : ''
+                              ? 'border-b-[1px]'
+                              : ''
                               }`}
                           >
                             {data.tableData[index].rooftopPanelKeepProvider ||
@@ -585,8 +585,8 @@ const YourOffer = ({ handleNext, data }: any) => {
                           </div>
                           <div
                             className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-b-0 max-w-[108px] w-full ${index === panelChargeDetails.length - 1
-                                ? 'rounded-br-3xl border-b-[1px]'
-                                : ''
+                              ? 'rounded-br-3xl border-b-[1px]'
+                              : ''
                               }`}
                           >
                             {data.tableData[index].keepProvider || '-'}
@@ -807,8 +807,8 @@ const YourOffer = ({ handleNext, data }: any) => {
               <div className="flex gap-2">
                 <button
                   className={` p-4 border-2 rounded-3xl text-xs md:text-sm font-medium ${userPlanBar === 'neos'
-                      ? 'border-[#66BCDA]'
-                      : 'border-[#E0E0E0]'
+                    ? 'border-[#66BCDA]'
+                    : 'border-[#E0E0E0]'
                     }`}
                   onClick={updateUserPlanBarSelection('neos')}
                 >
@@ -817,8 +817,8 @@ const YourOffer = ({ handleNext, data }: any) => {
 
                 <button
                   className={` p-4 border-2 rounded-3xl text-xs md:text-sm font-medium ${userPlanBar === 'current'
-                      ? 'border-[#66BCDA]'
-                      : 'border-[#E0E0E0]'
+                    ? 'border-[#66BCDA]'
+                    : 'border-[#E0E0E0]'
                     }`}
                   onClick={updateUserPlanBarSelection('current')}
                 >
