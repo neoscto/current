@@ -69,7 +69,7 @@ class UsersOffersSchema {
   @prop({ required: true })
   lastName: string;
 
-  @prop({ required: false })
+  @prop({ required: true })
   phoneNumber: string;
 
   @prop({ required: true })

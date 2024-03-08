@@ -44,6 +44,8 @@ const StandardOffer = () => {
   const searchParams = useSearchParams();
   const activeStep = searchParams.get('activeStep') || 0;
 
+  const [phoneNumberError, setPhoneNumberError] = useState<string>('');
+
   const formikInitialValues = {
     offerType: '',
     numberOfPeople: '',
@@ -115,13 +117,17 @@ const StandardOffer = () => {
   const [serverError, setServerError] = useState('');
 
   const handleyourSaving = async () => {
+    formik.setFieldValue('offerType', 'Standard');
     const response = await formik.validateForm();
-
+    console.log(response);
     if (Object.keys(response).length > 0) {
+      if (response.phoneNumber) {
+        setPhoneNumberError(response.phoneNumber);
+      }
       return;
     }
+    setPhoneNumberError('');
     setLoading(true);
-    formik.setFieldValue('offerType', 'Standard');
 
     try {
       const newData = await calculateSolarPaybackPeriod(
@@ -184,6 +190,7 @@ const StandardOffer = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
+    formik.setFieldValue('offerType', 'Standard');
     dispath(setUserData(formik.values));
   }, [formik.values]);
 
@@ -277,7 +284,7 @@ const StandardOffer = () => {
                         ? isValidPhoneNumber(formik.values.phoneNumber)
                           ? undefined
                           : t('Invalid phone number')
-                        : null}
+                        : t(`${phoneNumberError}`)}
                     </p>
                   </Grid>
                 </Grid>
