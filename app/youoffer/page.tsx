@@ -807,7 +807,7 @@ const YourOffer = ({ handleNext, data }: any) => {
               <div className="flex gap-2">
                 <button
                   className={` p-4 border-2 rounded-3xl text-xs md:text-sm font-medium ${
-                    userPlanBar == 'neos'
+                    userPlanBar === 'neos'
                       ? 'border-[#66BCDA]'
                       : 'border-[#E0E0E0]'
                   }`}
@@ -818,7 +818,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
                 <button
                   className={` p-4 border-2 rounded-3xl text-xs md:text-sm font-medium ${
-                    userPlanBar == 'neos'
+                    userPlanBar === 'current'
                       ? 'border-[#66BCDA]'
                       : 'border-[#E0E0E0]'
                   }`}
