@@ -1,9 +1,11 @@
-import NeosButton from "@/components/NeosButton";
-import { useTranslation } from "react-i18next";
-import { setFormBack } from "@/features/common/commonSlice";
-import { useDispatch } from "react-redux";
-import PersonalizedOffer from "./../../public/PersonalizedOffer.png";
-import Image from "next/image";
+import NeosButton from '@/components/NeosButton';
+import { useTranslation } from 'react-i18next';
+import { setFormBack } from '@/features/common/commonSlice';
+import { useDispatch } from 'react-redux';
+import PersonalizedOffer from './../../public/PersonalizedOffer.png';
+import Image from 'next/image';
+import { Button } from '@mantine/core';
+import { useState } from 'react';
 
 interface OfferCardProps {
   Data: {
@@ -18,12 +20,16 @@ interface OfferCardProps {
 const OfferCard = ({ Data, setShowForm }: OfferCardProps) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState<boolean>(false);
+
   return (
     <div
-      className={`border border-[#E0E0E0] rounded-2xl px-6 text-center py-7  ${Data?.is_premium
-        ? "bg-[#E7F5FA] border-[#E7F5FA]"
-        : "border-[#E0E0E0] bg-white"
-        }`}
+      className={`border border-[#E0E0E0] rounded-2xl px-6 text-center py-7  ${
+        Data?.is_premium
+          ? 'bg-[#E7F5FA] border-[#E7F5FA]'
+          : 'border-[#E0E0E0] bg-white'
+      }`}
     >
       <h3 className="text-lg font-semibold flex justify-center items-center  h-[30px] gap-2">
         {Data?.is_premium && (
@@ -42,19 +48,26 @@ const OfferCard = ({ Data, setShowForm }: OfferCardProps) => {
           </p>
         );
       })}
-      <NeosButton
-        sx={{
-          width: "134px!important",
-          marginTop: "1.5rem",
-          minWidth: "fit-content",
+      <Button
+        variant="filled"
+        size="lg"
+        style={{
+          backgroundColor: '#FD7C7C',
+          borderRadius: '16px',
+          height: '56px',
+          fontSize: '14px'
         }}
-        category="colored"
-        title={t("Get-offer.btn")}
+        classNames={{}}
+        loading={loading}
         onClick={() => {
-          setShowForm(Data?.is_premium ? "poffer" : "soffer");
-          dispatch(setFormBack(Data?.is_premium ? "backpoffer" : "backsoffer"));
+          setLoading(true);
+          setShowForm(Data?.is_premium ? 'poffer' : 'soffer');
+          dispatch(setFormBack(Data?.is_premium ? 'backpoffer' : 'backsoffer'));
+          setLoading(false);
         }}
-      />
+      >
+        {t('Get-offer.btn')}
+      </Button>
     </div>
   );
 };
