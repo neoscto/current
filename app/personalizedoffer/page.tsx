@@ -299,7 +299,7 @@ const PersonalizedOffer = () => {
                       international
                       value={formik.values.phoneNumber}
                       countryCallingCodeEditable={false}
-                      defaultCountry="GB"
+                      defaultCountry="ES"
                       onCountryChange={(country: Country) => {
                         const dialCode = getCountryCallingCode(country);
                         formik.setFieldValue('dialCode', dialCode);
