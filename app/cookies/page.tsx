@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import MainContainer from '@/components/sharedComponents/MainContainer';
 import { Box, Typography } from '@mui/material';

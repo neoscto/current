@@ -183,7 +183,7 @@ const StandardOffer = () => {
     setShowForm('yourOffer');
     const arrayData = Object.keys(res.data);
     arrayData.forEach((key: any) => {
-      formik.setFieldValue(key, res.data[key]);
+      formik.setFieldValue(key, res.data[key] || '');
     });
   }
 

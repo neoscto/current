@@ -70,7 +70,6 @@ const Navbar = () => {
                 alt="Neos logo"
                 width={20}
                 className="mr-2 "
-                objectFit="contain"
               />
               {item.name}
             </MenuItem>
