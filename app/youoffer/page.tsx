@@ -353,10 +353,10 @@ const YourOffer = ({ handleNext, data }: any) => {
                 {/* Plan Buttons */}
                 <div className=" lg:w-full w-auto font-medium flex lg:gap-4 lg:justify-normal justify-center md:flex-row flex-col gap-3">
                   <button
-                    className={` w-full  outline outline-2 rounded-2xl  p-4 ${
+                    className={` w-full  border-2 rounded-2xl  p-4 ${
                       userPlan == 'neos'
-                        ? 'outline-[#66BCDA]'
-                        : 'outline-[#E0E0E0]'
+                        ? 'border-[#66BCDA]'
+                        : 'border-[#E0E0E0]'
                     }`}
                     onClick={updateUserPlanSelection('neos')}
                   >
@@ -364,10 +364,10 @@ const YourOffer = ({ handleNext, data }: any) => {
                   </button>
 
                   <button
-                    className={` w-full font-medium  outline outline-2 rounded-2xl  p-4 ${
+                    className={` w-full font-medium  border-2 rounded-2xl  p-4 ${
                       userPlan == 'current'
-                        ? 'outline-[#66BCDA]'
-                        : 'outline-[#E0E0E0]'
+                        ? 'border-[#66BCDA]'
+                        : 'border-[#E0E0E0]'
                     }`}
                     onClick={updateUserPlanSelection('current')}
                   >
