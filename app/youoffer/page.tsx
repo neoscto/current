@@ -363,7 +363,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                     }`}
                     onClick={updateUserPlanSelection('current')}
                   >
-                    {parse(t('offer.buyPanelProviderNeos'))}
+                    {parse(t('offer.buyPanelProviderCurrent'))}
                   </button>
                 </div>
               </div>
