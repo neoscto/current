@@ -106,7 +106,7 @@ const Footer = () => {
             </Link>
 
             <Link
-              href="/terms-of-use"
+              href="/terms-and-conditions"
               className="text-base text-white font-medium"
             >
               {t('Footer.terms')}

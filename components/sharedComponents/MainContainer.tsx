@@ -17,7 +17,7 @@ const notRestrictedPages = [
   '/getoffer',
   '/faq',
   '/privacy-policy',
-  '/terms-of-use',
+  '/terms-and-conditions',
   '/cookies',
   '/standardoffer',
   '/personalizedoffer'
