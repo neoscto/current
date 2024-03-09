@@ -1,4 +1,4 @@
-export const termOfUseData = [
+export const termsAndConditionsData = [
   {
     subtitle0: 'INTRODUCTION'
   },

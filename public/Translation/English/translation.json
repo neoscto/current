@@ -193,7 +193,7 @@
     "license": "Licensed by",
     "policy": "Privacy Policy",
     "terms": "Terms and Conditions",
-    "cookies": "Cookies Policy"
+    "cookies": "Cookies"
   },
   "Email-failed": {
     "title": "email failed",
@@ -293,7 +293,7 @@
   "Savings": "Savings",
   "Years": "Years",
   "Phone number is required": "Phone number is required",
-  "termOfUse": {
+  "termsAndConditions": {
     "title": "TERMS AND CONDITIONS",
     "subtitle0": "INTRODUCTION",
     "content0": "The purpose of this document is to establish the conditions of use of the present website, as well as the conditions of purchase of products through the website by the users.<br> Please read these Terms and Conditions and the Privacy Policy before using the site. By using this website or placing an order through it, the user accepts our Term and Conditions and Privacy Policy.<br> If you do not agree, you should not use the website.",

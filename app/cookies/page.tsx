@@ -10,7 +10,7 @@ const cookies = () => {
         <div className="rounded-[30px] bg-[#01092299] max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white">
           <div className="w-[94%] mx-auto py-6 md:py-9 lg:py-9">
             <Typography variant="h4" className="text-center" gutterBottom>
-              Cookies
+              COOKIES
             </Typography>
             <div
               className="scroll-bar"
