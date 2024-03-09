@@ -55,7 +55,7 @@
     "city": "Ciudad",
     "field-label1": "Número de personas que viven en la casa",
     "field-label2": "CUPS",
-    "field-desc": "Puedes encontrar tu número de CUPS en cualquiera de tus facturas de electricidad",
+    "field-desc": "Puedes encontrar tu CUPS (Código Universal de Punto de Suministro) en tu factura de electricidad",
     "form-t&c": "Al marcar, confirma que ha leído, comprendido y aceptado las",
     "form-t&c-txt": "Términos y Condiciones",
     "view-contract-txt": "VER CONTRATO"
@@ -277,7 +277,7 @@
   "You made a mistake in your CUPS, please enter a valid CUPS": "Ha cometido un error en su CUPS, por favor introduzca un CUPS válido",
   "You made a mistake in at least one of your CUPS, please enter valid CUPS": "Ha cometido un error en al menos uno de sus CUPS, por favor introduzca un CUPS válido",
   "You’ve entered more than one CUPS, please separate your CUPS with commas": "Ha introducido más de un CUPS, por favor separe sus CUPS con comas",
-  "Trusted by": "Con la confianza de",
+  "Backed by": "Respaldado por",
   "Please try one more time?": "¿Por favor, inténtalo una vez más?",
   "Access the most affordable solar energy, easily, without any rooftop or in-home installations. Our large-scale solar farms deliver electricity directly to your home or business through the existing electricity grid, immediately providing you with solar power in a cheaper manner than rooftop installations.": "Acceda fácilmente a la energía solar más asequible, sin necesidad de instalaciones en tejados o viviendas. Nuestras huertas solares a gran escala suministran electricidad directamente a tu casa o negocio a través de la red eléctrica existente, proporcionándote inmediatamente energía solar de forma más barata que las instalaciones en tejados.",
   "I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.": "¡Me encanta Neos! Gracias a ellos, mis facturas de electricidad se acercan a ¡0,00 € mes tras mes! Vivo en un piso, así que sin ellos nunca habría podido acceder a los paneles solares.",

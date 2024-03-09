@@ -55,7 +55,7 @@
     "city": "City",
     "field-label1": "Number of people living in house",
     "field-label2": "CUPS",
-    "field-desc": "You can find your CUPS number in any of your electricity bills",
+    "field-desc": "You can find your CUPS (Universal Supply Point Code) in your electricity bill",
     "form-t&c": "By ticking, you are confirming that you have read, understood and agreed to the",
     "form-t&c-txt": "Terms and Conditions",
     "view-contract-txt": "VIEW CONTRACT"
@@ -277,7 +277,7 @@
   "You made a mistake in your CUPS, please enter a valid CUPS": "You made a mistake in your CUPS, please enter a valid CUPS",
   "You made a mistake in at least one of your CUPS, please enter valid CUPS": "You made a mistake in at least one of your CUPS, please enter valid CUPS",
   "You’ve entered more than one CUPS, please separate your CUPS with commas": "You’ve entered more than one CUPS, please separate your CUPS with commas",
-  "Trusted by": "Trusted by",
+  "Backed by": "Backed by",
   "Please try one more time?": "Please try one more time?",
   "Access the most affordable solar energy, easily, without any rooftop or in-home installations. Our large-scale solar farms deliver electricity directly to your home or business through the existing electricity grid, immediately providing you with solar power in a cheaper manner than rooftop installations.": "Access the most affordable solar energy, easily, without any rooftop or in-home installations. Our large-scale solar farms deliver electricity directly to your home or business through the existing electricity grid, immediately providing you with solar power in a cheaper manner than rooftop installations.",
   "I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.": "I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.",

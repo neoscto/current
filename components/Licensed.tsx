@@ -35,7 +35,7 @@ const Licensed = () => {
 
       <div className=" flex justify-center items-center h-8 md:h-11 lg:h-16 ">
         <p className="text-[8px] md:text-base text-white font-medium whitespace-nowrap text-center ">
-          {t('Trusted by')}
+          {t('Backed by')}
         </p>
       </div>
       <div className=" flex justify-center items-center">
