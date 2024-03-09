@@ -42,13 +42,13 @@ const Content = () => {
       {/* for mobile */}
       <div className="flex md:hidden flex-row gap-3 text-3xs sm:text-2xs md:text-sm lg:text-base">
         <button
-          className="bg-white text-black font-semibold py-3 px-1 md:px-4 rounded-xl w-full"
+          className="bg-white text-black font-semibold py-3 px-1 md:px-4 rounded-xl w-full text-center text-xs"
           onClick={() => router.push('/description')}
         >
           {t('Home.btn1txt')}
         </button>
         <button
-          className=" bg-transparent text-white font-semibold py-3 px-1 md:px-4 rounded-xl border-2 w-full"
+          className=" bg-transparent text-white font-semibold py-3 px-1 md:px-4 rounded-xl border-2 w-full text-center text-xs"
           onClick={() => router.push('/getoffer')}
         >
           {t('Home.btn2txt')}
