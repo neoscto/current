@@ -54,7 +54,7 @@ const StandardOffer = () => {
     lastName: '',
     emailAddress: '',
     phoneNumber: '',
-    dialCode: '44',
+    dialCode: '34',
     numberofpeopleAdditionValue: 1
   };
 

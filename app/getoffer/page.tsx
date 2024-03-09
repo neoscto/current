@@ -52,7 +52,7 @@ const HorizontalLinearStepper = () => {
     lastName: '',
     emailAddress: '',
     phoneNumber: '',
-    dialCode: '44',
+    dialCode: '34',
     numberofpeopleAdditionValue: 1
   };
   const [showForm, setShowForm] = useState<string>('allOffers');
@@ -79,7 +79,7 @@ const HorizontalLinearStepper = () => {
     window.addEventListener('message', (event) => {
       if (event.data === 'redirect_success_url') {
         window.location.href = '/getoffer?activeStep=2';
-        window.removeEventListener('message', (event) => {});
+        window.removeEventListener('message', (event) => { });
       }
     });
   }, [signingUrl]);
@@ -109,8 +109,8 @@ const HorizontalLinearStepper = () => {
 
     router.push(
       pathname +
-        '?' +
-        createQueryString('activeStep', (Number(activeStep) + 1).toString())
+      '?' +
+      createQueryString('activeStep', (Number(activeStep) + 1).toString())
     );
     setSkipped(newSkipped);
   };
@@ -127,7 +127,7 @@ const HorizontalLinearStepper = () => {
     lastName: '',
     emailAddress: '',
     phoneNumber: '',
-    dialCode: '44',
+    dialCode: '34',
     numberofpeopleAdditionValue: 1
   });
 
