@@ -15,14 +15,14 @@ const Licensed = () => {
         <img
           src="Footer/CNMC.png"
           alt="Neos logo"
-          className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full invert brightness-0"
+          className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full invert brightness-0 ml-2"
         />
       </div>
       <div className=" flex justify-center items-center">
         <img
           src="Footer/OMIE-removebg-preview.png"
           alt="Neos logo"
-          className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full  brightness-0 invert"
+          className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full  brightness-0 invert ml-2"
         />
       </div>
       <div className=" flex justify-center items-center">
@@ -42,14 +42,14 @@ const Licensed = () => {
         <img
           src="investor/investor3.png"
           alt="Neos logo"
-          className=" object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full invert brightness-0"
+          className=" object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full invert brightness-0 ml-2"
         />
       </div>
       <div className=" flex justify-center items-center">
         <img
           src="investor/investor1.png"
           alt="Neos logo"
-          className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full  brightness-0 invert"
+          className="object-contain max-w-[60px] md:max-w-[80px] lg:max-w-[120px] w-full  brightness-0 invert ml-2"
         />
       </div>
       <div className=" flex justify-center items-center">
