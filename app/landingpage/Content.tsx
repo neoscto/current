@@ -33,7 +33,7 @@ const Content = () => {
           {t('Home.btn1txt')}
         </button>
         <button
-          className=" bg-transparent text-white font-semibold py-3 px-1 md:px-4 rounded-xl border-2"
+          className=" bg-transparent text-white font-semibold py-3 px-1 md:px-4 rounded-xl border-2 border-white"
           onClick={() => router.push('/getoffer')}
         >
           {t('Home.btn2txt')}
@@ -48,7 +48,7 @@ const Content = () => {
           {t('Home.btn1txt')}
         </button>
         <button
-          className=" bg-transparent text-white font-semibold py-3 px-1 md:px-4 rounded-xl border-2 w-full text-center text-xs"
+          className=" bg-transparent text-white font-semibold py-3 px-1 md:px-4 rounded-xl border-2 border-white w-full text-center text-xs"
           onClick={() => router.push('/getoffer')}
         >
           {t('Home.btn2txt')}
