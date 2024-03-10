@@ -126,20 +126,14 @@ export async function POST(req: Request, res: NextApiResponse) {
       </ul>
       <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1.25rem; flex-direction: row;">
     <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-        <button style="background-color: #cccccc; color: #666666; padding: 16px; font-size: 1rem; font-weight: bold; border: 1px solid #999999; border-radius: 0.75rem; width: 100%; height: 100%; text-transform: uppercase;">
+        <button style="background-color: #FD7C7C; color: #ffffff; padding: 16px; font-size: 1rem; font-weight: bold;  border-radius: 0.75rem; width: 100%; height: 100%; text-transform: uppercase; border:0px;">
             descargar oferta
         </button>
-        <p style="font-size: 14px; color: #2D9CDB; margin-top: 4px;">
-            Próximamente...
-        </p>
     </div>
     <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
         <button style="background-color: #cccccc; color: #666666; padding: 16px; font-size: 1rem; font-weight: bold; border: 1px solid #999999; border-radius: 0.75rem; width: 100%; height: 100%; text-transform: uppercase;" disabled>
             gerar contrato
         </button>
-        <p style="font-size: 14px; color: #2D9CDB; margin-top: 4px;">
-            Próximamente...
-        </p>
     </div>
 </div>
 
