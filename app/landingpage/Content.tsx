@@ -27,13 +27,13 @@ const Content = () => {
       {/* for desktop */}
       <div className="hidden md:flex flex-row gap-3 text-xs md:text-sm lg:text-base">
         <button
-          className="bg-white text-black font-semibold py-3 px-1 md:px-4 rounded-xl"
+          className="hover:opacity-70 bg-white text-black font-semibold py-3 px-1 md:px-4 rounded-xl"
           onClick={() => router.push('/description')}
         >
           {t('Home.btn1txt')}
         </button>
         <button
-          className=" bg-transparent text-white font-semibold py-3 px-1 md:px-4 rounded-xl border-2 border-white"
+          className="hover:opacity-70 bg-transparent text-white font-semibold py-3 px-1 md:px-4 rounded-xl border-2 border-white"
           onClick={() => router.push('/getoffer')}
         >
           {t('Home.btn2txt')}
@@ -42,13 +42,13 @@ const Content = () => {
       {/* for mobile */}
       <div className="flex md:hidden flex-row gap-3 text-3xs sm:text-2xs md:text-sm lg:text-base">
         <button
-          className="bg-white text-black font-semibold py-3 px-1 md:px-4 rounded-xl w-full text-center text-xs"
+          className="hover:opacity-70 bg-white text-black font-semibold py-3 px-1 md:px-4 rounded-xl w-full text-center text-xs"
           onClick={() => router.push('/description')}
         >
           {t('Home.btn1txt')}
         </button>
         <button
-          className=" bg-transparent text-white font-semibold py-3 px-1 md:px-4 rounded-xl border-2 border-white w-full text-center text-xs"
+          className="hover:opacity-70 bg-transparent text-white font-semibold py-3 px-1 md:px-4 rounded-xl border-2 border-white w-full text-center text-xs"
           onClick={() => router.push('/getoffer')}
         >
           {t('Home.btn2txt')}
