@@ -28,7 +28,6 @@ import jsPDF from 'jspdf';
 import { usePDF } from 'react-to-pdf';
 import { sendOffer } from '@/lib/api';
 import parse from 'html-react-parser';
-import { Button } from '@mantine/core';
 
 const CustomTooltip = ({
   active,
@@ -230,11 +229,8 @@ const YourOffer = ({ handleNext, data }: any) => {
 
   const { toPDF, targetRef } = usePDF({ filename: 'offer.pdf' });
 
-  const [downloadLoading, setDownloadLoading] = useState(false);
-
   const handleDownloadOffer = async () => {
     try {
-      setDownloadLoading(true);
       const response = await fetch('api/download-offer', {
         method: 'POST',
         headers: {
@@ -253,17 +249,15 @@ const YourOffer = ({ handleNext, data }: any) => {
       // Create a link element and simulate a click to trigger the download
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'offer.pdf'; // Set the filename for the downloaded file
+      a.download = 'output.pdf'; // Set the filename for the downloaded file
       document.body.appendChild(a);
       a.click();
 
       // Clean up by revoking the blob URL
       window.URL.revokeObjectURL(url);
-      setDownloadLoading(false);
     } catch (error) {
       // Handle error
       console.error('Error:', error);
-      setDownloadLoading(false);
     }
   };
 
@@ -518,44 +512,28 @@ const YourOffer = ({ handleNext, data }: any) => {
               <div className=" ">
                 <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center ">
                   <div className="lg:w-full w-auto  flex flex-col items-center">
-                    <Button
-                      variant="filled"
-                      size="lg"
-                      style={{
-                        backgroundColor: '#FD7C7C',
-                        borderRadius: '16px',
-                        height: '56px',
-                        width: '240px',
-                        fontSize: '16px',
-                        textTransform: 'uppercase'
-                      }}
-                      classNames={{}}
-                      onClick={handleDownloadOffer}
-                      loading={downloadLoading}
+                    <button
+                      className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
+                      // onClick={handleDownloadOffer}
+                      disabled
                     >
                       {t('Your-offer.download-offer')}
-                    </Button>
+                    </button>
+                    <p className="font-sm text-[#2D9CDB] mt-1 ">
+                      {t('Coming Soon...')}
+                    </p>
                   </div>
 
                   <div className="lg:w-full w-auto  flex flex-col items-center">
-                    <Button
-                      variant="filled"
-                      size="lg"
-                      style={{
-                        backgroundColor: '#cccccc',
-                        color: '#666666',
-                        borderRadius: '16px',
-                        height: '56px',
-                        width: '240px',
-                        fontSize: '16px',
-                        textTransform: 'uppercase',
-                        border: '1px solid #999999'
-                      }}
-                      classNames={{}}
+                    <button
+                      className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
                       disabled
                     >
                       {t('Your-offer.contract-btn-txt')}
-                    </Button>
+                    </button>
+                    <p className="font-sm text-[#2D9CDB] mt-1 ">
+                      {t('Coming Soon...')}
+                    </p>
                   </div>
                 </div>
               </div>
