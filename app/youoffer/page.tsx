@@ -230,9 +230,6 @@ const YourOffer = ({ handleNext, data }: any) => {
   const { toPDF, targetRef } = usePDF({ filename: 'offer.pdf' });
 
   const handleDownloadOffer = async () => {
-    // toPDF();
-    // const response = await sendOffer({ email: userData.emailAddress });
-    // console.log(response);
     try {
       const response = await fetch('api/download-offer', {
         method: 'POST',
