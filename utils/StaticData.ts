@@ -12,13 +12,13 @@ export const GetOfferCardData: {
   feature: string[];
 }[] = [
     {
-      is_premium: false,
+      is_premium: true, // false
       title: "Standard Offer",
       desc: "85% accuracy based on your estimated consumption",
       feature: ["Instant calculation", "Answer one question", "Approximate offer"],
     },
     {
-      is_premium: true,
+      is_premium: false, // true
       title: "Personalized Offer",
       desc: "100% accuracy based on your actual consumption",
       feature: ["Instant calculation", "Answer one question", "Exact offer"],
