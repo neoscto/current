@@ -17,3 +17,18 @@ export const mailOptions = {
   from: email,
   to: email
 };
+
+// import sgMail from '@sendgrid/mail';
+
+// const email = process.env.EMAIL;
+// const sendGridApiKey = process.env.SENDGRID_API_KEY;
+
+// sgMail.setApiKey(sendGridApiKey);
+
+// export const msg = {
+//   to: email,
+//   from: email,
+//   subject: 'Subject Goes Here',
+//   text: 'Hello world',
+//   html: '<strong>Hello world</strong>',
+// };
