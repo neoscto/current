@@ -25,7 +25,7 @@ export type PreSaleUserDocument = Document & PreSaleUserSchemaType;
 @ModelOptions({
   schemaOptions: {
     timestamps: true,
-    collection: "usersOffers",
+    collection: "preSaleUsers",
   },
   options: {
     allowMixed: Severity.ALLOW,
