@@ -225,7 +225,7 @@ const PersonalizedOffer = () => {
         <Box sx={{ width: '100%' }}>
           <ProgressBar
             activeStep={activeStep}
-            initialForm="poffer"
+            initialForm="soffer" // poffer
             setShowForm={setShowForm}
             showForm={showForm}
           />

@@ -176,7 +176,7 @@ const HorizontalLinearStepper = () => {
                 }}
               >
                 <p>
-                  We are loading contract document. Please do not click anyware.
+                  We are loading contract document. Please do not click anywhere.
                 </p>
                 <CircularProgress />
               </div>

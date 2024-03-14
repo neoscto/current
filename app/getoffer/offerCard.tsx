@@ -25,11 +25,10 @@ const OfferCard = ({ Data, setShowForm }: OfferCardProps) => {
 
   return (
     <div
-      className={`border border-[#E0E0E0] rounded-2xl px-6 text-center py-7  ${
-        Data?.is_premium
+      className={`border border-[#E0E0E0] rounded-2xl px-6 text-center py-7  ${Data?.is_premium
           ? 'bg-[#E7F5FA] border-[#E7F5FA]'
           : 'border-[#E0E0E0] bg-white'
-      }`}
+        }`}
     >
       <h3 className="text-lg font-semibold flex justify-center items-center  h-[30px] gap-2">
         {Data?.is_premium && (
