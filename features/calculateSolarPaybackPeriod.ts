@@ -4,7 +4,19 @@ import axios, { AxiosResponse } from 'axios';
 
 const WEBTOKEN: string =
   'SURHISHED9OHW27HLUHNLy(nfnl1i28swi9oFLIUEHW7HLggI347YRWUFLWUFWg';
-const POWER_PRICES: Record<string, Record<string, number>> = {
+
+interface PowerPrices {
+  [key: string]: {
+    P1: number;
+    P2: number;
+    P3: number;
+    P4: number;
+    P5: number;
+    P6: number;
+  };
+}
+
+const POWER_PRICES: PowerPrices = {
   '2.0TD': {
     P1: 25.383055,
     P2: 1.342713,
@@ -78,11 +90,11 @@ const DAYS_IN_YEAR: number = 365.25;
 const MONTHS_IN_YEAR: number = 12;
 const DAYS_IN_MONTH: number = DAYS_IN_YEAR / MONTHS_IN_YEAR;
 const YEARS_IN_CONTRACT: number = 25;
-const PRICE_TIERS: [number, number][] = [
+const PRICE_TIERS: Array<[number, number]> = [
   [10, 1600],
   [100, 1500],
   [1000, 1400],
-  [Number.POSITIVE_INFINITY, 1300]
+  [Infinity, 1300]
 ];
 const PRICE_PER_KWH_SOLAR: number = 0;
 const NEOS_VAT_PERCENT: number = 0.1;
@@ -101,10 +113,10 @@ const SOLAR_PARK_PRODUCTIVITY_BOOST: number =
   NEOS_PVOUT_IN_KWH_PER_KW / ROOFTOP_PVOUT_IN_KWH_PER_KW;
 const MAINTENANCE_FEE_PER_MONTH_PER_KW: number = 1;
 const TOTAL_CONSUMPTION: number = 66567.0; // Sample result from quantitative research
+const TOTAL_SPENDING: number = 6326.16; // Sample result from quantitative research
 const TOTAL_REVENUE_EXCESS: number = 2296.62; // Sample result from quantitative research
 const REVENUE_PER_KWH_CONSUMED: number =
   (TOTAL_REVENUE_EXCESS / TOTAL_CONSUMPTION) * SOLAR_PARK_PRODUCTIVITY_BOOST;
-const TOTAL_SPENDING: number = 6326.16; // Sample result from quantitative research
 const SAMPLE_CAPACITY: number = 30; // Sample result from quantitative research
 const TOTAL_REVENUE_100: number = 5875.77; // Sample result from quantitative research
 const INCOME_TAX_PERCENT: number = 0.3; // Based on research
