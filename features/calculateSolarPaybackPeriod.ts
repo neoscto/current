@@ -304,7 +304,7 @@ export const calculateSolarPaybackPeriod = async (
           MONTHS_IN_YEAR;
 
         let type_consumption_point = technical_data.tipoPerfilConsumo
-          ? technical_data.tipoPerfilConsumo.slice(1)
+          ? technical_data.tipoPerfilConsumo.slice(1).toUpperCase()
           : null;
         let relevant_prices = POWER_PRICES[type_consumption_point];
         let contracted_powers: Record<string, number> = {};
@@ -378,7 +378,7 @@ export const calculateSolarPaybackPeriod = async (
           yearly_consumption += individual_yearly_consumption;
 
           let type_consumption_point = technical_data.tipoPerfilConsumo
-            ? technical_data.tipoPerfilConsumo.slice(1)
+            ? technical_data.tipoPerfilConsumo.slice(1).toUpperCase()
             : null;
           let relevant_prices = POWER_PRICES[type_consumption_point];
           let contracted_powers: Record<string, number> = {};
@@ -508,9 +508,9 @@ export const calculateSolarPaybackPeriod = async (
     total_fixed_charges +
     rooftop_installation_price_after_tax +
     required_capacity *
-      ROOFTOP_MAINTENANCE_PER_MONTH *
-      MONTHS_IN_YEAR *
-      YEARS_IN_CONTRACT +
+    ROOFTOP_MAINTENANCE_PER_MONTH *
+    MONTHS_IN_YEAR *
+    YEARS_IN_CONTRACT +
     GRID_COVERAGE_PERCENT * total_variable_charges;
 
   let customers_revenue: number = REVENUE_PER_KWH_CONSUMED * yearly_consumption;
@@ -681,10 +681,10 @@ export const calculateSolarPaybackPeriod = async (
 
     net_spendings_w_neos_provider.push(
       fixed_charge +
-        spend_non_solar +
-        spend_solar +
-        total_customer_fees / YEARS_IN_CONTRACT -
-        revenue
+      spend_non_solar +
+      spend_solar +
+      total_customer_fees / YEARS_IN_CONTRACT -
+      revenue
     );
     savings_w_neos.push(
       total_regular_bills_w_inflation[i] - net_spendings_w_neos_provider[i]
