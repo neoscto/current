@@ -35,6 +35,7 @@
     "mongoose": "^8.0.3",
     "next": "14.0.4",
     "nodemailer": "^6.9.10",
+    "pdf-lib": "^1.17.1",
     "puppeteer": "^22.4.1",
     "react-calendly": "^4.3.0",
     "react-dom": "^18",
