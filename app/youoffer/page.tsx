@@ -246,13 +246,17 @@ const YourOffer = ({ handleNext, data }: any) => {
       //     data
       //   })
       // });
-      const initialPDF = 'Pages 1-3.pdf';
-      const image4 = 'Background Page 5.png';
-      const initialPDFPath = generatePath(initialPDF);
-      const page4BackgroundImage = generatePath(image4);
+      // const initialPDF = 'Pages 1-3.pdf';
+      // const image4 = 'Background Page 5.png';
+      const chartBackground = 'Background Charts.png';
+      const initialPDFPath = 'Pages 1-3.pdf';
+      const page4BackgroundImage = 'Background Page 5.png';
+      const csvPath = 'chart_data.csv';
       const pdfData = {
         initialPDFPath,
         page4BackgroundImage,
+        chartBackground,
+        csvPath,
         globalCapacity: data.required_capacity as number,
         globalPanels: data.number_of_panels as number,
         globalPercentage: data.percent_savings_year1_w_neos as number
