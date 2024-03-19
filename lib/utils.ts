@@ -25,4 +25,14 @@ export const spanishMonths = [
   { name: 'Diciembre', index: 12 }
 ];
 
-export const chartPageVerticalPositions = [550, 400, 250, 100];
+// export const chartPageVerticalPositions = [...Array(12)].map((_, index) => {
+//   const positions = [550, 400, 250, 100];
+//   return { [index]: positions[index % positions.length] };
+// });
+export const chartPageVerticalPositions = [
+  550, 550, 550, 400, 400, 400, 250, 250, 250, 100, 100, 100
+];
+
+export const chartPageHorizontalPositions = [
+  50, 225, 400, 50, 225, 400, 50, 225, 400, 50, 225, 400
+];
