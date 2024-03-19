@@ -1040,6 +1040,7 @@ export const calculateSolarPaybackPeriod = async (
     percent_savings_year1_without_neos,
     savings_retail_w_neos,
     savings_retail_without_neos,
+    payback_rooftop,
     payback_w_neos,
     payback_without_neos,
     neos_total_emissions_saved_in_tons,

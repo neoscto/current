@@ -3,11 +3,17 @@ import { PDFDocument, PDFPage } from 'pdf-lib';
 export interface GeneratePDFProps {
   initialPDFPath: string;
   page4BackgroundImage: string;
+  page8BackgroundImage: string;
   chartBackground: string;
   csvPath: string;
   globalCapacity: number;
   globalPanels: number;
   globalPercentage: number;
+  globalPrice: number;
+  globalSavings: number;
+  globalPaybackNeos: number;
+  globalPaybackRooftop: number;
+  globalTons: number;
 }
 
 export interface Chart {

@@ -1,6 +1,6 @@
 'use server';
 
-import { PDFDocument, PDFPage, StandardFonts, rgb } from 'pdf-lib';
+import { PDFDocument, PDFFont, PDFPage, StandardFonts, rgb } from 'pdf-lib';
 import { parseCSV } from './parse-csv';
 import { generateChart } from './generate-chart';
 import path from 'path';
@@ -98,14 +98,106 @@ const generateChartPage = async ({
   }
 };
 
+const generatePage8 = async (
+  imagePath: string,
+  pdfDoc: PDFDocument,
+  pageWidth: number,
+  pageHeight: number,
+  globalCapacity: number,
+  helveticaFont: PDFFont,
+  globalPrice: number,
+  globalSavings: number,
+  globalPaybackNeos: number,
+  globalPaybackRooftop: number,
+  globalTons: number
+) => {
+  const imageUrl = fs.readFileSync(
+    path.join(process.cwd(), 'public', imagePath)
+  );
+  const image = await pdfDoc.embedPng(imageUrl);
+  const imageDims = image.scaleToFit(pageWidth, pageHeight);
+
+  // Add a page to the document
+  const page = pdfDoc.addPage([pageWidth, pageHeight]);
+  page.drawImage(image, {
+    x: 0,
+    y: 0,
+    width: imageDims.width,
+    height: imageDims.height
+  });
+  const fontSize = 10;
+  page.drawText(`${globalCapacity.toFixed(1)}`, {
+    x: 135,
+    y: 632,
+    size: fontSize,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  });
+  page.drawText(`${globalPrice.toFixed(2)}`, {
+    x: 239,
+    y: 632,
+    size: fontSize,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  });
+  page.drawText(`${(globalPrice / globalCapacity).toFixed(2)}`, {
+    x: 150,
+    y: 601,
+    size: fontSize,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  });
+  page.drawText(`${globalSavings.toFixed(2)}`, {
+    x: 273,
+    y: 232,
+    size: fontSize,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  });
+  page.drawText(`${(globalSavings / globalPrice).toFixed(1)}`, {
+    x: 60,
+    y: 217,
+    size: fontSize,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  });
+  page.drawText(`${globalPaybackNeos.toFixed(1)}`, {
+    x: 396,
+    y: 157,
+    size: fontSize,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  });
+  page.drawText(`${globalPaybackRooftop.toFixed(1)}`, {
+    x: 470,
+    y: 142,
+    size: fontSize,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  });
+  page.drawText(`${globalTons.toFixed(1)}`, {
+    x: 99,
+    y: 93,
+    size: fontSize,
+    font: helveticaFont,
+    color: rgb(0, 0, 0)
+  });
+};
+
 export const generatePDF = async ({
   initialPDFPath,
   page4BackgroundImage,
+  page8BackgroundImage,
   chartBackground,
   csvPath,
   globalCapacity,
   globalPanels,
-  globalPercentage
+  globalPercentage,
+  globalPrice,
+  globalSavings,
+  globalPaybackNeos,
+  globalPaybackRooftop,
+  globalTons
 }: GeneratePDFProps) => {
   try {
     // const existingPdfBytes = await fetch(initialPDFPath, {
@@ -225,6 +317,20 @@ export const generatePDF = async ({
         pageHeight
       });
     }
+
+    await generatePage8(
+      page8BackgroundImage,
+      newPdfDoc,
+      pageWidth,
+      pageHeight,
+      globalCapacity,
+      helveticaFont,
+      globalPrice,
+      globalSavings,
+      globalPaybackNeos,
+      globalPaybackRooftop,
+      globalTons
+    );
 
     // Serialize the PDFDocument to bytes (a Uint8Array)
     const pdfBytes = await newPdfDoc.save();

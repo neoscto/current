@@ -251,15 +251,23 @@ const YourOffer = ({ handleNext, data }: any) => {
       const chartBackground = 'Background Charts.png';
       const initialPDFPath = 'Pages 1-3.pdf';
       const page4BackgroundImage = 'Background Page 5.png';
+      const page8BackgroundImage = 'Background Page 8.png';
       const csvPath = 'chart_data.csv';
+      console.log('PDF Data: ', data);
       const pdfData = {
         initialPDFPath,
         page4BackgroundImage,
+        page8BackgroundImage,
         chartBackground,
         csvPath,
-        globalCapacity: data.required_capacity as number,
-        globalPanels: data.number_of_panels as number,
-        globalPercentage: data.percent_savings_year1_w_neos as number
+        globalCapacity: data.required_capacity,
+        globalPanels: data.number_of_panels,
+        globalPercentage: data.percent_savings_year1_w_neos,
+        globalPrice: data.total_price_before_tax,
+        globalSavings: data.total_savings_w_neos,
+        globalPaybackNeos: data.payback_w_neos,
+        globalPaybackRooftop: data.payback_rooftop,
+        globalTons: data.neos_total_emissions_saved_in_tons
       };
 
       const response = await generatePDF(pdfData);
