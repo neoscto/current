@@ -89,13 +89,14 @@ const generateChartPage = async ({
   for (let i = 0; i < months.length; i++) {
     const month = months[i];
     const chartUrl = await generateChart(records, month.index, month.name);
+    const verticalPositions = chartPageVerticalPositions(3);
     chartUrl &&
       (await drawChart({
         pdfDoc,
         page,
         chartUrl,
-        xPos: chartPageHorizontalPositions[i],
-        yPos: chartPageVerticalPositions[i],
+        xPos: chartPageHorizontalPositions[i % 3],
+        yPos: verticalPositions[i],
         chartImgWidth,
         chartImgHeight
       }));

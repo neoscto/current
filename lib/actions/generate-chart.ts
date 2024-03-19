@@ -7,7 +7,7 @@ import { SavingRecord } from '../types';
 import { Record } from './parse-csv';
 
 Chart.register(annotationPlugin);
-Chart.defaults.font.size = 20;
+Chart.defaults.font.size = 25;
 export const generateChart = async (
   records: Record[],
   filterMonth: number,
@@ -15,7 +15,7 @@ export const generateChart = async (
 ) => {
   try {
     // Define width, height and DPI
-    const scale = 2;
+    const scale = 2.5;
     const width = 383 * scale;
     const height = 300 * scale;
     const canvas = createCanvas(width, height);
@@ -69,7 +69,7 @@ export const generateChart = async (
             display: true,
             text: `Producción ${title}`,
             font: {
-              size: 25
+              size: 30
             }
           },
           legend: {
