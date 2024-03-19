@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import test from 'node:test';
 
 // Constants
 
@@ -520,9 +521,9 @@ export const calculateSolarPaybackPeriod = async (
     total_fixed_charges +
     rooftop_installation_price_after_tax +
     required_capacity *
-    ROOFTOP_MAINTENANCE_PER_MONTH *
-    MONTHS_IN_YEAR *
-    YEARS_IN_CONTRACT +
+      ROOFTOP_MAINTENANCE_PER_MONTH *
+      MONTHS_IN_YEAR *
+      YEARS_IN_CONTRACT +
     GRID_COVERAGE_PERCENT * total_variable_charges;
 
   let customers_revenue: number = REVENUE_PER_KWH_CONSUMED * yearly_consumption;
@@ -693,10 +694,10 @@ export const calculateSolarPaybackPeriod = async (
 
     net_spendings_w_neos_provider.push(
       fixed_charge +
-      spend_non_solar +
-      spend_solar +
-      total_customer_fees / YEARS_IN_CONTRACT -
-      revenue
+        spend_non_solar +
+        spend_solar +
+        total_customer_fees / YEARS_IN_CONTRACT -
+        revenue
     );
     savings_w_neos.push(
       total_regular_bills_w_inflation[i] - net_spendings_w_neos_provider[i]
@@ -712,6 +713,7 @@ export const calculateSolarPaybackPeriod = async (
   // console.log('Your cumulative savings in:');
 
   let save_yearly_w_neos = [];
+  let cumulative_savings = [];
 
   for (let i = 0; i < 25; i++) {
     total_savings_w_neos += savings_w_neos[i];
@@ -725,6 +727,7 @@ export const calculateSolarPaybackPeriod = async (
       years: i + 1,
       saving: (sum / total_savings_w_neos).toFixed(2)
     });
+    cumulative_savings.push({ years: i + 1, saving: sum });
     // console.log(`- Year ${i}: €${total_savings_w_neos.toFixed(2)}.`);
   }
 
@@ -1040,6 +1043,7 @@ export const calculateSolarPaybackPeriod = async (
     percent_savings_year1_without_neos,
     savings_retail_w_neos,
     savings_retail_without_neos,
+    payback_rooftop,
     payback_w_neos,
     payback_without_neos,
     neos_total_emissions_saved_in_tons,
@@ -1049,6 +1053,7 @@ export const calculateSolarPaybackPeriod = async (
     save_yearly_w_neos,
     save_yearly_without_neos,
     total_savings_w_neos,
-    total_savings_without_neos
+    total_savings_without_neos,
+    cumulative_savings
   };
 };

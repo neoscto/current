@@ -246,16 +246,31 @@ const YourOffer = ({ handleNext, data }: any) => {
       //     data
       //   })
       // });
-      const initialPDF = 'Pages 1-3.pdf';
-      const image4 = 'Background Page 5.png';
-      const initialPDFPath = generatePath(initialPDF);
-      const page4BackgroundImage = generatePath(image4);
+      const chartBackground1 = generatePath('Background Charts.png');
+      const chartBackground2 = generatePath('Background Page 9.png');
+      const initialPDFPath = generatePath('Pages 1-3.pdf');
+      const page4BackgroundImage = generatePath('Background Page 5.png');
+      const page8BackgroundImage = generatePath('Background Page 8.png');
+      const lastPdfPage = generatePath('Last Page.pdf');
+      const csvPath = generatePath('chart_data.csv');
+      // console.log('PDF Data: ', data);
       const pdfData = {
         initialPDFPath,
         page4BackgroundImage,
-        globalCapacity: data.required_capacity as number,
-        globalPanels: data.number_of_panels as number,
-        globalPercentage: data.percent_savings_year1_w_neos as number
+        page8BackgroundImage,
+        lastPdfPage,
+        chartBackground1,
+        chartBackground2,
+        csvPath,
+        globalCapacity: data.required_capacity,
+        globalPanels: data.number_of_panels,
+        globalPercentage: data.percent_savings_year1_w_neos,
+        globalPrice: data.total_price_before_tax,
+        globalSavings: data.total_savings_w_neos,
+        globalPaybackNeos: data.payback_w_neos,
+        globalPaybackRooftop: data.payback_rooftop,
+        globalTons: data.neos_total_emissions_saved_in_tons,
+        cumulativeSavings: data.cumulative_savings
       };
 
       const response = await generatePDF(pdfData);
