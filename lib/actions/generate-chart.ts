@@ -1,13 +1,20 @@
 'use server';
 
-import { createCanvas } from 'canvas';
+import { registerFont, createCanvas } from 'canvas';
 import Chart from 'chart.js/auto';
 import { Record } from './parse-csv';
 import { SavingRecord } from '../types';
 import annotationPlugin from 'chartjs-plugin-annotation';
+import path from 'path';
 
 Chart.register(annotationPlugin);
-
+const fontPath = path.join(process.cwd(), 'public', 'Roboto-Regular.ttf');
+try {
+  registerFont(fontPath, { family: 'Roboto' });
+  console.log(`Font registered from path: ${fontPath}`);
+} catch (err) {
+  console.error(`Failed to register font from path: ${fontPath}`, err);
+}
 export const generateChart = async (
   records: Record[],
   filterMonth: number,
@@ -27,6 +34,7 @@ export const generateChart = async (
     ctx.strokeStyle = '#000000';
     ctx.lineWidth = 2;
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
+    ctx.font = "20px 'Roboto'";
     // Filter records by month
     const filteredRecords = records.filter(
       (record) => record.month === filterMonth
@@ -51,21 +59,25 @@ export const generateChart = async (
           y: {
             beginAtZero: true,
             grid: { display: false },
+            font: { family: 'Roboto', size: 10 },
             title: {
               display: true,
               text: 'Producción (KWh)',
               font: {
-                size: 8 * scale
+                size: 8 * scale,
+                family: 'Roboto'
               }
             }
           },
           x: {
             grid: { display: false },
+            font: { family: 'Roboto', size: 10 },
             title: {
               display: true,
               text: 'Hora',
               font: {
-                size: 6 * scale
+                size: 6 * scale,
+                family: 'Roboto'
               }
             }
           }
@@ -75,7 +87,8 @@ export const generateChart = async (
             display: true,
             text: `Producción ${title}`,
             font: {
-              size: 10 * scale
+              size: 10 * scale,
+              family: 'Roboto'
             }
           },
           legend: {
@@ -112,6 +125,8 @@ export const generatePaybackChart = async (
     ctx.strokeStyle = '#000000';
     ctx.lineWidth = 2;
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
+    ctx.font = "20px 'Roboto'";
+
     const configuration = {
       type: 'bar',
       data: {
@@ -128,19 +143,21 @@ export const generatePaybackChart = async (
         scales: {
           x: {
             grid: { display: false },
+            font: { family: 'Roboto', size: 10 },
             title: {
               display: true,
               text: 'Año',
-              font: { size: 12 }
+              font: { size: 12, family: 'Roboto' }
             }
           },
           y: {
             grid: { display: false },
+            font: { family: 'Roboto', size: 10 },
             beginAtZero: true,
             title: {
               display: true,
               text: 'Ahorro (€)',
-              font: { size: 12 }
+              font: { size: 12, family: 'Roboto' }
             }
           }
         },
@@ -148,7 +165,7 @@ export const generatePaybackChart = async (
           title: {
             display: true,
             text: 'Ahorro Acumulado',
-            font: { size: 20 }
+            font: { size: 20, family: 'Roboto' }
           },
           legend: {
             display: true

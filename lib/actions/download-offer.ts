@@ -307,71 +307,71 @@ export const generatePDF = async ({
       font: helveticaFont,
       color: rgb(0, 0, 0)
     });
-    // const csvReadStream = await fetch(csvPath).then((resp) => resp.body);
-    // const records = await parseCSV(csvReadStream);
+    const csvReadStream = await fetch(csvPath).then((resp) => resp.body);
+    const records = await parseCSV(csvReadStream);
 
-    // // Generate 3 Chart Pages
-    // for (let i = 0; i < 3; i++) {
-    //   await generateChartPage({
-    //     records,
-    //     months: spanishMonths.slice(i * 4, (i + 1) * 4),
-    //     pdfDoc: newPdfDoc,
-    //     xPos: 50,
-    //     chartImgWidth: 383,
-    //     chartImgHeight: 140,
-    //     chartBackground: chartBackground1,
-    //     imageWidth: imageDims.width,
-    //     imageHeight: imageDims.height,
-    //     pageWidth,
-    //     pageHeight
-    //   });
-    // }
+    // Generate 3 Chart Pages
+    for (let i = 0; i < 3; i++) {
+      await generateChartPage({
+        records,
+        months: spanishMonths.slice(i * 4, (i + 1) * 4),
+        pdfDoc: newPdfDoc,
+        xPos: 50,
+        chartImgWidth: 383,
+        chartImgHeight: 140,
+        chartBackground: chartBackground1,
+        imageWidth: imageDims.width,
+        imageHeight: imageDims.height,
+        pageWidth,
+        pageHeight
+      });
+    }
 
-    // await generatePage8(
-    //   page8BackgroundImage,
-    //   newPdfDoc,
-    //   pageWidth,
-    //   pageHeight,
-    //   globalCapacity,
-    //   helveticaFont,
-    //   globalPrice,
-    //   globalSavings,
-    //   globalPaybackNeos,
-    //   globalPaybackRooftop,
-    //   globalTons
-    // );
+    await generatePage8(
+      page8BackgroundImage,
+      newPdfDoc,
+      pageWidth,
+      pageHeight,
+      globalCapacity,
+      helveticaFont,
+      globalPrice,
+      globalSavings,
+      globalPaybackNeos,
+      globalPaybackRooftop,
+      globalTons
+    );
 
-    // const page9 = await embedChartBackground(
-    //   newPdfDoc,
-    //   chartBackground2,
-    //   imageDims.width,
-    //   imageDims.height,
-    //   pageWidth,
-    //   pageHeight
+    const page9 = await embedChartBackground(
+      newPdfDoc,
+      chartBackground2,
+      imageDims.width,
+      imageDims.height,
+      pageWidth,
+      pageHeight
+    );
+    const chartUrl = await generatePaybackChart(cumulativeSavings, globalPrice);
+    chartUrl &&
+      (await drawChart({
+        pdfDoc: newPdfDoc,
+        page: page9,
+        chartUrl,
+        xPos: 50,
+        yPos: 100,
+        chartImgWidth: 500,
+        chartImgHeight: 600
+      }));
+    // const lastPageBytes = fs.readFileSync(
+    //   path.join(process.cwd(), 'public', lastPdfPage)
     // );
-    // const chartUrl = await generatePaybackChart(cumulativeSavings, globalPrice);
-    // chartUrl &&
-    //   (await drawChart({
-    //     pdfDoc: newPdfDoc,
-    //     page: page9,
-    //     chartUrl,
-    //     xPos: 50,
-    //     yPos: 100,
-    //     chartImgWidth: 500,
-    //     chartImgHeight: 600
-    //   }));
-    // // const lastPageBytes = fs.readFileSync(
-    // //   path.join(process.cwd(), 'public', lastPdfPage)
-    // // );
-    // const lastPageBytes = await fetch(lastPdfPage).then((resp) =>
-    //   resp.arrayBuffer()
-    // );
-    // const lastPdfDoc = await PDFDocument.load(lastPageBytes);
-    // const [copiedPage] = await newPdfDoc.copyPages(
-    //   lastPdfDoc,
-    //   lastPdfDoc.getPageIndices()
-    // );
-    // newPdfDoc.addPage(copiedPage);
+    const lastPageBytes = await fetch(lastPdfPage).then((resp) =>
+      resp.arrayBuffer()
+    );
+    const lastPdfDoc = await PDFDocument.load(lastPageBytes);
+    const [copiedPage] = await newPdfDoc.copyPages(
+      lastPdfDoc,
+      lastPdfDoc.getPageIndices()
+    );
+    newPdfDoc.addPage(copiedPage);
     // Serialize the PDFDocument to bytes (a Uint8Array)
     const pdfBytes = await newPdfDoc.save();
     console.log('🚀 Done');
