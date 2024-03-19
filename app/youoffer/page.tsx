@@ -248,17 +248,21 @@ const YourOffer = ({ handleNext, data }: any) => {
       // });
       // const initialPDF = 'Pages 1-3.pdf';
       // const image4 = 'Background Page 5.png';
-      const chartBackground = 'Background Charts.png';
+      const chartBackground1 = 'Background Charts.png';
+      const chartBackground2 = 'Background Page 9.png';
       const initialPDFPath = 'Pages 1-3.pdf';
       const page4BackgroundImage = 'Background Page 5.png';
       const page8BackgroundImage = 'Background Page 8.png';
+      const lastPdfPage = 'Last Page.pdf';
       const csvPath = 'chart_data.csv';
       console.log('PDF Data: ', data);
       const pdfData = {
         initialPDFPath,
         page4BackgroundImage,
         page8BackgroundImage,
-        chartBackground,
+        lastPdfPage,
+        chartBackground1,
+        chartBackground2,
         csvPath,
         globalCapacity: data.required_capacity,
         globalPanels: data.number_of_panels,
@@ -267,7 +271,8 @@ const YourOffer = ({ handleNext, data }: any) => {
         globalSavings: data.total_savings_w_neos,
         globalPaybackNeos: data.payback_w_neos,
         globalPaybackRooftop: data.payback_rooftop,
-        globalTons: data.neos_total_emissions_saved_in_tons
+        globalTons: data.neos_total_emissions_saved_in_tons,
+        cumulativeSavings: data.cumulative_savings
       };
 
       const response = await generatePDF(pdfData);

@@ -2,7 +2,7 @@
 
 import { PDFDocument, PDFFont, PDFPage, StandardFonts, rgb } from 'pdf-lib';
 import { parseCSV } from './parse-csv';
-import { generateChart } from './generate-chart';
+import { generateChart, generatePaybackChart } from './generate-chart';
 import path from 'path';
 import * as fs from 'fs';
 import {
@@ -188,7 +188,9 @@ export const generatePDF = async ({
   initialPDFPath,
   page4BackgroundImage,
   page8BackgroundImage,
-  chartBackground,
+  lastPdfPage,
+  chartBackground1,
+  chartBackground2,
   csvPath,
   globalCapacity,
   globalPanels,
@@ -197,7 +199,8 @@ export const generatePDF = async ({
   globalSavings,
   globalPaybackNeos,
   globalPaybackRooftop,
-  globalTons
+  globalTons,
+  cumulativeSavings
 }: GeneratePDFProps) => {
   try {
     // const existingPdfBytes = await fetch(initialPDFPath, {
@@ -310,7 +313,7 @@ export const generatePDF = async ({
         xPos: 50,
         chartImgWidth: 383,
         chartImgHeight: 140,
-        chartBackground,
+        chartBackground: chartBackground1,
         imageWidth: imageDims.width,
         imageHeight: imageDims.height,
         pageWidth,
@@ -332,6 +335,34 @@ export const generatePDF = async ({
       globalTons
     );
 
+    const page9 = await embedChartBackground(
+      newPdfDoc,
+      chartBackground2,
+      imageDims.width,
+      imageDims.height,
+      pageWidth,
+      pageHeight
+    );
+    const chartUrl = await generatePaybackChart(cumulativeSavings, globalPrice);
+    chartUrl &&
+      (await drawChart({
+        pdfDoc: newPdfDoc,
+        page: page9,
+        chartUrl,
+        xPos: 50,
+        yPos: 100,
+        chartImgWidth: 500,
+        chartImgHeight: 600
+      }));
+    const lastPageBytes = fs.readFileSync(
+      path.join(process.cwd(), 'public', lastPdfPage)
+    );
+    const lastPdfDoc = await PDFDocument.load(lastPageBytes);
+    const [copiedPage] = await newPdfDoc.copyPages(
+      lastPdfDoc,
+      lastPdfDoc.getPageIndices()
+    );
+    newPdfDoc.addPage(copiedPage);
     // Serialize the PDFDocument to bytes (a Uint8Array)
     const pdfBytes = await newPdfDoc.save();
     return pdfBytes;

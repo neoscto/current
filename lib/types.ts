@@ -1,10 +1,17 @@
 import { PDFDocument, PDFPage } from 'pdf-lib';
 
+export interface SavingRecord {
+  years: number;
+  saving: number;
+}
+
 export interface GeneratePDFProps {
   initialPDFPath: string;
   page4BackgroundImage: string;
   page8BackgroundImage: string;
-  chartBackground: string;
+  lastPdfPage: string;
+  chartBackground1: string;
+  chartBackground2: string;
   csvPath: string;
   globalCapacity: number;
   globalPanels: number;
@@ -14,6 +21,7 @@ export interface GeneratePDFProps {
   globalPaybackNeos: number;
   globalPaybackRooftop: number;
   globalTons: number;
+  cumulativeSavings: SavingRecord[];
 }
 
 export interface Chart {
