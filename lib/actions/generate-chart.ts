@@ -2,9 +2,9 @@
 
 import { createCanvas } from 'canvas';
 import Chart from 'chart.js/auto';
-import { Record } from './parse-csv';
-import { SavingRecord } from '../types';
 import annotationPlugin from 'chartjs-plugin-annotation';
+import { SavingRecord } from '../types';
+import { Record } from './parse-csv';
 
 Chart.register(annotationPlugin);
 Chart.defaults.font.size = 20;
@@ -94,7 +94,6 @@ export const generatePaybackChart = async (
   globalPrice: number
 ) => {
   try {
-    const scale = 2;
     const width = 700;
     const height = 600;
     const canvas = createCanvas(width, height);
