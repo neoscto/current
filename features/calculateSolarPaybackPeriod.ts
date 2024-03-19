@@ -98,7 +98,7 @@ const PRICE_TIERS: Array<[number, number]> = [
   [Infinity, 1300]
 ];
 const PRICE_PER_KWH_SOLAR: number = 0;
-const NEOS_VAT_PERCENT: number = 0.1;
+const NEOS_VAT_PERCENT: number = 0.21;
 const NEOS_PVOUT_IN_KWH_PER_KW: number = 2000;
 const AVERAGE_CONSUMPTION_PER_PERSON_PER_DAY: number = 3.25; // Based on research
 const PANELS_PER_KW: number = 5 / 2.28;
@@ -112,7 +112,7 @@ const ROOFTOP_VAT_PERCENT: number = 0.21;
 const ROOFTOP_PVOUT_IN_KWH_PER_KW: number = 1510; // Based on research
 const SOLAR_PARK_PRODUCTIVITY_BOOST: number =
   NEOS_PVOUT_IN_KWH_PER_KW / ROOFTOP_PVOUT_IN_KWH_PER_KW;
-const MAINTENANCE_FEE_PER_MONTH_PER_KW: number = 1;
+const MAINTENANCE_FEE_PER_MONTH_PER_KW: number = 1.5;
 const TOTAL_CONSUMPTION: number = 66567.0; // Sample result from quantitative research
 const TOTAL_SPENDING: number = 6326.16; // Sample result from quantitative research
 const TOTAL_REVENUE_EXCESS: number = 2296.62; // Sample result from quantitative research
@@ -521,9 +521,9 @@ export const calculateSolarPaybackPeriod = async (
     total_fixed_charges +
     rooftop_installation_price_after_tax +
     required_capacity *
-      ROOFTOP_MAINTENANCE_PER_MONTH *
-      MONTHS_IN_YEAR *
-      YEARS_IN_CONTRACT +
+    ROOFTOP_MAINTENANCE_PER_MONTH *
+    MONTHS_IN_YEAR *
+    YEARS_IN_CONTRACT +
     GRID_COVERAGE_PERCENT * total_variable_charges;
 
   let customers_revenue: number = REVENUE_PER_KWH_CONSUMED * yearly_consumption;
@@ -694,10 +694,10 @@ export const calculateSolarPaybackPeriod = async (
 
     net_spendings_w_neos_provider.push(
       fixed_charge +
-        spend_non_solar +
-        spend_solar +
-        total_customer_fees / YEARS_IN_CONTRACT -
-        revenue
+      spend_non_solar +
+      spend_solar +
+      total_customer_fees / YEARS_IN_CONTRACT -
+      revenue
     );
     savings_w_neos.push(
       total_regular_bills_w_inflation[i] - net_spendings_w_neos_provider[i]
