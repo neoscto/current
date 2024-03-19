@@ -18,29 +18,24 @@ const transformRecord = (record: Omit<Record, 'production'>): Record => {
   return { month, hour, sum_of_percentages, production };
 };
 
-export const parseCSV = async (csvPath: string): Promise<Record[]> => {
+export const parseCSV = async (csvReadStream: any): Promise<Record[]> => {
   return new Promise((resolve, reject) => {
     const records: Record[] = [];
-    //   Create a stream for reading the file
-
-    const readStream = fs.createReadStream(
-      path.join(process.cwd(), 'public', csvPath)
-    );
 
     //   Create the parser
     const parser = parse({ columns: true, trim: true, cast: true });
 
     //   Pipe the stream through csv parser
-    readStream
+    csvReadStream
       .pipe(parser)
-      .on('data', (data) => {
+      .on('data', (data: any) => {
         records.push(transformRecord(data));
       })
       .on('end', () => {
         console.log('CSV file processing complete.');
         resolve(records);
       })
-      .on('error', (err) => {
+      .on('error', (err: any) => {
         console.error('An error occurred');
         reject(err);
       });

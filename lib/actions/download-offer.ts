@@ -5,6 +5,7 @@ import { parseCSV } from './parse-csv';
 import { generateChart, generatePaybackChart } from './generate-chart';
 import path from 'path';
 import * as fs from 'fs';
+import fetch from 'node-fetch';
 import {
   chartPageVerticalPositions,
   dataURLToUint8Array,
@@ -25,8 +26,11 @@ const embedChartBackground = async (
   pageHeight: number
 ) => {
   // Add another page to the document
-  const chartBackgroundImage = fs.readFileSync(
-    path.join(process.cwd(), 'public', chartBackground)
+  // const chartBackgroundImage = fs.readFileSync(
+  //   path.join(process.cwd(), 'public', chartBackground)
+  // );
+  const chartBackgroundImage = await fetch(chartBackground).then((resp) =>
+    resp.arrayBuffer()
   );
   const chartBg = await pdfDoc.embedPng(chartBackgroundImage);
 
@@ -111,9 +115,10 @@ const generatePage8 = async (
   globalPaybackRooftop: number,
   globalTons: number
 ) => {
-  const imageUrl = fs.readFileSync(
-    path.join(process.cwd(), 'public', imagePath)
-  );
+  // const imageUrl = fs.readFileSync(
+  //   path.join(process.cwd(), 'public', imagePath)
+  // );
+  const imageUrl = await fetch(imagePath).then((resp) => resp.arrayBuffer());
   const image = await pdfDoc.embedPng(imageUrl);
   const imageDims = image.scaleToFit(pageWidth, pageHeight);
 
@@ -203,12 +208,13 @@ export const generatePDF = async ({
   cumulativeSavings
 }: GeneratePDFProps) => {
   try {
-    // const existingPdfBytes = await fetch(initialPDFPath, {
-    //   cache: 'no-store'
-    // }).then((resp) => resp.arrayBuffer());
-    const existingPdfBytes = fs.readFileSync(
-      path.join(process.cwd(), 'public', initialPDFPath)
+    console.log('🚀 Generating');
+    const existingPdfBytes = await fetch(initialPDFPath).then((resp) =>
+      resp.arrayBuffer()
     );
+    // const existingPdfBytes = fs.readFileSync(
+    //   path.join(process.cwd(), 'public', initialPDFPath)
+    // );
     const existingPdfDoc = await PDFDocument.load(existingPdfBytes);
 
     // Create a new PDFDocument
@@ -230,12 +236,12 @@ export const generatePDF = async ({
     );
 
     // Embed the background image
-    // const imageUrl = await fetch(page4BackgroundImage, {
-    //   cache: 'no-store'
-    // }).then((resp) => resp.arrayBuffer());
-    const imageUrl = fs.readFileSync(
-      path.join(process.cwd(), 'public', page4BackgroundImage)
+    const imageUrl = await fetch(page4BackgroundImage).then((resp) =>
+      resp.arrayBuffer()
     );
+    // const imageUrl = fs.readFileSync(
+    //   path.join(process.cwd(), 'public', page4BackgroundImage)
+    // );
     const image = await newPdfDoc.embedPng(imageUrl);
 
     // Scale the background image to fit the A4 page size
@@ -301,8 +307,8 @@ export const generatePDF = async ({
       font: helveticaFont,
       color: rgb(0, 0, 0)
     });
-
-    const records = await parseCSV(csvPath);
+    const csvReadStream = await fetch(csvPath).then((resp) => resp.body);
+    const records = await parseCSV(csvReadStream);
 
     // Generate 3 Chart Pages
     for (let i = 0; i < 3; i++) {
@@ -354,8 +360,11 @@ export const generatePDF = async ({
         chartImgWidth: 500,
         chartImgHeight: 600
       }));
-    const lastPageBytes = fs.readFileSync(
-      path.join(process.cwd(), 'public', lastPdfPage)
+    // const lastPageBytes = fs.readFileSync(
+    //   path.join(process.cwd(), 'public', lastPdfPage)
+    // );
+    const lastPageBytes = await fetch(lastPdfPage).then((resp) =>
+      resp.arrayBuffer()
     );
     const lastPdfDoc = await PDFDocument.load(lastPageBytes);
     const [copiedPage] = await newPdfDoc.copyPages(
@@ -365,6 +374,7 @@ export const generatePDF = async ({
     newPdfDoc.addPage(copiedPage);
     // Serialize the PDFDocument to bytes (a Uint8Array)
     const pdfBytes = await newPdfDoc.save();
+    console.log('🚀 Done');
     return pdfBytes;
   } catch (error) {
     console.log(error);

@@ -246,16 +246,14 @@ const YourOffer = ({ handleNext, data }: any) => {
       //     data
       //   })
       // });
-      // const initialPDF = 'Pages 1-3.pdf';
-      // const image4 = 'Background Page 5.png';
-      const chartBackground1 = 'Background Charts.png';
-      const chartBackground2 = 'Background Page 9.png';
-      const initialPDFPath = 'Pages 1-3.pdf';
-      const page4BackgroundImage = 'Background Page 5.png';
-      const page8BackgroundImage = 'Background Page 8.png';
-      const lastPdfPage = 'Last Page.pdf';
-      const csvPath = 'chart_data.csv';
-      console.log('PDF Data: ', data);
+      const chartBackground1 = generatePath('Background Charts.png');
+      const chartBackground2 = generatePath('Background Page 9.png');
+      const initialPDFPath = generatePath('Pages 1-3.pdf');
+      const page4BackgroundImage = generatePath('Background Page 5.png');
+      const page8BackgroundImage = generatePath('Background Page 8.png');
+      const lastPdfPage = generatePath('Last Page.pdf');
+      const csvPath = generatePath('chart_data.csv');
+      // console.log('PDF Data: ', data);
       const pdfData = {
         initialPDFPath,
         page4BackgroundImage,
