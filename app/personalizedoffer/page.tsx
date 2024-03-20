@@ -77,7 +77,7 @@ const PersonalizedOffer = () => {
     total_price_before_tax: 0,
     neos_installation_tax: 0,
     number_of_panels: 0,
-    required_capacity: 0,
+    vsi_required_capacity: 0,
     total_price_after_tax: 0,
     tableData: [
       {
