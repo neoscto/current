@@ -5,16 +5,19 @@ import Chart from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { SavingRecord } from '../types';
 import { Record } from './parse-csv';
+import path from 'path';
 
 Chart.register(annotationPlugin);
 try {
-  registerFont('./public/fonts/codec-pro.regular.ttf', { family: 'Codec Pro' });
-  console.log('Font registered successfully 🚀')
+  registerFont(path.resolve('./fonts/Roboto-Regular.ttf'), {
+    family: 'Roboto'
+  });
+  console.log('Font registered successfully 🚀');
 } catch (error) {
-  console.error(error)
+  console.error(error);
 }
 Chart.defaults.font.size = 25;
-Chart.defaults.font.family = 'Codec Pro';
+Chart.defaults.font.family = 'Roboto';
 export const generateChart = async (
   records: Record[],
   filterMonth: number,
@@ -34,7 +37,7 @@ export const generateChart = async (
     ctx.strokeStyle = '#000000';
     ctx.lineWidth = 2;
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
-    ctx.font = '20px "Codec Pro"';
+    ctx.font = '20px "Roboto"';
     // Filter records by month
     const filteredRecords = records.filter(
       (record) => record.month === filterMonth
@@ -113,7 +116,7 @@ export const generatePaybackChart = async (
     ctx.strokeStyle = '#000000';
     ctx.lineWidth = 2;
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
-    ctx.font = '25px "Codec Pro"';
+    ctx.font = '25px "Roboto"';
 
     const configuration = {
       type: 'bar',
