@@ -9,9 +9,19 @@ import path from 'path';
 
 Chart.register(annotationPlugin);
 try {
-  registerFont(path.resolve('./fonts/Roboto-Regular.ttf'), {
-    family: 'Roboto'
+  const fontPath = path.join(
+    process.cwd(),
+    'public',
+    'fonts',
+    'Roboto-Bold.ttf'
+  );
+  console.log('Font Path: ', fontPath);
+  registerFont(fontPath, {
+    family: 'Roboto',
+    weight: 'bold'
   });
+  console.log('Home Path: ', process.cwd());
+  console.log('Dir name: ', __dirname);
   console.log('Font registered successfully 🚀');
 } catch (error) {
   console.error(error);
