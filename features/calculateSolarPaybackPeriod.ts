@@ -736,8 +736,6 @@ export const calculateSolarPaybackPeriod = async (
     cumulative_savings.push({ years: i + 1, saving: sum });
   };
 
-  console.log(save_yearly_w_neos);
-
   let sum_w_neos: number = 0;
   let left: number = total_price_after_tax;
   let values: number[] = [];
@@ -833,8 +831,6 @@ export const calculateSolarPaybackPeriod = async (
     });
     // console.log(`- Year ${i}: €${total_savings_without_neos.toFixed(2)}.`);
   }
-
-  console.log(save_yearly_without_neos);
 
   let sum_without_neos: number = 0;
   let payback_without_neos: number = 0;
