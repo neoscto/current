@@ -743,7 +743,7 @@ const YourOffer = ({ handleNext, data }: any) => {
             </div>
 
             <div className="bg-[#E7F5FA] !rounded-3xl lg:p-5 w-full px-3 py-5">
-              <h1 className="text-[18px] leading-[22.68px] text-black text-center font-semibold">
+              <h1 className="lg:text-[18px] lg:leading-[22.68px] text-[16px] leading-5 text-black text-center font-semibold">
                 {t('How-it-work.keepProvider')}
               </h1>
 
