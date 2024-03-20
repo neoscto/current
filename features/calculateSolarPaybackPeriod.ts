@@ -310,7 +310,7 @@ export const calculateSolarPaybackPeriod = async (
           (final_df.Year.length * DAYS_IN_MONTH);
 
         required_capacity = mean_daily_average_consumption / SEVILLA_HSP / SYSTEM_EFFICIENCY;
-        vsi_required_capacity = required_capacity / SOLAR_PARK_PRODUCTIVITY_BOOST
+        vsi_required_capacity = required_capacity / SOLAR_PARK_PRODUCTIVITY_BOOST;
 
         yearly_consumption =
           (final_df.Total.reduce((acc, val) => acc + val, 0) /
@@ -456,7 +456,7 @@ export const calculateSolarPaybackPeriod = async (
       SERVICE_FEE_PER_MONTH * MONTHS_IN_YEAR * YEARS_IN_CONTRACT;
   }
   const number_of_panels: number = vsi_required_capacity * PANELS_PER_KW;
-  const total_price_before_tax: number = calculateTotalPrice(required_capacity);
+  const total_price_before_tax: number = calculateTotalPrice(vsi_required_capacity);
   const total_price_after_tax: number =
     total_price_before_tax * (1 + NEOS_VAT_PERCENT);
   const neos_installation_tax: number =
@@ -943,7 +943,7 @@ export const calculateSolarPaybackPeriod = async (
     total_price_before_tax,
     neos_installation_tax,
     number_of_panels,
-    required_capacity,
+    vsi_required_capacity,
     total_price_after_tax,
     tableData: [
       {
