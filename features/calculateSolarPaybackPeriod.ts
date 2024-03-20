@@ -99,7 +99,7 @@ const PRICE_TIERS: Array<[number, number]> = [
 ];
 const PRICE_PER_KWH_SOLAR: number = 0;
 const NEOS_VAT_PERCENT: number = 0.21;
-const NEOS_PVOUT_IN_KWH_PER_KW: number = 2000;
+const NEOS_PVOUT_IN_KWH_PER_KW: number = 2250 * 0.8 + 2100 * 0.2;
 const AVERAGE_CONSUMPTION_PER_PERSON_PER_DAY: number = 3.25; // Based on research
 const PANELS_PER_KW: number = 1 / 0.44;
 const INFLATION_PERCENT: number = 0.035; // Approximation from research
@@ -258,6 +258,7 @@ export const calculateSolarPaybackPeriod = async (
   user_cups_code?: string
 ) => {
   let required_capacity: number = 0;
+  let vsi_required_capacity: number = 0;
   let yearly_fixed_charge: number = 0;
   let UTILITY_PRICE: number = 0;
   let yearly_consumption: number = 0;
@@ -269,11 +270,11 @@ export const calculateSolarPaybackPeriod = async (
     let mean_daily_average_consumption: number =
       number_of_people * AVERAGE_CONSUMPTION_PER_PERSON_PER_DAY;
     yearly_consumption = mean_daily_average_consumption * DAYS_IN_YEAR;
-    required_capacity =
-      mean_daily_average_consumption / SEVILLA_HSP / SYSTEM_EFFICIENCY;
+    required_capacity = mean_daily_average_consumption / SEVILLA_HSP / SYSTEM_EFFICIENCY;
+    vsi_required_capacity = required_capacity / SOLAR_PARK_PRODUCTIVITY_BOOST;
     yearly_fixed_charge = required_capacity * YEARLY_FIXED_CHARGE_PEOPLE_FACTOR;
 
-    if (required_capacity <= 15) {
+    if (vsi_required_capacity <= 15) {
       SERVICE_FEE_PER_MONTH = 6;
       UTILITY_PRICE = 0.191649;
     } else {
@@ -308,8 +309,8 @@ export const calculateSolarPaybackPeriod = async (
           final_df.Total.reduce((acc, val) => acc + val, 0) /
           (final_df.Year.length * DAYS_IN_MONTH);
 
-        required_capacity =
-          mean_daily_average_consumption / SEVILLA_HSP / SYSTEM_EFFICIENCY;
+        required_capacity = mean_daily_average_consumption / SEVILLA_HSP / SYSTEM_EFFICIENCY;
+        vsi_required_capacity = required_capacity / SOLAR_PARK_PRODUCTIVITY_BOOST
 
         yearly_consumption =
           (final_df.Total.reduce((acc, val) => acc + val, 0) /
@@ -361,6 +362,7 @@ export const calculateSolarPaybackPeriod = async (
     } else {
       yearly_consumption = 0;
       required_capacity = 0;
+      vsi_required_capacity = 0;
       yearly_fixed_charge = 0;
       yearly_variable_bill = 0;
       total_customer_fees = 0;
@@ -383,6 +385,9 @@ export const calculateSolarPaybackPeriod = async (
           const individual_required_capacity: number =
             mean_daily_average_consumption / SEVILLA_HSP / SYSTEM_EFFICIENCY;
           required_capacity += individual_required_capacity;
+          const vsi_individual_required_capacity: number =
+            individual_required_capacity / SOLAR_PARK_PRODUCTIVITY_BOOST;
+          vsi_required_capacity += vsi_individual_required_capacity;
 
           const individual_yearly_consumption: number =
             (final_df.Total.reduce((acc, val) => acc + val, 0) /
@@ -450,7 +455,7 @@ export const calculateSolarPaybackPeriod = async (
     total_customer_fees =
       SERVICE_FEE_PER_MONTH * MONTHS_IN_YEAR * YEARS_IN_CONTRACT;
   }
-  const number_of_panels: number = required_capacity * PANELS_PER_KW;
+  const number_of_panels: number = vsi_required_capacity * PANELS_PER_KW;
   const total_price_before_tax: number = calculateTotalPrice(required_capacity);
   const total_price_after_tax: number =
     total_price_before_tax * (1 + NEOS_VAT_PERCENT);
@@ -599,13 +604,13 @@ export const calculateSolarPaybackPeriod = async (
     );
   }
   let total_customers_revenue_100: number =
-    required_capacity *
+    vsi_required_capacity *
     revenue_per_kw_100_w_inflation.reduce((a, b) => a + b, 0);
   let total_customers_profit_100: number =
-    total_customers_revenue_100 * (1 - INCOME_TAX_PERCENT);
+    total_customers_revenue_100 // * (1 - INCOME_TAX_PERCENT);
 
   let total_customers_fees_100: number =
-    required_capacity *
+    vsi_required_capacity *
     MAINTENANCE_FEE_PER_MONTH_PER_KW *
     MONTHS_IN_YEAR *
     YEARS_IN_CONTRACT;
@@ -718,7 +723,7 @@ export const calculateSolarPaybackPeriod = async (
   for (let i = 0; i < 25; i++) {
     total_savings_w_neos += savings_w_neos[i];
 
-    // console.log(`- Year ${i}: €${total_savings_w_neos.toFixed(2)}.`);
+    // console.log(`- Year ${i+1}: €${total_savings_w_neos.toFixed(2)}.`);
   }
   let sum = 0;
   for (let i = 0; i < 25; i++) {
@@ -728,8 +733,7 @@ export const calculateSolarPaybackPeriod = async (
       saving: (sum / total_savings_w_neos).toFixed(2)
     });
     cumulative_savings.push({ years: i + 1, saving: sum });
-    // console.log(`- Year ${i}: €${total_savings_w_neos.toFixed(2)}.`);
-  }
+  };
 
   // console.log('saving with neos', { save_yearly_w_neos });
 
@@ -740,7 +744,7 @@ export const calculateSolarPaybackPeriod = async (
 
   for (let year = 0; year < 25; year++) {
     const saving = savings_w_neos[year];
-    const yearly = total_regular_bills_w_inflation[year - 1];
+    const yearly = total_regular_bills_w_inflation[year];
     sum_w_neos += yearly;
     left -= saving;
     values.push(left);
@@ -756,7 +760,7 @@ export const calculateSolarPaybackPeriod = async (
   }
 
   const neos_emissions_saved_per_year_in_kgs: number =
-    required_capacity *
+    vsi_required_capacity *
     COMPETITOR_PARK_EMISSIONS_SAVED_PER_KWH *
     SPAIN_GERMANY_PVOUT_BOOST *
     NEOS_PVOUT_IN_KWH_PER_KW;
@@ -781,8 +785,8 @@ export const calculateSolarPaybackPeriod = async (
   const profits_without_neos_provider: number[] = [];
 
   for (const revenue_per_kw of revenue_per_kw_100_w_inflation) {
-    const total_revenue: number = required_capacity * revenue_per_kw;
-    const final_profit: number = total_revenue * (1 - INCOME_TAX_PERCENT);
+    const total_revenue: number = vsi_required_capacity * revenue_per_kw;
+    const final_profit: number = total_revenue // * (1 - INCOME_TAX_PERCENT);
     profits_without_neos_provider.push(final_profit);
   }
 
@@ -792,7 +796,7 @@ export const calculateSolarPaybackPeriod = async (
     const bill: number = total_regular_bills_w_inflation[i];
     const profit: number = profits_without_neos_provider[i];
     const net_spending: number =
-      required_capacity * MAINTENANCE_FEE_PER_MONTH_PER_KW * MONTHS_IN_YEAR +
+      vsi_required_capacity * MAINTENANCE_FEE_PER_MONTH_PER_KW * MONTHS_IN_YEAR +
       bill -
       profit;
     net_spendings_without_neos_provider.push(net_spending);
@@ -892,8 +896,8 @@ export const calculateSolarPaybackPeriod = async (
   // );
   // console.log('Your cumulative savings in:');
 
-  for (let i = 1; i <= 25; i++) {
-    total_savings_rooftop += rooftop_savings[i - 1];
+  for (let i = 0; i < 25; i++) {
+    total_savings_rooftop += rooftop_savings[i];
     // console.log(`- Year ${i}: €${total_savings_rooftop.toFixed(2)}.`);
   }
 
