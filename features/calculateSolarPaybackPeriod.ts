@@ -943,6 +943,7 @@ export const calculateSolarPaybackPeriod = async (
     total_price_before_tax,
     neos_installation_tax,
     number_of_panels,
+    required_capacity,
     vsi_required_capacity,
     total_price_after_tax,
     tableData: [
