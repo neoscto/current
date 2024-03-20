@@ -1,13 +1,20 @@
 'use server';
 
-import { createCanvas } from 'canvas';
+import { createCanvas, registerFont } from 'canvas';
 import Chart from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { SavingRecord } from '../types';
 import { Record } from './parse-csv';
 
 Chart.register(annotationPlugin);
+try {
+  registerFont('./public/fonts/codec-pro.regular.ttf', { family: 'Codec Pro' });
+  console.log('Font registered successfully 🚀')
+} catch (error) {
+  console.error(error)
+}
 Chart.defaults.font.size = 25;
+Chart.defaults.font.family = 'Codec Pro';
 export const generateChart = async (
   records: Record[],
   filterMonth: number,
@@ -27,6 +34,7 @@ export const generateChart = async (
     ctx.strokeStyle = '#000000';
     ctx.lineWidth = 2;
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
+    ctx.font = '20px "Codec Pro"';
     // Filter records by month
     const filteredRecords = records.filter(
       (record) => record.month === filterMonth
@@ -42,7 +50,7 @@ export const generateChart = async (
             label: 'Production',
             data: filteredRecords.map((rec) => rec.production),
             backgroundColor: '#002e1e',
-            barThickness: 10 * scale
+            barThickness: 20
           }
         ]
       },
@@ -69,7 +77,7 @@ export const generateChart = async (
             display: true,
             text: `Producción ${title}`,
             font: {
-              size: 30
+              size: 35
             }
           },
           legend: {
@@ -105,6 +113,8 @@ export const generatePaybackChart = async (
     ctx.strokeStyle = '#000000';
     ctx.lineWidth = 2;
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
+    ctx.font = '25px "Codec Pro"';
+
     const configuration = {
       type: 'bar',
       data: {
