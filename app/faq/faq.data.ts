@@ -7,7 +7,7 @@ export const faqData = [
   {
     question: "What is a Neos virtual solar installation?",
     answer:
-      '<p>A Neos virtual solar installation refers to the full ownership of electricity produced by solar panels linked to your name, but installed in our solar parks. These parks are already connected to the country’s power grid, just like your home or business, so the connection is instant.</p><p> We\'ve decided to call it "virtual" because there is no need for any <i>physical</i> setup at your location. Since solar energy is the cheapest source of electricity, you can save between 60% and 75% on your monthly electricity bills with our virtual solar installation and electricity provider services.</p>',
+      '<p>A Neos virtual solar installation refers to the full ownership of electricity produced by solar panels linked to your name, but installed in our solar parks. These parks are already connected to the country’s power grid, just like your home or business, so the connection is instant.</p><p> We\'ve decided to call it "virtual" because there is no need for any <i>physical</i> setup at your location. Since solar energy is the cheapest source of electricity, you can save between 45% and 75% on your monthly electricity bills with our virtual solar installation and electricity provider services.</p>',
   },
   {
     question:
@@ -19,7 +19,7 @@ export const faqData = [
     question:
       "What are the advantages of choosing Neos as my electricity provider over conventional electricity providers?",
     answer:
-      "<p>The main benefits of using Neos as your electricity provider instead of conventional electricity providers are the following:</p> <br><ul><li><b>• Lower Electricity Bills:</b> You will cut your monthly electricity bills by 60% to 75%, compared to what you'd normally pay with other electricity providers.</li><li><b>• Sustainable Lifestyle:</b> By opting for Neos, you will contribute to reducing carbon emissions with our clean, solar-generated electricity.</li><li><b>• Revenue from Unused Electricity:</b> You will earn revenue from the surplus electricity your virtual solar installation generates.</li><li><b>• Unmatched Flexibility:</b> You will benefit from the dual-source supply of solar energy and grid power at wholesale prices during non-sunny periods, ensuring you have access to energy at the best possible price at all times, day or night.</li></ul>",
+      "<p>The main benefits of using Neos as your electricity provider instead of conventional electricity providers are the following:</p> <br><ul><li><b>• Lower Electricity Bills:</b> You will cut your monthly electricity bills by 45% to 75%, compared to what you'd normally pay with other electricity providers.</li><li><b>• Sustainable Lifestyle:</b> By opting for Neos, you will contribute to reducing carbon emissions with our clean, solar-generated electricity.</li><li><b>• Revenue from Unused Electricity:</b> You will earn revenue from the surplus electricity your virtual solar installation generates.</li><li><b>• Unmatched Flexibility:</b> You will benefit from the dual-source supply of solar energy and grid power at wholesale prices during non-sunny periods, ensuring you have access to energy at the best possible price at all times, day or night.</li></ul>",
   },
   {
     question: "How do I purchase a virtual solar installation from Neos?",
