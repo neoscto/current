@@ -26,13 +26,13 @@ export interface GeneratePDFProps {
 
 export interface Chart {
   pdfDoc: PDFDocument;
-  xPos: number;
   chartImgWidth: number;
   chartImgHeight: number;
 }
 
 export interface DrawChartProps extends Chart {
   page: PDFPage;
+  xPos: number;
   chartUrl: string;
   yPos: number;
 }

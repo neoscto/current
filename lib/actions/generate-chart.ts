@@ -1,13 +1,20 @@
 'use server';
 
-import { createCanvas } from 'canvas';
+import { createCanvas, registerFont } from 'canvas';
 import Chart from 'chart.js/auto';
-import { Record } from './parse-csv';
-import { SavingRecord } from '../types';
 import annotationPlugin from 'chartjs-plugin-annotation';
+import { SavingRecord } from '../types';
+import { Record } from './parse-csv';
 
 Chart.register(annotationPlugin);
-
+try {
+  registerFont('./public/fonts/codec-pro.regular.ttf', { family: 'Codec Pro' });
+  console.log('Font registered successfully 🚀')
+} catch (error) {
+  console.error(error)
+}
+Chart.defaults.font.size = 25;
+Chart.defaults.font.family = 'Codec Pro';
 export const generateChart = async (
   records: Record[],
   filterMonth: number,
@@ -15,18 +22,19 @@ export const generateChart = async (
 ) => {
   try {
     // Define width, height and DPI
-    const scale = 2;
+    const scale = 2.5;
     const width = 383 * scale;
     const height = 300 * scale;
     const canvas = createCanvas(width, height);
     const ctx = canvas.getContext('2d');
 
-    ctx.scale(scale, 1);
+    ctx.scale(scale, scale);
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.strokeStyle = '#000000';
     ctx.lineWidth = 2;
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
+    ctx.font = '20px "Codec Pro"';
     // Filter records by month
     const filteredRecords = records.filter(
       (record) => record.month === filterMonth
@@ -42,7 +50,7 @@ export const generateChart = async (
             label: 'Production',
             data: filteredRecords.map((rec) => rec.production),
             backgroundColor: '#002e1e',
-            barThickness: 10 * scale
+            barThickness: 20
           }
         ]
       },
@@ -53,20 +61,14 @@ export const generateChart = async (
             grid: { display: false },
             title: {
               display: true,
-              text: 'Producción (KWh)',
-              font: {
-                size: 8 * scale
-              }
+              text: 'Producción (KWh)'
             }
           },
           x: {
             grid: { display: false },
             title: {
               display: true,
-              text: 'Hora',
-              font: {
-                size: 6 * scale
-              }
+              text: 'Hora'
             }
           }
         },
@@ -75,7 +77,7 @@ export const generateChart = async (
             display: true,
             text: `Producción ${title}`,
             font: {
-              size: 10 * scale
+              size: 35
             }
           },
           legend: {
@@ -100,18 +102,19 @@ export const generatePaybackChart = async (
   globalPrice: number
 ) => {
   try {
-    const scale = 2;
-    const width = 383 * scale;
-    const height = 300 * scale;
+    const width = 700;
+    const height = 600;
     const canvas = createCanvas(width, height);
     const ctx = canvas.getContext('2d');
 
-    ctx.scale(scale, 1);
+    // ctx.scale(scale, scale);
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.strokeStyle = '#000000';
     ctx.lineWidth = 2;
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
+    ctx.font = '25px "Codec Pro"';
+
     const configuration = {
       type: 'bar',
       data: {
@@ -128,19 +131,29 @@ export const generatePaybackChart = async (
         scales: {
           x: {
             grid: { display: false },
+            ticks: {
+              font: {
+                size: 14
+              }
+            },
             title: {
               display: true,
               text: 'Año',
-              font: { size: 12 }
+              font: { size: 14 }
             }
           },
           y: {
             grid: { display: false },
+            ticks: {
+              font: {
+                size: 14
+              }
+            },
             beginAtZero: true,
             title: {
               display: true,
               text: 'Ahorro (€)',
-              font: { size: 12 }
+              font: { size: 14 }
             }
           }
         },
@@ -151,7 +164,12 @@ export const generatePaybackChart = async (
             font: { size: 20 }
           },
           legend: {
-            display: true
+            display: true,
+            labels: {
+              boxWidth: 20,
+              padding: 5,
+              font: { size: 12 }
+            }
           },
           annotation: {
             annotations: {

@@ -7,6 +7,7 @@ import path from 'path';
 import * as fs from 'fs';
 import fetch from 'node-fetch';
 import {
+  chartPageHorizontalPositions,
   chartPageVerticalPositions,
   dataURLToUint8Array,
   spanishMonths
@@ -69,7 +70,6 @@ const generateChartPage = async ({
   records,
   months,
   pdfDoc,
-  xPos,
   chartImgWidth,
   chartImgHeight,
   chartBackground,
@@ -89,13 +89,14 @@ const generateChartPage = async ({
   for (let i = 0; i < months.length; i++) {
     const month = months[i];
     const chartUrl = await generateChart(records, month.index, month.name);
+    const verticalPositions = chartPageVerticalPositions(3);
     chartUrl &&
       (await drawChart({
         pdfDoc,
         page,
         chartUrl,
-        xPos,
-        yPos: chartPageVerticalPositions[i],
+        xPos: chartPageHorizontalPositions[i % 3],
+        yPos: verticalPositions[i],
         chartImgWidth,
         chartImgHeight
       }));
@@ -311,21 +312,19 @@ export const generatePDF = async ({
     const records = await parseCSV(csvReadStream);
 
     // Generate 3 Chart Pages
-    for (let i = 0; i < 3; i++) {
-      await generateChartPage({
-        records,
-        months: spanishMonths.slice(i * 4, (i + 1) * 4),
-        pdfDoc: newPdfDoc,
-        xPos: 50,
-        chartImgWidth: 383,
-        chartImgHeight: 140,
-        chartBackground: chartBackground1,
-        imageWidth: imageDims.width,
-        imageHeight: imageDims.height,
-        pageWidth,
-        pageHeight
-      });
-    }
+
+    await generateChartPage({
+      records,
+      months: spanishMonths,
+      pdfDoc: newPdfDoc,
+      chartImgWidth: 170,
+      chartImgHeight: 140,
+      chartBackground: chartBackground1,
+      imageWidth: imageDims.width,
+      imageHeight: imageDims.height,
+      pageWidth,
+      pageHeight
+    });
 
     await generatePage8(
       page8BackgroundImage,
@@ -356,9 +355,9 @@ export const generatePDF = async ({
         page: page9,
         chartUrl,
         xPos: 50,
-        yPos: 100,
+        yPos: 225,
         chartImgWidth: 500,
-        chartImgHeight: 600
+        chartImgHeight: 450
       }));
     // const lastPageBytes = fs.readFileSync(
     //   path.join(process.cwd(), 'public', lastPdfPage)
