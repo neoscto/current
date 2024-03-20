@@ -38,6 +38,13 @@ export async function POST(req: Request, res: NextApiResponse) {
           maximumFractionDigits: 2
         }
       );
+      const vsi_required_capacity = body.data.vsi_required_capacity.toLocaleString(
+        'en-US',
+        {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }
+      );
 
       const percent_savings_year1_w_neos =
         body.data.percent_savings_year1_w_neos.toLocaleString('en-US', {
@@ -109,7 +116,7 @@ export async function POST(req: Request, res: NextApiResponse) {
         <h1 style="display: block; text-align: center;">
           <span style="font-size: 1.875rem; font-weight: bold; text-align: center;">Tu Oferta:</span>
           <br />
-          <span style="font-size: 1.5rem; padding: 0.25rem; text-align: left;"><b>${number_of_panels}</b> Paneles (Equivalentes a <b>${required_capacity}</b> kWp)</span>
+          <span style="font-size: 1.5rem; padding: 0.25rem; text-align: left;"><b>${number_of_panels}</b> Paneles (Equivalentes a <b>${vsi_required_capacity}</b> kWp)</span>
         </h1>
       </div>  
       <p style="font-size: 1.25rem; font-weight: bold;color: #333333; text-align: center;">Elige Tu Plan</p>
