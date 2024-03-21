@@ -102,8 +102,9 @@ const NEOS_VAT_PERCENT: number = 0.21;
 const NEOS_PVOUT_IN_KWH_PER_KW: number = 2250 * 0.8 + 2100 * 0.2;
 const AVERAGE_CONSUMPTION_PER_PERSON_PER_DAY: number = 3.25; // Based on research
 const PANELS_PER_KW: number = 1 / 0.44;
-const INFLATION_PERCENT: number = 0.035; // Approximation from research
-const GRID_COVERAGE_PERCENT: number = 0.5; // Approximation from research
+const INFLATION_PERCENT: number = 0.03; // Approximation from research
+const ROOFTOP_GRID_COVERAGE_PERCENT = 0.5 // Approximation from research 
+const NEOS_GRID_COVERAGE_PERCENT = 0.34 // Sample result from quantitative research
 const GRID_RELATED_COSTS: number = 0.03; // Approximation from research
 const GRID_TAX_PERCENT: number = 0.1;
 const ROOFTOP_PRICE: number = (1667 + 1942) / 2; // Based on research
@@ -529,7 +530,7 @@ export const calculateSolarPaybackPeriod = async (
     ROOFTOP_MAINTENANCE_PER_MONTH *
     MONTHS_IN_YEAR *
     YEARS_IN_CONTRACT +
-    GRID_COVERAGE_PERCENT * total_variable_charges;
+    ROOFTOP_GRID_COVERAGE_PERCENT * total_variable_charges;
 
   let customers_revenue: number = REVENUE_PER_KWH_CONSUMED * yearly_consumption;
   let customers_revenue_w_inflation: number[] = [];
@@ -549,7 +550,7 @@ export const calculateSolarPaybackPeriod = async (
     (wholesale_cost_per_kwh_consumed + GRID_RELATED_COSTS) *
     (1 + GRID_TAX_PERCENT);
   let customers_spending_non_solar: number =
-    GRID_COVERAGE_PERCENT *
+    NEOS_GRID_COVERAGE_PERCENT *
     spending_per_kwh_non_solar_consumed *
     yearly_consumption;
   let customers_spending_non_solar_w_inflation: number[] = [];
@@ -564,7 +565,7 @@ export const calculateSolarPaybackPeriod = async (
   let spending_per_kwh_solar_consumed: number =
     (PRICE_PER_KWH_SOLAR + GRID_RELATED_COSTS) * (1 + GRID_TAX_PERCENT);
   let customers_spending_solar: number =
-    (1 - GRID_COVERAGE_PERCENT) *
+    (1 - NEOS_GRID_COVERAGE_PERCENT) *
     spending_per_kwh_solar_consumed *
     yearly_consumption;
   let customers_spending_solar_w_inflation: number[] = [];
@@ -876,7 +877,7 @@ export const calculateSolarPaybackPeriod = async (
       let fixed_charge = yearly_fixed_charges_w_inflation[index];
       return (
         required_capacity * ROOFTOP_MAINTENANCE_PER_MONTH * MONTHS_IN_YEAR +
-        GRID_COVERAGE_PERCENT * bill +
+        ROOFTOP_GRID_COVERAGE_PERCENT * bill +
         fixed_charge
       );
     }
