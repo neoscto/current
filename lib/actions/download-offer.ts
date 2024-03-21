@@ -132,7 +132,7 @@ const generatePage8 = async (
     height: imageDims.height
   });
   const fontSize = 10;
-  page.drawText(`${globalCapacity.toFixed(1)}`, {
+  page.drawText(`${globalCapacity.toFixed(2)}`, {
     x: 135,
     y: 632,
     size: fontSize,
@@ -160,28 +160,28 @@ const generatePage8 = async (
     font: helveticaFont,
     color: rgb(0, 0, 0)
   });
-  page.drawText(`${(globalSavings / globalPrice).toFixed(1)}`, {
+  page.drawText(`${(globalSavings / globalPrice).toFixed(2)}`, {
     x: 60,
     y: 217,
     size: fontSize,
     font: helveticaFont,
     color: rgb(0, 0, 0)
   });
-  page.drawText(`${globalPaybackNeos.toFixed(1)}`, {
+  page.drawText(`${globalPaybackNeos.toFixed(2)}`, {
     x: 396,
     y: 157,
     size: fontSize,
     font: helveticaFont,
     color: rgb(0, 0, 0)
   });
-  page.drawText(`${globalPaybackRooftop.toFixed(1)}`, {
+  page.drawText(`${globalPaybackRooftop.toFixed(2)}`, {
     x: 470,
     y: 142,
     size: fontSize,
     font: helveticaFont,
     color: rgb(0, 0, 0)
   });
-  page.drawText(`${globalTons.toFixed(1)}`, {
+  page.drawText(`${globalTons.toFixed(2)}`, {
     x: 99,
     y: 93,
     size: fontSize,
@@ -263,7 +263,7 @@ export const generatePDF = async ({
     const fontSize = 10;
 
     page.drawText(
-      `${globalCapacity.toFixed(1)} KWp (${globalPanels.toFixed(1)}) Paneles`,
+      `${globalCapacity.toFixed(2)} KWp (${globalPanels.toFixed(2)}) Paneles`,
       {
         x: 120,
         y: pageHeight - 225 - fontSize,
@@ -272,21 +272,21 @@ export const generatePDF = async ({
         color: rgb(0, 0, 0)
       }
     );
-    page.drawText(`${(globalCapacity * 2250).toFixed(1)} KWh`, {
+    page.drawText(`${(globalCapacity * 2220).toFixed(2)} KWh`, {
       x: pageWidth - 210,
       y: pageHeight - 225 - fontSize,
       size: fontSize,
       font: helveticaFont,
       color: rgb(0, 0, 0)
     });
-    page.drawText(`${globalCapacity.toFixed(1)}`, {
+    page.drawText(`${globalCapacity.toFixed(2)}`, {
       x: pageWidth - 114,
       y: pageHeight - 322.5 - fontSize, // Adjust coordination system
       size: fontSize,
       font: helveticaFont,
       color: rgb(0, 0, 0)
     });
-    page.drawText(`${globalPanels.toFixed(1)}`, {
+    page.drawText(`${globalPanels.toFixed(2)}`, {
       x: 140,
       y: pageHeight - 338 - fontSize, // Adjust coordination system
       size: fontSize,
@@ -294,14 +294,14 @@ export const generatePDF = async ({
       color: rgb(0, 0, 0)
     });
 
-    page.drawText(`${(globalCapacity * 2250).toFixed(1)}`, {
+    page.drawText(`${(globalCapacity * 2220).toFixed(2)}`, {
       x: pageWidth - 138,
       y: pageHeight - 338 - fontSize, // Adjust coordination system
       size: fontSize,
       font: helveticaFont,
       color: rgb(0, 0, 0)
     });
-    page.drawText(`${globalPercentage.toFixed(1)}`, {
+    page.drawText(`${globalPercentage.toFixed(2)}`, {
       x: pageWidth - 311,
       y: pageHeight - 352 - fontSize,
       size: fontSize,
