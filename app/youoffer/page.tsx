@@ -665,7 +665,7 @@ const YourOffer = ({ handleNext, data }: any) => {
             <p className=" text-[#4F4F4F] text-xs mt-2">
               *
               {t(
-                'Savings are calculated assuming a conservative 3.5% annual increase in electricity prices.'
+                'Savings are calculated assuming a conservative 3% annual increase in electricity prices.'
               )}
             </p>
           </div>
