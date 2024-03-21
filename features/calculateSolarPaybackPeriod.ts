@@ -283,7 +283,7 @@ export const calculateSolarPaybackPeriod = async (
       UTILITY_PRICE = 0.165449;
     }
     yearly_variable_bill =
-      UTILITY_PRICE * (1 + GRID_TAX_PERCENT) * yearly_consumption;
+      UTILITY_PRICE * yearly_consumption;
     total_customer_fees =
       SERVICE_FEE_PER_MONTH * MONTHS_IN_YEAR * YEARS_IN_CONTRACT;
   } else if (user_cups_code) {
@@ -348,7 +348,7 @@ export const calculateSolarPaybackPeriod = async (
           UTILITY_PRICE = 0.137538;
         }
         yearly_variable_bill =
-          UTILITY_PRICE * (1 + GRID_TAX_PERCENT) * yearly_consumption;
+          UTILITY_PRICE * yearly_consumption;
 
         const individual_total_customer_fees: number =
           SERVICE_FEE_PER_MONTH * MONTHS_IN_YEAR * YEARS_IN_CONTRACT;
@@ -430,7 +430,6 @@ export const calculateSolarPaybackPeriod = async (
           }
           const individual_yearly_variable_bill: number =
             UTILITY_PRICE *
-            (1 + GRID_TAX_PERCENT) *
             individual_yearly_consumption;
           yearly_variable_bill += individual_yearly_variable_bill;
 
@@ -547,8 +546,7 @@ export const calculateSolarPaybackPeriod = async (
   let wholesale_cost_per_kwh_consumed: number =
     TOTAL_SPENDING / TOTAL_CONSUMPTION;
   let spending_per_kwh_non_solar_consumed: number =
-    (wholesale_cost_per_kwh_consumed + GRID_RELATED_COSTS) *
-    (1 + GRID_TAX_PERCENT);
+    wholesale_cost_per_kwh_consumed * (1 + GRID_TAX_PERCENT) + GRID_RELATED_COSTS;
   let customers_spending_non_solar: number =
     NEOS_GRID_COVERAGE_PERCENT *
     spending_per_kwh_non_solar_consumed *
@@ -563,7 +561,7 @@ export const calculateSolarPaybackPeriod = async (
   let total_customers_spending_non_solar: number =
     customers_spending_non_solar_w_inflation.reduce((a, b) => a + b, 0);
   let spending_per_kwh_solar_consumed: number =
-    (PRICE_PER_KWH_SOLAR + GRID_RELATED_COSTS) * (1 + GRID_TAX_PERCENT);
+    PRICE_PER_KWH_SOLAR * (1 + GRID_TAX_PERCENT) + GRID_RELATED_COSTS;
   let customers_spending_solar: number =
     (1 - NEOS_GRID_COVERAGE_PERCENT) *
     spending_per_kwh_solar_consumed *
