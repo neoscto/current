@@ -25,6 +25,7 @@ export type UsersOffersSchemaProps = {
   numberOfPeopleAdditionValue: number;
   address: string;
   city: string;
+  nie: string;
   postcode: string;
   referralCode: string;
   termsConditionRead?: boolean;
@@ -90,8 +91,17 @@ class UsersOffersSchema {
   @prop({ required: false })
   address: string;
 
+  @prop({ required: false, default: '' })
+  addressNo: string;
+
   @prop({ required: false })
   city: string;
+
+  @prop({ required: false })
+  nie: string;
+
+  @prop({ required: false, default: '' })
+  province: string;
 
   @prop({ required: false })
   postcode: string;

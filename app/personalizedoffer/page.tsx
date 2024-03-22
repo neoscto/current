@@ -1,35 +1,32 @@
 'use client';
-import React, { useCallback, useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import MainContainer from '@/components/sharedComponents/MainContainer';
-import { setUserData } from '@/features/common/commonSlice';
-import { AppDispatch } from '@/store/store';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import useHandleForm from '@/hooks/useHandleForm';
-import { offerStep1Schema } from '@/utils/validations/offers.validation';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Grid } from '@mui/material';
 import NeosTextField from '@/components/NeosTextField';
+import ProgressBar from '@/components/ProgressBar';
+import MainContainer from '@/components/sharedComponents/MainContainer';
+import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPeriod';
+import { setUserData } from '@/features/common/commonSlice';
+import useDocusignService from '@/hooks/useDocusign';
+import useHandleForm from '@/hooks/useHandleForm';
+import { AppDispatch } from '@/store/store';
 import {
   getDataFromSessionStorage,
-  saveDataToSessionStorage
+  saveDataToSessionStorage,
+  savePaybackDataToSessionStorage
 } from '@/utils/utils';
-import 'react-phone-number-input/style.css';
+import { offerStep1Schema } from '@/utils/validations/offers.validation';
+import { Button } from '@mantine/core';
+import { Grid } from '@mui/material';
+import Box from '@mui/material/Box';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import PhoneInput, {
   Country,
   getCountryCallingCode,
   isValidPhoneNumber
 } from 'react-phone-number-input';
-import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPeriod';
+import 'react-phone-number-input/style.css';
+import { useDispatch } from 'react-redux';
 import YourOffer from '../youoffer/page';
-import { Button } from '@mantine/core';
-import useDocusignService from '@/hooks/useDocusign';
-import ProgressBar from '@/components/ProgressBar';
 
 const validateCUPS = (cups: string): boolean | string => {
   const cupsArray = cups.toUpperCase().replace(/\s/g, '').split(',');
@@ -157,7 +154,40 @@ const PersonalizedOffer = () => {
         formik.values.numberOfPeople,
         formik.values.cups
       );
-      if (newData) setData(newData);
+      if (newData) {
+        const sessionData = {
+          totalPanels: newData.number_of_panels,
+          capacityPerPanel: '440 Wp',
+          totalCapacity: newData.vsi_required_capacity,
+          estimateProduction: newData.vsi_required_capacity * 2000,
+          totalPayment: newData.total_price_after_tax,
+          typeConsumption: newData.type_consumption_point
+        };
+        savePaybackDataToSessionStorage('SolarPayback', sessionData);
+        setData(newData);
+      }
+      const offerData: any = getDataFromSessionStorage('UserOffer');
+      if (offerData) {
+        const updatedData = {
+          firsName: formik?.values?.firstName,
+          lastName: formik.values.lastName,
+          emailAddress: formik.values.emailAddress,
+          numberOfPeople: formik.values.numberOfPeople,
+          phoneNumber: formik.values.phoneNumber,
+          dialCode: formik.values.dialCode,
+          cups: formik.values.cups
+        };
+
+        const response = await fetch(`api/users-offers/${offerData?._id},`, {
+          method: 'PATCH',
+          body: JSON.stringify(updatedData)
+        });
+        const data = await response.json();
+        if (data) {
+          saveDataToSessionStorage('UserOffer', data.data);
+          setShowForm('yourOffer');
+        }
+      }
 
       setServerError('');
     } catch (error) {
@@ -166,29 +196,6 @@ const PersonalizedOffer = () => {
       return;
     }
 
-    const offerData: any = getDataFromSessionStorage('UserOffer');
-    if (offerData) {
-      const updatedData = {
-        firsName: formik?.values?.firstName,
-        lastName: formik.values.lastName,
-        emailAddress: formik.values.emailAddress,
-        numberOfPeople: formik.values.numberOfPeople,
-        phoneNumber: formik.values.phoneNumber,
-        dialCode: formik.values.dialCode,
-        cups: formik.values.cups
-      };
-      const response = await fetch(`api/users-offers/${offerData?._id}`, {
-        method: 'PATCH',
-        body: JSON.stringify(updatedData)
-      });
-      const data = await response.json();
-      if (data) {
-        saveDataToSessionStorage('UserOffer', data.data);
-        setShowForm('yourOffer');
-      }
-      setLoading(false);
-      return;
-    }
     formik.handleSubmit();
     setLoading(false);
   };
