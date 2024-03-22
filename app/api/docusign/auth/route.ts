@@ -89,11 +89,11 @@ const generateEnvelopeData = (offerData: any, paybackData: any) => {
             },
             {
               tabLabel: 'totalCapacity',
-              value: paybackData.totalCapacity.toFixed(2).toString()
+              value: `${paybackData.totalCapacity.toFixed(2).toString()} kWp`
             },
             {
               tabLabel: 'estimateProduction',
-              value: paybackData.estimateProduction.toFixed(2).toString()
+              value: `${paybackData.estimateProduction.toFixed(2).toString()} kWh`
             },
             {
               tabLabel: 'totalPayment',
