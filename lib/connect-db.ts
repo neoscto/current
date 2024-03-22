@@ -34,7 +34,7 @@ async function connectDB() {
     const opts = {
       bufferCommands: false,
     };
-    console.log("MONGODB_URI",MONGODB_URI)
+    console.log("MONGODB_URI", MONGODB_URI)
     cached.promise = connect(MONGODB_URI!, opts)
       .then((mongoose) => {
         console.log("✅ New connection established");
