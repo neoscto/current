@@ -20,15 +20,13 @@ const ContractDetail = ({
   setShowForm,
   signature
 }: any) => {
-  // const displayValue =
-  //   Number(
-  //     formik?.values?.numberOfPeople
-  //       ? formik?.values?.numberOfPeople
-  //       : formik?.values?.cups
-  //   ) + 1;
+  const displayValue =
+    Number(
+      formik?.values?.numberOfPeople
+        ? formik?.values?.numberOfPeople
+        : formik?.values?.cups
+    ) + 1;
   const dispatch = useDispatch();
-  const paybackData = getPaybackDataFromSessionStorage('SolarPayback');
-  const displayValue = paybackData?.totalPayment?.toFixed(2);
   const labelStyle = 'font-medium text-base text-black';
   const infoStyle = 'text-base font-normal text-gray-300';
   const defaultTxtStyle = 'text-base font-normal text-[#bdbdbd]';
@@ -103,6 +101,7 @@ const ContractDetail = ({
     ) as HTMLInputElement | null;
     const offerData: any = getDataFromSessionStorage('UserOffer');
     const neosPlan = offerData.plan === 'neos';
+    const includeCups = offerData.plan !== 'current';
     if (
       isChecked &&
       isChecked?.checked &&
@@ -112,7 +111,7 @@ const ContractDetail = ({
       formik?.values?.nie &&
       formik?.values?.province &&
       formik?.values?.addressNo &&
-      (formik?.values?.cups || offerData.cups)
+      ((includeCups && formik?.values?.cups) || !formik?.values?.cups)
     ) {
       const userData = {
         address: formik?.values?.address,
