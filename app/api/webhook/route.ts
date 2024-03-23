@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Add your stripe secret key here
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 export async function POST(_request: Request, _response: Response) {
   const sig = _request.headers.get('stripe-signature');
   let event;
@@ -30,11 +30,13 @@ export async function POST(_request: Request, _response: Response) {
       break;
     case 'charge.expired':
       const chargeExpired = event.data.object;
-      // Then define and call a function to handle the event charge.expired
+      console.log(`Charge expired for Charge ID: ${chargeExpired.id}`);
       break;
     case 'charge.failed':
       const chargeFailed = event.data.object;
-      // Then define and call a function to handle the event charge.failed
+      console.error(
+        `Charge failed for Charge ID: ${chargeFailed.id} with error: ${chargeFailed.failure_message}`
+      );
       break;
 
     default:

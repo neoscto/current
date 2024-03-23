@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import VideoPreview from '@/app/videoPlayer/preview';
 import TolstoyHero from '@/app/landingpage/TolstoyHero';
 
-const Congrats = ({ generatePDF }: any) => {
+const Congrats = ({ generatePDF, isPDFLoading }: any) => {
   const { t } = useTranslation();
   return (
     <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-5">
@@ -34,6 +34,7 @@ const Congrats = ({ generatePDF }: any) => {
             category="colored"
             title={t('Email-success.download-txt')}
             onClick={generatePDF}
+            disabled={isPDFLoading}
           />
         </div>
       </div>
