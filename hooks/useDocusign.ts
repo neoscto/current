@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react';
 const useDocusignService = (formik: any) => {
   const clientId = process.env.NEXT_PUBLIC_DOCUSIGN_INTEGRATION_KEY;
   const redirectUri = process.env.NEXT_PUBLIC_DOCUSIGN_AUTH_REDIRECT;
-
+  const [isPDFLoading, setIsPDFLoading] = useState(false);
   const searchParams = useSearchParams();
 
   const [signingUrl, setSigningUrl] = useState('');
@@ -69,6 +69,7 @@ const useDocusignService = (formik: any) => {
 
   const downloadPdf = async () => {
     try {
+      setIsPDFLoading(true);
       const envelopeId = userOffer.envelopeId;
       const docusignAccessToken: any = getDataFromSessionStorage(
         'docusignAccessToken'
@@ -101,6 +102,7 @@ const useDocusignService = (formik: any) => {
       link.click();
 
       document.body.removeChild(link);
+      setIsPDFLoading(false);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -154,7 +156,8 @@ const useDocusignService = (formik: any) => {
     userOffer,
     signature,
     getAuthorizationUrl,
-    downloadPdf
+    downloadPdf,
+    isPDFLoading
   };
 };
 

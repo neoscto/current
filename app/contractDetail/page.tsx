@@ -7,11 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import EmailSuccess from '../emailSuccess/page';
 // import { getAuthorizationUrl } from "@/services/docusign.service";
-import {
-  getDataFromSessionStorage,
-  getPaybackDataFromSessionStorage,
-  updateSessionStorage
-} from '@/utils/utils';
+import { getDataFromSessionStorage, updateSessionStorage } from '@/utils/utils';
 
 const ContractDetail = ({
   handleNext,
@@ -75,7 +71,8 @@ const ContractDetail = ({
         cups: formik?.values?.cups,
         nie: formik?.values?.nie,
         addressNo: formik?.values?.addressNo,
-        province: formik?.values?.province
+        province: formik?.values?.province,
+        filledInfo: true
       };
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/users-offers/${offerData?._id}`,

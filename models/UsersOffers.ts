@@ -118,6 +118,15 @@ class UsersOffersSchema {
   @prop()
   contractSignAt: Date;
 
+  @prop({ default: false })
+  clickedOnGenerate: boolean;
+
+  @prop({ default: false })
+  filledInfo: boolean;
+
+  @prop({ default: false })
+  paid: boolean;
+
   @prop()
   esign: string;
 
