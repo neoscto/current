@@ -5,11 +5,10 @@ import {
   createEnvelope,
   getEmbeddedSigningUrl
 } from '@/services/docusign.service';
-import * as fs from 'fs';
+import { POWER_PRICES } from '@/utils/utils';
 import * as jwt from 'jsonwebtoken';
 import jsPDF from 'jspdf';
 import { NextResponse } from 'next/server';
-import path from 'path';
 
 const pdfGenerate = (formData: any): string => {
   const pdf = new jsPDF();
@@ -27,6 +26,33 @@ const pdfGenerate = (formData: any): string => {
 };
 
 const generateEnvelopeData = (offerData: any, paybackData: any) => {
+  const typeConsumption = paybackData.typeConsumption;
+  const powerConsumptionData = typeConsumption && [
+    {
+      tabLabel: 'p1',
+      value: POWER_PRICES[typeConsumption]['P1']
+    },
+    {
+      tabLabel: 'p2',
+      value: POWER_PRICES[typeConsumption]['P2']
+    },
+    {
+      tabLabel: 'p3',
+      value: POWER_PRICES[typeConsumption]['P3']
+    },
+    {
+      tabLabel: 'p4',
+      value: POWER_PRICES[typeConsumption]['P4']
+    },
+    {
+      tabLabel: 'p5',
+      value: POWER_PRICES[typeConsumption]['P5']
+    },
+    {
+      tabLabel: 'p6',
+      value: POWER_PRICES[typeConsumption]['P6']
+    }
+  ];
   const envelopeData = {
     status: 'sent',
     emailSubject: 'Please sign this document',
@@ -105,7 +131,7 @@ const generateEnvelopeData = (offerData: any, paybackData: any) => {
             },
             {
               tabLabel: 'typeConsumption',
-              value: paybackData.typeConsumption
+              value: typeConsumption
             },
             {
               tabLabel: 'addressNo',
@@ -126,7 +152,8 @@ const generateEnvelopeData = (offerData: any, paybackData: any) => {
             {
               tabLabel: 'country',
               value: 'Spain'
-            }
+            },
+            ...powerConsumptionData
           ]
         }
       }
