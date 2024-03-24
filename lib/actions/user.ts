@@ -8,7 +8,7 @@ export const createOrUpdateUserByEmail = async (userData: UserSchemaProps) => {
     if (!emailAddress) {
       throw new Error('Email address is required');
     }
-    const existingUser = await User.findOne({ emailAddress }).exec();
+    const existingUser = await User.findOne({ emailAddress }).lean().exec();
 
     if (existingUser) {
       const { referralCode, ...otherData } = userData;
@@ -16,10 +16,12 @@ export const createOrUpdateUserByEmail = async (userData: UserSchemaProps) => {
         { emailAddress },
         { $set: otherData },
         { new: true }
-      ).exec();
+      )
+        .lean()
+        .exec();
       return { data };
     } else {
-      const data = await User.create(userData);
+      const data = (await User.create(userData)).toObject();
       return { data };
     }
   } catch (error) {

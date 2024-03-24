@@ -41,19 +41,20 @@ export async function POST(request: Request) {
     }
     // Create user offer
     if (data) {
-      await createUserOffer({
+      const userOffer = await createUserOffer({
         user: data._id,
         offerType: body.offerType
       });
+
+      let json_response = {
+        status: 'success',
+        data: { ...data, offerId: userOffer._id }
+      };
+      return new NextResponse(JSON.stringify(json_response), {
+        status: 201,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
-    let json_response = {
-      status: 'success',
-      data
-    };
-    return new NextResponse(JSON.stringify(json_response), {
-      status: 201,
-      headers: { 'Content-Type': 'application/json' }
-    });
   } catch (error: any) {
     console.log('api error ===>', error);
     if (error.code === 11000) {

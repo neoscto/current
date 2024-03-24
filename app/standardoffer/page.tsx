@@ -40,7 +40,7 @@ interface FormData {
 }
 
 const StandardOffer = () => {
-  const dispath = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -122,8 +122,9 @@ const StandardOffer = () => {
 
   const handleyourSaving = async () => {
     formik.setFieldValue('offerType', 'Standard');
+
     const response = await formik.validateForm();
-    // console.log(response);
+
     if (Object.keys(response).length > 0) {
       if (response.phoneNumber) {
         setPhoneNumberError(response.phoneNumber);
@@ -131,6 +132,7 @@ const StandardOffer = () => {
       return;
     }
     setPhoneNumberError('');
+
     setLoading(true);
 
     try {
@@ -140,48 +142,46 @@ const StandardOffer = () => {
         formik.values.cups
       );
       if (newData) {
-        const sessionData = {
-          totalPanels: newData.number_of_panels,
-          capacityPerPanel: '440 Wp',
-          totalCapacity: newData.vsi_required_capacity,
-          estimateProduction: newData.vsi_required_capacity * 2000,
-          totalPayment: newData.total_price_after_tax,
-          typeConsumption: newData.type_consumption_point
-        };
-        savePaybackDataToSessionStorage('SolarPayback', sessionData);
+        // const sessionData = {
+        //   totalPanels: newData.number_of_panels,
+        //   capacityPerPanel: '440 Wp',
+        //   totalCapacity: newData.vsi_required_capacity,
+        //   estimateProduction: newData.vsi_required_capacity * 2000,
+        //   totalPayment: newData.total_price_after_tax,
+        //   typeConsumption: newData.type_consumption_point
+        // };
+        // savePaybackDataToSessionStorage('SolarPayback', sessionData);
         setData(newData);
+        setShowForm('yourOffer');
+        setServerError('');
       }
+      // const offerData: any = getDataFromSessionStorage('UserOffer');
+      // if (offerData) {
+      //   const updatedData = {
+      //     firsName: formik?.values?.firstName,
+      //     lastName: formik.values.lastName,
+      //     emailAddress: formik.values.emailAddress,
+      //     numberOfPeople: formik.values.numberOfPeople,
+      //     phoneNumber: formik.values.phoneNumber,
+      //     dialCode: formik.values.dialCode,
+      //     cups: formik.values.cups
+      //   };
 
-      setServerError('');
+      //   const response = await fetch(`api/users-offers/${offerData?._id},`, {
+      //     method: 'PATCH',
+      //     body: JSON.stringify(updatedData)
+      //   });
+      //   const data = await response.json();
+      //   if (data) {
+      //     saveDataToSessionStorage('UserOffer', data.data);
+      //   }
+      // }
     } catch (error) {
       setLoading(false);
       setServerError('Please try one more time?');
       return;
     }
 
-    const offerData: any = getDataFromSessionStorage('UserOffer');
-    if (offerData) {
-      const updatedData = {
-        firsName: formik?.values?.firstName,
-        lastName: formik.values.lastName,
-        emailAddress: formik.values.emailAddress,
-        numberOfPeople: formik.values.numberOfPeople,
-        phoneNumber: formik.values.phoneNumber,
-        dialCode: formik.values.dialCode,
-        cups: formik.values.cups
-      };
-      const response = await fetch(`api/users-offers/${offerData?._id}`, {
-        method: 'PATCH',
-        body: JSON.stringify(updatedData)
-      });
-      const data = await response.json();
-      if (data) {
-        updateSessionStorage('UserOffer', data.data);
-        setShowForm('yourOffer');
-      }
-      setLoading(false);
-      return;
-    }
     formik.handleSubmit();
     setLoading(false);
   };
@@ -194,7 +194,7 @@ const StandardOffer = () => {
     handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
-    saveDataToSessionStorage('UserOffer', res.data);
+    dispatch(setUserData(res.data));
     setShowForm('yourOffer');
     const arrayData = Object.keys(res.data);
     arrayData.forEach((key: any) => {
@@ -206,7 +206,7 @@ const StandardOffer = () => {
 
   useEffect(() => {
     formik.setFieldValue('offerType', 'Standard');
-    dispath(setUserData(formik.values));
+    dispatch(setUserData(formik.values));
   }, [formik.values]);
 
   const { loading, signature, signingUrl, downloadPdf } =

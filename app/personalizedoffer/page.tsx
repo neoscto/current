@@ -155,41 +155,40 @@ const PersonalizedOffer = () => {
         formik.values.cups
       );
       if (newData) {
-        const sessionData = {
-          totalPanels: newData.number_of_panels,
-          capacityPerPanel: '440 Wp',
-          totalCapacity: newData.vsi_required_capacity,
-          estimateProduction: newData.vsi_required_capacity * 2000,
-          totalPayment: newData.total_price_after_tax,
-          typeConsumption: newData.type_consumption_point
-        };
-        savePaybackDataToSessionStorage('SolarPayback', sessionData);
+        // const sessionData = {
+        //   totalPanels: newData.number_of_panels,
+        //   capacityPerPanel: '440 Wp',
+        //   totalCapacity: newData.vsi_required_capacity,
+        //   estimateProduction: newData.vsi_required_capacity * 2000,
+        //   totalPayment: newData.total_price_after_tax,
+        //   typeConsumption: newData.type_consumption_point
+        // };
+        // savePaybackDataToSessionStorage('SolarPayback', sessionData);
         setData(newData);
+        setShowForm('yourOffer');
+        setServerError('');
       }
-      const offerData: any = getDataFromSessionStorage('UserOffer');
-      if (offerData) {
-        const updatedData = {
-          firsName: formik?.values?.firstName,
-          lastName: formik.values.lastName,
-          emailAddress: formik.values.emailAddress,
-          numberOfPeople: formik.values.numberOfPeople,
-          phoneNumber: formik.values.phoneNumber,
-          dialCode: formik.values.dialCode,
-          cups: formik.values.cups
-        };
+      // const offerData: any = getDataFromSessionStorage('UserOffer');
+      // if (offerData) {
+      //   const updatedData = {
+      //     firsName: formik?.values?.firstName,
+      //     lastName: formik.values.lastName,
+      //     emailAddress: formik.values.emailAddress,
+      //     numberOfPeople: formik.values.numberOfPeople,
+      //     phoneNumber: formik.values.phoneNumber,
+      //     dialCode: formik.values.dialCode,
+      //     cups: formik.values.cups
+      //   };
 
-        const response = await fetch(`api/users-offers/${offerData?._id},`, {
-          method: 'PATCH',
-          body: JSON.stringify(updatedData)
-        });
-        const data = await response.json();
-        if (data) {
-          saveDataToSessionStorage('UserOffer', data.data);
-          setShowForm('yourOffer');
-        }
-      }
-
-      setServerError('');
+      //   const response = await fetch(`api/users-offers/${offerData?._id},`, {
+      //     method: 'PATCH',
+      //     body: JSON.stringify(updatedData)
+      //   });
+      //   const data = await response.json();
+      //   if (data) {
+      //     saveDataToSessionStorage('UserOffer', data.data);
+      //   }
+      // }
     } catch (error) {
       setLoading(false);
       setServerError('Please try one more time?');
