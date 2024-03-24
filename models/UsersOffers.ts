@@ -5,136 +5,79 @@ import {
   index,
   prop
 } from '@typegoose/typegoose';
+import type { Ref } from '@typegoose/typegoose';
 import mongoose, { Document } from 'mongoose';
+import { UserSchema } from './User';
 
 enum OfferType {
   Standard = 'Standard',
   Personalized = 'Personalized'
 }
 
-export type UsersOffersSchemaProps = {
-  offerType: OfferType;
-  emailAddress: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  dialCode: string;
-  cups: number;
+export type UserOfferSchemaProps = {
+  user: () => string;
+  typeOffer: OfferType;
   plan: string;
-  numberOfPeople: number;
-  numberOfPeopleAdditionValue: number;
-  address: string;
-  city: string;
-  nie: string;
-  postcode: string;
-  referralCode: string;
-  termsConditionRead?: boolean;
-  contractSign?: boolean;
-  event: any;
-  contractSignAt?: Date;
-  esign?: string;
-  envelopeId?: string;
+  totalPanels: number;
+  capacityPerPanel: string;
+  totalCapacity: number;
+  estimateProduction: number;
+  totalPayment: number;
+  typeConsumption: string;
+  envelopeId: string;
 };
 
-type UsersOffersSchemaMethods = {};
+type UserOfferSchemaMethods = {};
 
-export type UsersOffersSchemaType = UsersOffersSchemaProps &
-  UsersOffersSchemaMethods & {
+export type UserOfferSchemaType = UserOfferSchemaProps &
+  UserOfferSchemaMethods & {
     _id: mongoose.Types.ObjectId | string;
     createdAt: Date;
     updatedAt: Date;
   };
 
-export type UsersOffersDocument = Document & UsersOffersSchemaType;
+export type UserOfferDocument = Document & UserOfferSchemaType;
 
 @ModelOptions({
   schemaOptions: {
     timestamps: true,
-    collection: 'usersOffers'
+    collection: 'user_offers'
   },
   options: {
     allowMixed: Severity.ALLOW
   }
 })
 @index({ email: 1 })
-class UsersOffersSchema {
-  @prop({ required: true, enum: OfferType })
-  offerType: OfferType;
+class UserOfferSchema {
+  @prop({ required: true, ref: () => UserSchema })
+  user: Ref<UserSchema>;
 
   @prop({ required: true })
-  emailAddress: string;
+  typeOffer: OfferType;
 
   @prop({ required: true })
-  firstName: string;
-
-  @prop({ required: true })
-  lastName: string;
-
-  @prop({ required: true })
-  phoneNumber: string;
-
-  @prop({ required: true })
-  dialCode: string;
-
-  @prop({ required: false })
   plan: string;
 
-  @prop({ required: false })
-  cups: string;
+  @prop({ required: true })
+  totalPanels: number;
 
-  @prop({ required: false })
-  numberOfPeople: number;
+  @prop({ required: true })
+  capacityPerPanel: string;
 
-  @prop({ required: false })
-  numberOfPeopleAdditionValue: number;
+  @prop({ required: true })
+  totalCapacity: number;
 
-  @prop({ required: false })
-  address: string;
+  @prop({ required: true })
+  estimateProduction: number;
 
-  @prop({ required: false, default: '' })
-  addressNo: string;
+  @prop({ required: true })
+  totalPayment: number;
 
-  @prop({ required: false })
-  city: string;
+  @prop({ required: true })
+  typeConsumption: string;
 
-  @prop({ required: false })
-  nie: string;
-
-  @prop({ required: false, default: '' })
-  province: string;
-
-  @prop({ required: false })
-  postcode: string;
-
-  @prop({ required: false })
-  referralCode: string;
-
-  @prop({ default: false })
-  termsConditionRead: boolean;
-
-  @prop({ default: false })
-  contractSign: boolean;
-
-  @prop()
-  contractSignAt: Date;
-
-  @prop({ default: false })
-  clickedOnGenerate: boolean;
-
-  @prop({ default: false })
-  filledInfo: boolean;
-
-  @prop({ default: false })
-  paid: boolean;
-
-  @prop()
-  esign: string;
-
-  @prop()
+  @prop({ required: true })
   envelopeId: string;
-
-  @prop()
-  event: Object;
 
   @prop({ default: new Date() })
   createdAt: Date;
@@ -143,5 +86,5 @@ class UsersOffersSchema {
   updatedAt: Date;
 }
 
-const UsersOffers = getModelForClass(UsersOffersSchema);
-export { UsersOffers, UsersOffersSchema };
+const UserOffer = getModelForClass(UserOfferSchema);
+export { UserOffer, UserOfferSchema };
