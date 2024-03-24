@@ -15,16 +15,17 @@ enum OfferType {
 }
 
 export type UserOfferSchemaProps = {
-  user: () => string;
-  typeOffer: OfferType;
-  plan: string;
-  totalPanels: number;
-  capacityPerPanel: string;
-  totalCapacity: number;
-  estimateProduction: number;
-  totalPayment: number;
-  typeConsumption: string;
-  envelopeId: string;
+  // user: () => mongoose.Types.ObjectId;
+  user: any;
+  offerType: OfferType;
+  plan?: string;
+  totalPanels?: number;
+  capacityPerPanel?: string;
+  totalCapacity?: number;
+  estimateProduction?: number;
+  totalPayment?: number;
+  typeConsumption?: string;
+  envelopeId?: string;
 };
 
 type UserOfferSchemaMethods = {};
@@ -53,30 +54,30 @@ class UserOfferSchema {
   user: Ref<UserSchema>;
 
   @prop({ required: true })
-  typeOffer: OfferType;
+  offerType: OfferType;
 
-  @prop({ required: true })
+  @prop({ required: false })
   plan: string;
 
-  @prop({ required: true })
+  @prop({ required: false })
   totalPanels: number;
 
-  @prop({ required: true })
+  @prop({ required: false })
   capacityPerPanel: string;
 
-  @prop({ required: true })
+  @prop({ required: false })
   totalCapacity: number;
 
-  @prop({ required: true })
+  @prop({ required: false })
   estimateProduction: number;
 
-  @prop({ required: true })
+  @prop({ required: false })
   totalPayment: number;
 
-  @prop({ required: true })
+  @prop({ required: false })
   typeConsumption: string;
 
-  @prop({ required: true })
+  @prop({ required: false })
   envelopeId: string;
 
   @prop({ default: new Date() })

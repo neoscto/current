@@ -203,7 +203,7 @@ const PersonalizedOffer = () => {
 
   const [formik, isLoading]: any = useHandleForm({
     method: 'POST',
-    apiEndpoint: '/api/users-offers',
+    apiEndpoint: '/api/users',
     formikInitialValues,
     validationSchema: offerStep1Schema,
     handleSuccessResponce

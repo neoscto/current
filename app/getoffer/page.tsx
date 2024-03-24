@@ -53,16 +53,13 @@ const HorizontalLinearStepper = () => {
     emailAddress: '',
     phoneNumber: '',
     dialCode: '34',
-    nie: '',
-    province: '',
-    addressNo: '',
     numberofpeopleAdditionValue: 1
   };
   const [showForm, setShowForm] = useState<string>('allOffers');
 
   const [formik, isLoading]: any = useHandleForm({
     method: 'POST',
-    apiEndpoint: '/api/users-offers',
+    apiEndpoint: '/api/users',
     formikInitialValues,
     validationSchema: offerStep1Schema,
     handleSuccessResponce

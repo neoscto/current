@@ -12,18 +12,18 @@ export type UserSchemaProps = {
   firstName: string;
   lastName: string;
   phoneNumber: string;
+  referralCode?: string;
   dialCode: string;
-  address: string;
-  addressNo: string;
-  city: string;
-  province: string;
-  country: string;
-  nie: string;
-  postcode: string;
-  referralCode: string;
-  cups: string;
-  noOfPeople: boolean;
-  numberOfPeopleAdditionValue: boolean;
+  address?: string;
+  addressNo?: string;
+  city?: string;
+  province?: string;
+  country?: string;
+  nie?: string;
+  postcode?: string;
+  cups?: string;
+  noOfPeople?: boolean;
+  numberOfPeopleAdditionValue?: boolean;
 };
 
 type UserSchemaMethods = {};
@@ -75,7 +75,7 @@ class UserSchema {
   @prop({ required: false })
   address: string;
 
-  @prop({ required: false, default: '' })
+  @prop({ required: false })
   addressNo: string;
 
   @prop({ required: false })
@@ -87,7 +87,7 @@ class UserSchema {
   @prop({ required: false })
   nie: string;
 
-  @prop({ required: false, default: '' })
+  @prop({ required: false })
   province: string;
 
   @prop({ required: false })
