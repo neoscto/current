@@ -5,9 +5,31 @@ import NeosButton from '@/components/NeosButton';
 import { useTranslation } from 'react-i18next';
 import VideoPreview from '@/app/videoPlayer/preview';
 import TolstoyHero from '@/app/landingpage/TolstoyHero';
+import { useRouter } from 'next/navigation';
+import { getDataFromSessionStorage } from '@/utils/utils';
 
 const Congrats = ({ generatePDF, isPDFLoading }: any) => {
   const { t } = useTranslation();
+  const offerData: any = getDataFromSessionStorage('UserOffer');
+  const router = useRouter();
+  useEffect(() => {
+    if (!offerData?._id) return router.push('/getoffer');
+    const getPaymentInfo = async () => {
+      const userOffer: any = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users-offers/${offerData._id}`
+      );
+      if (userOffer && userOffer.contractSign && !userOffer.paid)
+        return router.push('/getoffer?activeStep=2');
+      else if (
+        userOffer &&
+        !userOffer.contractSign &&
+        !userOffer.paid &&
+        userOffer.filledInfo
+      )
+        return router.push('/getoffer?activeStep=1');
+    };
+    getPaymentInfo();
+  }, []);
   return (
     <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-5">
       <div className="mx-auto flex flex-col justify-center items-center w-full lg:w-3/6">

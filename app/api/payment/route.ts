@@ -3,6 +3,9 @@ import { NextResponse } from 'next/server';
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 export async function POST(_request: Request, _response: Response) {
   const body = await _request.json();
+  if (!body.offerId) {
+    return new NextResponse('Missing offerId', { status: 400 });
+  }
   const charge = await stripe.charges.create({
     amount: parseInt((body.amount * 100).toFixed(0), 10),
     currency: 'GBP',

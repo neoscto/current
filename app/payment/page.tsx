@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   CardElement,
   useStripe,
@@ -14,7 +14,11 @@ import NeosButton from '@/components/NeosButton';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { useTranslation } from 'react-i18next';
-import { getDataFromSessionStorage } from '@/utils/utils';
+import {
+  getDataFromSessionStorage,
+  getPaybackDataFromSessionStorage
+} from '@/utils/utils';
+import { useRouter } from 'next/navigation';
 
 const CARD_ELEMENT_OPTIONS = {
   disableLink: true,
@@ -40,12 +44,21 @@ const CARD_ELEMENT_OPTIONS = {
 
 const CheckoutForm = () => {
   const { userData } = useSelector((state: RootState) => state.commonSlice);
-  const totalAmount =
-    Number(
-      userData?.numberOfPeople ? userData?.numberOfPeople : userData?.cups
-    ) + 1;
-  const displayValue = userData?.isValidCode ? totalAmount - 1 : totalAmount;
-
+  const solarData: any = getPaybackDataFromSessionStorage('SolarPayback');
+  const offerData: any = getDataFromSessionStorage('UserOffer');
+  const router = useRouter();
+  useEffect(() => {
+    if (!offerData?._id) return router.push('/getoffer');
+    const getPaymentInfo = async () => {
+      const userOffer: any = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users-offers/${offerData._id}`
+      );
+      if (userOffer && !userOffer.contractSign && userOffer.filledInfo)
+        return router.push('/getoffer?activeStep=1');
+    };
+    getPaymentInfo();
+  }, []);
+  const displayValue = solarData?.totalPayment.toFixed(2);
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);

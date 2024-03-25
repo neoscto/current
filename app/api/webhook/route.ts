@@ -20,6 +20,7 @@ export async function POST(_request: Request, _response: Response) {
     case 'charge.succeeded':
       const chargeCaptured = event.data.object;
       const offerId = chargeCaptured.metadata.offerId;
+      if (!offerId) return new NextResponse('No offerId', { status: 400 });
       await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/users-offers/${offerId}`,
         {

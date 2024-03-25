@@ -1,3 +1,4 @@
+import { getTechnicalDataFromApi } from '@/features/calculateSolarPaybackPeriod';
 import { createErrorResponse, stringToObjectId } from '@/lib/api-response';
 import connectDB from '@/lib/connect-db';
 import { UsersOffers } from '@/models/UsersOffers';
@@ -25,34 +26,44 @@ const pdfGenerate = (formData: any): string => {
   return pdfData.split(',')[1] || '';
 };
 
-const generateEnvelopeData = (offerData: any, paybackData: any) => {
-  const typeConsumption = paybackData.typeConsumption;
-  const powerConsumptionData = typeConsumption && [
-    {
-      tabLabel: 'p1',
-      value: POWER_PRICES[typeConsumption]['P1']
-    },
-    {
-      tabLabel: 'p2',
-      value: POWER_PRICES[typeConsumption]['P2']
-    },
-    {
-      tabLabel: 'p3',
-      value: POWER_PRICES[typeConsumption]['P3']
-    },
-    {
-      tabLabel: 'p4',
-      value: POWER_PRICES[typeConsumption]['P4']
-    },
-    {
-      tabLabel: 'p5',
-      value: POWER_PRICES[typeConsumption]['P5']
-    },
-    {
-      tabLabel: 'p6',
-      value: POWER_PRICES[typeConsumption]['P6']
-    }
-  ];
+const generateEnvelopeData = async (offerData: any, paybackData: any) => {
+  let typeConsumption: string | undefined;
+  if (paybackData.typeConsumption) {
+    typeConsumption = paybackData.typeConsumption;
+  } else {
+    const technicalData = await getTechnicalDataFromApi(offerData.cups);
+    typeConsumption = technicalData?.tipoPerfilConsumo.slice(1).toUpperCase();
+  }
+
+  // const typeConsumption = paybackData.typeConsumption;
+  const powerConsumptionData = typeConsumption
+    ? [
+        {
+          tabLabel: 'p1',
+          value: POWER_PRICES[typeConsumption]['P1']
+        },
+        {
+          tabLabel: 'p2',
+          value: POWER_PRICES[typeConsumption]['P2']
+        },
+        {
+          tabLabel: 'p3',
+          value: POWER_PRICES[typeConsumption]['P3']
+        },
+        {
+          tabLabel: 'p4',
+          value: POWER_PRICES[typeConsumption]['P4']
+        },
+        {
+          tabLabel: 'p5',
+          value: POWER_PRICES[typeConsumption]['P5']
+        },
+        {
+          tabLabel: 'p6',
+          value: POWER_PRICES[typeConsumption]['P6']
+        }
+      ]
+    : [];
   const envelopeData = {
     status: 'sent',
     emailSubject: 'Please sign this document',
@@ -233,7 +244,7 @@ export async function POST(_request: Request, _response: Response) {
     const paybackData = body.paybackData;
     const accessToken: string = await getAccessToken();
     // const accessToken = process.env.NEXT_PUBLIC_DOCUSIGN_API_TOKEN || "";
-    const envelopeData = generateEnvelopeData(offerData, paybackData);
+    const envelopeData = await generateEnvelopeData(offerData, paybackData);
 
     const envelopeId = await createEnvelope(accessToken, envelopeData);
     const signingUrl = await getEmbeddedSigningUrl(

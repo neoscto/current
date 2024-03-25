@@ -5,9 +5,14 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
 import EmailSuccess from '../emailSuccess/page';
 // import { getAuthorizationUrl } from "@/services/docusign.service";
-import { getDataFromSessionStorage, updateSessionStorage } from '@/utils/utils';
+import {
+  getDataFromSessionStorage,
+  getPaybackDataFromSessionStorage,
+  updateSessionStorage
+} from '@/utils/utils';
 
 const ContractDetail = ({
   handleNext,
@@ -16,12 +21,9 @@ const ContractDetail = ({
   setShowForm,
   signature
 }: any) => {
-  const displayValue =
-    Number(
-      formik?.values?.numberOfPeople
-        ? formik?.values?.numberOfPeople
-        : formik?.values?.cups
-    ) + 1;
+  const solarData: any = getPaybackDataFromSessionStorage('SolarPayback');
+  const displayValue = Number(solarData?.totalPayment.toFixed(2));
+  const offerData: any = getDataFromSessionStorage('UserOffer');
   const dispatch = useDispatch();
   const labelStyle = 'font-medium text-base text-black';
   const infoStyle = 'text-base font-normal text-gray-300';
@@ -30,10 +32,18 @@ const ContractDetail = ({
   const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
   const [userPlan, setUserPlan] = useState('neos');
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!offerData?._id) {
+      return router.push('/getoffer');
+    }
+  }, []);
 
   useEffect(() => {
     setShowForm('yourDetails');
-    const offerData: any = getDataFromSessionStorage('UserOffer');
     setUserPlan(offerData?.plan || 'neos');
   }, []);
   const handleResize = () => {
@@ -62,7 +72,6 @@ const ContractDetail = ({
 
   const updateUser = async () => {
     try {
-      const offerData: any = getDataFromSessionStorage('UserOffer');
       const userData = {
         address: formik?.values?.address,
         postcode: formik?.values?.postcode,
@@ -93,12 +102,15 @@ const ContractDetail = ({
     }
   };
   const handleViewContract = async () => {
+    setIsButtonLoading(true);
     const isChecked = document.getElementById(
       'link-checkbox'
     ) as HTMLInputElement | null;
-    const offerData: any = getDataFromSessionStorage('UserOffer');
     const neosPlan = offerData.plan === 'neos';
-    const includeCups = offerData.plan !== 'current';
+    const includeCups =
+      formik?.values?.plan !== 'neos' ||
+      formik?.values?.cups ||
+      formik?.values?.offerType;
     if (
       isChecked &&
       isChecked?.checked &&
@@ -108,7 +120,7 @@ const ContractDetail = ({
       formik?.values?.nie &&
       formik?.values?.province &&
       formik?.values?.addressNo &&
-      ((includeCups && formik?.values?.cups) || !formik?.values?.cups)
+      includeCups
     ) {
       const userData = {
         address: formik?.values?.address,
@@ -123,6 +135,7 @@ const ContractDetail = ({
       const data = await updateUser();
       if (data) {
         updateSessionStorage('UserOffer', userData);
+
         redirectDocuSign();
         // setShowForm("emailSuccess");
         dispatch(setFormBack('emailDetails'));
@@ -131,6 +144,7 @@ const ContractDetail = ({
     } else {
       alert(t('Details.alert'));
     }
+    setIsButtonLoading(false);
   };
   return (
     <>
@@ -316,6 +330,7 @@ const ContractDetail = ({
                     category="colored"
                     title={t('Get-offer-form.view-contract-txt')}
                     onClick={handleViewContract}
+                    disabled={isButtonLoading}
                   />
                 </div>
               ) : (
