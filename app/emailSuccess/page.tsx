@@ -4,14 +4,12 @@ import { getPaybackDataFromSessionStorage } from '@/utils/utils';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 const EmailSuccess = ({ handleNext, formik }: any) => {
-  const solarData: any = getPaybackDataFromSessionStorage('SolarPayback');
-  console.log('Solar Data: ', solarData);
-  const displayValue = solarData.totalPayment;
-  // Number(
-  //   formik?.values?.numberOfPeople
-  //     ? formik?.values?.numberOfPeople
-  //     : formik?.values?.cups
-  // ) + 1;
+  const displayValue =
+    Number(
+      formik?.values?.numberOfPeople
+        ? formik?.values?.numberOfPeople
+        : formik?.values?.cups
+    ) + 1;
   const { t } = useTranslation();
   const signContract = async () => {
     await formik.handleSubmit();
