@@ -221,20 +221,20 @@ const PersonalizedOffer = () => {
   const { loading, signature, signingUrl, downloadPdf } =
     useDocusignService(formik);
 
-  if (isLoading) {
-    return (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh'
-        }}
-      >
-        <CircularProgress />
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div
+  //       style={{
+  //         display: 'flex',
+  //         justifyContent: 'center',
+  //         alignItems: 'center',
+  //         height: '100vh'
+  //       }}
+  //     >
+  //       <CircularProgress />
+  //     </div>
+  //   );
+  // }
 
   return (
     <MainContainer>
