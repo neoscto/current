@@ -6,6 +6,8 @@ import {
   prop
 } from '@typegoose/typegoose';
 import mongoose, { Document } from 'mongoose';
+import { UserSchema } from './User';
+import { UserOfferSchema } from './UsersOffers';
 
 enum PaymentStatus {
   Succeeded = 'succeeded',
@@ -25,7 +27,7 @@ export type PaymentSchemaProps = {
   status: PaymentStatus;
   amountPaid: number;
   transactionId: string;
-  paymentDate: Date;
+  paymentDate?: Date;
 };
 
 type PaymentSchemaMethods = {};
@@ -42,33 +44,30 @@ export type PaymentDocument = Document & PaymentSchemaType;
 @ModelOptions({
   schemaOptions: {
     timestamps: true,
-    collection: 'offer_analytics'
+    collection: 'payments'
   },
   options: {
     allowMixed: Severity.ALLOW
   }
 })
 class PaymentSchema {
-  @prop({ ref: () => PaymentSchema, required: false, unique: true })
+  @prop({ ref: () => UserSchema, required: true })
+  user: Ref<PaymentSchema>;
+
+  @prop({ ref: () => UserOfferSchema, required: true, unique: true })
   userOffer: Ref<PaymentSchema>;
 
-  @prop({ default: false })
-  termsConditionRead: boolean;
+  @prop({ required: true })
+  amountPaid: number;
 
-  @prop({ default: false })
-  contractSign: boolean;
+  @prop({ enum: PaymentStatus, default: 'pending' })
+  status: string;
 
-  @prop()
-  contractSignAt: Date;
+  @prop({ required: true })
+  transactionId: string;
 
-  @prop({ default: false })
-  clickedOnGenerate: boolean;
-
-  @prop({ default: false })
-  filledInfo: boolean;
-
-  @prop({ default: false })
-  paid: boolean;
+  @prop({ default: new Date() })
+  paymentDate: Date;
 
   @prop({ default: new Date() })
   createdAt: Date;

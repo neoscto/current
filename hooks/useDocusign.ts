@@ -6,6 +6,7 @@ import {
 } from '@/utils/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const useDocusignService = (formik: any) => {
   const clientId = process.env.NEXT_PUBLIC_DOCUSIGN_INTEGRATION_KEY;
@@ -21,12 +22,12 @@ const useDocusignService = (formik: any) => {
     (async () => {
       const code = searchParams.get('code');
 
-      const offerData: any = getDataFromSessionStorage('UserOffer');
-      setUserOffer(offerData);
-      if (formik && offerData) {
-        const arrayData = Object.keys(offerData);
+      const userData: any = getDataFromSessionStorage('UserOffer');
+      setUserOffer(userData);
+      if (formik && userData) {
+        const arrayData = Object.keys(userData);
         arrayData.forEach((key: any) => {
-          formik.setFieldValue(key, offerData[key]);
+          formik.setFieldValue(key, userData[key]);
         });
       }
       if (code) {
@@ -35,11 +36,11 @@ const useDocusignService = (formik: any) => {
           // setUserOffer(offerData);
           const response = await fetch('/api/docusign/auth', {
             method: 'POST',
-            body: JSON.stringify({ code, offerData })
+            body: JSON.stringify({ code, userData })
           });
           const { signingUrl, envelopeId, accessToken } = await response.json();
-          offerData.envelopeId = envelopeId;
-          setUserOffer(offerData);
+          // offerData.envelopeId = envelopeId;
+          // setUserOffer(offerData);
 
           const handleMessage = (event: any) => {
             if (event.data === 'changeRoute') {
@@ -52,7 +53,7 @@ const useDocusignService = (formik: any) => {
           };
           window.addEventListener('message', handleMessage);
           saveDataToSessionStorage('docusignAccessToken', accessToken);
-          saveDataToSessionStorage('UserOffer', offerData);
+          // saveDataToSessionStorage('UserOffer', offerData);
           setSigningUrl(signingUrl);
         } catch (error) {
         } finally {

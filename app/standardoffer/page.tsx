@@ -26,8 +26,9 @@ import PhoneInput, {
   isValidPhoneNumber
 } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import YourOffer from '../youoffer/page';
+import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
 
 interface FormData {
   numberOfPeople: string;
@@ -40,6 +41,7 @@ interface FormData {
 }
 
 const StandardOffer = () => {
+  const { userData } = useSelector((state: any) => state.commonSlice);
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const pathname = usePathname();
@@ -47,18 +49,6 @@ const StandardOffer = () => {
   const activeStep = searchParams.get('activeStep') || 0;
 
   const [phoneNumberError, setPhoneNumberError] = useState<string>('');
-
-  const formikInitialValues = {
-    offerType: '',
-    numberOfPeople: '',
-    cups: '',
-    firstName: '',
-    lastName: '',
-    emailAddress: '',
-    phoneNumber: '',
-    dialCode: '34',
-    numberofpeopleAdditionValue: 1
-  };
 
   const [showForm, setShowForm] = useState<string>('soffer');
 
@@ -116,6 +106,19 @@ const StandardOffer = () => {
     type_consumption_point: ''
   });
 
+  const formikInitialValues = {
+    offerType: '',
+    numberOfPeople: '',
+    cups: '',
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
+    phoneNumber: '',
+    dialCode: '34',
+    numberofpeopleAdditionValue: 1,
+    totalPrice: data.total_price_after_tax
+  };
+
   const [buttonLoading, setLoading] = useState<boolean>(false);
 
   const [serverError, setServerError] = useState('');
@@ -142,40 +145,10 @@ const StandardOffer = () => {
         formik.values.cups
       );
       if (newData) {
-        // const sessionData = {
-        //   totalPanels: newData.number_of_panels,
-        //   capacityPerPanel: '440 Wp',
-        //   totalCapacity: newData.vsi_required_capacity,
-        //   estimateProduction: newData.vsi_required_capacity * 2000,
-        //   totalPayment: newData.total_price_after_tax,
-        //   typeConsumption: newData.type_consumption_point
-        // };
-        // savePaybackDataToSessionStorage('SolarPayback', sessionData);
         setData(newData);
         setShowForm('yourOffer');
         setServerError('');
       }
-      // const offerData: any = getDataFromSessionStorage('UserOffer');
-      // if (offerData) {
-      //   const updatedData = {
-      //     firsName: formik?.values?.firstName,
-      //     lastName: formik.values.lastName,
-      //     emailAddress: formik.values.emailAddress,
-      //     numberOfPeople: formik.values.numberOfPeople,
-      //     phoneNumber: formik.values.phoneNumber,
-      //     dialCode: formik.values.dialCode,
-      //     cups: formik.values.cups
-      //   };
-
-      //   const response = await fetch(`api/users-offers/${offerData?._id},`, {
-      //     method: 'PATCH',
-      //     body: JSON.stringify(updatedData)
-      //   });
-      //   const data = await response.json();
-      //   if (data) {
-      //     saveDataToSessionStorage('UserOffer', data.data);
-      //   }
-      // }
     } catch (error) {
       setLoading(false);
       setServerError('Please try one more time?');
@@ -206,8 +179,29 @@ const StandardOffer = () => {
 
   useEffect(() => {
     formik.setFieldValue('offerType', 'Standard');
-    dispatch(setUserData(formik.values));
+    // dispatch(setUserData(formik.values));
   }, [formik.values]);
+
+  useEffect(() => {
+    const updateUserOffer = async () => {
+      if (!!userData.offerId) {
+        await createOrUpdateUserOffer(
+          {
+            user: userData._id,
+            totalPanels: data.number_of_panels,
+            capacityPerPanel: '440 Wp',
+            totalCapacity: data.vsi_required_capacity,
+            estimateProduction: data.vsi_required_capacity * 2000,
+            totalPayment: data.total_price_after_tax,
+            typeConsumption: data.type_consumption_point
+            // plan: formik.values.plan
+          },
+          userData.offerId
+        );
+      }
+    };
+    updateUserOffer();
+  }, [userData.offerId]);
 
   const { loading, signature, signingUrl, downloadPdf } =
     useDocusignService(formik);

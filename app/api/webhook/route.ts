@@ -1,3 +1,5 @@
+import { createOrUpdateOfferAnalytics } from '@/lib/actions/offer-analytics';
+import { createPayment } from '@/lib/actions/payment';
 import { NextResponse } from 'next/server';
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 export async function POST(_request: Request, _response: Response) {
@@ -19,14 +21,15 @@ export async function POST(_request: Request, _response: Response) {
   switch (event.type) {
     case 'charge.succeeded':
       const chargeCaptured = event.data.object;
-      const offerId = chargeCaptured.metadata.offerId;
-      await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/users-offers/${offerId}`,
-        {
-          method: 'PATCH',
-          body: JSON.stringify({ paid: true })
-        }
-      );
+      const { userOffer, user } = chargeCaptured.metadata;
+      await createPayment({
+        userOffer,
+        user,
+        status: chargeCaptured.status,
+        transactionId: chargeCaptured.id,
+        amountPaid: chargeCaptured.amount
+      });
+      await createOrUpdateOfferAnalytics({ userOffer, paid: true });
       break;
     case 'charge.expired':
       const chargeExpired = event.data.object;

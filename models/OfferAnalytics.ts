@@ -9,7 +9,7 @@ import mongoose, { Document } from 'mongoose';
 import { UserOfferSchema } from './UsersOffers';
 
 export type OfferAnalyticsProps = {
-  userOffer?: () => string;
+  userOffer: () => any;
   termsConditionRead?: boolean;
   contractSign?: boolean;
   contractSignAt?: Date;
@@ -39,13 +39,13 @@ export type OfferAnalyticsDocument = Document & OfferAnalyticsSchemaType;
   }
 })
 class OfferAnalyticsSchema {
-  @prop({ ref: () => UserOfferSchema, required: false, unique: true })
+  @prop({ ref: () => UserOfferSchema, required: true, unique: true })
   userOffer: Ref<UserOfferSchema>;
 
-  @prop({ default: false })
+  @prop({ default: false, required: false })
   termsConditionRead: boolean;
 
-  @prop({ default: false })
+  @prop({ default: false, required: false })
   contractSign: boolean;
 
   @prop()

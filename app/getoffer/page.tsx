@@ -38,7 +38,7 @@ interface FormData {
 }
 
 const HorizontalLinearStepper = () => {
-  const dispath = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -53,7 +53,14 @@ const HorizontalLinearStepper = () => {
     emailAddress: '',
     phoneNumber: '',
     dialCode: '34',
-    numberofpeopleAdditionValue: 1
+    numberofpeopleAdditionValue: 1,
+    nie: '',
+    address: '',
+    addressNo: '',
+    city: '',
+    province: '',
+    country: '',
+    postcode: ''
   };
   const [showForm, setShowForm] = useState<string>('allOffers');
 
@@ -65,7 +72,8 @@ const HorizontalLinearStepper = () => {
     handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
-    saveDataToSessionStorage('UserOffer', res.data);
+    // saveDataToSessionStorage('UserOffer', res.data);
+    dispatch(setUserData(res.data));
     setShowForm('yourOffer');
     const arrayData = Object.keys(res.data);
     arrayData.forEach((key: any) => {
@@ -146,9 +154,9 @@ const HorizontalLinearStepper = () => {
     }
   };
 
-  useEffect(() => {
-    dispath(setUserData(formik.values));
-  }, [formik.values]);
+  // useEffect(() => {
+  //   dispath(setUserData(formik.values));
+  // }, [formik.values]);
 
   return (
     <MainContainer>

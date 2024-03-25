@@ -17,7 +17,7 @@ enum OfferType {
 export type UserOfferSchemaProps = {
   // user: () => mongoose.Types.ObjectId;
   user: any;
-  offerType: OfferType;
+  offerType?: OfferType;
   plan?: string;
   totalPanels?: number;
   capacityPerPanel?: string;
@@ -53,7 +53,7 @@ class UserOfferSchema {
   @prop({ required: true, ref: () => UserSchema })
   user: Ref<UserSchema>;
 
-  @prop({ required: true })
+  @prop({ required: false })
   offerType: OfferType;
 
   @prop({ required: false })

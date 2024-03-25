@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { saveDataToSessionStorage } from '@/utils/utils';
 import { useEffect, useState } from 'react';
 import { CircularProgress } from '@mui/material';
+import { getUser } from '@/lib/actions/user';
 
 interface OfferData {
   numberOfPeople: string;
@@ -40,17 +41,19 @@ const EmailSuccess = ({}: any) => {
         if (!offerId) {
           throw new Error(`Offer not found!`);
         }
-        const response = await fetch(`/api/users-offers/${offerId}`);
+        // const response = await fetch(`/api/users-offers/${offerId}`);
 
-        if (!response.ok) {
-          throw new Error(
-            `Network response was not ok, status: ${response.status}`
-          );
-        }
+        // if (!response.ok) {
+        //   throw new Error(
+        //     `Network response was not ok, status: ${response.status}`
+        //   );
+        // }
 
-        const data = await response.json();
-        setOfferData(data.data);
-        saveDataToSessionStorage('UserOffer', data.data);
+        // const data = await response.json();
+        const data = await getUser(offerId);
+        setOfferData(data);
+        // saveDataToSessionStorage('UserOffer', data.data);
+
         window.parent.postMessage('redirect_success_url', '*');
       } catch (error) {
         // Handling any errors that occurred during the fetch

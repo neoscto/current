@@ -9,7 +9,7 @@ export async function POST(_request: Request, _response: Response) {
     ...(process.env.NODE_ENV === 'development'
       ? { source: 'tok_visa' }
       : { source: body.token }),
-    metadata: { offerId: body.offerId }
+    metadata: { userOffer: body.offerId, user: body.userId }
   });
   return new NextResponse(
     JSON.stringify({ status: charge.status, chargeId: charge.id }),

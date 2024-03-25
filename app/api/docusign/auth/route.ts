@@ -1,6 +1,9 @@
-import { createErrorResponse, stringToObjectId } from '@/lib/api-response';
+import {
+  createOrUpdateUserOffer,
+  getUserOffer
+} from '@/lib/actions/user-offer';
+import { createErrorResponse } from '@/lib/api-response';
 import connectDB from '@/lib/connect-db';
-import { UsersOffers } from '@/models/UsersOffers';
 import {
   createEnvelope,
   getEmbeddedSigningUrl
@@ -25,204 +28,209 @@ const pdfGenerate = (formData: any): string => {
   return pdfData.split(',')[1] || '';
 };
 
-const generateEnvelopeData = (offerData: any, paybackData: any) => {
-  const typeConsumption = paybackData.typeConsumption;
-  const powerConsumptionData = typeConsumption && [
-    {
-      tabLabel: 'p1',
-      value: POWER_PRICES[typeConsumption]['P1']
-    },
-    {
-      tabLabel: 'p2',
-      value: POWER_PRICES[typeConsumption]['P2']
-    },
-    {
-      tabLabel: 'p3',
-      value: POWER_PRICES[typeConsumption]['P3']
-    },
-    {
-      tabLabel: 'p4',
-      value: POWER_PRICES[typeConsumption]['P4']
-    },
-    {
-      tabLabel: 'p5',
-      value: POWER_PRICES[typeConsumption]['P5']
-    },
-    {
-      tabLabel: 'p6',
-      value: POWER_PRICES[typeConsumption]['P6']
-    }
-  ];
-  const envelopeData = {
-    status: 'sent',
-    emailSubject: 'Please sign this document',
-    templateId:
-      offerData.plan === 'neos'
-        ? process.env.NEOS_TEMPLATE_ID
-        : process.env.CURRENT_TEMPLATE_ID,
-    templateRoles: [
-      {
-        clientUserId: offerData._id,
-        name: offerData.firstName,
-        email: offerData.emailAddress,
-        roleName: 'Signer1',
-        tabs: {
-          textTabs: [
-            {
-              tabLabel: 'lastName',
-              value: offerData.lastName
-            },
+const generateEnvelopeData = async (offerData: any) => {
+  if (!!offerData.offerId && !!offerData.plan) {
+    const paybackData = await getUserOffer(offerData.offerId);
+    const typeConsumption = paybackData.typeConsumption;
+    const powerConsumptionData = !!typeConsumption
+      ? [
+          {
+            tabLabel: 'p1',
+            value: POWER_PRICES[typeConsumption]['P1']
+          },
+          {
+            tabLabel: 'p2',
+            value: POWER_PRICES[typeConsumption]['P2']
+          },
+          {
+            tabLabel: 'p3',
+            value: POWER_PRICES[typeConsumption]['P3']
+          },
+          {
+            tabLabel: 'p4',
+            value: POWER_PRICES[typeConsumption]['P4']
+          },
+          {
+            tabLabel: 'p5',
+            value: POWER_PRICES[typeConsumption]['P5']
+          },
+          {
+            tabLabel: 'p6',
+            value: POWER_PRICES[typeConsumption]['P6']
+          }
+        ]
+      : [];
+    const envelopeData = {
+      status: 'sent',
+      emailSubject: 'Please sign this document',
+      templateId:
+        offerData.plan === 'neos'
+          ? process.env.NEOS_TEMPLATE_ID
+          : process.env.CURRENT_TEMPLATE_ID,
+      templateRoles: [
+        {
+          clientUserId: offerData._id,
+          name: offerData.firstName,
+          email: offerData.emailAddress,
+          roleName: 'Signer1',
+          tabs: {
+            textTabs: [
+              {
+                tabLabel: 'lastName',
+                value: offerData.lastName
+              },
 
-            {
-              tabLabel: 'nie1',
-              value: offerData.nie
-            },
-            {
-              tabLabel: 'nie2',
-              value: offerData.nie
-            },
-            {
-              tabLabel: 'nie3',
-              value: offerData.nie
-            },
-            {
-              tabLabel: 'address1',
-              value: offerData.address
-            },
-            {
-              tabLabel: 'address2',
-              value: offerData.address
-            },
-            {
-              tabLabel: 'address3',
-              value: offerData.address
-            },
-            {
-              tabLabel: 'phoneNumber1',
-              value: offerData.phoneNumber
-            },
-            {
-              tabLabel: 'phoneNumber2',
-              value: offerData.phoneNumber
-            },
-            {
-              tabLabel: 'totalPanels',
-              value: paybackData.totalPanels.toFixed(2).toString()
-            },
-            {
-              tabLabel: 'capacityPerPanel',
-              value: paybackData.capacityPerPanel
-            },
-            {
-              tabLabel: 'totalCapacity',
-              value: `${paybackData.totalCapacity.toFixed(2).toString()} kWp`
-            },
-            {
-              tabLabel: 'estimateProduction',
-              value: `${paybackData.estimateProduction.toFixed(2).toString()} kWh`
-            },
-            {
-              tabLabel: 'totalPayment',
-              value: paybackData.totalPayment.toFixed(2).toString()
-            },
-            {
-              tabLabel: 'cups',
-              value: offerData.cups
-            },
-            {
-              tabLabel: 'typeConsumption',
-              value: typeConsumption
-            },
-            {
-              tabLabel: 'addressNo',
-              value: offerData.addressNo
-            },
-            {
-              tabLabel: 'city',
-              value: offerData.city
-            },
-            {
-              tabLabel: 'postcode',
-              value: offerData.postcode
-            },
-            {
-              tabLabel: 'province',
-              value: offerData.province
-            },
-            {
-              tabLabel: 'country',
-              value: 'Spain'
-            },
-            ...powerConsumptionData
-          ]
+              {
+                tabLabel: 'nie1',
+                value: offerData.nie
+              },
+              {
+                tabLabel: 'nie2',
+                value: offerData.nie
+              },
+              {
+                tabLabel: 'nie3',
+                value: offerData.nie
+              },
+              {
+                tabLabel: 'address1',
+                value: offerData.address
+              },
+              {
+                tabLabel: 'address2',
+                value: offerData.address
+              },
+              {
+                tabLabel: 'address3',
+                value: offerData.address
+              },
+              {
+                tabLabel: 'phoneNumber1',
+                value: offerData.phoneNumber
+              },
+              {
+                tabLabel: 'phoneNumber2',
+                value: offerData.phoneNumber
+              },
+              {
+                tabLabel: 'totalPanels',
+                value: paybackData.totalPanels.toFixed(2).toString()
+              },
+              {
+                tabLabel: 'capacityPerPanel',
+                value: paybackData.capacityPerPanel
+              },
+              {
+                tabLabel: 'totalCapacity',
+                value: `${paybackData.totalCapacity.toFixed(2).toString()} kWp`
+              },
+              {
+                tabLabel: 'estimateProduction',
+                value: `${paybackData.estimateProduction.toFixed(2).toString()} kWh`
+              },
+              {
+                tabLabel: 'totalPayment',
+                value: paybackData.totalPayment.toFixed(2).toString()
+              },
+              {
+                tabLabel: 'cups',
+                value: offerData.cups
+              },
+              {
+                tabLabel: 'typeConsumption',
+                value: typeConsumption
+              },
+              {
+                tabLabel: 'addressNo',
+                value: offerData.addressNo
+              },
+              {
+                tabLabel: 'city',
+                value: offerData.city
+              },
+              {
+                tabLabel: 'postcode',
+                value: offerData.postcode
+              },
+              {
+                tabLabel: 'province',
+                value: offerData.province
+              },
+              {
+                tabLabel: 'country',
+                value: 'Spain'
+              },
+              ...powerConsumptionData
+            ]
+          }
         }
-      }
-    ]
-    // documents: [
-    //   {
-    //     documentBase64: Buffer.from(
-    //       '<html><body>Your contract content here /sn1/</body></html>'
-    //     ).toString('base64'),
-    //     name: 'Test.html',
-    //     fileExtension: 'html',
-    //     documentId: '1'
-    //   }
-    // ],
-    // recipients: {
-    //   signers: [
-    //     {
-    //       email: offerData.emailAddress,
-    //       name: offerData.firstName,
-    //       recipientId: '1',
-    //       clientUserId: '1002',
-    //       smsAuthentication: {
-    //         senderProvidedNumbers: [`${offerData.phoneNumber}`]
-    //       },
-    //       identityVerification: {
-    //         workflowId: 'c368e411-1592-4001-a3df-dca94ac539ae',
-    //         inputOptions: [
-    //           {
-    //             name: 'phone_number_list',
-    //             valueType: 'PhoneNumberList',
-    //             phoneNumberList: [
-    //               {
-    //                 countryCodeLock: false,
-    //                 countryCode: offerData.dialCode,
-    //                 number: offerData.phoneNumber,
-    //                 extension: offerData.dialCode
-    //               }
-    //             ]
-    //           }
-    //         ]
-    //       },
-    //       tabs: {
-    //         signHereTabs: [
-    //           {
-    //             anchorString: '/sn1/',
-    //             anchorXOffset: '20',
-    //             anchorYOffset: '10'
-    //           }
-    //         ]
-    //       }
-    //     }
-    //   ]
-    // }
-  };
-  return envelopeData;
+      ]
+      // documents: [
+      //   {
+      //     documentBase64: Buffer.from(
+      //       '<html><body>Your contract content here /sn1/</body></html>'
+      //     ).toString('base64'),
+      //     name: 'Test.html',
+      //     fileExtension: 'html',
+      //     documentId: '1'
+      //   }
+      // ],
+      // recipients: {
+      //   signers: [
+      //     {
+      //       email: offerData.emailAddress,
+      //       name: offerData.firstName,
+      //       recipientId: '1',
+      //       clientUserId: '1002',
+      //       smsAuthentication: {
+      //         senderProvidedNumbers: [`${offerData.phoneNumber}`]
+      //       },
+      //       identityVerification: {
+      //         workflowId: 'c368e411-1592-4001-a3df-dca94ac539ae',
+      //         inputOptions: [
+      //           {
+      //             name: 'phone_number_list',
+      //             valueType: 'PhoneNumberList',
+      //             phoneNumberList: [
+      //               {
+      //                 countryCodeLock: false,
+      //                 countryCode: offerData.dialCode,
+      //                 number: offerData.phoneNumber,
+      //                 extension: offerData.dialCode
+      //               }
+      //             ]
+      //           }
+      //         ]
+      //       },
+      //       tabs: {
+      //         signHereTabs: [
+      //           {
+      //             anchorString: '/sn1/',
+      //             anchorXOffset: '20',
+      //             anchorYOffset: '10'
+      //           }
+      //         ]
+      //       }
+      //     }
+      //   ]
+      // }
+    };
+    return envelopeData;
+  }
 };
 
-const updateEnvelopeId = async (id: string, envelopeId: string) => {
-  const parsedId = stringToObjectId(id);
-  return await UsersOffers.findByIdAndUpdate(
-    parsedId,
-    { envelopeId },
-    {
-      new: true
-    }
-  )
-    .lean()
-    .exec();
-};
+// const updateEnvelopeId = async (id: string, envelopeId: string) => {
+//   const parsedId = stringToObjectId(id);
+//   return await UsersOffers.findByIdAndUpdate(
+//     parsedId,
+//     { envelopeId },
+//     {
+//       new: true
+//     }
+//   )
+//     .lean()
+//     .exec();
+// };
 
 export async function POST(_request: Request, _response: Response) {
   try {
@@ -230,18 +238,19 @@ export async function POST(_request: Request, _response: Response) {
     const body = await _request.json();
     // const code = body.code;
     const offerData = body.offerData;
-    const paybackData = body.paybackData;
     const accessToken: string = await getAccessToken();
     // const accessToken = process.env.NEXT_PUBLIC_DOCUSIGN_API_TOKEN || "";
-    const envelopeData = generateEnvelopeData(offerData, paybackData);
-
+    const envelopeData = await generateEnvelopeData(offerData);
     const envelopeId = await createEnvelope(accessToken, envelopeData);
     const signingUrl = await getEmbeddedSigningUrl(
       accessToken,
       envelopeId,
       offerData
     );
-    await updateEnvelopeId(offerData._id, envelopeId);
+    await createOrUpdateUserOffer(
+      { user: offerData._id, envelopeId },
+      offerData.offerId
+    );
     return new NextResponse(
       JSON.stringify({ signingUrl, envelopeId, accessToken }),
       {

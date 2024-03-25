@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   CardElement,
   useStripe,
@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { useTranslation } from 'react-i18next';
 import { getDataFromSessionStorage } from '@/utils/utils';
+import { getUserOffer } from '@/lib/actions/user-offer';
 
 const CARD_ELEMENT_OPTIONS = {
   disableLink: true,
@@ -40,11 +41,17 @@ const CARD_ELEMENT_OPTIONS = {
 
 const CheckoutForm = () => {
   const { userData } = useSelector((state: RootState) => state.commonSlice);
-  const totalAmount =
-    Number(
-      userData?.numberOfPeople ? userData?.numberOfPeople : userData?.cups
-    ) + 1;
-  const displayValue = userData?.isValidCode ? totalAmount - 1 : totalAmount;
+  const [displayValue, setDisplayValue] = useState(0);
+  useEffect(() => {
+    const getPrice = async () => {
+      // @ts-ignore
+      const userOfferData = await getUserOffer(userData.offerId);
+      setDisplayValue(Number(userOfferData.totalPayment.toFixed(2)));
+    };
+    // @ts-ignore
+    !!userData.offerId && getPrice();
+    // @ts-ignore
+  }, [userData.offerId]);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -80,7 +87,6 @@ const CheckoutForm = () => {
         setError(error.message || '');
       }
       if (token) {
-        const offerData: any = getDataFromSessionStorage('UserOffer');
         const response = await fetch('/api/payment', {
           method: 'POST',
           headers: {
@@ -89,7 +95,10 @@ const CheckoutForm = () => {
           body: JSON.stringify({
             token: token.id,
             amount: displayValue,
-            offerId: offerData?._id
+            // @ts-ignore
+            offerId: userData.offerId,
+            // @ts-ignore
+            userId: userData._id
           })
         });
         const paymentResponse = await response.json();

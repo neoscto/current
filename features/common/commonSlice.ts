@@ -12,7 +12,7 @@ export const fetchPosts = createAsyncThunk('common/fetchPosts', async () => {
   return response.data;
 });
 
-const userData = getDataFromSessionStorage('UserOffer') || {
+export const userData = getDataFromSessionStorage('UserOffer') || {
   numberOfPeople: null,
   firstName: '',
   lastName: '',
@@ -22,8 +22,10 @@ const userData = getDataFromSessionStorage('UserOffer') || {
   cups: '',
   referralCode: '',
   dialCode: '',
-  userId: '',
-  offerId: ''
+  _id: '',
+  offerId: '',
+  isValidCode: false,
+  plan: 'neos'
 };
 
 const initialState = { post: [], userData, formBack: '', language: 'es' };

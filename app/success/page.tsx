@@ -8,41 +8,41 @@ import { getDataFromSessionStorage, updateSessionStorage } from '@/utils/utils';
 
 const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
   const { t } = useTranslation();
-  const getOfferData = async () => {
-    const offerData: any = getDataFromSessionStorage('UserOffer');
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/users-offers/${offerData._id}`
-    );
-    const { data } = await response.json();
-    return data;
-  };
+  // const getOfferData = async () => {
+  //   const offerData: any = getDataFromSessionStorage('UserOffer');
+  //   const response = await fetch(
+  //     `${process.env.NEXT_PUBLIC_API_URL}/api/users-offers/${offerData._id}`
+  //   );
+  //   const { data } = await response.json();
+  //   return data;
+  // };
   useEffect(() => {
     setShowForm('paymentForm');
-    const updateOfferContract = async () => {
-      const initialOfferData = await getOfferData();
-      if (
-        initialOfferData &&
-        initialOfferData.clickedOnGenerate &&
-        initialOfferData.filledInfo &&
-        !initialOfferData.paid
-      ) {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/users-offers/${initialOfferData._id}`,
-          {
-            method: 'PATCH',
-            body: JSON.stringify({
-              contractSign: true,
-              contractSignAt: new Date()
-            })
-          }
-        );
-        const { data } = await response.json();
-        if (data) {
-          updateSessionStorage('UserOffer', data);
-        }
-      }
-    };
-    updateOfferContract();
+    // const updateOfferContract = async () => {
+    //   const initialOfferData = await getOfferData();
+    //   if (
+    //     initialOfferData &&
+    //     initialOfferData.clickedOnGenerate &&
+    //     initialOfferData.filledInfo &&
+    //     !initialOfferData.paid
+    //   ) {
+    //     const response = await fetch(
+    //       `${process.env.NEXT_PUBLIC_API_URL}/api/users-offers/${initialOfferData._id}`,
+    //       {
+    //         method: 'PATCH',
+    //         body: JSON.stringify({
+    //           contractSign: true,
+    //           contractSignAt: new Date()
+    //         })
+    //       }
+    //     );
+    //     const { data } = await response.json();
+    //     if (data) {
+    //       updateSessionStorage('UserOffer', data);
+    //     }
+    //   }
+    // };
+    // updateOfferContract();
   }, []);
   return (
     <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-5">

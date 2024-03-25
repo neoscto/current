@@ -1,13 +1,13 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { useTranslation } from 'react-i18next';
 import { PopupModal, useCalendlyEventListener } from 'react-calendly';
 import NeosButton from '@/components/NeosButton';
 import { useRouter } from 'next/navigation';
-import { getDataFromSessionStorage, updateSessionStorage } from '@/utils/utils';
+import { getDataFromSessionStorage } from '@/utils/utils';
 import {
   BarChart,
   Bar,
@@ -29,6 +29,8 @@ import { usePDF } from 'react-to-pdf';
 import { sendOffer } from '@/lib/api';
 import parse from 'html-react-parser';
 import { generatePDF } from '@/lib/actions/download-offer';
+import { setUserData } from '@/features/common/commonSlice';
+import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
 
 const CustomTooltip = ({
   active,
@@ -80,13 +82,10 @@ const TolstoyEmbed = () => {
 };
 
 const YourOffer = ({ handleNext, data }: any) => {
+  const dispatch = useDispatch();
   const { userData }: any = useSelector(
     (state: RootState) => state.commonSlice
   );
-  const displayValue =
-    Number(
-      userData?.numberOfPeople ? userData?.numberOfPeople : userData?.cups
-    ) + 1;
   const router = useRouter();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
@@ -115,11 +114,14 @@ const YourOffer = ({ handleNext, data }: any) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  useEffect(() => {
-    const offerData: any = getDataFromSessionStorage('UserOffer');
-    setUserPlan(offerData?.plan ? offerData?.plan : 'neos');
-    scrollToTop();
-  }, []);
+  // useEffect(() => {
+  //   // const offerData: any = getDataFromSessionStorage('UserOffer');
+  //   console.log('User Plan: ', formik.values.plan);
+  //   setUserPlan(!!userData?.plan ? userData.plan : 'neos');
+  //   // dispatch(setUserData({ ...userData, userPlan }));
+  //   console.log('User Plan: ', userPlan);
+  //   scrollToTop();
+  // }, []);
 
   useCalendlyEventListener({
     onEventScheduled: (e: any) => {
@@ -175,9 +177,10 @@ const YourOffer = ({ handleNext, data }: any) => {
   };
 
   const updateUserPlanSelection = (plan: string) => () => {
-    const offerData: any = getDataFromSessionStorage('UserOffer');
-    offerData.plan = plan;
-    sessionStorage.setItem('UserOffer', JSON.stringify(offerData));
+    // const offerData: any = getDataFromSessionStorage('UserOffer');
+    // offerData.plan = plan;
+    // sessionStorage.setItem('UserOffer', JSON.stringify(offerData));
+    dispatch(setUserData({ ...userData, plan }));
     setUserPlan(plan);
   };
 
@@ -218,12 +221,14 @@ const YourOffer = ({ handleNext, data }: any) => {
     if (data.isValidCode) {
       const userData: any = getDataFromSessionStorage('UserOffer');
       userData.isValidCode = true;
-      sessionStorage.setItem('UserOffer', JSON.stringify(userData));
+      // sessionStorage.setItem('UserOffer', JSON.stringify(userData));
+      dispatch(setUserData({ isValidCode: true }));
       setReferralCodeError('valid');
     } else {
       const userData: any = getDataFromSessionStorage('UserOffer');
       userData.isValidCode = false;
-      sessionStorage.setItem('UserOffer', JSON.stringify(userData));
+      // sessionStorage.setItem('UserOffer', JSON.stringify(userData));
+      dispatch(setUserData({ isValidCode: false }));
       setReferralCodeError('invalid');
     }
   };
@@ -297,20 +302,29 @@ const YourOffer = ({ handleNext, data }: any) => {
   };
 
   const handleGenerateContract = async () => {
+    if (!userData.offerId && !userData._id) router.push('/getoffer');
     try {
-      router.push(`/getoffer?activeStep=1`);
-      const offerData: any = getDataFromSessionStorage('UserOffer');
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/users-offers/${offerData?._id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/offer-analytics`,
         {
-          method: 'PATCH',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify({
-            clickedOnGenerate: true
+            clickedOnGenerate: true,
+            userOffer: userData.offerId
           })
         }
       );
-      const result = await response.json();
-      updateSessionStorage('UserOffer', result.data);
+      const analyticsResult = await response.json();
+      if (analyticsResult && !!userData.plan && userData.plan !== 'neos') {
+        await createOrUpdateUserOffer(
+          { user: userData._id, plan: userPlan },
+          userData.offerId
+        );
+      }
+      analyticsResult && router.push(`/getoffer?activeStep=1`);
     } catch (error) {
       console.error('Error:', error);
     }

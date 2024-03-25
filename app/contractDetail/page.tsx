@@ -1,13 +1,24 @@
 'use client';
 import NeosButton from '@/components/NeosButton';
-import { setFormBack } from '@/features/common/commonSlice';
+import { setFormBack, setUserData } from '@/features/common/commonSlice';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import EmailSuccess from '../emailSuccess/page';
 // import { getAuthorizationUrl } from "@/services/docusign.service";
 import { getDataFromSessionStorage, updateSessionStorage } from '@/utils/utils';
+import { stat } from 'fs';
+import {
+  createOrUpdateUserOffer,
+  getUserOffer
+} from '@/lib/actions/user-offer';
+import { createOrUpdateUserByEmail } from '@/lib/actions/user';
+import {
+  calculateSolarPaybackPeriod,
+  getTechnicalDataFromApi
+} from '@/features/calculateSolarPaybackPeriod';
+import { createOrUpdateOfferAnalytics } from '@/lib/actions/offer-analytics';
 
 const ContractDetail = ({
   handleNext,
@@ -16,12 +27,15 @@ const ContractDetail = ({
   setShowForm,
   signature
 }: any) => {
-  const displayValue =
-    Number(
-      formik?.values?.numberOfPeople
-        ? formik?.values?.numberOfPeople
-        : formik?.values?.cups
-    ) + 1;
+  const { userData } = useSelector((state: any) => state.commonSlice);
+  const [displayValue, setDisplayValue] = useState(0);
+  useEffect(() => {
+    const getPrice = async () => {
+      const userOfferData = await getUserOffer(userData.offerId);
+      setDisplayValue(Number(userOfferData.totalPayment.toFixed(2)));
+    };
+    !!userData.offerId && getPrice();
+  }, [userData.offerId]);
   const dispatch = useDispatch();
   const labelStyle = 'font-medium text-base text-black';
   const infoStyle = 'text-base font-normal text-gray-300';
@@ -60,32 +74,41 @@ const ContractDetail = ({
     signature();
   };
 
-  const updateUser = async () => {
+  const updateUserOffer = async () => {
     try {
-      const offerData: any = getDataFromSessionStorage('UserOffer');
-      const userData = {
+      const userObj = {
         address: formik?.values?.address,
         postcode: formik?.values?.postcode,
         city: formik?.values?.city,
-        plan: offerData.plan ?? 'neos',
+        // plan: offerData.plan ?? 'neos',
         cups: formik?.values?.cups,
         nie: formik?.values?.nie,
         addressNo: formik?.values?.addressNo,
-        province: formik?.values?.province,
-        filledInfo: true
+        province: formik?.values?.province
       };
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/users-offers/${offerData?._id}`,
-        {
-          headers: {
-            'Content-Type': 'application/json'
+      const { data } = await createOrUpdateUserByEmail({
+        ...userObj,
+        ...userData
+      });
+      if (data && formik?.values?.plan === 'neos') {
+        const technicalData = await getTechnicalDataFromApi(
+          formik?.values?.cups
+        );
+        await createOrUpdateUserOffer(
+          {
+            user: userData._id,
+            typeConsumption: technicalData?.tipoPerfilConsumo
+              .slice(1)
+              .toUpperCase()
           },
-          method: 'PATCH',
-          body: JSON.stringify(userData)
-        }
-      );
-      const data = await response.json();
-      updateSessionStorage('UserOffer', userData);
+          userData.offerId
+        );
+      }
+
+      await createOrUpdateOfferAnalytics({
+        userOffer: userData.offerId,
+        filledInfo: true
+      });
       return data;
     } catch (error) {
       console.error(error);
@@ -96,9 +119,10 @@ const ContractDetail = ({
     const isChecked = document.getElementById(
       'link-checkbox'
     ) as HTMLInputElement | null;
-    const offerData: any = getDataFromSessionStorage('UserOffer');
-    const neosPlan = offerData.plan === 'neos';
-    const includeCups = offerData.plan !== 'current';
+    const includeCups =
+      formik?.values?.plan !== 'neos' ||
+      formik?.values?.cups ||
+      formik?.values?.offerType;
     if (
       isChecked &&
       isChecked?.checked &&
@@ -108,25 +132,15 @@ const ContractDetail = ({
       formik?.values?.nie &&
       formik?.values?.province &&
       formik?.values?.addressNo &&
-      ((includeCups && formik?.values?.cups) || !formik?.values?.cups)
+      includeCups
     ) {
-      const userData = {
-        address: formik?.values?.address,
-        postcode: formik?.values?.postcode,
-        city: formik?.values?.city,
-        plan: offerData.plan ?? 'neos',
-        ...(neosPlan && { cups: formik?.values?.cups }),
-        nie: formik?.values?.nie,
-        province: formik?.values?.province,
-        addressNo: formik?.values?.addressNo
-      };
-      const data = await updateUser();
-      if (data) {
-        updateSessionStorage('UserOffer', userData);
+      const userOfferData = await updateUserOffer();
+      if (userOfferData) {
+        dispatch(setUserData(userOfferData));
         redirectDocuSign();
         // setShowForm("emailSuccess");
         dispatch(setFormBack('emailDetails'));
-        return data;
+        return userOfferData;
       }
     } else {
       alert(t('Details.alert'));
@@ -156,7 +170,7 @@ const ContractDetail = ({
                       {t('Get-offer-form.last-name')}
                     </p>
                     <p className={infoStyle}>
-                      {formik?.values?.lastName || '-'}
+                      {formik?.values.lastName || '-'}
                     </p>
                   </div>
                 </div>
@@ -165,13 +179,13 @@ const ContractDetail = ({
                   <div className="w-full md:w-3/5">
                     <p className={labelStyle}>{t('Get-offer-form.email')}</p>
                     <p className={infoStyle}>
-                      {formik?.values?.emailAddress || '-'}
+                      {formik?.values.emailAddress || '-'}
                     </p>
                   </div>
                   <div className="w-full md:w-2/5 border-t border-[#E0E0E0] mt-2.5 pt-2.5 md:border-t-0 md:mt-0 md:pt-0">
                     <p className={labelStyle}>{t('Get-offer-form.phone')}</p>
                     <p className={infoStyle}>
-                      {formik?.values?.phoneNumber || '-'}
+                      {formik?.values.phoneNumber || '-'}
                     </p>
                   </div>
                 </div>

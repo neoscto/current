@@ -167,7 +167,9 @@ async function getConsumptionDataFromApi(
   }
 }
 
-async function getTechnicalDataFromApi(cupsCode: string): Promise<any | null> {
+export async function getTechnicalDataFromApi(
+  cupsCode: string
+): Promise<any | null> {
   try {
     const response = await fetch('/api/enerbit/pse', {
       method: 'POST',
