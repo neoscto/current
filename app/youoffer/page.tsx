@@ -125,14 +125,14 @@ const YourOffer = ({ handleNext, data }: any) => {
 
   useCalendlyEventListener({
     onEventScheduled: (e: any) => {
-      const offerData: any = getDataFromSessionStorage('UserOffer');
+      // const offerData: any = getDataFromSessionStorage('UserOffer');
       const saveEvent = async () => {
         const eventId = String(e.data.payload.event.uri).split('/').pop() || '';
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/calendly/${eventId}`,
           {
             method: 'PATCH',
-            body: JSON.stringify({ userId: offerData?._id })
+            body: JSON.stringify({ userId: userData?._id })
           }
         );
         const data = await response.json();
