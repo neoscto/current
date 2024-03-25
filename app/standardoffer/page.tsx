@@ -136,7 +136,6 @@ const StandardOffer = () => {
       return;
     }
     setPhoneNumberError('');
-
     setLoading(true);
 
     try {
@@ -207,7 +206,7 @@ const StandardOffer = () => {
   const { loading, signature, signingUrl, downloadPdf } =
     useDocusignService(formik);
 
-  // if (isLoading) {
+  // if (!!userData._id) {
   //   return (
   //     <div
   //       style={{

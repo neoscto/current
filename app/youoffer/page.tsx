@@ -302,9 +302,7 @@ const YourOffer = ({ handleNext, data }: any) => {
   };
 
   const handleGenerateContract = async () => {
-    setTimeout(() => {
-      if (!userData.offerId && !userData._id) return router.push('/getoffer');
-    }, 300);
+    if (!userData.offerId && !userData._id) return router.push('/getoffer');
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/offer-analytics`,
