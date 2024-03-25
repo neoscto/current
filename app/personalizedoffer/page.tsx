@@ -14,7 +14,7 @@ import {
 } from '@/utils/utils';
 import { offerStep1Schema } from '@/utils/validations/offers.validation';
 import { Button } from '@mantine/core';
-import { Grid } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
