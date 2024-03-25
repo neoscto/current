@@ -70,7 +70,8 @@ const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
             category="colored"
             title={t('Email-success.download-txt')}
             onClick={generatePDF}
-            disabled={isPDFLoading}
+            // disabled={isPDFLoading}
+            disabled
           />
         </div>
       </div>

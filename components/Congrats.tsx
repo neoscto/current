@@ -56,7 +56,8 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
             category="colored"
             title={t('Email-success.download-txt')}
             onClick={generatePDF}
-            disabled={isPDFLoading}
+            disabled
+            // disabled={isPDFLoading}
           />
         </div>
       </div>
