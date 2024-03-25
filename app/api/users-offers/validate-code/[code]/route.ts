@@ -1,4 +1,4 @@
-// import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
 // import connectDB from "@/lib/connect-db";
 // import { UsersOffers } from "@/models/UsersOffers";
 
@@ -17,4 +17,6 @@
 //     });
 //   }
 // }
-export async function GET(request: Request) {}
+export async function GET(request: Request) {
+  return new NextResponse('Test');
+}

@@ -1,7 +1,7 @@
 import { createErrorResponse, stringToObjectId } from '@/lib/api-response';
 // import connectDB from '@/lib/connect-db';
 // import { UsersOffers } from '@/models/UsersOffers';
-// import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 // async function getUserOfferById(id: string) {
 //   try {
@@ -103,4 +103,6 @@ import { createErrorResponse, stringToObjectId } from '@/lib/api-response';
 //     return createErrorResponse(error.message, 500);
 //   }
 
-export async function GET(request: Request) {}
+export async function GET(request: Request) {
+  return new NextResponse('Test');
+}

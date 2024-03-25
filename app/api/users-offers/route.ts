@@ -1,7 +1,7 @@
 // import { createErrorResponse } from "@/lib/api-response";
 // import connectDB from "@/lib/connect-db";
 // import { UsersOffers, UsersOffersSchemaType } from "@/models/UsersOffers";
-// import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
 
 // const createUserOffer = async ({
 //   emailAddress,
@@ -100,4 +100,6 @@
 //     return createErrorResponse(error.message, 500);
 //   }
 // }
-export async function GET(request: Request) {}
+export async function GET(request: Request) {
+  return new NextResponse('Test');
+}
