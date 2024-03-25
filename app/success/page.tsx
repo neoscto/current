@@ -1,48 +1,29 @@
 'use client';
-import React, { useEffect } from 'react';
-import Image from 'next/image';
 import NeosButton from '@/components/NeosButton';
-import CheckoutForm from '../payment/page';
+import { createOrUpdateOfferAnalytics } from '@/lib/actions/offer-analytics';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getDataFromSessionStorage, updateSessionStorage } from '@/utils/utils';
+import { useSelector } from 'react-redux';
+import CheckoutForm from '../payment/page';
 
 const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
   const { t } = useTranslation();
-  // const getOfferData = async () => {
-  //   const offerData: any = getDataFromSessionStorage('UserOffer');
-  //   const response = await fetch(
-  //     `${process.env.NEXT_PUBLIC_API_URL}/api/users-offers/${offerData._id}`
-  //   );
-  //   const { data } = await response.json();
-  //   return data;
-  // };
+  const { userData } = useSelector((state: any) => state.commonSlice);
+  const router = useRouter();
   useEffect(() => {
+    if (!userData.offerId && !userData._id) router.push('/getoffer');
     setShowForm('paymentForm');
-    // const updateOfferContract = async () => {
-    //   const initialOfferData = await getOfferData();
-    //   if (
-    //     initialOfferData &&
-    //     initialOfferData.clickedOnGenerate &&
-    //     initialOfferData.filledInfo &&
-    //     !initialOfferData.paid
-    //   ) {
-    //     const response = await fetch(
-    //       `${process.env.NEXT_PUBLIC_API_URL}/api/users-offers/${initialOfferData._id}`,
-    //       {
-    //         method: 'PATCH',
-    //         body: JSON.stringify({
-    //           contractSign: true,
-    //           contractSignAt: new Date()
-    //         })
-    //       }
-    //     );
-    //     const { data } = await response.json();
-    //     if (data) {
-    //       updateSessionStorage('UserOffer', data);
-    //     }
-    //   }
-    // };
-    // updateOfferContract();
+    const updateOfferContract = async () => {
+      await createOrUpdateOfferAnalytics({
+        userOffer: userData.offerId,
+        contractSign: true,
+        contractSignAt: new Date()
+      });
+    };
+
+    updateOfferContract();
   }, []);
   return (
     <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-5">

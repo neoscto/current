@@ -27,7 +27,7 @@ export async function POST(_request: Request, _response: Response) {
         user,
         status: chargeCaptured.status,
         transactionId: chargeCaptured.id,
-        amountPaid: chargeCaptured.amount
+        amountPaid: Number((chargeCaptured.amount / 100).toFixed(2))
       });
       await createOrUpdateOfferAnalytics({ userOffer, paid: true });
       break;

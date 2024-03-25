@@ -221,6 +221,21 @@ const PersonalizedOffer = () => {
   const { loading, signature, signingUrl, downloadPdf } =
     useDocusignService(formik);
 
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh'
+        }}
+      >
+        <CircularProgress />
+      </div>
+    );
+  }
+
   return (
     <MainContainer>
       <div className=" my-4 xl:max-w-[1200px] max-w-[calc(100%_-_40px)] relative rounded-[30px] bg-[#01092299] w-full mx-auto bg-white overflow-hidden">

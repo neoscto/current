@@ -1,4 +1,4 @@
-// import { createErrorResponse, stringToObjectId } from '@/lib/api-response';
+import { createErrorResponse, stringToObjectId } from '@/lib/api-response';
 // import connectDB from '@/lib/connect-db';
 // import { UsersOffers } from '@/models/UsersOffers';
 // import { NextResponse } from 'next/server';
@@ -55,20 +55,20 @@
 
 // export async function GET(
 //   _request: Request,
-//   { params }: { params: { id: string } }
-// ) {
+//   { params }: { params: { id: string } })
+// {
 //   try {
-//     await connectDB();
-//     const id = params.id;
-//     const { data, error } = await getUserOfferById(id);
-//     if (error) {
-//       throw error;
-//     }
-//     let json_response = {
-//       status: 'success',
-//       data
-//     };
-//     return NextResponse.json(json_response);
+// //     await connectDB();
+// //     const id = params.id;
+// //     const { data, error } = await getUserOfferById(id);
+// //     if (error) {
+// //       throw error;
+// //     }
+// //     let json_response = {
+// //       status: 'success',
+// //       data
+// //     };
+// //     return NextResponse.json(json_response);
 //   } catch (error: any) {
 //     if (typeof error === 'string' && error.includes('Data not found')) {
 //       return createErrorResponse('Data not found', 404);
@@ -76,7 +76,6 @@
 
 //     return createErrorResponse(error.message, 500);
 //   }
-// }
 
 // export async function PATCH(
 //   request: Request,
@@ -103,4 +102,5 @@
 
 //     return createErrorResponse(error.message, 500);
 //   }
-// }
+
+export async function GET(request: Request) {}

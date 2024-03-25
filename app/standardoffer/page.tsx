@@ -29,6 +29,7 @@ import 'react-phone-number-input/style.css';
 import { useDispatch, useSelector } from 'react-redux';
 import YourOffer from '../youoffer/page';
 import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
+import { CircularProgress } from '@mui/material';
 
 interface FormData {
   numberOfPeople: string;
@@ -205,6 +206,21 @@ const StandardOffer = () => {
 
   const { loading, signature, signingUrl, downloadPdf } =
     useDocusignService(formik);
+
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh'
+        }}
+      >
+        <CircularProgress />
+      </div>
+    );
+  }
 
   return (
     <MainContainer>

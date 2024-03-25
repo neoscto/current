@@ -29,6 +29,7 @@ const ContractDetail = ({
 }: any) => {
   const { userData } = useSelector((state: any) => state.commonSlice);
   const [displayValue, setDisplayValue] = useState(0);
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
   useEffect(() => {
     const getPrice = async () => {
       const userOfferData = await getUserOffer(userData.offerId);
@@ -88,7 +89,11 @@ const ContractDetail = ({
       };
       const { data } = await createOrUpdateUserByEmail({
         ...userObj,
-        ...userData
+        emailAddress: userData.emailAddress,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        phoneNumber: userData.phoneNumber,
+        dialCode: userData.dialCode
       });
       if (data && formik?.values?.plan === 'neos') {
         const technicalData = await getTechnicalDataFromApi(
@@ -116,6 +121,7 @@ const ContractDetail = ({
     }
   };
   const handleViewContract = async () => {
+    setIsButtonLoading(true);
     const isChecked = document.getElementById(
       'link-checkbox'
     ) as HTMLInputElement | null;
@@ -145,6 +151,7 @@ const ContractDetail = ({
     } else {
       alert(t('Details.alert'));
     }
+    setIsButtonLoading(false);
   };
   return (
     <>
@@ -359,6 +366,7 @@ const ContractDetail = ({
                         category="colored"
                         title={t('Get-offer-form.view-contract-txt')}
                         onClick={handleViewContract}
+                        disabled={isButtonLoading}
                       />
                     </div>
                   )}

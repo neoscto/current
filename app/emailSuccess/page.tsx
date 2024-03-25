@@ -2,13 +2,16 @@
 import NeosButton from '@/components/NeosButton';
 import { getUserOffer } from '@/lib/actions/user-offer';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 const EmailSuccess = ({ handleNext, formik }: any) => {
   const { userData } = useSelector((state: any) => state.commonSlice);
   const [displayValue, setDisplayValue] = useState(0);
+  const router = useRouter();
   useEffect(() => {
+    if (!userData.offerId || !userData._id) router.push('/getoffer');
     const getPrice = async () => {
       const userOfferData = await getUserOffer(userData.offerId);
       setDisplayValue(Number(userOfferData.totalPayment.toFixed(2)));

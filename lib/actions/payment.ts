@@ -3,7 +3,6 @@
 import { Payment, PaymentSchemaProps } from '@/models/Payment';
 
 export const createPayment = async (paymentData: PaymentSchemaProps) => {
-  console.log('Payment Data: ', paymentData);
   try {
     const { user, userOffer, transactionId, status, amountPaid } = paymentData;
     if (!user || !userOffer || !transactionId || !status || !amountPaid) {

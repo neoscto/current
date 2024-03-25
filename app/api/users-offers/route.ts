@@ -100,3 +100,4 @@
 //     return createErrorResponse(error.message, 500);
 //   }
 // }
+export async function GET(request: Request) {}
