@@ -1,29 +1,30 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-export const fetchPosts = createAsyncThunk("common/fetchPosts", async () => {
+export const fetchPosts = createAsyncThunk('common/fetchPosts', async () => {
   const response = await axios.get(
-    "https://jsonplaceholder.typicode.com/posts"
+    'https://jsonplaceholder.typicode.com/posts'
   );
   return response.data;
 });
 
 const commonSlice = createSlice({
-  name: "common",
+  name: 'common',
   initialState: {
     post: [],
     userData: {
-      numberOfPeople: "",
-      firstName: "",
-      lastName: "",
-      emailAddress: "",
-      phoneNumber: "",
-      numberofpeopleAdditionValue: "",
-      cups: "",
-      isValidCode: "",
+      numberOfPeople: '',
+      firstName: '',
+      lastName: '',
+      emailAddress: '',
+      phoneNumber: '',
+      numberofpeopleAdditionValue: '',
+      cups: '',
+      isValidCode: '',
+      plan: 'neos'
     },
-    formBack: "",
-    language: "es",
+    formBack: '',
+    language: 'es'
   },
   reducers: {
     setUserData: (state, action) => {
@@ -34,13 +35,13 @@ const commonSlice = createSlice({
     },
     setLanguage: (state, action) => {
       state.language = action.payload;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
       state.post = action.payload;
     });
-  },
+  }
 });
 
 export const { setUserData, setFormBack, setLanguage } = commonSlice.actions;

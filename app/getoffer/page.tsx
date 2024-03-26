@@ -56,7 +56,8 @@ const HorizontalLinearStepper = () => {
     nie: '',
     province: '',
     addressNo: '',
-    numberofpeopleAdditionValue: 1
+    numberofpeopleAdditionValue: 1,
+    plan: 'neos'
   };
   const [showForm, setShowForm] = useState<string>('allOffers');
 

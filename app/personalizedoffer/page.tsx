@@ -67,7 +67,8 @@ const PersonalizedOffer = () => {
     emailAddress: '',
     phoneNumber: '',
     dialCode: '34',
-    numberofpeopleAdditionValue: 1
+    numberofpeopleAdditionValue: 1,
+    plan: 'neos'
   };
 
   const [data, setData] = useState({

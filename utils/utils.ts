@@ -1,15 +1,6 @@
 export function saveDataToSessionStorage<T>(key: string, data: T): void {
   try {
-    const {
-      paid,
-      contractSign,
-      contractSignAt,
-      filledInfo,
-      clickedOnGenerate,
-      termsConditionRead,
-      ...otherData
-    }: any = data;
-    const jsonData = JSON.stringify(otherData);
+    const jsonData = JSON.stringify(data);
     sessionStorage.setItem(key, jsonData);
   } catch (error) {
     console.error('Error saving data to sessionStorage:', error);
@@ -19,19 +10,10 @@ export function saveDataToSessionStorage<T>(key: string, data: T): void {
 export function updateSessionStorage<T>(key: string, data: T): void {
   try {
     let sessionData = getDataFromSessionStorage(key);
-    const {
-      paid,
-      contractSign,
-      contractSignAt,
-      filledInfo,
-      clickedOnGenerate,
-      termsConditionRead,
-      ...otherData
-    }: any = data;
     if (sessionData) {
-      sessionData = { ...sessionData, ...otherData };
+      sessionData = { ...sessionData, ...data };
     } else {
-      sessionData = { ...otherData };
+      sessionData = { ...data };
     }
 
     saveDataToSessionStorage(key, sessionData);
@@ -55,16 +37,7 @@ export function getDataFromSessionStorage<T>(key: string): T | null {
 
 export function savePaybackDataToSessionStorage<T>(key: string, data: T): void {
   try {
-    const {
-      paid,
-      contractSign,
-      contractSignAt,
-      filledInfo,
-      clickedOnGenerate,
-      termsConditionRead,
-      ...otherData
-    }: any = data;
-    const jsonData = JSON.stringify(otherData);
+    const jsonData = JSON.stringify(data);
     sessionStorage.setItem(key, jsonData);
   } catch (error) {
     console.error('Error saving data to sessionStorage:', error);
@@ -74,19 +47,10 @@ export function savePaybackDataToSessionStorage<T>(key: string, data: T): void {
 export function updatePaybackSessionStorage<T>(key: string, data: T): void {
   try {
     let sessionData = getPaybackDataFromSessionStorage(key);
-    const {
-      paid,
-      contractSign,
-      contractSignAt,
-      filledInfo,
-      clickedOnGenerate,
-      termsConditionRead,
-      ...otherData
-    }: any = data;
     if (sessionData) {
-      sessionData = { ...sessionData, ...otherData };
+      sessionData = { ...sessionData, ...data };
     } else {
-      sessionData = { ...otherData };
+      sessionData = { ...data };
     }
 
     savePaybackDataToSessionStorage(key, sessionData);

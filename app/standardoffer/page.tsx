@@ -57,7 +57,8 @@ const StandardOffer = () => {
     emailAddress: '',
     phoneNumber: '',
     dialCode: '34',
-    numberofpeopleAdditionValue: 1
+    numberofpeopleAdditionValue: 1,
+    plan: 'neos'
   };
 
   const [showForm, setShowForm] = useState<string>('soffer');
