@@ -583,8 +583,8 @@ const YourOffer = ({ handleNext, data }: any) => {
                   <div className="lg:w-full w-auto  flex flex-col items-center">
                     <button
                       className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
-                      onClick={handleDownloadOffer} // uncomment
-                      // disabled // comment and the coming soons below
+                      // onClick={handleDownloadOffer} // uncomment
+                      disabled // comment and the coming soons below
                     >
                       {t('Your-offer.download-offer')}
                     </button>
@@ -596,8 +596,8 @@ const YourOffer = ({ handleNext, data }: any) => {
                   <div className="lg:w-full w-auto  flex flex-col items-center">
                     <button
                       className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
-                      // disabled
-                      onClick={handleGenerateContract}
+                      disabled
+                      // onClick={handleGenerateContract}
                     >
                       {t('Your-offer.contract-btn-txt')}
                     </button>
