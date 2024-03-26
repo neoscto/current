@@ -1,3 +1,6 @@
+export const maxDuration = 30; // 5 seconds
+export const dynamic = 'force-dynamic';
+
 import { NextResponse } from 'next/server';
 import { createCanvas, registerFont } from 'canvas';
 import Chart from 'chart.js/auto';
