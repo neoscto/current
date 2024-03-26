@@ -3,7 +3,7 @@ import NeosTextField from '@/components/NeosTextField';
 import ProgressBar from '@/components/ProgressBar';
 import MainContainer from '@/components/sharedComponents/MainContainer';
 import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPeriod';
-import { setUserData } from '@/features/common/commonSlice';
+import { setSolarData, setUserData } from '@/features/common/commonSlice';
 import useDocusignService from '@/hooks/useDocusign';
 import useHandleForm from '@/hooks/useHandleForm';
 import { AppDispatch } from '@/store/store';
@@ -116,8 +116,7 @@ const StandardOffer = () => {
     emailAddress: '',
     phoneNumber: '',
     dialCode: '34',
-    numberofpeopleAdditionValue: 1,
-    totalPrice: data.total_price_after_tax
+    numberofpeopleAdditionValue: 1
   };
 
   const [buttonLoading, setLoading] = useState<boolean>(false);
@@ -167,7 +166,18 @@ const StandardOffer = () => {
     handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
-    dispatch(setUserData(res.data));
+    dispatch(
+      setUserData({
+        ...res.data,
+        offerType: 'Standard',
+        totalPanels: data.number_of_panels,
+        capacityPerPanel: '440 Wp',
+        totalCapacity: data.vsi_required_capacity,
+        estimateProduction: data.vsi_required_capacity * 2000,
+        totalPayment: data.total_price_after_tax,
+        typeConsumption: data.type_consumption_point
+      })
+    );
     setShowForm('yourOffer');
     const arrayData = Object.keys(res.data);
     arrayData.forEach((key: any) => {
@@ -182,44 +192,8 @@ const StandardOffer = () => {
     // dispatch(setUserData(formik.values));
   }, [formik.values]);
 
-  useEffect(() => {
-    const updateUserOffer = async () => {
-      if (!!userData.offerId) {
-        await createOrUpdateUserOffer(
-          {
-            user: userData._id,
-            totalPanels: data.number_of_panels,
-            capacityPerPanel: '440 Wp',
-            totalCapacity: data.vsi_required_capacity,
-            estimateProduction: data.vsi_required_capacity * 2000,
-            totalPayment: data.total_price_after_tax,
-            typeConsumption: data.type_consumption_point
-            // plan: formik.values.plan
-          },
-          userData.offerId
-        );
-      }
-    };
-    updateUserOffer();
-  }, [userData.offerId]);
-
   const { loading, signature, signingUrl, downloadPdf } =
     useDocusignService(formik);
-
-  // if (!!userData._id) {
-  //   return (
-  //     <div
-  //       style={{
-  //         display: 'flex',
-  //         justifyContent: 'center',
-  //         alignItems: 'center',
-  //         height: '100vh'
-  //       }}
-  //     >
-  //       <CircularProgress />
-  //     </div>
-  //   );
-  // }
 
   return (
     <MainContainer>

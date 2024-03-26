@@ -29,10 +29,10 @@ const pdfGenerate = (formData: any): string => {
 };
 
 const generateEnvelopeData = async (offerData: any) => {
-  if (!!offerData.offerId && !!offerData.plan) {
+  if (offerData.offerId && offerData.plan) {
     const paybackData = await getUserOffer(offerData.offerId);
     const typeConsumption = paybackData.typeConsumption;
-    const powerConsumptionData = !!typeConsumption
+    const powerConsumptionData = typeConsumption
       ? [
           {
             tabLabel: 'p1',

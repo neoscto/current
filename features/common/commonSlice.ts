@@ -1,6 +1,8 @@
 import {
   getDataFromSessionStorage,
-  saveDataToSessionStorage
+  getPaybackDataFromSessionStorage,
+  saveDataToSessionStorage,
+  savePaybackDataToSessionStorage
 } from '@/utils/utils';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
@@ -25,10 +27,22 @@ export const userData = getDataFromSessionStorage('UserOffer') || {
   _id: '',
   offerId: '',
   isValidCode: false,
-  plan: 'neos'
+  plan: 'neos',
+  offerType: '',
+  totalPanels: '',
+  capacityPerPanel: '',
+  totalCapacity: '',
+  estimateProduction: '',
+  totalPayment: '',
+  typeConsumption: ''
 };
 
-const initialState = { post: [], userData, formBack: '', language: 'es' };
+const initialState = {
+  post: [],
+  userData,
+  formBack: '',
+  language: 'es'
+};
 
 const commonSlice = createSlice({
   name: 'common',
@@ -52,5 +66,6 @@ const commonSlice = createSlice({
   }
 });
 
-export const { setUserData, setFormBack, setLanguage } = commonSlice.actions;
+export const { setUserData, setSolarData, setFormBack, setLanguage } =
+  commonSlice.actions;
 export default commonSlice.reducer;

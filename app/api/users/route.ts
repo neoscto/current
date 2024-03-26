@@ -1,5 +1,4 @@
 import { createOrUpdateUserByEmail } from '@/lib/actions/user';
-import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
 import { createErrorResponse } from '@/lib/api-response';
 import connectDB from '@/lib/connect-db';
 import { NextResponse } from 'next/server';
@@ -41,15 +40,9 @@ export async function POST(request: Request) {
     if (error) {
       throw error;
     }
-    // Create user offer
-    const userOffer = await createOrUpdateUserOffer({
-      user: data?._id,
-      offerType: body.offerType
-    });
-    if (!userOffer) throw new Error('User offer not found 😔');
     let json_response = {
       status: 'success',
-      data: { ...data, offerId: userOffer._id }
+      data
     };
     return new NextResponse(JSON.stringify(json_response), {
       status: 201,

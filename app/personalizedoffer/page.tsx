@@ -3,7 +3,7 @@ import NeosTextField from '@/components/NeosTextField';
 import ProgressBar from '@/components/ProgressBar';
 import MainContainer from '@/components/sharedComponents/MainContainer';
 import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPeriod';
-import { setUserData } from '@/features/common/commonSlice';
+import { setSolarData, setUserData } from '@/features/common/commonSlice';
 import useDocusignService from '@/hooks/useDocusign';
 import useHandleForm from '@/hooks/useHandleForm';
 import { AppDispatch } from '@/store/store';
@@ -158,6 +158,15 @@ const PersonalizedOffer = () => {
         formik.values.cups
       );
       if (newData) {
+        // const solarData = {
+        //   totalPanels: newData.number_of_panels,
+        //   capacityPerPanel: '440 Wp',
+        //   totalCapacity: newData.vsi_required_capacity,
+        //   estimateProduction: newData.vsi_required_capacity * 2000,
+        //   totalPayment: newData.total_price_after_tax,
+        //   typeConsumption: newData.type_consumption_point
+        // };
+        // dispatch(setSolarData(solarData));
         setData(newData);
         setShowForm('yourOffer');
         setServerError('');
@@ -182,7 +191,7 @@ const PersonalizedOffer = () => {
   });
   function handleSuccessResponce(res: any) {
     // saveDataToSessionStorage('UserOffer', res.data);
-    dispatch(setUserData(res.data));
+    dispatch(setUserData({ ...res.data, offerType: 'Personalized' }));
     setShowForm('yourOffer');
     const arrayData = Object.keys(res.data);
     arrayData.forEach((key: any) => {
@@ -196,27 +205,6 @@ const PersonalizedOffer = () => {
     formik.setFieldValue('offerType', 'Personalized');
     // dispatch(setUserData(formik.values));
   }, [formik.values]);
-
-  useEffect(() => {
-    const updateUserOffer = async () => {
-      if (!!userData.offerId) {
-        await createOrUpdateUserOffer(
-          {
-            user: userData._id,
-            totalPanels: data.number_of_panels,
-            capacityPerPanel: '440 Wp',
-            totalCapacity: data.vsi_required_capacity,
-            estimateProduction: data.vsi_required_capacity * 2000,
-            totalPayment: data.total_price_after_tax,
-            typeConsumption: data.type_consumption_point
-            // plan: formik.values.plan
-          },
-          userData.offerId
-        );
-      }
-    };
-    updateUserOffer();
-  }, [userData.offerId]);
 
   const { loading, signature, signingUrl, downloadPdf } =
     useDocusignService(formik);

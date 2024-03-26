@@ -1,3 +1,4 @@
+'use server';
 import axios, { AxiosResponse } from 'axios';
 import test from 'node:test';
 
@@ -147,16 +148,19 @@ async function getConsumptionDataFromApi(
   cupsCode: string
 ): Promise<any | null> {
   try {
-    const response = await fetch('/api/enerbit/consumption_pse', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        cupsCode: cupsCode,
-        WEBTOKEN: WEBTOKEN
-      })
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/enerbit/consumption_pse`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          cupsCode: cupsCode,
+          WEBTOKEN: WEBTOKEN
+        })
+      }
+    );
 
     const data = await response.json();
 
@@ -171,16 +175,19 @@ export async function getTechnicalDataFromApi(
   cupsCode: string
 ): Promise<any | null> {
   try {
-    const response = await fetch('/api/enerbit/pse', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        cupsCode: cupsCode,
-        WEBTOKEN: WEBTOKEN
-      })
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/enerbit/pse`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          cupsCode: cupsCode,
+          WEBTOKEN: WEBTOKEN
+        })
+      }
+    );
     const data = await response.json();
 
     return response.status === 200 ? data : null;

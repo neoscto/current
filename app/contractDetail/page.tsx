@@ -19,6 +19,7 @@ import {
   getTechnicalDataFromApi
 } from '@/features/calculateSolarPaybackPeriod';
 import { createOrUpdateOfferAnalytics } from '@/lib/actions/offer-analytics';
+import { useRouter } from 'next/navigation';
 
 const ContractDetail = ({
   handleNext,
@@ -30,12 +31,14 @@ const ContractDetail = ({
   const { userData } = useSelector((state: any) => state.commonSlice);
   const [displayValue, setDisplayValue] = useState(0);
   const [isButtonLoading, setIsButtonLoading] = useState(false);
+  const router = useRouter();
   useEffect(() => {
+    if (!userData._id || !userData.offerId) return router.push('/getoffer');
     const getPrice = async () => {
       const userOfferData = await getUserOffer(userData.offerId);
       setDisplayValue(Number(userOfferData.totalPayment.toFixed(2)));
     };
-    !!userData.offerId && getPrice();
+    userData.offerId && getPrice();
   }, [userData.offerId]);
   const dispatch = useDispatch();
   const labelStyle = 'font-medium text-base text-black';
@@ -48,8 +51,8 @@ const ContractDetail = ({
 
   useEffect(() => {
     setShowForm('yourDetails');
-    const offerData: any = getDataFromSessionStorage('UserOffer');
-    setUserPlan(offerData?.plan || 'neos');
+    // const offerData: any = getDataFromSessionStorage('UserOffer');
+    setUserPlan(userData?.plan || 'neos');
   }, []);
   const handleResize = () => {
     if (window.innerWidth < 768) {
@@ -95,25 +98,24 @@ const ContractDetail = ({
         phoneNumber: userData.phoneNumber,
         dialCode: userData.dialCode
       });
-      if (data && formik?.values?.plan === 'neos') {
+      if (data) {
         const technicalData = await getTechnicalDataFromApi(
           formik?.values?.cups
         );
+        const isPlanNeos = formik?.values?.plan === 'neos';
         await createOrUpdateUserOffer(
           {
             user: userData._id,
-            typeConsumption: technicalData?.tipoPerfilConsumo
-              .slice(1)
-              .toUpperCase()
+            ...(isPlanNeos && {
+              typeConsumption: technicalData?.tipoPerfilConsumo
+                .slice(1)
+                .toUpperCase()
+            }),
+            filledInfo: true
           },
           userData.offerId
         );
       }
-
-      await createOrUpdateOfferAnalytics({
-        userOffer: userData.offerId,
-        filledInfo: true
-      });
       return data;
     } catch (error) {
       console.error(error);

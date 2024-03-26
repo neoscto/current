@@ -12,10 +12,9 @@ import { Grid } from '@mui/material';
 import NeosTextField from '@/components/NeosTextField';
 import NeosButton from '@/components/NeosButton';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
 import { useTranslation } from 'react-i18next';
-import { getDataFromSessionStorage } from '@/utils/utils';
 import { getUserOffer } from '@/lib/actions/user-offer';
+import { useRouter } from 'next/navigation';
 
 const CARD_ELEMENT_OPTIONS = {
   disableLink: true,
@@ -40,17 +39,16 @@ const CARD_ELEMENT_OPTIONS = {
 };
 
 const CheckoutForm = () => {
-  const { userData } = useSelector((state: RootState) => state.commonSlice);
+  const { userData } = useSelector((state: any) => state.commonSlice);
   const [displayValue, setDisplayValue] = useState(0);
+  const router = useRouter();
   useEffect(() => {
+    if (!userData.offerId && !userData._id) return router.push('/getoffer');
     const getPrice = async () => {
-      // @ts-ignore
       const userOfferData = await getUserOffer(userData.offerId);
       setDisplayValue(Number(userOfferData.totalPayment.toFixed(2)));
     };
-    // @ts-ignore
-    !!userData.offerId && getPrice();
-    // @ts-ignore
+    userData.offerId && getPrice();
   }, [userData.offerId]);
 
   const stripe = useStripe();

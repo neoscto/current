@@ -302,29 +302,27 @@ const YourOffer = ({ handleNext, data }: any) => {
   };
 
   const handleGenerateContract = async () => {
-    if (!userData.offerId && !userData._id) return router.push('/getoffer');
+    if (!userData._id) return router.push('/getoffer');
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/offer-analytics`,
+      const offer = await createOrUpdateUserOffer(
         {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            clickedOnGenerate: true,
-            userOffer: userData.offerId
-          })
-        }
+          user: userData._id,
+          totalPanels: userData.totalPanels,
+          capacityPerPanel: userData.capacityPerPanel,
+          totalCapacity: userData.totalCapacity,
+          estimateProduction: userData.estimateProduction,
+          totalPayment: userData.totalPayment,
+          typeConsumption: userData.typeConsumption,
+          plan: userPlan,
+          offerType: userData.offerType,
+          clickedOnGenerate: true
+        },
+        userData.offerId
       );
-      const analyticsResult = await response.json();
-      if (analyticsResult && !!userData.plan && userData.plan !== 'neos') {
-        await createOrUpdateUserOffer(
-          { user: userData._id, plan: userPlan },
-          userData.offerId
-        );
+      if (offer) {
+        dispatch(setUserData({ offerId: offer._id }));
+        router.push('/getoffer?activeStep=1');
       }
-      analyticsResult && router.push(`/getoffer?activeStep=1`);
     } catch (error) {
       console.error('Error:', error);
     }
