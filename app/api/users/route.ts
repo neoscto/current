@@ -42,14 +42,15 @@ export async function POST(request: Request) {
       throw error;
     }
     // Create user offer
-    const userOffer = await createOrUpdateUserOffer({
-      user: data?._id,
-      offerType: body.offerType
-    });
-    if (!userOffer) throw new Error('User offer not found 😔');
+    // const userOffer = await createOrUpdateUserOffer({
+    //   user: data?._id,
+    //   offerType: body.offerType
+    // });
+    // if (!userOffer) throw new Error('User offer not found 😔');
     let json_response = {
       status: 'success',
-      data: { ...data, offerId: userOffer._id }
+      // data: { ...data, offerId: userOffer._id }
+      data
     };
     return new NextResponse(JSON.stringify(json_response), {
       status: 201,
