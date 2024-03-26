@@ -90,7 +90,7 @@ const generateChartPage = async ({
     const month = months[i];
     // const chartUrl = await generateChart(records, month.index, month.name);
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/generate-chart`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/generate-chart`,
       {
         method: 'POST',
         body: JSON.stringify({
