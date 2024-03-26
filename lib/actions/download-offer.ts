@@ -88,7 +88,19 @@ const generateChartPage = async ({
   );
   for (let i = 0; i < months.length; i++) {
     const month = months[i];
-    const chartUrl = await generateChart(records, month.index, month.name);
+    // const chartUrl = await generateChart(records, month.index, month.name);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/generate-chart`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          records,
+          filterMonth: month.index,
+          title: month.name
+        })
+      }
+    );
+    const chartUrl = await response.text();
     const verticalPositions = chartPageVerticalPositions(3);
     chartUrl &&
       (await drawChart({
@@ -340,25 +352,25 @@ export const generatePDF = async ({
       globalTons
     );
 
-    const page9 = await embedChartBackground(
-      newPdfDoc,
-      chartBackground2,
-      imageDims.width,
-      imageDims.height,
-      pageWidth,
-      pageHeight
-    );
-    const chartUrl = await generatePaybackChart(cumulativeSavings, globalPrice);
-    chartUrl &&
-      (await drawChart({
-        pdfDoc: newPdfDoc,
-        page: page9,
-        chartUrl,
-        xPos: 50,
-        yPos: 225,
-        chartImgWidth: 500,
-        chartImgHeight: 450
-      }));
+    // const page9 = await embedChartBackground(
+    //   newPdfDoc,
+    //   chartBackground2,
+    //   imageDims.width,
+    //   imageDims.height,
+    //   pageWidth,
+    //   pageHeight
+    // );
+    // const chartUrl = await generatePaybackChart(cumulativeSavings, globalPrice);
+    // chartUrl &&
+    //   (await drawChart({
+    //     pdfDoc: newPdfDoc,
+    //     page: page9,
+    //     chartUrl,
+    //     xPos: 50,
+    //     yPos: 225,
+    //     chartImgWidth: 500,
+    //     chartImgHeight: 450
+    //   }));
     // const lastPageBytes = fs.readFileSync(
     //   path.join(process.cwd(), 'public', lastPdfPage)
     // );
