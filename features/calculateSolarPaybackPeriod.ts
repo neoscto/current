@@ -102,8 +102,9 @@ const NEOS_VAT_PERCENT: number = 0.21;
 const NEOS_PVOUT_IN_KWH_PER_KW: number = 2250 * 0.8 + 2100 * 0.2;
 const AVERAGE_CONSUMPTION_PER_PERSON_PER_DAY: number = 3.25; // Based on research
 const PANELS_PER_KW: number = 1 / 0.44;
-const INFLATION_PERCENT: number = 0.035; // Approximation from research
-const GRID_COVERAGE_PERCENT: number = 0.5; // Approximation from research
+const INFLATION_PERCENT: number = 0.03; // Approximation from research
+const ROOFTOP_GRID_COVERAGE_PERCENT = 0.5 // Approximation from research 
+const NEOS_GRID_COVERAGE_PERCENT = 0.34 // Sample result from quantitative research
 const GRID_RELATED_COSTS: number = 0.03; // Approximation from research
 const GRID_TAX_PERCENT: number = 0.1;
 const ROOFTOP_PRICE: number = (1667 + 1942) / 2; // Based on research
@@ -282,7 +283,7 @@ export const calculateSolarPaybackPeriod = async (
       UTILITY_PRICE = 0.165449;
     }
     yearly_variable_bill =
-      UTILITY_PRICE * (1 + GRID_TAX_PERCENT) * yearly_consumption;
+      UTILITY_PRICE * yearly_consumption;
     total_customer_fees =
       SERVICE_FEE_PER_MONTH * MONTHS_IN_YEAR * YEARS_IN_CONTRACT;
   } else if (user_cups_code) {
@@ -347,7 +348,7 @@ export const calculateSolarPaybackPeriod = async (
           UTILITY_PRICE = 0.137538;
         }
         yearly_variable_bill =
-          UTILITY_PRICE * (1 + GRID_TAX_PERCENT) * yearly_consumption;
+          UTILITY_PRICE * yearly_consumption;
 
         const individual_total_customer_fees: number =
           SERVICE_FEE_PER_MONTH * MONTHS_IN_YEAR * YEARS_IN_CONTRACT;
@@ -429,7 +430,6 @@ export const calculateSolarPaybackPeriod = async (
           }
           const individual_yearly_variable_bill: number =
             UTILITY_PRICE *
-            (1 + GRID_TAX_PERCENT) *
             individual_yearly_consumption;
           yearly_variable_bill += individual_yearly_variable_bill;
 
@@ -529,7 +529,7 @@ export const calculateSolarPaybackPeriod = async (
     ROOFTOP_MAINTENANCE_PER_MONTH *
     MONTHS_IN_YEAR *
     YEARS_IN_CONTRACT +
-    GRID_COVERAGE_PERCENT * total_variable_charges;
+    ROOFTOP_GRID_COVERAGE_PERCENT * total_variable_charges;
 
   let customers_revenue: number = REVENUE_PER_KWH_CONSUMED * yearly_consumption;
   let customers_revenue_w_inflation: number[] = [];
@@ -546,10 +546,9 @@ export const calculateSolarPaybackPeriod = async (
   let wholesale_cost_per_kwh_consumed: number =
     TOTAL_SPENDING / TOTAL_CONSUMPTION;
   let spending_per_kwh_non_solar_consumed: number =
-    (wholesale_cost_per_kwh_consumed + GRID_RELATED_COSTS) *
-    (1 + GRID_TAX_PERCENT);
+    wholesale_cost_per_kwh_consumed * (1 + GRID_TAX_PERCENT) + GRID_RELATED_COSTS;
   let customers_spending_non_solar: number =
-    GRID_COVERAGE_PERCENT *
+    NEOS_GRID_COVERAGE_PERCENT *
     spending_per_kwh_non_solar_consumed *
     yearly_consumption;
   let customers_spending_non_solar_w_inflation: number[] = [];
@@ -562,9 +561,9 @@ export const calculateSolarPaybackPeriod = async (
   let total_customers_spending_non_solar: number =
     customers_spending_non_solar_w_inflation.reduce((a, b) => a + b, 0);
   let spending_per_kwh_solar_consumed: number =
-    (PRICE_PER_KWH_SOLAR + GRID_RELATED_COSTS) * (1 + GRID_TAX_PERCENT);
+    PRICE_PER_KWH_SOLAR * (1 + GRID_TAX_PERCENT) + GRID_RELATED_COSTS;
   let customers_spending_solar: number =
-    (1 - GRID_COVERAGE_PERCENT) *
+    (1 - NEOS_GRID_COVERAGE_PERCENT) *
     spending_per_kwh_solar_consumed *
     yearly_consumption;
   let customers_spending_solar_w_inflation: number[] = [];
@@ -725,17 +724,16 @@ export const calculateSolarPaybackPeriod = async (
 
     // console.log(`- Year ${i+1}: €${total_savings_w_neos.toFixed(2)}.`);
   }
+
   let sum = 0;
   for (let i = 0; i < 25; i++) {
     sum += savings_w_neos[i];
     save_yearly_w_neos.push({
       years: i + 1,
-      saving: (sum / total_savings_w_neos).toFixed(2)
+      saving: (sum / total_savings_w_neos).toFixed(6)
     });
     cumulative_savings.push({ years: i + 1, saving: sum });
   };
-
-  // console.log('saving with neos', { save_yearly_w_neos });
 
   let sum_w_neos: number = 0;
   let left: number = total_price_after_tax;
@@ -828,7 +826,7 @@ export const calculateSolarPaybackPeriod = async (
     sum += savings_without_neos[i];
     save_yearly_without_neos.push({
       years: i + 1,
-      saving: (sum / total_savings_w_neos).toFixed(2)
+      saving: (sum / total_savings_w_neos).toFixed(6)
     });
     // console.log(`- Year ${i}: €${total_savings_without_neos.toFixed(2)}.`);
   }
@@ -854,12 +852,14 @@ export const calculateSolarPaybackPeriod = async (
       break;
     }
   }
+
   let neos_not_provider_elephants_carbon_capture: number =
     neos_elephants_carbon_capture;
   let neos_not_provider_emissions_saved_per_year_in_tons: number =
     neos_emissions_saved_per_year_in_tons;
   let neos_not_provider_total_emissions_saved_in_tons: number =
     neos_total_emissions_saved_in_tons;
+
   let total_savings_rooftop: number = 0;
 
   // console.log(
@@ -875,7 +875,7 @@ export const calculateSolarPaybackPeriod = async (
       let fixed_charge = yearly_fixed_charges_w_inflation[index];
       return (
         required_capacity * ROOFTOP_MAINTENANCE_PER_MONTH * MONTHS_IN_YEAR +
-        GRID_COVERAGE_PERCENT * bill +
+        ROOFTOP_GRID_COVERAGE_PERCENT * bill +
         fixed_charge
       );
     }

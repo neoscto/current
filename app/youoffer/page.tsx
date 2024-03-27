@@ -262,7 +262,7 @@ const YourOffer = ({ handleNext, data }: any) => {
         chartBackground1,
         chartBackground2,
         csvPath,
-        globalCapacity: data.required_capacity,
+        globalCapacity: data.vsi_required_capacity,
         globalPanels: data.number_of_panels,
         globalPercentage: data.percent_savings_year1_w_neos,
         globalPrice: data.total_price_before_tax,
@@ -394,7 +394,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                     </b>{' '}
                     {t('Your-offer.offer-option1')}{' '}
                     <b>
-                      {data.required_capacity.toLocaleString('en-US', {
+                      {data.vsi_required_capacity.toLocaleString('en-US', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                       })}
@@ -549,8 +549,8 @@ const YourOffer = ({ handleNext, data }: any) => {
                   <div className="lg:w-full w-auto  flex flex-col items-center">
                     <button
                       className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
-                      onClick={handleDownloadOffer} // uncomment
-                      // disabled // comment and the coming soons below
+                      // onClick={handleDownloadOffer} // uncomment
+                      disabled // comment and the coming soons below
                     >
                       {t('Your-offer.download-offer')}
                     </button>
@@ -673,7 +673,7 @@ const YourOffer = ({ handleNext, data }: any) => {
             <p className=" text-[#4F4F4F] text-xs mt-2">
               *
               {t(
-                'Savings are calculated assuming a conservative 3.5% annual increase in electricity prices.'
+                'Savings are calculated assuming a conservative 3% annual increase in electricity prices.'
               )}
             </p>
           </div>
@@ -751,7 +751,7 @@ const YourOffer = ({ handleNext, data }: any) => {
             </div>
 
             <div className="bg-[#E7F5FA] !rounded-3xl lg:p-5 w-full px-3 py-5">
-              <h1 className="text-[18px] leading-[22.68px] text-black text-center font-semibold">
+              <h1 className="lg:text-[18px] lg:leading-[22.68px] text-[16px] leading-5 text-black text-center font-semibold">
                 {t('How-it-work.keepProvider')}
               </h1>
 

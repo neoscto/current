@@ -120,7 +120,7 @@ const StandardOffer = () => {
   const handleyourSaving = async () => {
     formik.setFieldValue('offerType', 'Standard');
     const response = await formik.validateForm();
-    console.log(response);
+    // console.log(response);
     if (Object.keys(response).length > 0) {
       if (response.phoneNumber) {
         setPhoneNumberError(response.phoneNumber);

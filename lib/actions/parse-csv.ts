@@ -11,7 +11,7 @@ export type Record = {
   production: number;
 };
 
-const pvout = 2250;
+const pvout = 2220;
 const transformRecord = (record: Omit<Record, 'production'>): Record => {
   const { month, hour, sum_of_percentages } = record;
   const production = Math.round(sum_of_percentages * pvout);
