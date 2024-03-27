@@ -249,6 +249,7 @@ export const generatePDF = async ({
   chartBackground1,
   chartBackground2,
   csvPath,
+  fontPath,
   globalCapacity,
   globalPanels,
   globalPercentage,
@@ -283,9 +284,7 @@ export const generatePDF = async ({
     const pageHeight = 842; // A4 height in points
 
     // Embed the Helvetica font
-    const fontBytes = fs.readFileSync(
-      path.resolve('./fonts/codec-pro.regular.ttf')
-    );
+    const fontBytes = await fetch(fontPath).then((resp) => resp.arrayBuffer());
     const codecFont = await newPdfDoc.embedFont(fontBytes);
 
     // Embed the background image

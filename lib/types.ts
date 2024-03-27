@@ -13,6 +13,7 @@ export interface GeneratePDFProps {
   chartBackground1: string;
   chartBackground2: string;
   csvPath: string;
+  fontPath: string;
   globalCapacity: number;
   globalPanels: number;
   globalPercentage: number;

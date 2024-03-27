@@ -236,6 +236,10 @@ const YourOffer = ({ handleNext, data }: any) => {
     return `${process.env.NEXT_PUBLIC_BASE_URL}/${fileName}`;
   };
 
+  const generateFontPath = (fileName: string) => {
+    return `${process.env.NEXT_PUBLIC_BASE_URL}/fonts/${fileName}`;
+  };
+
   const handleDownloadOffer = async () => {
     setIsGeneratingPdf(true);
     try {
@@ -246,6 +250,7 @@ const YourOffer = ({ handleNext, data }: any) => {
       const page6BackgroundImage = generatePath('Background Page 6.png');
       const lastPdfPage = generatePath('Last Page.pdf');
       const csvPath = generatePath('chart_data.csv');
+      const fontPath = generateFontPath('codec-pro.regular.ttf');
       const pdfData = {
         initialPDFPath,
         page4BackgroundImage,
@@ -254,6 +259,7 @@ const YourOffer = ({ handleNext, data }: any) => {
         chartBackground1,
         chartBackground2,
         csvPath,
+        fontPath,
         globalCapacity: data.vsi_required_capacity,
         globalPanels: data.number_of_panels,
         globalPercentage: data.percent_savings_year1_w_neos,
