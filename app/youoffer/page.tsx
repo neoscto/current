@@ -548,12 +548,10 @@ const YourOffer = ({ handleNext, data }: any) => {
                     category="colored"
                     isLoading={isGeneratingPdf}
                   />
-
                   {/* <p className="font-sm text-[#2D9CDB] mt-1 ">
                       {t('Coming Soon...')}
                     </p> */
                   /* </div> */}
-
                   <div className="lg:w-full w-auto  flex flex-col items-center">
                     <button
                       className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
