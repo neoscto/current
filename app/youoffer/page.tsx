@@ -93,6 +93,7 @@ const YourOffer = ({ handleNext, data }: any) => {
   const [isMobile, setIsMobile] = useState(false);
   const [userPlan, setUserPlan] = useState('neos');
   const [userPlanBar, setUserPlanBar] = useState('neos');
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
 
   const handleResize = () => {
     if (window.innerWidth < 768) {
@@ -239,34 +240,30 @@ const YourOffer = ({ handleNext, data }: any) => {
     return `${process.env.NEXT_PUBLIC_BASE_URL}/${fileName}`;
   };
 
+  const generateFontPath = (fileName: string) => {
+    return `${process.env.NEXT_PUBLIC_BASE_URL}/fonts/${fileName}`;
+  };
+
   const handleDownloadOffer = async () => {
+    setIsGeneratingPdf(true);
     try {
-      // const response = await fetch('api/download-offer', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //     // Add any other headers as needed
-      //   },
-      //   body: JSON.stringify({
-      //     data
-      //   })
-      // });
-      const chartBackground1 = generatePath('Background Charts.png');
-      const chartBackground2 = generatePath('Background Page 9.png');
+      const chartBackground1 = generatePath('Background Page 5.png');
+      const chartBackground2 = generatePath('Background Page 7.png');
       const initialPDFPath = generatePath('Pages 1-3.pdf');
-      const page4BackgroundImage = generatePath('Background Page 5.png');
-      const page8BackgroundImage = generatePath('Background Page 8.png');
+      const page4BackgroundImage = generatePath('Background Page 4.png');
+      const page6BackgroundImage = generatePath('Background Page 6.png');
       const lastPdfPage = generatePath('Last Page.pdf');
       const csvPath = generatePath('chart_data.csv');
-      // console.log('PDF Data: ', data);
+      const fontPath = generateFontPath('codec-pro.regular.ttf');
       const pdfData = {
         initialPDFPath,
         page4BackgroundImage,
-        page8BackgroundImage,
+        page6BackgroundImage,
         lastPdfPage,
         chartBackground1,
         chartBackground2,
         csvPath,
+        fontPath,
         globalCapacity: data.vsi_required_capacity,
         globalPanels: data.number_of_panels,
         globalPercentage: data.percent_savings_year1_w_neos,
@@ -578,19 +575,18 @@ const YourOffer = ({ handleNext, data }: any) => {
 
               <div className=" ">
                 <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center ">
-                  <div className="lg:w-full w-auto  flex flex-col items-center">
-                    <button
-                      className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
-                      // onClick={handleDownloadOffer} // uncomment
-                      disabled // comment and the coming soons below
-                    >
-                      {t('Your-offer.download-offer')}
-                    </button>
-                    <p className="font-sm text-[#2D9CDB] mt-1 ">
+                  {/* <div className="lg:w-full w-auto  flex flex-col items-center"> */}
+                  <NeosButton
+                    className="p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
+                    onClick={handleDownloadOffer}
+                    title={t('Your-offer.download-offer')}
+                    category="colored"
+                    isLoading={isGeneratingPdf}
+                  />
+                  {/* <p className="font-sm text-[#2D9CDB] mt-1 ">
                       {t('Coming Soon...')}
-                    </p>
-                  </div>
-
+                    </p> */
+                  /* </div> */}
                   <div className="lg:w-full w-auto  flex flex-col items-center">
                     <button
                       className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
