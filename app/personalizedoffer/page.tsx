@@ -3,18 +3,13 @@ import NeosTextField from '@/components/NeosTextField';
 import ProgressBar from '@/components/ProgressBar';
 import MainContainer from '@/components/sharedComponents/MainContainer';
 import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPeriod';
-import { setSolarData, setUserData } from '@/features/common/commonSlice';
+import { setUserData } from '@/features/common/commonSlice';
 import useDocusignService from '@/hooks/useDocusign';
 import useHandleForm from '@/hooks/useHandleForm';
 import { AppDispatch } from '@/store/store';
-import {
-  getDataFromSessionStorage,
-  saveDataToSessionStorage,
-  savePaybackDataToSessionStorage
-} from '@/utils/utils';
 import { offerStep1Schema } from '@/utils/validations/offers.validation';
 import { Button } from '@mantine/core';
-import { CircularProgress, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -27,7 +22,6 @@ import PhoneInput, {
 import 'react-phone-number-input/style.css';
 import { useDispatch, useSelector } from 'react-redux';
 import YourOffer from '../youoffer/page';
-import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
 
 const validateCUPS = (cups: string): boolean | string => {
   const cupsArray = cups.toUpperCase().replace(/\s/g, '').split(',');
@@ -190,7 +184,7 @@ const PersonalizedOffer = () => {
     handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
-    // saveDataToSessionStorage('UserOffer', res.data);
+    // saveDataToCookie('UserOffer', res.data);
     dispatch(setUserData({ ...res.data, offerType: 'Personalized' }));
     setShowForm('yourOffer');
     const arrayData = Object.keys(res.data);

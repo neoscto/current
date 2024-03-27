@@ -92,7 +92,7 @@ const NeosButton = (props: ButtonNeosProps) => {
 
   return (
     <DTPrimaryBtn category={category} {...otherProps}>
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex items-center justify-center gap-2 w-full">
         {isLoading ? (
           <CircularProgress className="loader" color="inherit" />
         ) : (

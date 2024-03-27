@@ -16,7 +16,7 @@ import useHandleForm from '@/hooks/useHandleForm';
 import { offerStep1Schema } from '@/utils/validations/offers.validation';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import useDocusignService from '@/hooks/useDocusign';
-import { saveDataToSessionStorage } from '@/utils/utils';
+import { saveDataToCookie } from '@/utils/utils';
 import { CircularProgress } from '@mui/material';
 import Congrats from '@/components/Congrats';
 import ProgressBar from '@/components/ProgressBar';
@@ -72,7 +72,7 @@ const HorizontalLinearStepper = () => {
     handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
-    // saveDataToSessionStorage('UserOffer', res.data);
+    // saveDataToCookie('UserOffer', res.data);
     dispatch(setUserData(res.data));
     setShowForm('yourOffer');
     const arrayData = Object.keys(res.data);

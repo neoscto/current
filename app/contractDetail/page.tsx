@@ -7,18 +7,12 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import EmailSuccess from '../emailSuccess/page';
 // import { getAuthorizationUrl } from "@/services/docusign.service";
-import { getDataFromSessionStorage, updateSessionStorage } from '@/utils/utils';
-import { stat } from 'fs';
+import { getTechnicalDataFromApi } from '@/features/calculateSolarPaybackPeriod';
+import { createOrUpdateUserByEmail } from '@/lib/actions/user';
 import {
   createOrUpdateUserOffer,
   getUserOffer
 } from '@/lib/actions/user-offer';
-import { createOrUpdateUserByEmail } from '@/lib/actions/user';
-import {
-  calculateSolarPaybackPeriod,
-  getTechnicalDataFromApi
-} from '@/features/calculateSolarPaybackPeriod';
-import { createOrUpdateOfferAnalytics } from '@/lib/actions/offer-analytics';
 import { useRouter } from 'next/navigation';
 
 const ContractDetail = ({

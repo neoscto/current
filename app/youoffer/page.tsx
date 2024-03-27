@@ -1,36 +1,32 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
-import { useTranslation } from 'react-i18next';
-import { PopupModal, useCalendlyEventListener } from 'react-calendly';
 import NeosButton from '@/components/NeosButton';
-import { useRouter } from 'next/navigation';
-import { getDataFromSessionStorage } from '@/utils/utils';
-import {
-  BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  ReferenceLine,
-  Label,
-  CartesianAxis
-} from 'recharts';
+import { setUserData } from '@/features/common/commonSlice';
+import { generatePDF } from '@/lib/actions/download-offer';
+import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
+import { RootState } from '@/store/store';
+import { getDataFromCookie } from '@/utils/utils';
 import Rating from '@mui/material/Rating';
+import parse from 'html-react-parser';
 import html2Canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { useRouter } from 'next/navigation';
+import { PopupModal, useCalendlyEventListener } from 'react-calendly';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { usePDF } from 'react-to-pdf';
-import { sendOffer } from '@/lib/api';
-import parse from 'html-react-parser';
-import { generatePDF } from '@/lib/actions/download-offer';
-import { setUserData } from '@/features/common/commonSlice';
-import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
+import {
+  Bar,
+  BarChart,
+  CartesianAxis,
+  Label,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from 'recharts';
 
 const CustomTooltip = ({
   active,
@@ -116,7 +112,7 @@ const YourOffer = ({ handleNext, data }: any) => {
   }
 
   // useEffect(() => {
-  //   // const offerData: any = getDataFromSessionStorage('UserOffer');
+  //   // const offerData: any = getDataFromCookie('UserOffer');
   //   console.log('User Plan: ', formik.values.plan);
   //   setUserPlan(!!userData?.plan ? userData.plan : 'neos');
   //   // dispatch(setUserData({ ...userData, userPlan }));
@@ -126,7 +122,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
   useCalendlyEventListener({
     onEventScheduled: (e: any) => {
-      // const offerData: any = getDataFromSessionStorage('UserOffer');
+      // const offerData: any = getDataFromCookie('UserOffer');
       const saveEvent = async () => {
         const eventId = String(e.data.payload.event.uri).split('/').pop() || '';
         const response = await fetch(
@@ -146,7 +142,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
   const handleCalender = async () => {
     setOpen(true);
-    // const token = getDataFromSessionStorage("calendlyToken");
+    // const token = getDataFromCookie("calendlyToken");
     // if (token) {
     //   return;
     // }
@@ -178,7 +174,7 @@ const YourOffer = ({ handleNext, data }: any) => {
   };
 
   const updateUserPlanSelection = (plan: string) => () => {
-    // const offerData: any = getDataFromSessionStorage('UserOffer');
+    // const offerData: any = getDataFromCookie('UserOffer');
     // offerData.plan = plan;
     // sessionStorage.setItem('UserOffer', JSON.stringify(offerData));
     dispatch(setUserData({ ...userData, plan }));
@@ -220,13 +216,13 @@ const YourOffer = ({ handleNext, data }: any) => {
     );
     const data = await response.json();
     if (data.isValidCode) {
-      const userData: any = getDataFromSessionStorage('UserOffer');
+      const userData: any = getDataFromCookie('UserOffer');
       userData.isValidCode = true;
       // sessionStorage.setItem('UserOffer', JSON.stringify(userData));
       dispatch(setUserData({ isValidCode: true }));
       setReferralCodeError('valid');
     } else {
-      const userData: any = getDataFromSessionStorage('UserOffer');
+      const userData: any = getDataFromCookie('UserOffer');
       userData.isValidCode = false;
       // sessionStorage.setItem('UserOffer', JSON.stringify(userData));
       dispatch(setUserData({ isValidCode: false }));
@@ -577,7 +573,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                 <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center ">
                   {/* <div className="lg:w-full w-auto  flex flex-col items-center"> */}
                   <NeosButton
-                    className="p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
+                    className="p-4 text-base font-bold border rounded-xl w-auto lg:w-full h-full uppercase"
                     onClick={handleDownloadOffer}
                     title={t('Your-offer.download-offer')}
                     category="colored"

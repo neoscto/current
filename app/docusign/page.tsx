@@ -3,7 +3,7 @@ import NeosButton from '@/components/NeosButton';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
-import { saveDataToSessionStorage } from '@/utils/utils';
+import { saveDataToCookie } from '@/utils/utils';
 import { useEffect, useState } from 'react';
 import { CircularProgress } from '@mui/material';
 import { getUser } from '@/lib/actions/user';
@@ -52,7 +52,7 @@ const EmailSuccess = ({}: any) => {
         // const data = await response.json();
         const data = await getUser(offerId);
         setOfferData(data);
-        // saveDataToSessionStorage('UserOffer', data.data);
+        // saveDataToCookie('UserOffer', data.data);
 
         window.parent.postMessage('redirect_success_url', '*');
       } catch (error) {

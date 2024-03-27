@@ -1,20 +1,14 @@
 'use client';
+import NeosButton from '@/components/NeosButton';
 import NeosTextField from '@/components/NeosTextField';
 import ProgressBar from '@/components/ProgressBar';
 import MainContainer from '@/components/sharedComponents/MainContainer';
 import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPeriod';
-import { setSolarData, setUserData } from '@/features/common/commonSlice';
+import { setUserData } from '@/features/common/commonSlice';
 import useDocusignService from '@/hooks/useDocusign';
 import useHandleForm from '@/hooks/useHandleForm';
 import { AppDispatch } from '@/store/store';
-import {
-  getDataFromSessionStorage,
-  saveDataToSessionStorage,
-  savePaybackDataToSessionStorage,
-  updateSessionStorage
-} from '@/utils/utils';
 import { offerStep1Schema } from '@/utils/validations/offers.validation';
-import { Button } from '@mantine/core';
 import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -28,8 +22,6 @@ import PhoneInput, {
 import 'react-phone-number-input/style.css';
 import { useDispatch, useSelector } from 'react-redux';
 import YourOffer from '../youoffer/page';
-import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
-import { CircularProgress } from '@mui/material';
 
 interface FormData {
   numberOfPeople: string;
@@ -124,6 +116,7 @@ const StandardOffer = () => {
   const [serverError, setServerError] = useState('');
 
   const handleyourSaving = async () => {
+    console.log('Log 1');
     formik.setFieldValue('offerType', 'Standard');
 
     const response = await formik.validateForm();
@@ -145,6 +138,7 @@ const StandardOffer = () => {
       );
       if (newData) {
         setData(newData);
+        dispatch(setUserData(formik?.values));
         setShowForm('yourOffer');
         setServerError('');
       }
@@ -156,6 +150,7 @@ const StandardOffer = () => {
 
     formik.handleSubmit();
     setLoading(false);
+    console.log('Log 2');
   };
 
   const [formik, isLoading]: any = useHandleForm({
@@ -166,6 +161,7 @@ const StandardOffer = () => {
     handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
+    console.log('Log 3');
     dispatch(
       setUserData({
         ...res.data,
@@ -286,8 +282,8 @@ const StandardOffer = () => {
                     </p>
                   </Grid>
                 </Grid>
-                <div className="text-center mt-14  ">
-                  <Button
+                <div className="text-center mt-14 w-full">
+                  {/* <Button
                     variant="filled"
                     size="lg"
                     style={{
@@ -300,7 +296,14 @@ const StandardOffer = () => {
                     loading={buttonLoading}
                   >
                     {t('Calculate-saving-btn')}
-                  </Button>
+                  </Button> */}
+                  <NeosButton
+                    className="p-4 text-base font-bold border rounded-xl w-full max-w-[400px] h-[56px] uppercase"
+                    onClick={() => handleyourSaving()}
+                    title={t('Calculate-saving-btn')}
+                    category="colored"
+                    isLoading={buttonLoading}
+                  />
                 </div>
               </div>
             </div>
