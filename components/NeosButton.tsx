@@ -88,16 +88,13 @@ const DTPrimaryBtn = styled(Button)(
 );
 
 const NeosButton = (props: ButtonNeosProps) => {
-  const { category, title, isLoading, loadingTitle, ...otherProps } = props;
+  const { category, title, isLoading, ...otherProps } = props;
 
   return (
     <DTPrimaryBtn category={category} {...otherProps}>
       <div className="flex items-center justify-center gap-2">
         {isLoading ? (
-          <>
-            <CircularProgress className="loader" color="inherit" />{' '}
-            <span className="loading-text">{loadingTitle}</span>
-          </>
+          <CircularProgress className="loader" color="inherit" />
         ) : (
           <span>{title}</span>
         )}

@@ -8,7 +8,7 @@ export interface SavingRecord {
 export interface GeneratePDFProps {
   initialPDFPath: string;
   page4BackgroundImage: string;
-  page8BackgroundImage: string;
+  page6BackgroundImage: string;
   lastPdfPage: string;
   chartBackground1: string;
   chartBackground2: string;

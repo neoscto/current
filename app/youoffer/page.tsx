@@ -239,28 +239,17 @@ const YourOffer = ({ handleNext, data }: any) => {
   const handleDownloadOffer = async () => {
     setIsGeneratingPdf(true);
     try {
-      // const response = await fetch('api/download-offer', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //     // Add any other headers as needed
-      //   },
-      //   body: JSON.stringify({
-      //     data
-      //   })
-      // });
-      const chartBackground1 = generatePath('Background Charts.png');
-      const chartBackground2 = generatePath('Background Page 9.png');
+      const chartBackground1 = generatePath('Background Page 5.png');
+      const chartBackground2 = generatePath('Background Page 7.png');
       const initialPDFPath = generatePath('Pages 1-3.pdf');
-      const page4BackgroundImage = generatePath('Background Page 5.png');
-      const page8BackgroundImage = generatePath('Background Page 8.png');
+      const page4BackgroundImage = generatePath('Background Page 4.png');
+      const page6BackgroundImage = generatePath('Background Page 6.png');
       const lastPdfPage = generatePath('Last Page.pdf');
       const csvPath = generatePath('chart_data.csv');
-      // console.log('PDF Data: ', data);
       const pdfData = {
         initialPDFPath,
         page4BackgroundImage,
-        page8BackgroundImage,
+        page6BackgroundImage,
         lastPdfPage,
         chartBackground1,
         chartBackground2,
@@ -558,7 +547,6 @@ const YourOffer = ({ handleNext, data }: any) => {
                     title={t('Your-offer.download-offer')}
                     category="colored"
                     isLoading={isGeneratingPdf}
-                    loadingTitle="Downloading..."
                   />
 
                   {/* <p className="font-sm text-[#2D9CDB] mt-1 ">
