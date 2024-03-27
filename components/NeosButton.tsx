@@ -3,6 +3,7 @@ import React, { ReactNode } from 'react';
 import Button from '@mui/material/Button';
 import { styled, Theme } from '@mui/system';
 import theme from '@/styles/theme';
+import { CircularProgress } from '@mui/material';
 
 interface ButtonNeosProps {
   category: 'fill' | 'outline' | 'colored';
@@ -13,6 +14,8 @@ interface ButtonNeosProps {
   type?: any;
   disabled?: any;
   id?: string;
+  isLoading?: boolean;
+  loadingTitle?: string;
 }
 
 const getButtonStyles = (category: 'fill' | 'outline' | 'colored') => {
@@ -85,11 +88,17 @@ const DTPrimaryBtn = styled(Button)(
 );
 
 const NeosButton = (props: ButtonNeosProps) => {
-  const { category, title, ...otherProps } = props;
+  const { category, title, isLoading, ...otherProps } = props;
 
   return (
     <DTPrimaryBtn category={category} {...otherProps}>
-      {title}
+      <div className="flex items-center justify-center gap-2">
+        {isLoading ? (
+          <CircularProgress className="loader" color="inherit" />
+        ) : (
+          <span>{title}</span>
+        )}
+      </div>
     </DTPrimaryBtn>
   );
 };
