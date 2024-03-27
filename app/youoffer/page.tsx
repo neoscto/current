@@ -29,6 +29,7 @@ import { usePDF } from 'react-to-pdf';
 import { sendOffer } from '@/lib/api';
 import parse from 'html-react-parser';
 import { generatePDF } from '@/lib/actions/download-offer';
+import { Button } from '@mantine/core';
 
 const CustomTooltip = ({
   active,
@@ -94,6 +95,7 @@ const YourOffer = ({ handleNext, data }: any) => {
   const [isMobile, setIsMobile] = useState(false);
   const [userPlan, setUserPlan] = useState('neos');
   const [userPlanBar, setUserPlanBar] = useState('neos');
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
 
   const handleResize = () => {
     if (window.innerWidth < 768) {
@@ -235,6 +237,7 @@ const YourOffer = ({ handleNext, data }: any) => {
   };
 
   const handleDownloadOffer = async () => {
+    setIsGeneratingPdf(true);
     try {
       // const response = await fetch('api/download-offer', {
       //   method: 'POST',
@@ -293,6 +296,8 @@ const YourOffer = ({ handleNext, data }: any) => {
     } catch (error) {
       // Handle error
       console.error('Error:', error);
+    } finally {
+      setIsGeneratingPdf(false);
     }
   };
 
@@ -546,18 +551,20 @@ const YourOffer = ({ handleNext, data }: any) => {
 
               <div className=" ">
                 <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center ">
-                  <div className="lg:w-full w-auto  flex flex-col items-center">
-                    <button
-                      className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
-                      // onClick={handleDownloadOffer} // uncomment
-                      disabled // comment and the coming soons below
-                    >
-                      {t('Your-offer.download-offer')}
-                    </button>
-                    <p className="font-sm text-[#2D9CDB] mt-1 ">
+                  {/* <div className="lg:w-full w-auto  flex flex-col items-center"> */}
+                  <NeosButton
+                    className="p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
+                    onClick={handleDownloadOffer}
+                    title={t('Your-offer.download-offer')}
+                    category="colored"
+                    isLoading={isGeneratingPdf}
+                    loadingTitle="Downloading..."
+                  />
+
+                  {/* <p className="font-sm text-[#2D9CDB] mt-1 ">
                       {t('Coming Soon...')}
-                    </p>
-                  </div>
+                    </p> */
+                  /* </div> */}
 
                   <div className="lg:w-full w-auto  flex flex-col items-center">
                     <button

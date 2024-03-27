@@ -88,7 +88,19 @@ const generateChartPage = async ({
   );
   for (let i = 0; i < months.length; i++) {
     const month = months[i];
-    const chartUrl = await generateChart(records, month.index, month.name);
+    // const chartUrl = await generateChart(records, month.index, month.name);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/generate-chart`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          records,
+          filterMonth: month.index,
+          title: month.name
+        })
+      }
+    );
+    const chartUrl = await response.text();
     const verticalPositions = chartPageVerticalPositions(3);
     chartUrl &&
       (await drawChart({
@@ -103,7 +115,7 @@ const generateChartPage = async ({
   }
 };
 
-const generatePage8 = async (
+const generatePage6 = async (
   imagePath: string,
   pdfDoc: PDFDocument,
   pageWidth: number,
@@ -311,7 +323,7 @@ export const generatePDF = async ({
     const csvReadStream = await fetch(csvPath).then((resp) => resp.body);
     const records = await parseCSV(csvReadStream);
 
-    // Generate 3 Chart Pages
+    // Generate Chart Page
 
     await generateChartPage({
       records,
@@ -326,7 +338,7 @@ export const generatePDF = async ({
       pageHeight
     });
 
-    await generatePage8(
+    await generatePage6(
       page8BackgroundImage,
       newPdfDoc,
       pageWidth,
@@ -340,7 +352,9 @@ export const generatePDF = async ({
       globalTons
     );
 
-    const page9 = await embedChartBackground(
+    // Generate Payback Chart Page
+
+    const page7 = await embedChartBackground(
       newPdfDoc,
       chartBackground2,
       imageDims.width,
@@ -348,11 +362,22 @@ export const generatePDF = async ({
       pageWidth,
       pageHeight
     );
-    const chartUrl = await generatePaybackChart(cumulativeSavings, globalPrice);
+    // const chartUrl = await generatePaybackChart(cumulativeSavings, globalPrice);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/generate-payback-chart`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          cumulativeSavings,
+          globalPrice
+        })
+      }
+    );
+    const chartUrl = await response.text();
     chartUrl &&
       (await drawChart({
         pdfDoc: newPdfDoc,
-        page: page9,
+        page: page7,
         chartUrl,
         xPos: 50,
         yPos: 225,
