@@ -278,14 +278,14 @@ const YourOffer = ({ handleNext, data }: any) => {
       const url = window.URL.createObjectURL(blob);
 
       // Create a link element and simulate a click to trigger the download
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'Download Offer.pdf'; // Set the filename for the downloaded file
-      document.body.appendChild(a);
-      a.click();
-
+      // const a = document.createElement('a');
+      // a.href = url;
+      // a.download = 'Download Offer.pdf'; // Set the filename for the downloaded file
+      // document.body.appendChild(a);
+      // a.click();
+      window.open(url, '_blank');
       // Clean up by revoking the blob URL
-      window.URL.revokeObjectURL(url);
+      setTimeout(() => window.URL.revokeObjectURL(url), 100);
       // window.open(url, '_blank');
     } catch (error) {
       // Handle error
