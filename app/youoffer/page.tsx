@@ -589,7 +589,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                   <div className="lg:w-full w-auto  flex flex-col items-center">
                     <button
                       className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
-                      // disabled
+                      disabled
                       onClick={handleGenerateContract}
                     >
                       {t('Your-offer.contract-btn-txt')}
