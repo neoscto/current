@@ -584,7 +584,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                     title={t('Your-offer.download-offer')}
                     category="colored"
                     isLoading={isGeneratingPdf}
-                    disabled={isGeneratingPdf}
+                    // disabled={isGeneratingPdf}
                   />
                   {/* <p className="font-sm text-[#2D9CDB] mt-1 ">
                       {t('Coming Soon...')}

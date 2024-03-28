@@ -84,34 +84,47 @@ const ContractDetail = ({
         addressNo: formik?.values?.addressNo,
         province: formik?.values?.province
       };
-      const { data } = await createOrUpdateUserByEmail({
-        ...userObj,
-        emailAddress: userData.emailAddress,
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        phoneNumber: userData.phoneNumber,
-        dialCode: userData.dialCode
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          ...userObj,
+          emailAddress: userData.emailAddress,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          phoneNumber: userData.phoneNumber,
+          dialCode: userData.dialCode
+        })
       });
+      const { data } = await response.json();
+      // const { data } = await createOrUpdateUserByEmail({
+      //   ...userObj,
+      //   emailAddress: userData.emailAddress,
+      //   firstName: userData.firstName,
+      //   lastName: userData.lastName,
+      //   phoneNumber: userData.phoneNumber,
+      //   dialCode: userData.dialCode
+      // });
       if (data) {
-        const technicalData = await getTechnicalDataFromApi(
-          formik?.values?.cups
-        );
-        const isPlanNeos = formik?.values?.plan === 'neos';
-        await fetch('/api/users-offers', {
-          method: 'PATCH',
-          body: JSON.stringify({
-            offerData: {
-              user: userData._id,
-              ...(isPlanNeos && {
-                typeConsumption: technicalData?.tipoPerfilConsumo
-                  .slice(1)
-                  .toUpperCase()
-              }),
-              filledInfo: true
-            },
-            offerId: userData.offerId
-          })
-        });
+        // const technicalData = await getTechnicalDataFromApi(
+        //   formik?.values?.cups
+        // );
+        // const isPlanNeos = formik?.values?.plan === 'neos';
+        // await fetch('/api/users-offers', {
+        //   method: 'PATCH',
+        //   body: JSON.stringify({
+        //     offerData: {
+        //       user: userData._id,
+        //       // ...(isPlanNeos && {
+        //       //   typeConsumption: technicalData?.tipoPerfilConsumo
+        //       //     .slice(1)
+        //       //     .toUpperCase()
+        //       // }),
+        //       filledInfo: true
+        //     },
+        //     offerId: userData.offerId
+        //   })
+        // });
         //   const data = await response.json();
         //   await createOrUpdateUserOffer(
         //     {
@@ -382,7 +395,7 @@ const ContractDetail = ({
                         category="colored"
                         title={t('Get-offer-form.view-contract-txt')}
                         onClick={handleViewContract}
-                        isLoading={isButtonLoading}
+                        // isLoading={isButtonLoading}
                       />
                     </div>
                   )}
