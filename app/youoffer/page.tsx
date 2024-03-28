@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import NeosButton from '@/components/NeosButton';
 import { setUserData } from '@/features/common/commonSlice';
 import { generatePDF } from '@/lib/actions/download-offer';
-import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
 import { RootState } from '@/store/store';
 import { getDataFromSessionStorage } from '@/utils/utils';
 import Rating from '@mui/material/Rating';
@@ -299,23 +298,28 @@ const YourOffer = ({ handleNext, data }: any) => {
   const handleGenerateContract = async () => {
     if (!userData._id) return router.push('/getoffer');
     try {
-      const offer = await createOrUpdateUserOffer(
-        {
-          user: userData._id,
-          totalPanels: userData.totalPanels,
-          capacityPerPanel: userData.capacityPerPanel,
-          totalCapacity: userData.totalCapacity,
-          estimateProduction: userData.estimateProduction,
-          totalPayment: userData.totalPayment,
-          typeConsumption: userData.typeConsumption,
-          plan: userPlan,
-          offerType: userData.offerType,
-          clickedOnGenerate: true
-        },
-        userData.offerId
-      );
-      if (offer) {
-        dispatch(setUserData({ offerId: offer._id }));
+      const requestData = {
+        user: userData._id,
+        totalPanels: userData.totalPanels,
+        capacityPerPanel: userData.capacityPerPanel,
+        totalCapacity: userData.totalCapacity,
+        estimateProduction: userData.estimateProduction,
+        totalPayment: userData.totalPayment,
+        typeConsumption: userData.typeConsumption,
+        plan: userPlan,
+        offerType: userData.offerType,
+        clickedOnGenerate: true
+      };
+      const response = await fetch('/api/users-offers', {
+        method: 'PATCH',
+        body: JSON.stringify({
+          offerData: requestData,
+          offerId: userData.offerId
+        })
+      });
+      const { data } = await response.json();
+      if (data) {
+        dispatch(setUserData({ offerId: data._id }));
         router.push('/getoffer?activeStep=1');
       }
     } catch (error) {
@@ -589,7 +593,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                   <div className="lg:w-full w-auto  flex flex-col items-center">
                     <button
                       className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
-                      disabled
+                      // disabled
                       onClick={handleGenerateContract}
                     >
                       {t('Your-offer.contract-btn-txt')}

@@ -1,3 +1,6 @@
+export const maxDuration = 30;
+export const dynamic = 'force-dynamic';
+
 import { createOrUpdateUserByEmail } from '@/lib/actions/user';
 import { createErrorResponse } from '@/lib/api-response';
 import connectDB from '@/lib/connect-db';

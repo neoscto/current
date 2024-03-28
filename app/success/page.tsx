@@ -14,14 +14,17 @@ const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
   useEffect(() => {
     setShowForm('paymentForm');
     const updateOfferContract = async () => {
-      await createOrUpdateUserOffer(
-        {
-          user: userData._id,
-          contractSign: true,
-          contractSignAt: new Date()
-        },
-        userData.offerId
-      );
+      await fetch('/api/users-offers', {
+        method: 'PATCH',
+        body: JSON.stringify({
+          offerData: {
+            user: userData._id,
+            contractSign: true,
+            contractSignAt: new Date()
+          },
+          offerId: userData.offerId
+        })
+      });
     };
 
     updateOfferContract();

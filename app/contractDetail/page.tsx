@@ -9,10 +9,7 @@ import EmailSuccess from '../emailSuccess/page';
 // import { getAuthorizationUrl } from "@/services/docusign.service";
 import { getTechnicalDataFromApi } from '@/features/calculateSolarPaybackPeriod';
 import { createOrUpdateUserByEmail } from '@/lib/actions/user';
-import {
-  createOrUpdateUserOffer,
-  getUserOffer
-} from '@/lib/actions/user-offer';
+import { getUserOffer } from '@/lib/actions/user-offer';
 import { useRouter } from 'next/navigation';
 
 const ContractDetail = ({
@@ -97,18 +94,34 @@ const ContractDetail = ({
           formik?.values?.cups
         );
         const isPlanNeos = formik?.values?.plan === 'neos';
-        await createOrUpdateUserOffer(
-          {
-            user: userData._id,
-            ...(isPlanNeos && {
-              typeConsumption: technicalData?.tipoPerfilConsumo
-                .slice(1)
-                .toUpperCase()
-            }),
-            filledInfo: true
-          },
-          userData.offerId
-        );
+        await fetch('/api/users-offers', {
+          method: 'PATCH',
+          body: JSON.stringify({
+            offerData: {
+              user: userData._id,
+              ...(isPlanNeos && {
+                typeConsumption: technicalData?.tipoPerfilConsumo
+                  .slice(1)
+                  .toUpperCase()
+              }),
+              filledInfo: true
+            },
+            offerId: userData.offerId
+          })
+        });
+        //   const data = await response.json();
+        //   await createOrUpdateUserOffer(
+        //     {
+        //       user: userData._id,
+        //       ...(isPlanNeos && {
+        //         typeConsumption: technicalData?.tipoPerfilConsumo
+        //           .slice(1)
+        //           .toUpperCase()
+        //       }),
+        //       filledInfo: true
+        //     },
+        //     userData.offerId
+        //   );
       }
       return data;
     } catch (error) {
