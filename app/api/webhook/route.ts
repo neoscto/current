@@ -1,5 +1,6 @@
 import { createOrUpdateOfferAnalytics } from '@/lib/actions/offer-analytics';
 import { createPayment } from '@/lib/actions/payment';
+import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
 import { NextResponse } from 'next/server';
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 export async function POST(_request: Request, _response: Response) {
@@ -29,7 +30,7 @@ export async function POST(_request: Request, _response: Response) {
         transactionId: chargeCaptured.id,
         amountPaid: Number((chargeCaptured.amount / 100).toFixed(2))
       });
-      await createOrUpdateOfferAnalytics({ userOffer, paid: true });
+      await createOrUpdateUserOffer({ user, paid: true }, userOffer);
       break;
     case 'charge.expired':
       const chargeExpired = event.data.object;

@@ -23,12 +23,20 @@ const OfferCard = ({ Data, setShowForm }: OfferCardProps) => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
+  const handleButtonClick = () => {
+    setLoading(true);
+    setShowForm(Data?.is_premium ? 'poffer' : 'soffer');
+    dispatch(setFormBack(Data?.is_premium ? 'backpoffer' : 'backsoffer'));
+    setLoading(false);
+  };
+
   return (
     <div
-      className={`border border-[#E0E0E0] rounded-2xl px-6 text-center py-7  ${Data?.is_premium
-        ? 'bg-[#E7F5FA] border-[#E7F5FA]'
-        : 'border-[#E0E0E0] bg-white'
-        }`}
+      className={`border border-[#E0E0E0] rounded-2xl px-6 text-center py-7  ${
+        Data?.is_premium
+          ? 'bg-[#E7F5FA] border-[#E7F5FA]'
+          : 'border-[#E0E0E0] bg-white'
+      }`}
     >
       <h3 className="text-lg font-semibold flex justify-center items-center  h-[30px] gap-2">
         {Data?.is_premium && (
@@ -47,7 +55,7 @@ const OfferCard = ({ Data, setShowForm }: OfferCardProps) => {
           </p>
         );
       })}
-      <Button
+      {/* <Button
         variant="filled"
         size="lg"
         className="mt-8" // added this line
@@ -67,7 +75,15 @@ const OfferCard = ({ Data, setShowForm }: OfferCardProps) => {
         }}
       >
         {t('Get-offer.btn')}
-      </Button>
+      </Button> */}
+      <NeosButton
+        sx={{ fontSize: '14px !important' }}
+        className="p-4 mt-8 text-base font-bold border rounded-xl w-auto h-full"
+        category="colored"
+        title={t('Get-offer.btn')}
+        onClick={handleButtonClick}
+        isLoading={loading}
+      />
     </div>
   );
 };

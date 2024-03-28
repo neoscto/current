@@ -1,8 +1,7 @@
 'use client';
 import NeosButton from '@/components/NeosButton';
-import { createOrUpdateOfferAnalytics } from '@/lib/actions/offer-analytics';
+import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -11,20 +10,23 @@ import CheckoutForm from '../payment/page';
 const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
   const { t } = useTranslation();
   const { userData } = useSelector((state: any) => state.commonSlice);
-  const router = useRouter();
+
   useEffect(() => {
-    if (!userData.offerId && !userData._id) router.push('/getoffer');
     setShowForm('paymentForm');
     const updateOfferContract = async () => {
-      await createOrUpdateOfferAnalytics({
-        userOffer: userData.offerId,
-        contractSign: true,
-        contractSignAt: new Date()
-      });
+      await createOrUpdateUserOffer(
+        {
+          user: userData._id,
+          contractSign: true,
+          contractSignAt: new Date()
+        },
+        userData.offerId
+      );
     };
 
     updateOfferContract();
   }, []);
+
   return (
     <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-5">
       <div className="mx-auto flex flex-col justify-center items-center w-full lg:w-3/6">
@@ -47,10 +49,11 @@ const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
             </p>
           </div>
           <NeosButton
-            sx={{ width: '140px!important' }}
+            sx={{ width: '120px !important', fontSize: '14px !important' }}
             category="colored"
             title={t('Email-success.download-txt')}
             onClick={generatePDF}
+            isLoading={isPDFLoading}
             disabled={isPDFLoading}
           />
         </div>

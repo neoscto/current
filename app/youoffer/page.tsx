@@ -6,7 +6,7 @@ import { setUserData } from '@/features/common/commonSlice';
 import { generatePDF } from '@/lib/actions/download-offer';
 import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
 import { RootState } from '@/store/store';
-import { getDataFromCookie } from '@/utils/utils';
+import { getDataFromSessionStorage } from '@/utils/utils';
 import Rating from '@mui/material/Rating';
 import parse from 'html-react-parser';
 import html2Canvas from 'html2canvas';
@@ -112,7 +112,7 @@ const YourOffer = ({ handleNext, data }: any) => {
   }
 
   // useEffect(() => {
-  //   // const offerData: any = getDataFromCookie('UserOffer');
+  //   // const offerData: any = getDataFromSessionStorage('UserOffer');
   //   console.log('User Plan: ', formik.values.plan);
   //   setUserPlan(!!userData?.plan ? userData.plan : 'neos');
   //   // dispatch(setUserData({ ...userData, userPlan }));
@@ -122,7 +122,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
   useCalendlyEventListener({
     onEventScheduled: (e: any) => {
-      // const offerData: any = getDataFromCookie('UserOffer');
+      // const offerData: any = getDataFromSessionStorage('UserOffer');
       const saveEvent = async () => {
         const eventId = String(e.data.payload.event.uri).split('/').pop() || '';
         const response = await fetch(
@@ -142,7 +142,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
   const handleCalender = async () => {
     setOpen(true);
-    // const token = getDataFromCookie("calendlyToken");
+    // const token = getDataFromSessionStorage("calendlyToken");
     // if (token) {
     //   return;
     // }
@@ -174,7 +174,7 @@ const YourOffer = ({ handleNext, data }: any) => {
   };
 
   const updateUserPlanSelection = (plan: string) => () => {
-    // const offerData: any = getDataFromCookie('UserOffer');
+    // const offerData: any = getDataFromSessionStorage('UserOffer');
     // offerData.plan = plan;
     // sessionStorage.setItem('UserOffer', JSON.stringify(offerData));
     dispatch(setUserData({ ...userData, plan }));
@@ -216,13 +216,13 @@ const YourOffer = ({ handleNext, data }: any) => {
     );
     const data = await response.json();
     if (data.isValidCode) {
-      const userData: any = getDataFromCookie('UserOffer');
+      const userData: any = getDataFromSessionStorage('UserOffer');
       userData.isValidCode = true;
       // sessionStorage.setItem('UserOffer', JSON.stringify(userData));
       dispatch(setUserData({ isValidCode: true }));
       setReferralCodeError('valid');
     } else {
-      const userData: any = getDataFromCookie('UserOffer');
+      const userData: any = getDataFromSessionStorage('UserOffer');
       userData.isValidCode = false;
       // sessionStorage.setItem('UserOffer', JSON.stringify(userData));
       dispatch(setUserData({ isValidCode: false }));
@@ -291,6 +291,8 @@ const YourOffer = ({ handleNext, data }: any) => {
     } catch (error) {
       // Handle error
       console.error('Error:', error);
+    } finally {
+      setIsGeneratingPdf(false);
     }
   };
 
@@ -578,6 +580,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                     title={t('Your-offer.download-offer')}
                     category="colored"
                     isLoading={isGeneratingPdf}
+                    disabled={isGeneratingPdf}
                   />
                   {/* <p className="font-sm text-[#2D9CDB] mt-1 ">
                       {t('Coming Soon...')}

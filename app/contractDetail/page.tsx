@@ -27,13 +27,13 @@ const ContractDetail = ({
   const [isButtonLoading, setIsButtonLoading] = useState(false);
   const router = useRouter();
   useEffect(() => {
-    if (!userData._id || !userData.offerId) return router.push('/getoffer');
+    if (!userData._id && !userData.offerId) return router.push('/getoffer');
     const getPrice = async () => {
       const userOfferData = await getUserOffer(userData.offerId);
       setDisplayValue(Number(userOfferData.totalPayment.toFixed(2)));
     };
     userData.offerId && getPrice();
-  }, [userData.offerId]);
+  }, [userData.offerId, userData._id]);
   const dispatch = useDispatch();
   const labelStyle = 'font-medium text-base text-black';
   const infoStyle = 'text-base font-normal text-gray-300';
@@ -117,6 +117,13 @@ const ContractDetail = ({
     }
   };
   const handleViewContract = async () => {
+    if (!userData._id && !userData.offerId) return router.push('/getoffer');
+    const userOfferData = await getUserOffer(userData.offerId);
+    dispatch(setUserData(userOfferData));
+    redirectDocuSign();
+    // setShowForm("emailSuccess");
+    dispatch(setFormBack('emailDetails'));
+
     setIsButtonLoading(true);
     const isChecked = document.getElementById(
       'link-checkbox'
@@ -329,10 +336,11 @@ const ContractDetail = ({
               {isMobile ? (
                 <div className="block">
                   <NeosButton
-                    sx={{ mt: 3 }}
+                    sx={{ mt: 3, width: '140px !important' }}
                     category="colored"
                     title={t('Get-offer-form.view-contract-txt')}
                     onClick={handleViewContract}
+                    isLoading={isButtonLoading}
                   />
                 </div>
               ) : (
@@ -358,11 +366,12 @@ const ContractDetail = ({
                   ) : (
                     <div className="block">
                       <NeosButton
-                        sx={{ mt: 3 }}
+                        // sx={{ mt: 3, width: '200px !important' }}
+                        className="p-4 mt-3 text-base font-bold border rounded-xl w-[200px] h-full"
                         category="colored"
                         title={t('Get-offer-form.view-contract-txt')}
                         onClick={handleViewContract}
-                        disabled={isButtonLoading}
+                        isLoading={isButtonLoading}
                       />
                     </div>
                   )}

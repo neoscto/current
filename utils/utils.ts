@@ -1,39 +1,38 @@
-'use client';
-export function saveDataToCookie<T>(key: string, data: T): void {
+export function saveDataToSessionStorage<T>(key: string, data: T): void {
   try {
     const jsonData = JSON.stringify(data);
-    document.cookie = `${key}=${encodeURIComponent(jsonData)}; path=/`;
+    sessionStorage.setItem(key, jsonData);
   } catch (error) {
-    console.error('Error saving data to cookie:', error);
+    console.error('Error saving data to sessionStorage:', error);
   }
 }
 
-export function updateCookieData<T>(key: string, data: T): void {
+export function updateSessionStorage<T>(key: string, data: T): void {
   try {
-    let currentData = getDataFromCookie(key);
-    if (currentData) {
-      currentData = { ...currentData, ...data };
+    let sessionData = getDataFromSessionStorage(key);
+    if (sessionData) {
+      sessionData = { ...sessionData, ...data };
     } else {
-      currentData = { ...data };
+      sessionData = { ...data };
     }
-    saveDataToCookie(key, currentData);
+
+    saveDataToSessionStorage(key, sessionData);
   } catch (error) {
-    console.error('Error updating cookie data:', error);
+    console.error('Error updating sessionStorage:', error);
   }
 }
 
-export function getDataFromCookie<T>(key: string): T | null {
-  const cookies = document.cookie.split('; ');
-  const cookieData = cookies.find((row) => row.startsWith(`${key}=`));
+export function getDataFromSessionStorage<T>(key: string): T | null {
   try {
-    if (cookieData) {
-      const jsonData = decodeURIComponent(cookieData.split('=')[1]);
-      return JSON.parse(jsonData);
+    const jsonData = sessionStorage.getItem(key);
+    if (jsonData === null) {
+      return null;
     }
+    const data = JSON.parse(jsonData);
+    return data;
   } catch (error) {
-    console.error('Error getting data from cookie:', error);
+    return null;
   }
-  return null;
 }
 
 export function savePaybackDataToSessionStorage<T>(key: string, data: T): void {

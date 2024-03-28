@@ -116,7 +116,6 @@ const StandardOffer = () => {
   const [serverError, setServerError] = useState('');
 
   const handleyourSaving = async () => {
-    console.log('Log 1');
     formik.setFieldValue('offerType', 'Standard');
 
     const response = await formik.validateForm();
@@ -150,7 +149,6 @@ const StandardOffer = () => {
 
     formik.handleSubmit();
     setLoading(false);
-    console.log('Log 2');
   };
 
   const [formik, isLoading]: any = useHandleForm({
@@ -161,7 +159,6 @@ const StandardOffer = () => {
     handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
-    console.log('Log 3');
     dispatch(
       setUserData({
         ...res.data,

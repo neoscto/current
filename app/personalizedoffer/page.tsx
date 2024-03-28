@@ -1,4 +1,5 @@
 'use client';
+import NeosButton from '@/components/NeosButton';
 import NeosTextField from '@/components/NeosTextField';
 import ProgressBar from '@/components/ProgressBar';
 import MainContainer from '@/components/sharedComponents/MainContainer';
@@ -8,7 +9,6 @@ import useDocusignService from '@/hooks/useDocusign';
 import useHandleForm from '@/hooks/useHandleForm';
 import { AppDispatch } from '@/store/store';
 import { offerStep1Schema } from '@/utils/validations/offers.validation';
-import { Button } from '@mantine/core';
 import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -152,15 +152,7 @@ const PersonalizedOffer = () => {
         formik.values.cups
       );
       if (newData) {
-        // const solarData = {
-        //   totalPanels: newData.number_of_panels,
-        //   capacityPerPanel: '440 Wp',
-        //   totalCapacity: newData.vsi_required_capacity,
-        //   estimateProduction: newData.vsi_required_capacity * 2000,
-        //   totalPayment: newData.total_price_after_tax,
-        //   typeConsumption: newData.type_consumption_point
-        // };
-        // dispatch(setSolarData(solarData));
+        dispatch(setUserData(formik?.values));
         setData(newData);
         setShowForm('yourOffer');
         setServerError('');
@@ -184,8 +176,18 @@ const PersonalizedOffer = () => {
     handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
-    // saveDataToCookie('UserOffer', res.data);
-    dispatch(setUserData({ ...res.data, offerType: 'Personalized' }));
+    dispatch(
+      setUserData({
+        ...res.data,
+        offerType: 'Personalized',
+        totalPanels: data.number_of_panels,
+        capacityPerPanel: '440 Wp',
+        totalCapacity: data.vsi_required_capacity,
+        estimateProduction: data.vsi_required_capacity * 2000,
+        totalPayment: data.total_price_after_tax,
+        typeConsumption: data.type_consumption_point
+      })
+    );
     setShowForm('yourOffer');
     const arrayData = Object.keys(res.data);
     arrayData.forEach((key: any) => {
@@ -202,21 +204,6 @@ const PersonalizedOffer = () => {
 
   const { loading, signature, signingUrl, downloadPdf } =
     useDocusignService(formik);
-
-  // if (isLoading) {
-  //   return (
-  //     <div
-  //       style={{
-  //         display: 'flex',
-  //         justifyContent: 'center',
-  //         alignItems: 'center',
-  //         height: '100vh'
-  //       }}
-  //     >
-  //       <CircularProgress />
-  //     </div>
-  //   );
-  // }
 
   return (
     <MainContainer>
@@ -317,7 +304,7 @@ const PersonalizedOffer = () => {
                   </Grid>
                 </Grid>
                 <div className="text-center mt-14">
-                  <Button
+                  {/* <Button
                     variant="filled"
                     size="lg"
                     style={{
@@ -330,7 +317,14 @@ const PersonalizedOffer = () => {
                     loading={buttonLoading}
                   >
                     {t('Calculate-saving-btn')}
-                  </Button>
+                  </Button> */}
+                  <NeosButton
+                    className="p-4 text-base font-bold border rounded-xl w-full max-w-[400px] h-[56px] uppercase"
+                    onClick={() => handleyourSaving()}
+                    title={t('Calculate-saving-btn')}
+                    category="colored"
+                    isLoading={buttonLoading}
+                  />
                 </div>
               </div>
             </div>

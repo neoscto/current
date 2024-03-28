@@ -5,9 +5,18 @@ import NeosButton from '@/components/NeosButton';
 import { useTranslation } from 'react-i18next';
 import VideoPreview from '@/app/videoPlayer/preview';
 import TolstoyHero from '@/app/landingpage/TolstoyHero';
+import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
 
 const Congrats = ({ generatePDF, isPDFLoading }: any) => {
+  const { userData } = useSelector((state: any) => state.commonSlice);
   const { t } = useTranslation();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!userData.offerId && !userData._id) return router.push('/getoffer');
+  }, [userData.offerId, userData._id]);
+
   return (
     <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-5">
       <div className="mx-auto flex flex-col justify-center items-center w-full lg:w-3/6">
@@ -30,10 +39,11 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
             </p>
           </div>
           <NeosButton
-            sx={{ width: '140px!important' }}
+            sx={{ width: '140px !important' }}
             category="colored"
             title={t('Email-success.download-txt')}
             onClick={generatePDF}
+            isLoading={isPDFLoading}
             disabled={isPDFLoading}
           />
         </div>

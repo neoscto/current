@@ -1,3 +1,6 @@
+export const maxDuration = 30;
+export const dynamic = 'force-dynamic';
+
 import {
   createOrUpdateUserOffer,
   getUserOffer
@@ -29,7 +32,7 @@ const pdfGenerate = (formData: any): string => {
 };
 
 const generateEnvelopeData = async (offerData: any) => {
-  if (offerData.offerId && offerData.plan) {
+  if (offerData.offerId && offerData._id) {
     const paybackData = await getUserOffer(offerData.offerId);
     const typeConsumption = paybackData.typeConsumption;
     const powerConsumptionData = typeConsumption

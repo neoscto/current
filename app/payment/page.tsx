@@ -40,8 +40,11 @@ const CARD_ELEMENT_OPTIONS = {
 
 const CheckoutForm = () => {
   const { userData } = useSelector((state: any) => state.commonSlice);
-  const [displayValue, setDisplayValue] = useState(0);
+  const [displayValue, setDisplayValue] = useState(
+    Number(userData?.totalPayment)?.toFixed(2) || 0
+  );
   const router = useRouter();
+
   useEffect(() => {
     if (!userData.offerId && !userData._id) return router.push('/getoffer');
     const getPrice = async () => {
@@ -49,7 +52,7 @@ const CheckoutForm = () => {
       setDisplayValue(Number(userOfferData.totalPayment.toFixed(2)));
     };
     userData.offerId && getPrice();
-  }, [userData.offerId]);
+  }, [userData.offerId, userData._id]);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -63,6 +66,7 @@ const CheckoutForm = () => {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
+    if (!userData.offerId && !userData._id) return router.push('/getoffer');
 
     setLoading(true);
 
@@ -181,6 +185,8 @@ const CheckoutForm = () => {
           title="PAY NOW"
           type="submit"
           disabled={!stripe || loading || error}
+          isLoading={loading}
+          sx={{ width: '140px !important', fontSize: '14px !important' }}
         />
       </div>
     </form>
