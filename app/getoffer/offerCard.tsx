@@ -55,7 +55,7 @@ const OfferCard = ({ Data, setShowForm }: OfferCardProps) => {
           </p>
         );
       })}
-      {/* <Button
+      <Button
         variant="filled"
         size="lg"
         className="mt-8" // added this line
@@ -67,23 +67,10 @@ const OfferCard = ({ Data, setShowForm }: OfferCardProps) => {
         }}
         classNames={{}}
         loading={loading}
-        onClick={() => {
-          setLoading(true);
-          setShowForm(Data?.is_premium ? 'poffer' : 'soffer');
-          dispatch(setFormBack(Data?.is_premium ? 'backpoffer' : 'backsoffer'));
-          setLoading(false);
-        }}
+        onClick={handleButtonClick}
       >
         {t('Get-offer.btn')}
-      </Button> */}
-      <NeosButton
-        sx={{ fontSize: '14px !important' }}
-        className="p-4 mt-8 text-base font-bold border rounded-xl w-auto h-full"
-        category="colored"
-        title={t('Get-offer.btn')}
-        onClick={handleButtonClick}
-        isLoading={loading}
-      />
+      </Button>
     </div>
   );
 };

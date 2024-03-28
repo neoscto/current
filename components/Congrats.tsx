@@ -39,11 +39,9 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
             </p>
           </div>
           <NeosButton
-            sx={{ width: '140px !important' }}
             category="colored"
             title={t('Email-success.download-txt')}
             onClick={generatePDF}
-            isLoading={isPDFLoading}
             disabled={isPDFLoading}
           />
         </div>

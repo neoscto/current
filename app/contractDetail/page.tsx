@@ -20,7 +20,9 @@ const ContractDetail = ({
   signature
 }: any) => {
   const { userData } = useSelector((state: any) => state.commonSlice);
-  const [displayValue, setDisplayValue] = useState(0);
+  const [displayValue, setDisplayValue] = useState(
+    Number(userData?.totalPayment)?.toFixed(2) || 0
+  );
   const [isButtonLoading, setIsButtonLoading] = useState(false);
   const router = useRouter();
   useEffect(() => {
@@ -350,7 +352,7 @@ const ContractDetail = ({
               {isMobile ? (
                 <div className="block">
                   <NeosButton
-                    sx={{ mt: 3, width: '140px !important' }}
+                    sx={{ mt: 3 }}
                     category="colored"
                     title={t('Get-offer-form.view-contract-txt')}
                     onClick={handleViewContract}
@@ -380,8 +382,7 @@ const ContractDetail = ({
                   ) : (
                     <div className="block">
                       <NeosButton
-                        // sx={{ mt: 3, width: '200px !important' }}
-                        className="p-4 mt-3 text-base font-bold border rounded-xl w-[200px] h-full"
+                        sx={{ mt: 3 }}
                         category="colored"
                         title={t('Get-offer-form.view-contract-txt')}
                         onClick={handleViewContract}

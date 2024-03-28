@@ -10,6 +10,7 @@ import useHandleForm from '@/hooks/useHandleForm';
 import { AppDispatch } from '@/store/store';
 import { offerStep1Schema } from '@/utils/validations/offers.validation';
 import { Grid } from '@mui/material';
+import { Button } from '@mantine/core';
 import Box from '@mui/material/Box';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -280,7 +281,7 @@ const StandardOffer = () => {
                   </Grid>
                 </Grid>
                 <div className="text-center mt-14 w-full">
-                  {/* <Button
+                  <Button
                     variant="filled"
                     size="lg"
                     style={{
@@ -293,14 +294,14 @@ const StandardOffer = () => {
                     loading={buttonLoading}
                   >
                     {t('Calculate-saving-btn')}
-                  </Button> */}
-                  <NeosButton
+                  </Button>
+                  {/* <NeosButton
                     className="p-4 text-base font-bold border rounded-xl w-full max-w-[400px] h-[56px] uppercase"
                     onClick={() => handleyourSaving()}
                     title={t('Calculate-saving-btn')}
                     category="colored"
                     isLoading={buttonLoading}
-                  />
+                  /> */}
                 </div>
               </div>
             </div>

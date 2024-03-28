@@ -184,8 +184,6 @@ const CheckoutForm = () => {
           title="PAY NOW"
           type="submit"
           disabled={!stripe || loading || error}
-          isLoading={loading}
-          sx={{ width: '140px !important', fontSize: '14px !important' }}
         />
       </div>
     </form>

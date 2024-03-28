@@ -598,6 +598,14 @@ const YourOffer = ({ handleNext, data }: any) => {
                     >
                       {t('Your-offer.contract-btn-txt')}
                     </button>
+                    {/* <NeosButton
+                      className="p-4 text-base font-bold border rounded-xl w-auto lg:w-full h-full uppercase"
+                      onClick={handleDownloadOffer}
+                      title={t('Your-offer.contract-btn-txt')}
+                      category="colored"
+                      isLoading={isGeneratingPdf}
+                      disabled={true}
+                    /> */}
                     <p className="font-sm text-[#2D9CDB] mt-1 ">
                       {t('Coming Soon...')}
                     </p>

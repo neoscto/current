@@ -50,9 +50,9 @@ const EmailSuccess = ({}: any) => {
         // }
 
         // const data = await response.json();
-        console.log('Offer Id: ', offerId);
-        const data = await getUser(offerId);
-        setOfferData(data);
+        // console.log('Offer Id: ', offerId);
+        // const data = await getUser(offerId);
+        // setOfferData(data);
         // saveDataToSessionStorage('UserOffer', data.data);
 
         window.parent.postMessage('redirect_success_url', '*');
