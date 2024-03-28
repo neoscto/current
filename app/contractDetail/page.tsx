@@ -26,8 +26,9 @@ const ContractDetail = ({
   useEffect(() => {
     if (!userData._id && !userData.offerId) return router.push('/getoffer');
     const getPrice = async () => {
-      const userOfferData = await getUserOffer(userData.offerId);
-      setDisplayValue(Number(userOfferData.totalPayment.toFixed(2)));
+      const response = await fetch(`/api/users-offers/${userData.offerId}`);
+      const { data } = await response.json();
+      setDisplayValue(Number(data.totalPayment.toFixed(2)));
     };
     userData.offerId && getPrice();
   }, [userData.offerId, userData._id]);

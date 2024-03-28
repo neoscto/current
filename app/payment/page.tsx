@@ -1,20 +1,18 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import {
-  CardElement,
-  useStripe,
-  useElements,
-  CardNumberElement,
-  CardExpiryElement,
-  CardCvcElement
-} from '@stripe/react-stripe-js';
-import { Grid } from '@mui/material';
-import NeosTextField from '@/components/NeosTextField';
 import NeosButton from '@/components/NeosButton';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { getUserOffer } from '@/lib/actions/user-offer';
+import NeosTextField from '@/components/NeosTextField';
+import { Grid } from '@mui/material';
+import {
+  CardCvcElement,
+  CardExpiryElement,
+  CardNumberElement,
+  useElements,
+  useStripe
+} from '@stripe/react-stripe-js';
 import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 const CARD_ELEMENT_OPTIONS = {
   disableLink: true,
@@ -48,8 +46,9 @@ const CheckoutForm = () => {
   useEffect(() => {
     if (!userData.offerId && !userData._id) return router.push('/getoffer');
     const getPrice = async () => {
-      const userOfferData = await getUserOffer(userData.offerId);
-      setDisplayValue(Number(userOfferData.totalPayment.toFixed(2)));
+      const response = await fetch(`/api/users-offers/${userData.offerId}`);
+      const { data } = await response.json();
+      setDisplayValue(Number(data.totalPayment.toFixed(2)));
     };
     userData.offerId && getPrice();
   }, [userData.offerId, userData._id]);
