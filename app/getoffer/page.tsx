@@ -38,7 +38,7 @@ interface FormData {
 }
 
 const HorizontalLinearStepper = () => {
-  const dispath = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -53,33 +53,41 @@ const HorizontalLinearStepper = () => {
     emailAddress: '',
     phoneNumber: '',
     dialCode: '34',
-    numberofpeopleAdditionValue: 1
+    numberofpeopleAdditionValue: 1,
+    nie: '',
+    address: '',
+    addressNo: '',
+    city: '',
+    province: '',
+    country: '',
+    postcode: ''
   };
   const [showForm, setShowForm] = useState<string>('allOffers');
 
   const [formik, isLoading]: any = useHandleForm({
     method: 'POST',
-    apiEndpoint: '/api/users-offers',
+    apiEndpoint: '/api/users',
     formikInitialValues,
     validationSchema: offerStep1Schema,
     handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
-    saveDataToSessionStorage('UserOffer', res.data);
+    // saveDataToSessionStorage('UserOffer', res.data);
+    dispatch(setUserData(res.data));
     setShowForm('yourOffer');
     const arrayData = Object.keys(res.data);
     arrayData.forEach((key: any) => {
       formik.setFieldValue(key, res.data[key]);
     });
   }
-  const { loading, signature, signingUrl, downloadPdf } =
+  const { loading, signature, signingUrl, downloadPdf, isPDFLoading } =
     useDocusignService(formik);
 
   useEffect(() => {
     window.addEventListener('message', (event) => {
       if (event.data === 'redirect_success_url') {
         window.location.href = '/getoffer?activeStep=2';
-        window.removeEventListener('message', (event) => { });
+        window.removeEventListener('message', (event) => {});
       }
     });
   }, [signingUrl]);
@@ -109,8 +117,8 @@ const HorizontalLinearStepper = () => {
 
     router.push(
       pathname +
-      '?' +
-      createQueryString('activeStep', (Number(activeStep) + 1).toString())
+        '?' +
+        createQueryString('activeStep', (Number(activeStep) + 1).toString())
     );
     setSkipped(newSkipped);
   };
@@ -146,9 +154,9 @@ const HorizontalLinearStepper = () => {
     }
   };
 
-  useEffect(() => {
-    dispath(setUserData(formik.values));
-  }, [formik.values]);
+  // useEffect(() => {
+  //   dispath(setUserData(formik.values));
+  // }, [formik.values]);
 
   return (
     <MainContainer>
@@ -176,7 +184,8 @@ const HorizontalLinearStepper = () => {
                 }}
               >
                 <p>
-                  We are loading contract document. Please do not click anywhere.
+                  We are loading contract document. Please do not click
+                  anywhere.
                 </p>
                 <CircularProgress />
               </div>
@@ -209,6 +218,7 @@ const HorizontalLinearStepper = () => {
                   setShowForm={setShowForm}
                   showForm={showForm}
                   signature={signature}
+                  isPDFLoading={isPDFLoading}
                 />
               )}
               {Number(activeStep) == 3 && (
@@ -217,6 +227,7 @@ const HorizontalLinearStepper = () => {
                   setShowForm={setShowForm}
                   showForm={showForm}
                   signature={signature}
+                  isPDFLoading={isPDFLoading}
                 />
               )}
               {/* <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>

@@ -1,31 +1,27 @@
 'use client';
-import React, { useCallback, useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
-import MainContainer from '@/components/sharedComponents/MainContainer';
-import { setUserData } from '@/features/common/commonSlice';
-import { AppDispatch } from '@/store/store';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import useHandleForm from '@/hooks/useHandleForm';
-import { offerStep1Schema } from '@/utils/validations/offers.validation';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { Grid } from '@mui/material';
+import NeosButton from '@/components/NeosButton';
 import NeosTextField from '@/components/NeosTextField';
-import {
-  getDataFromSessionStorage,
-  saveDataToSessionStorage
-} from '@/utils/utils';
-import 'react-phone-number-input/style.css';
+import ProgressBar from '@/components/ProgressBar';
+import MainContainer from '@/components/sharedComponents/MainContainer';
+import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPeriod';
+import { setUserData } from '@/features/common/commonSlice';
+import useDocusignService from '@/hooks/useDocusign';
+import useHandleForm from '@/hooks/useHandleForm';
+import { AppDispatch } from '@/store/store';
+import { offerStep1Schema } from '@/utils/validations/offers.validation';
+import { Grid } from '@mui/material';
+import Box from '@mui/material/Box';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import PhoneInput, {
   Country,
   getCountryCallingCode,
   isValidPhoneNumber
 } from 'react-phone-number-input';
-import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPeriod';
+import 'react-phone-number-input/style.css';
+import { useDispatch, useSelector } from 'react-redux';
 import YourOffer from '../youoffer/page';
-import { Button } from '@mantine/core';
-import ProgressBar from '@/components/ProgressBar';
-import useDocusignService from '@/hooks/useDocusign';
 
 interface FormData {
   numberOfPeople: string;
@@ -38,25 +34,14 @@ interface FormData {
 }
 
 const StandardOffer = () => {
-  const dispath = useDispatch<AppDispatch>();
+  const { userData } = useSelector((state: any) => state.commonSlice);
+  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const activeStep = searchParams.get('activeStep') || 0;
 
   const [phoneNumberError, setPhoneNumberError] = useState<string>('');
-
-  const formikInitialValues = {
-    offerType: '',
-    numberOfPeople: '',
-    cups: '',
-    firstName: '',
-    lastName: '',
-    emailAddress: '',
-    phoneNumber: '',
-    dialCode: '34',
-    numberofpeopleAdditionValue: 1
-  };
 
   const [showForm, setShowForm] = useState<string>('soffer');
 
@@ -110,8 +95,21 @@ const StandardOffer = () => {
     neos_elephants_carbon_capture: 0,
     neos_not_provider_elephants_carbon_capture: 0,
     save_yearly_w_neos: [{ years: 0, saving: '' }],
-    save_yearly_without_neos: [{ years: 0, saving: '' }]
+    save_yearly_without_neos: [{ years: 0, saving: '' }],
+    type_consumption_point: ''
   });
+
+  const formikInitialValues = {
+    offerType: '',
+    numberOfPeople: '',
+    cups: '',
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
+    phoneNumber: '',
+    dialCode: '34',
+    numberofpeopleAdditionValue: 1
+  };
 
   const [buttonLoading, setLoading] = useState<boolean>(false);
 
@@ -119,8 +117,9 @@ const StandardOffer = () => {
 
   const handleyourSaving = async () => {
     formik.setFieldValue('offerType', 'Standard');
+
     const response = await formik.validateForm();
-    // console.log(response);
+
     if (Object.keys(response).length > 0) {
       if (response.phoneNumber) {
         setPhoneNumberError(response.phoneNumber);
@@ -136,51 +135,42 @@ const StandardOffer = () => {
         formik.values.numberOfPeople,
         formik.values.cups
       );
-      if (newData) setData(newData);
-
-      setServerError('');
+      if (newData) {
+        setData(newData);
+        dispatch(setUserData(formik?.values));
+        setShowForm('yourOffer');
+        setServerError('');
+      }
     } catch (error) {
       setLoading(false);
       setServerError('Please try one more time?');
       return;
     }
 
-    const offerData: any = getDataFromSessionStorage('UserOffer');
-    if (offerData) {
-      const updatedData = {
-        firsName: formik?.values?.firstName,
-        lastName: formik.values.lastName,
-        emailAddress: formik.values.emailAddress,
-        numberOfPeople: formik.values.numberOfPeople,
-        phoneNumber: formik.values.phoneNumber,
-        dialCode: formik.values.dialCode,
-        cups: formik.values.cups
-      };
-      const response = await fetch(`api/users-offers/${offerData?._id}`, {
-        method: 'PATCH',
-        body: JSON.stringify(updatedData)
-      });
-      const data = await response.json();
-      if (data) {
-        saveDataToSessionStorage('UserOffer', data.data);
-        setShowForm('yourOffer');
-      }
-      setLoading(false);
-      return;
-    }
     formik.handleSubmit();
     setLoading(false);
   };
 
   const [formik, isLoading]: any = useHandleForm({
     method: 'POST',
-    apiEndpoint: '/api/users-offers',
+    apiEndpoint: '/api/users',
     formikInitialValues,
     validationSchema: offerStep1Schema,
     handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
-    saveDataToSessionStorage('UserOffer', res.data);
+    dispatch(
+      setUserData({
+        ...res.data,
+        offerType: 'Standard',
+        totalPanels: data.number_of_panels,
+        capacityPerPanel: '440 Wp',
+        totalCapacity: data.vsi_required_capacity,
+        estimateProduction: data.vsi_required_capacity * 2000,
+        totalPayment: data.total_price_after_tax,
+        typeConsumption: data.type_consumption_point
+      })
+    );
     setShowForm('yourOffer');
     const arrayData = Object.keys(res.data);
     arrayData.forEach((key: any) => {
@@ -192,7 +182,7 @@ const StandardOffer = () => {
 
   useEffect(() => {
     formik.setFieldValue('offerType', 'Standard');
-    dispath(setUserData(formik.values));
+    // dispatch(setUserData(formik.values));
   }, [formik.values]);
 
   const { loading, signature, signingUrl, downloadPdf } =
@@ -289,8 +279,8 @@ const StandardOffer = () => {
                     </p>
                   </Grid>
                 </Grid>
-                <div className="text-center mt-14  ">
-                  <Button
+                <div className="text-center mt-14 w-full">
+                  {/* <Button
                     variant="filled"
                     size="lg"
                     style={{
@@ -303,7 +293,14 @@ const StandardOffer = () => {
                     loading={buttonLoading}
                   >
                     {t('Calculate-saving-btn')}
-                  </Button>
+                  </Button> */}
+                  <NeosButton
+                    className="p-4 text-base font-bold border rounded-xl w-full max-w-[400px] h-[56px] uppercase"
+                    onClick={() => handleyourSaving()}
+                    title={t('Calculate-saving-btn')}
+                    category="colored"
+                    isLoading={buttonLoading}
+                  />
                 </div>
               </div>
             </div>

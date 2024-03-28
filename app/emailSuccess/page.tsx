@@ -1,14 +1,23 @@
-"use client";
-import NeosButton from "@/components/NeosButton";
-import Image from "next/image";
-import { useTranslation } from "react-i18next";
+'use client';
+import NeosButton from '@/components/NeosButton';
+import { getUserOffer } from '@/lib/actions/user-offer';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 const EmailSuccess = ({ handleNext, formik }: any) => {
-  const displayValue =
-    Number(
-      formik?.values?.numberOfPeople
-        ? formik?.values?.numberOfPeople
-        : formik?.values?.cups
-    ) + 1;
+  const { userData } = useSelector((state: any) => state.commonSlice);
+  const [displayValue, setDisplayValue] = useState(0);
+  const router = useRouter();
+  useEffect(() => {
+    if (!userData.offerId || !userData._id) router.push('/getoffer');
+    const getPrice = async () => {
+      const userOfferData = await getUserOffer(userData.offerId);
+      setDisplayValue(Number(userOfferData.totalPayment.toFixed(2)));
+    };
+    !!userData.offerId && getPrice();
+  }, [userData.offerId]);
   const { t } = useTranslation();
   const signContract = async () => {
     await formik.handleSubmit();
@@ -19,24 +28,24 @@ const EmailSuccess = ({ handleNext, formik }: any) => {
         <Image src="/success.png" alt="user image" fill />
       </div>
       <h1 className="text-lg md:2xl lg:text-3xl font-bold mb-3.5 mt-2">
-        {t("Email-success.title")}
+        {t('Email-success.title')}
       </h1>
       <label className="ms-2 text-sm font-medium text-[#4F4F4F] text-center ">
-        {t("Email-success.send-email-txt1")}{" "}
+        {t('Email-success.send-email-txt1')}{' '}
         <a
           href="#"
           className="text-blue-600 dark:text-blue-500 hover:underline"
         >
           xxx@gmail.com
-        </a>{" "}
-        {t("Email-success.send-email-txt2")}
+        </a>{' '}
+        {t('Email-success.send-email-txt2')}
       </label>
       <div className="flex justify-center items-center relative w-full md:w-3/6 mb-8">
         <div className="inline-block">
           <img src="description.png" alt="Description image" />
           <div className="-mt-12 text-center">
             <h1 className="text-lg md:2xl lg:text-3xl font-bold">
-              {t("Your-offer.title")}: €{displayValue}
+              {t('Your-offer.title')}: €{displayValue}
             </h1>
             {/* <p className="text-sm md:text-base lg:text-base mt-1 text-[#4F4F4F] font-medium mt-0">
                             With Commercialisation Agreement
@@ -54,7 +63,7 @@ const EmailSuccess = ({ handleNext, formik }: any) => {
         <div className="w-full md:w-fit mt-4 md:mt-0">
           <NeosButton
             category="colored"
-            title={t("Email-success.sign-contract-txt")}
+            title={t('Email-success.sign-contract-txt')}
             onClick={() => signContract()}
           />
         </div>

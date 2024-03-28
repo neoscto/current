@@ -1,57 +1,57 @@
-"use client";
+'use client';
 import {
   getDataFromSessionStorage,
-  saveDataToSessionStorage,
-} from "@/utils/utils";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+  saveDataToSessionStorage
+} from '@/utils/utils';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const useDocusignService = (formik: any) => {
   const clientId = process.env.NEXT_PUBLIC_DOCUSIGN_INTEGRATION_KEY;
   const redirectUri = process.env.NEXT_PUBLIC_DOCUSIGN_AUTH_REDIRECT;
-
+  const [isPDFLoading, setIsPDFLoading] = useState(false);
   const searchParams = useSearchParams();
 
-  const [signingUrl, setSigningUrl] = useState("");
+  const [signingUrl, setSigningUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [userOffer, setUserOffer] = useState<any>();
   const route = useRouter();
   useEffect(() => {
     (async () => {
-      const code = searchParams.get("code");
+      const code = searchParams.get('code');
 
-      const offerData: any = getDataFromSessionStorage("UserOffer");
-      setUserOffer(offerData);
-      if (formik && offerData) {
-        const arrayData = Object.keys(offerData);
+      const userData: any = getDataFromSessionStorage('UserOffer');
+      setUserOffer(userData);
+      if (formik && userData) {
+        const arrayData = Object.keys(userData);
         arrayData.forEach((key: any) => {
-          formik.setFieldValue(key, offerData[key]);
+          formik.setFieldValue(key, userData[key]);
         });
       }
       if (code) {
         setLoading(true);
         try {
           // setUserOffer(offerData);
-          const response = await fetch("/api/docusign/auth", {
-            method: "POST",
-            body: JSON.stringify({ code, offerData }),
+          const response = await fetch('/api/docusign/auth', {
+            method: 'POST',
+            body: JSON.stringify({ code, userData })
           });
           const { signingUrl, envelopeId, accessToken } = await response.json();
-          offerData.envelopeId = envelopeId;
-          setUserOffer(offerData);
+          // offerData.envelopeId = envelopeId;
+          // setUserOffer(offerData);
 
-          const handleMessage = (event: any) => {
-            if (event.data === "changeRoute") {
-              route.push("/getoffer?activeStep=2");
-              setSigningUrl("");
+          const handleMessage = async (event: any) => {
+            if (event.data === 'changeRoute') {
+              route.push('/getoffer?activeStep=2');
+              setSigningUrl('');
             }
-            if (event.data === "gotToHomePage") {
-              route.push("/");
+            if (event.data === 'gotToHomePage') {
+              route.push('/');
             }
           };
-          window.addEventListener("message", handleMessage);
-          saveDataToSessionStorage("docusignAccessToken", accessToken);
-          saveDataToSessionStorage("UserOffer", offerData);
+          window.addEventListener('message', handleMessage);
+          saveDataToSessionStorage('docusignAccessToken', accessToken);
+          // saveDataToSessionStorage('UserOffer', offerData);
           setSigningUrl(signingUrl);
         } catch (error) {
         } finally {
@@ -63,25 +63,26 @@ const useDocusignService = (formik: any) => {
   }, [searchParams]);
 
   const getAuthorizationUrl = () => {
-    return `https://account-d.docusign.com/oauth/auth?response_type=code&scope=signature&client_id=${clientId}&redirect_uri=${redirectUri}`;
+    return `https://${process.env.NEXT_PUBLIC_DOCUSIGN_ACCOUNT}/oauth/auth?response_type=code&scope=signature&client_id=${clientId}&redirect_uri=${redirectUri}`;
   };
 
   const downloadPdf = async () => {
     try {
+      setIsPDFLoading(true);
       const envelopeId = userOffer.envelopeId;
       const docusignAccessToken: any = getDataFromSessionStorage(
-        "docusignAccessToken"
+        'docusignAccessToken'
       );
       const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${docusignAccessToken}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${docusignAccessToken}`
       };
 
       const url = `/api/docusign/download?envelopeId=${envelopeId}`;
 
       const response = await fetch(url, {
-        method: "GET",
-        headers: headers,
+        method: 'GET',
+        headers: headers
       });
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -89,9 +90,9 @@ const useDocusignService = (formik: any) => {
 
       const blob = await response.blob();
 
-      const link = document.createElement("a");
+      const link = document.createElement('a');
 
-      link.download = "document.pdf";
+      link.download = 'document.pdf';
 
       link.href = window.URL.createObjectURL(blob);
 
@@ -100,15 +101,16 @@ const useDocusignService = (formik: any) => {
       link.click();
 
       document.body.removeChild(link);
+      setIsPDFLoading(false);
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     }
   };
 
   const signature = async () => {
     // const authorizationUri = getAuthorizationUrl();
     // window.location.href = authorizationUri;
-    const offerData: any = getDataFromSessionStorage("UserOffer");
+    const offerData: any = getDataFromSessionStorage('UserOffer');
     setUserOffer(offerData);
     if (formik && offerData) {
       const arrayData = Object.keys(offerData);
@@ -119,9 +121,9 @@ const useDocusignService = (formik: any) => {
     setLoading(true);
     try {
       // setUserOffer(offerData);
-      const response = await fetch("/api/docusign/auth", {
-        method: "POST",
-        body: JSON.stringify({ "code": "", offerData }),
+      const response = await fetch('/api/docusign/auth', {
+        method: 'POST',
+        body: JSON.stringify({ code: '', offerData })
       });
       const { signingUrl, envelopeId, accessToken } = await response.json();
       offerData.envelopeId = envelopeId;
@@ -137,15 +139,14 @@ const useDocusignService = (formik: any) => {
       //   }
       // };
       // window.addEventListener("message", handleMessage);
-      saveDataToSessionStorage("docusignAccessToken", accessToken);
-      saveDataToSessionStorage("UserOffer", offerData);
+      saveDataToSessionStorage('docusignAccessToken', accessToken);
+      saveDataToSessionStorage('UserOffer', offerData);
       setSigningUrl(signingUrl);
     } catch (error) {
     } finally {
       setLoading(false);
       // saveDataToSessionStorage("UserOffer", "");
     }
-
   };
   return {
     loading,
@@ -154,6 +155,7 @@ const useDocusignService = (formik: any) => {
     signature,
     getAuthorizationUrl,
     downloadPdf,
+    isPDFLoading
   };
 };
 

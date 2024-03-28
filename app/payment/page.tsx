@@ -1,41 +1,58 @@
-"use client";
-import React, { useState } from "react";
-import { CardElement, useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
-import { Grid } from "@mui/material";
-import NeosTextField from "@/components/NeosTextField";
-import NeosButton from "@/components/NeosButton";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
-import { useTranslation } from "react-i18next";
+'use client';
+import React, { useState, useEffect } from 'react';
+import {
+  CardElement,
+  useStripe,
+  useElements,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement
+} from '@stripe/react-stripe-js';
+import { Grid } from '@mui/material';
+import NeosTextField from '@/components/NeosTextField';
+import NeosButton from '@/components/NeosButton';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { getUserOffer } from '@/lib/actions/user-offer';
+import { useRouter } from 'next/navigation';
 
 const CARD_ELEMENT_OPTIONS = {
   disableLink: true,
   style: {
     base: {
-      iconColor: "#FD7C7C",
-      color: "#000000",
-      fontSize: "14px",
-      ":-webkit-autofill": {
-        color: "#fce883",
+      iconColor: '#FD7C7C',
+      color: '#000000',
+      fontSize: '14px',
+      ':-webkit-autofill': {
+        color: '#fce883'
       },
-      "::placeholder": {
-        color: "rgb(0, 0, 0, 0.3)",
-        fontSize: "14px",
-      },
+      '::placeholder': {
+        color: 'rgb(0, 0, 0, 0.3)',
+        fontSize: '14px'
+      }
     },
     invalid: {
-      iconColor: "#d32f2f",
-      color: "#d32f2f",
-    },
-  },
+      iconColor: '#d32f2f',
+      color: '#d32f2f'
+    }
+  }
 };
 
 const CheckoutForm = () => {
-  const { userData } = useSelector((state: RootState) => state.commonSlice);
-  const totalAmount = Number(
-    userData?.numberOfPeople ? userData?.numberOfPeople : userData?.cups
-  ) + 1;
-  const displayValue = (userData?.isValidCode) ? totalAmount - 1 : totalAmount;
+  const { userData } = useSelector((state: any) => state.commonSlice);
+  const [displayValue, setDisplayValue] = useState(
+    Number(userData?.totalPayment)?.toFixed(2) || 0
+  );
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!userData.offerId && !userData._id) return router.push('/getoffer');
+    const getPrice = async () => {
+      const userOfferData = await getUserOffer(userData.offerId);
+      setDisplayValue(Number(userOfferData.totalPayment.toFixed(2)));
+    };
+    userData.offerId && getPrice();
+  }, [userData.offerId, userData._id]);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -49,40 +66,47 @@ const CheckoutForm = () => {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
+    if (!userData.offerId && !userData._id) return router.push('/getoffer');
 
     setLoading(true);
 
     try {
-
       if (!stripe || !elements) {
-        throw new Error(t("Payment.stripe-not-found-err"));
+        throw new Error(t('Payment.stripe-not-found-err'));
       }
 
       const cardElement = elements?.getElement(CardNumberElement);
       if (!cardElement) {
-        throw new Error(t("Payment.element-not-found-err"));
+        throw new Error(t('Payment.element-not-found-err'));
       }
 
       const { token, error } = await stripe!.createToken(cardElement);
-      if (error?.code === "insufficient_funds") {
-        setError(error.message || "");
+      if (error?.code === 'insufficient_funds') {
+        setError(error.message || '');
       }
       if (error) {
         console.log('PAYMENT ERROR ==>', error);
-        setError(error.message || "");
+        setError(error.message || '');
       }
       if (token) {
-        const response = await fetch("/api/payment", {
-          method: "POST",
+        const response = await fetch('/api/payment', {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ token: token.id, amount: displayValue }),
+          body: JSON.stringify({
+            token: token.id,
+            amount: displayValue,
+            // @ts-ignore
+            offerId: userData.offerId,
+            // @ts-ignore
+            userId: userData._id
+          })
         });
         const paymentResponse = await response.json();
         if (paymentResponse.status === 'succeeded') {
           setIsPaymentSuccess(true);
-          window.location.href = "/getoffer?activeStep=3";
+          window.location.href = '/getoffer?activeStep=3';
         }
       }
       // Send the token to your server to complete the payment
@@ -105,60 +129,50 @@ const CheckoutForm = () => {
     } else {
       setError(null);
     }
-  }
-
+  };
 
   return (
     <form onSubmit={handleSubmit}>
       <h1 className="text-lg md:2xl lg:text-3xl font-bold  mt-2 mb-8 text-center">
-        {t("Your-offer.title")}: €{displayValue}
+        {t('Your-offer.title')}: €{displayValue}
       </h1>
       <div className="rounded-3xl border border-[#E0E0E0] p-6">
-        <p className="text-lg font-medium text-black">{t("Payment.title")}</p>
-        <p className="text-[#667085] text-sm mb-8">{t("Payment.desc")}</p>
+        <p className="text-lg font-medium text-black">{t('Payment.title')}</p>
+        <p className="text-[#667085] text-sm mb-8">{t('Payment.desc')}</p>
         <Grid container rowSpacing={3} columnSpacing={3}>
           {/* Name on card */}
           <Grid item xs={8} sm={12} md={8}>
             <NeosTextField
               placeholder="Olivia Rhye"
-              label={t("Payment.card-name")}
+              label={t('Payment.card-name')}
               onChange={(e) => {
-                validateName(e.target.value)
+                validateName(e.target.value);
               }}
               onBlur={(e) => {
-                validateName(e.target.value)
+                validateName(e.target.value);
               }}
             />
           </Grid>
 
           {/* Expire date */}
           <Grid item xs={4} sm={12} md={4}>
-            <label className="">
-              {t("Payment.expiry")}
-            </label>
-            <CardExpiryElement
-              className="border border-[#E0E0E0] rounded-[8px] p-3 mt-1"
-            />
+            <label className="">{t('Payment.expiry')}</label>
+            <CardExpiryElement className="border border-[#E0E0E0] rounded-[8px] p-3 mt-1" />
           </Grid>
           {/* CARD number */}
           <Grid item xs={8} sm={12} md={8}>
-            <label className="">
-              {t("Payment.card-number")}
-            </label>
+            <label className="">{t('Payment.card-number')}</label>
             <CardNumberElement
               className="border border-[#E0E0E0] rounded-[8px] p-3 mt-1"
               options={{
-                showIcon: true,
-              }} />
+                showIcon: true
+              }}
+            />
           </Grid>
           {/* CVV */}
           <Grid item xs={4} sm={12} md={4}>
-            <label className="">
-              {t("Payment.expiry")}
-            </label>
-            <CardCvcElement
-              className="border border-[#E0E0E0] rounded-[8px] p-3 mt-1"
-            />
+            <label className="">{t('Payment.expiry')}</label>
+            <CardCvcElement className="border border-[#E0E0E0] rounded-[8px] p-3 mt-1" />
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
             {error && <p className="text-[#d32f2f]">{error}</p>}
@@ -171,6 +185,8 @@ const CheckoutForm = () => {
           title="PAY NOW"
           type="submit"
           disabled={!stripe || loading || error}
+          isLoading={loading}
+          sx={{ width: '140px !important', fontSize: '14px !important' }}
         />
       </div>
     </form>

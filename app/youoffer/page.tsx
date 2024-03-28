@@ -1,35 +1,32 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
-import { useTranslation } from 'react-i18next';
-import { PopupModal, useCalendlyEventListener } from 'react-calendly';
 import NeosButton from '@/components/NeosButton';
-import { useRouter } from 'next/navigation';
+import { setUserData } from '@/features/common/commonSlice';
+import { generatePDF } from '@/lib/actions/download-offer';
+import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
+import { RootState } from '@/store/store';
 import { getDataFromSessionStorage } from '@/utils/utils';
-import {
-  BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  ReferenceLine,
-  Label,
-  CartesianAxis
-} from 'recharts';
 import Rating from '@mui/material/Rating';
+import parse from 'html-react-parser';
 import html2Canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { useRouter } from 'next/navigation';
+import { PopupModal, useCalendlyEventListener } from 'react-calendly';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { usePDF } from 'react-to-pdf';
-import { sendOffer } from '@/lib/api';
-import parse from 'html-react-parser';
-import { generatePDF } from '@/lib/actions/download-offer';
-import { Button } from '@mantine/core';
+import {
+  Bar,
+  BarChart,
+  CartesianAxis,
+  Label,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from 'recharts';
 
 const CustomTooltip = ({
   active,
@@ -81,13 +78,10 @@ const TolstoyEmbed = () => {
 };
 
 const YourOffer = ({ handleNext, data }: any) => {
+  const dispatch = useDispatch();
   const { userData }: any = useSelector(
     (state: RootState) => state.commonSlice
   );
-  const displayValue =
-    Number(
-      userData?.numberOfPeople ? userData?.numberOfPeople : userData?.cups
-    ) + 1;
   const router = useRouter();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
@@ -117,22 +111,25 @@ const YourOffer = ({ handleNext, data }: any) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  useEffect(() => {
-    const offerData: any = getDataFromSessionStorage('UserOffer');
-    setUserPlan(offerData?.plan ? offerData?.plan : 'neos');
-    scrollToTop();
-  }, []);
+  // useEffect(() => {
+  //   // const offerData: any = getDataFromSessionStorage('UserOffer');
+  //   console.log('User Plan: ', formik.values.plan);
+  //   setUserPlan(!!userData?.plan ? userData.plan : 'neos');
+  //   // dispatch(setUserData({ ...userData, userPlan }));
+  //   console.log('User Plan: ', userPlan);
+  //   scrollToTop();
+  // }, []);
 
   useCalendlyEventListener({
     onEventScheduled: (e: any) => {
-      const offerData: any = getDataFromSessionStorage('UserOffer');
+      // const offerData: any = getDataFromSessionStorage('UserOffer');
       const saveEvent = async () => {
         const eventId = String(e.data.payload.event.uri).split('/').pop() || '';
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/calendly/${eventId}`,
           {
             method: 'PATCH',
-            body: JSON.stringify({ userId: offerData?._id })
+            body: JSON.stringify({ userId: userData?._id })
           }
         );
         const data = await response.json();
@@ -177,9 +174,10 @@ const YourOffer = ({ handleNext, data }: any) => {
   };
 
   const updateUserPlanSelection = (plan: string) => () => {
-    const offerData: any = getDataFromSessionStorage('UserOffer');
-    offerData.plan = plan;
-    sessionStorage.setItem('UserOffer', JSON.stringify(offerData));
+    // const offerData: any = getDataFromSessionStorage('UserOffer');
+    // offerData.plan = plan;
+    // sessionStorage.setItem('UserOffer', JSON.stringify(offerData));
+    dispatch(setUserData({ ...userData, plan }));
     setUserPlan(plan);
   };
 
@@ -220,12 +218,14 @@ const YourOffer = ({ handleNext, data }: any) => {
     if (data.isValidCode) {
       const userData: any = getDataFromSessionStorage('UserOffer');
       userData.isValidCode = true;
-      sessionStorage.setItem('UserOffer', JSON.stringify(userData));
+      // sessionStorage.setItem('UserOffer', JSON.stringify(userData));
+      dispatch(setUserData({ isValidCode: true }));
       setReferralCodeError('valid');
     } else {
       const userData: any = getDataFromSessionStorage('UserOffer');
       userData.isValidCode = false;
-      sessionStorage.setItem('UserOffer', JSON.stringify(userData));
+      // sessionStorage.setItem('UserOffer', JSON.stringify(userData));
+      dispatch(setUserData({ isValidCode: false }));
       setReferralCodeError('invalid');
     }
   };
@@ -293,6 +293,33 @@ const YourOffer = ({ handleNext, data }: any) => {
       console.error('Error:', error);
     } finally {
       setIsGeneratingPdf(false);
+    }
+  };
+
+  const handleGenerateContract = async () => {
+    if (!userData._id) return router.push('/getoffer');
+    try {
+      const offer = await createOrUpdateUserOffer(
+        {
+          user: userData._id,
+          totalPanels: userData.totalPanels,
+          capacityPerPanel: userData.capacityPerPanel,
+          totalCapacity: userData.totalCapacity,
+          estimateProduction: userData.estimateProduction,
+          totalPayment: userData.totalPayment,
+          typeConsumption: userData.typeConsumption,
+          plan: userPlan,
+          offerType: userData.offerType,
+          clickedOnGenerate: true
+        },
+        userData.offerId
+      );
+      if (offer) {
+        dispatch(setUserData({ offerId: offer._id }));
+        router.push('/getoffer?activeStep=1');
+      }
+    } catch (error) {
+      console.error('Error:', error);
     }
   };
 
@@ -548,11 +575,12 @@ const YourOffer = ({ handleNext, data }: any) => {
                 <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center ">
                   {/* <div className="lg:w-full w-auto  flex flex-col items-center"> */}
                   <NeosButton
-                    className="p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
+                    className="p-4 text-base font-bold border rounded-xl w-auto lg:w-full h-full uppercase"
                     onClick={handleDownloadOffer}
                     title={t('Your-offer.download-offer')}
                     category="colored"
                     isLoading={isGeneratingPdf}
+                    disabled={isGeneratingPdf}
                   />
                   {/* <p className="font-sm text-[#2D9CDB] mt-1 ">
                       {t('Coming Soon...')}
@@ -561,7 +589,8 @@ const YourOffer = ({ handleNext, data }: any) => {
                   <div className="lg:w-full w-auto  flex flex-col items-center">
                     <button
                       className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
-                      disabled
+                      // disabled
+                      onClick={handleGenerateContract}
                     >
                       {t('Your-offer.contract-btn-txt')}
                     </button>
