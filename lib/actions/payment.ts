@@ -1,4 +1,6 @@
 'use server';
+export const maxDuration = 20;
+export const dynamic = 'force-dynamic';
 
 import { Payment, PaymentSchemaProps } from '@/models/Payment';
 
