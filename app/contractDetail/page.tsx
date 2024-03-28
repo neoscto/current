@@ -134,13 +134,9 @@ const ContractDetail = ({
   };
   const handleViewContract = async () => {
     if (!userData._id && !userData.offerId) return router.push('/getoffer');
-    const userOfferData = await getUserOffer(userData.offerId);
-    dispatch(setUserData(userOfferData));
-    redirectDocuSign();
-    // setShowForm("emailSuccess");
-    dispatch(setFormBack('emailDetails'));
-
     setIsButtonLoading(true);
+    // setShowForm("emailSuccess");
+
     const isChecked = document.getElementById(
       'link-checkbox'
     ) as HTMLInputElement | null;
@@ -356,7 +352,7 @@ const ContractDetail = ({
                     category="colored"
                     title={t('Get-offer-form.view-contract-txt')}
                     onClick={handleViewContract}
-                    isLoading={isButtonLoading}
+                    // isLoading={isButtonLoading}
                   />
                 </div>
               ) : (
