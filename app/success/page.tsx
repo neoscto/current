@@ -55,9 +55,9 @@ const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
           <NeosButton
             sx={{ width: '140px !important' }}
             category="colored"
-            title={t('Email-success.download-txt')}
             onClick={generatePDF}
-            disabled={isPDFLoading}
+            title={t('Email-success.download-txt')}
+            isLoading={isPDFLoading}
           />
         </div>
       </div>

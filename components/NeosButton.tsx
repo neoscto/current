@@ -1,8 +1,8 @@
 'use client';
-import React, { ReactNode } from 'react';
-import Button from '@mui/material/Button';
-import { styled, Theme } from '@mui/system';
 import theme from '@/styles/theme';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import { styled } from '@mui/system';
 
 interface ButtonNeosProps {
   category: 'fill' | 'outline' | 'colored';
@@ -13,6 +13,8 @@ interface ButtonNeosProps {
   type?: any;
   disabled?: any;
   id?: string;
+  sizeType?: 'sm' | 'lg';
+  isLoading?: boolean;
 }
 
 const getButtonStyles = (category: 'fill' | 'outline' | 'colored') => {
@@ -68,12 +70,20 @@ const getButtonStyles = (category: 'fill' | 'outline' | 'colored') => {
 };
 
 const DTPrimaryBtn = styled(Button)(
-  ({ category }: { category: 'fill' | 'outline' | 'colored' }) => ({
+  ({
+    category,
+    sizeType
+  }: {
+    category: 'fill' | 'outline' | 'colored';
+    sizeType?: 'sm' | 'lg';
+  }) => ({
     textTransform: 'uppercase',
     fontSize: '1em',
     borderRadius: '0.93em',
     textAlign: 'center',
     fontWeight: 600,
+    minWidth:
+      sizeType === 'lg' ? '160px' : sizeType === 'sm' ? '100px' : '140px',
     ...getButtonStyles(category),
     [theme.breakpoints.down('md')]: {
       fontSize: '.8em',
@@ -85,11 +95,25 @@ const DTPrimaryBtn = styled(Button)(
 );
 
 const NeosButton = (props: ButtonNeosProps) => {
-  const { category, title, ...otherProps } = props;
+  const { category, sizeType, title, isLoading, ...otherProps } = props;
 
   return (
-    <DTPrimaryBtn category={category} {...otherProps}>
-      {title}
+    <DTPrimaryBtn category={category} sizeType={sizeType} {...otherProps}>
+      <div className="flex justify-center items-center">
+        {isLoading ? (
+          <>
+            <CircularProgress
+              color="inherit"
+              sx={{
+                width: '24px !important',
+                height: '24px !important'
+              }}
+            />
+          </>
+        ) : (
+          <span>{title}</span>
+        )}
+      </div>
     </DTPrimaryBtn>
   );
 };

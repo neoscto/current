@@ -416,8 +416,9 @@ const YourOffer = ({ handleNext, data }: any) => {
                 <NeosButton
                   category="colored"
                   className="lg:px-5 lg:py-3 text-[16px] leading-5 font-semibold h-[44px] rounded-[15px] w-auto lg:w-full px-[9px] py-3"
-                  title={t('Your-offer.validate-btn')}
                   onClick={validateReferralCode}
+                  sizeType="sm"
+                  title={t('Your-offer.validate-btn')}
                 />
               </div>
             </div>
@@ -596,7 +597,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                     <button
                       className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
                       onClick={handleDownloadOffer} // uncomment
-                      // disabled // comment and the coming soons below
+                      //disabled
                     >
                       <div className="flex items-center justify-center w-full">
                         {isOfferDownloading ? (
@@ -622,7 +623,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                     <button
                       className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
                       onClick={handleGenerateContract} // uncomment
-                      // disabled // comment and the coming soons below
+                      disabled={!userData._id} // comment and the coming soons below
                     >
                       <div className="flex items-center justify-center w-full">
                         {isGeneratingContract ? (
@@ -793,8 +794,9 @@ const YourOffer = ({ handleNext, data }: any) => {
               ' text-sm whitespace-nowrap font-semibold lg:!mr-[12px] w-48 '
             }
             category="colored"
-            title={t('select-plan-btn')}
             onClick={scrollToDiv}
+            sizeType="lg"
+            title={t('select-plan-btn')}
           />
         </div>
 
@@ -889,8 +891,8 @@ const YourOffer = ({ handleNext, data }: any) => {
                   'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto  '
                 }
                 category="colored"
-                title={t('select-plan-btn')}
                 onClick={scrollToDiv}
+                title={t('select-plan-btn')}
               />
             </div>
           </div>
@@ -922,8 +924,9 @@ const YourOffer = ({ handleNext, data }: any) => {
                 className={
                   'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto  '
                 }
-                title={t('Get-offer.book-expert-txt')}
                 onClick={() => handleCalender()}
+                sizeType="lg"
+                title={t('Get-offer.book-expert-txt')}
               />
               {typeof window !== 'undefined' && (
                 <PopupModal
@@ -1084,8 +1087,8 @@ const YourOffer = ({ handleNext, data }: any) => {
           <NeosButton
             category="colored"
             className="px-5 py-3 text-[16px] leading-5 font-semibold w-auto"
-            title={t('select-plan-btn')}
             onClick={scrollToDiv}
+            title={t('select-plan-btn')}
           />
         </div>
 

@@ -101,9 +101,10 @@ const useDocusignService = (formik: any) => {
       link.click();
 
       document.body.removeChild(link);
-      setIsPDFLoading(false);
     } catch (error) {
       console.error('Error:', error);
+    } finally {
+      setIsPDFLoading(false);
     }
   };
 

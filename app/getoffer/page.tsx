@@ -79,7 +79,7 @@ const HorizontalLinearStepper = () => {
       formik.setFieldValue(key, res.data[key]);
     });
   }
-  const { loading, signature, signingUrl, downloadPdf } =
+  const { loading, signature, signingUrl, downloadPdf, isPDFLoading } =
     useDocusignService(formik);
 
   useEffect(() => {
@@ -217,6 +217,7 @@ const HorizontalLinearStepper = () => {
                   setShowForm={setShowForm}
                   showForm={showForm}
                   signature={signature}
+                  isPDFLoading={isPDFLoading}
                 />
               )}
               {Number(activeStep) == 3 && (
@@ -225,6 +226,7 @@ const HorizontalLinearStepper = () => {
                   setShowForm={setShowForm}
                   showForm={showForm}
                   signature={signature}
+                  isPDFLoading={isPDFLoading}
                 />
               )}
               {/* <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>

@@ -340,8 +340,10 @@ const ContractDetail = ({
                   <NeosButton
                     sx={{ mt: 3 }}
                     category="colored"
-                    title={t('Get-offer-form.view-contract-txt')}
                     onClick={handleViewContract}
+                    sizeType="lg"
+                    title={t('Get-offer-form.view-contract-txt')}
+                    isLoading={isButtonLoading}
                   />
                 </div>
               ) : (
@@ -369,8 +371,10 @@ const ContractDetail = ({
                       <NeosButton
                         sx={{ mt: 3 }}
                         category="colored"
-                        title={t('Get-offer-form.view-contract-txt')}
                         onClick={handleViewContract}
+                        sizeType="lg"
+                        title={t('Get-offer-form.view-contract-txt')}
+                        isLoading={isButtonLoading}
                       />
                     </div>
                   )}

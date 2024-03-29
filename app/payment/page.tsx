@@ -170,7 +170,7 @@ const CheckoutForm = () => {
           </Grid>
           {/* CVV */}
           <Grid item xs={4} sm={12} md={4}>
-            <label className="">{t('Payment.expiry')}</label>
+            <label className="">{t('Payment.cvv')}</label>
             <CardCvcElement className="border border-[#E0E0E0] rounded-[8px] p-3 mt-1" />
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
@@ -181,11 +181,11 @@ const CheckoutForm = () => {
       <div className="mt-8 text-center">
         <NeosButton
           category="colored"
-          title="PAY NOW"
           type="submit"
-          disabled={!stripe || loading || error}
+          disabled={!stripe || loading}
+          sizeType="sm"
+          title="PAY NOW"
           isLoading={loading}
-          sx={{ width: '140px !important', fontSize: '14px !important' }}
         />
       </div>
     </form>
