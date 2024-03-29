@@ -4,6 +4,7 @@ import * as yup from 'yup';
 // const phoneValidation = yup
 //   .string()
 //   .matches(phoneRegExp, "offer.validation.phoneNumber.valid");
+let EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
 
 export const offerStep1Schema = yup.object().shape({
   offerType: yup.string().required(),
@@ -11,7 +12,7 @@ export const offerStep1Schema = yup.object().shape({
   lastName: yup.string().required('offer.validation.lastName.required'),
   emailAddress: yup
     .string()
-    .email('offer.validation.email.valid')
+    .matches(EMAIL_REGX, 'offer.validation.email.valid')
     .required('offer.validation.email.required'),
   phoneNumber: yup.string().required('offer.validation.phoneNumber.required'),
   cups: yup
