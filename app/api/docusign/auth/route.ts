@@ -8,46 +8,34 @@ import {
   getEmbeddedSigningUrl
 } from '@/services/docusign.service';
 // import { POWER_PRICES } from '@/utils/utils';
+import {
+  fetchData,
+  processConsumptionData
+} from '@/features/calculateSolarPaybackPeriod';
 import * as jwt from 'jsonwebtoken';
-import jsPDF from 'jspdf';
 import { NextResponse } from 'next/server';
 import { createOrUpdateUserOffer } from '../../users-offers/route';
 
 const generateEnvelopeData = async (offerData: any) => {
-  if (offerData.offerId && offerData._id) {
+  if (offerData.offerId && offerData._id && offerData.cups) {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${offerData.offerId}`
     );
     const { userOffer: paybackData } = await response.json();
+    const { consumption_data } = await fetchData(offerData.cups);
+    const processData: any = processConsumptionData(consumption_data);
     const typeConsumption = paybackData.typeConsumption;
-    // const powerConsumptionData = typeConsumption
-    //   ? [
-    //       {
-    //         tabLabel: 'p1',
-    //         value: POWER_PRICES[typeConsumption]['P1']
-    //       },
-    //       {
-    //         tabLabel: 'p2',
-    //         value: POWER_PRICES[typeConsumption]['P2']
-    //       },
-    //       {
-    //         tabLabel: 'p3',
-    //         value: POWER_PRICES[typeConsumption]['P3']
-    //       },
-    //       {
-    //         tabLabel: 'p4',
-    //         value: POWER_PRICES[typeConsumption]['P4']
-    //       },
-    //       {
-    //         tabLabel: 'p5',
-    //         value: POWER_PRICES[typeConsumption]['P5']
-    //       },
-    //       {
-    //         tabLabel: 'p6',
-    //         value: POWER_PRICES[typeConsumption]['P6']
-    //       }
-    //     ]
-    //   : [];
+    const orderedKeys = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6'];
+    const powerConsumptionData = typeConsumption
+      ? orderedKeys.map((key) => {
+          const sum = processData[key].reduce(
+            (val: number, acc: number) => acc + val,
+            0
+          );
+          const value = `${sum / 1000} kWp`;
+          return { tabLabel: key.toLowerCase(), value };
+        })
+      : [];
     const envelopeData = {
       status: 'sent',
       emailSubject: 'Please sign this document',
@@ -147,8 +135,8 @@ const generateEnvelopeData = async (offerData: any) => {
               {
                 tabLabel: 'country',
                 value: 'Spain'
-              }
-              // ...powerConsumptionData
+              },
+              ...powerConsumptionData
             ]
           }
         }

@@ -147,16 +147,19 @@ async function getConsumptionDataFromApi(
   cupsCode: string
 ): Promise<any | null> {
   try {
-    const response = await fetch('/api/enerbit/consumption_pse', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        cupsCode: cupsCode,
-        WEBTOKEN: WEBTOKEN
-      })
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/enerbit/consumption_pse`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          cupsCode: cupsCode,
+          WEBTOKEN: WEBTOKEN
+        })
+      }
+    );
 
     const data = await response.json();
 
@@ -171,16 +174,19 @@ export async function getTechnicalDataFromApi(
   cupsCode: string
 ): Promise<any | null> {
   try {
-    const response = await fetch('/api/enerbit/pse', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        cupsCode: cupsCode,
-        WEBTOKEN: WEBTOKEN
-      })
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/enerbit/pse`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          cupsCode: cupsCode,
+          WEBTOKEN: WEBTOKEN
+        })
+      }
+    );
     const data = await response.json();
 
     return response.status === 200 ? data : null;
@@ -211,7 +217,7 @@ interface ProcessedData {
   Total: number[];
 }
 
-function processConsumptionData(
+export function processConsumptionData(
   consumptionData: ConsumptionData
 ): ProcessedData {
   const { cons_month } = consumptionData.summary;
@@ -242,7 +248,7 @@ function processConsumptionData(
   return { Year, Month, P1, P2, P3, P4, P5, P6, Total };
 }
 
-const fetchData = async (cups_code: string) => {
+export const fetchData = async (cups_code: string) => {
   try {
     const [consumption_data, technical_data] = await Promise.all([
       getConsumptionDataFromApi(cups_code),
