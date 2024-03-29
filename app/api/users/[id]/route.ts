@@ -1,4 +1,4 @@
-import { UserOffer } from '@/models/UsersOffers';
+import { User } from '@/models/User';
 import { stringToObjectId } from '@/lib/api-response';
 import { createErrorResponse } from '@/lib/api-response';
 import connectDB from '@/lib/connect-db';
@@ -11,13 +11,13 @@ export async function GET(
   try {
     await connectDB();
     const id = params.id;
-    const userOffer = await UserOffer.findById(stringToObjectId(id))
-      .lean()
-      .exec();
-    if (!userOffer) throw new Error('User offer not found 😔');
+    const user = await User.findById(stringToObjectId(id)).lean().exec();
+    if (!user) {
+      throw new Error('User not found');
+    }
     let json_response = {
       status: 'success',
-      data: userOffer
+      data: user
     };
     return NextResponse.json(json_response);
   } catch (error: any) {
