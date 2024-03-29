@@ -18,7 +18,9 @@ const ContractDetail = ({
   signature
 }: any) => {
   const { userData } = useSelector((state: any) => state.commonSlice);
-  const [displayValue, setDisplayValue] = useState(0);
+  const [displayValue, setDisplayValue] = useState(
+    Number(userData?.totalPayment)?.toFixed(2) || 0
+  );
   const [isButtonLoading, setIsButtonLoading] = useState(false);
   const router = useRouter();
   useEffect(() => {
