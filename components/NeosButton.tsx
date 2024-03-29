@@ -13,7 +13,7 @@ interface ButtonNeosProps {
   type?: any;
   disabled?: any;
   id?: string;
-  buttonSize?: 'sm' | 'lg';
+  buttonsize?: 'sm' | 'lg';
   isLoading?: boolean;
 }
 
@@ -72,10 +72,10 @@ const getButtonStyles = (category: 'fill' | 'outline' | 'colored') => {
 const DTPrimaryBtn = styled(Button)(
   ({
     category,
-    buttonSize
+    buttonsize
   }: {
     category: 'fill' | 'outline' | 'colored';
-    buttonSize?: 'sm' | 'lg';
+    buttonsize?: 'sm' | 'lg';
   }) => ({
     textTransform: 'uppercase',
     fontSize: '1em',
@@ -83,7 +83,7 @@ const DTPrimaryBtn = styled(Button)(
     textAlign: 'center',
     fontWeight: 600,
     minWidth:
-      buttonSize === 'lg' ? '160px' : buttonSize === 'sm' ? '100px' : '140px',
+      buttonsize === 'lg' ? '160px' : buttonsize === 'sm' ? '100px' : '140px',
     ...getButtonStyles(category),
     [theme.breakpoints.down('md')]: {
       fontSize: '.8em',
@@ -95,10 +95,10 @@ const DTPrimaryBtn = styled(Button)(
 );
 
 const NeosButton = (props: ButtonNeosProps) => {
-  const { category, buttonSize, title, isLoading, ...otherProps } = props;
+  const { category, buttonsize, title, isLoading, ...otherProps } = props;
 
   return (
-    <DTPrimaryBtn category={category} buttonSize={buttonSize} {...otherProps}>
+    <DTPrimaryBtn category={category} buttonsize={buttonsize} {...otherProps}>
       <div className="flex justify-center items-center">
         {isLoading ? (
           <>

@@ -341,7 +341,7 @@ const ContractDetail = ({
                     sx={{ mt: 3 }}
                     category="colored"
                     onClick={handleViewContract}
-                    buttonSize="lg"
+                    buttonsize="lg"
                     title={t('Get-offer-form.view-contract-txt')}
                     isLoading={isButtonLoading}
                   />
@@ -372,7 +372,7 @@ const ContractDetail = ({
                         sx={{ mt: 3 }}
                         category="colored"
                         onClick={handleViewContract}
-                        buttonSize="lg"
+                        buttonsize="lg"
                         title={t('Get-offer-form.view-contract-txt')}
                         isLoading={isButtonLoading}
                       />
