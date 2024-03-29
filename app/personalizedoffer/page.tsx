@@ -55,7 +55,7 @@ const validateCUPS = (cups: string): boolean | string => {
 };
 
 const PersonalizedOffer = () => {
-  const dispath = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -123,7 +123,8 @@ const PersonalizedOffer = () => {
     neos_elephants_carbon_capture: 0,
     neos_not_provider_elephants_carbon_capture: 0,
     save_yearly_w_neos: [{ years: 0, saving: '' }],
-    save_yearly_without_neos: [{ years: 0, saving: '' }]
+    save_yearly_without_neos: [{ years: 0, saving: '' }],
+    type_consumption_point: ''
   });
 
   const [buttonLoading, setLoading] = useState<boolean>(false);
@@ -157,38 +158,41 @@ const PersonalizedOffer = () => {
         formik.values.numberOfPeople,
         formik.values.cups
       );
-      if (newData) setData(newData);
-
-      setServerError('');
+      if (newData) {
+        setData(newData);
+        dispatch(setUserData(formik?.values));
+        setShowForm('yourOffer');
+        setServerError('');
+      }
     } catch (error) {
       setLoading(false);
       setServerError('Please try one more time?');
       return;
     }
 
-    const offerData: any = getDataFromSessionStorage('UserOffer');
-    if (offerData) {
-      const updatedData = {
-        firsName: formik?.values?.firstName,
-        lastName: formik.values.lastName,
-        emailAddress: formik.values.emailAddress,
-        numberOfPeople: formik.values.numberOfPeople,
-        phoneNumber: formik.values.phoneNumber,
-        dialCode: formik.values.dialCode,
-        cups: formik.values.cups
-      };
-      const response = await fetch(`api/users-offers/${offerData?._id}`, {
-        method: 'PATCH',
-        body: JSON.stringify(updatedData)
-      });
-      const data = await response.json();
-      if (data) {
-        saveDataToSessionStorage('UserOffer', data.data);
-        setShowForm('yourOffer');
-      }
-      setLoading(false);
-      return;
-    }
+    // const offerData: any = getDataFromSessionStorage('UserOffer');
+    // if (offerData) {
+    //   const updatedData = {
+    //     firsName: formik?.values?.firstName,
+    //     lastName: formik.values.lastName,
+    //     emailAddress: formik.values.emailAddress,
+    //     numberOfPeople: formik.values.numberOfPeople,
+    //     phoneNumber: formik.values.phoneNumber,
+    //     dialCode: formik.values.dialCode,
+    //     cups: formik.values.cups
+    //   };
+    //   const response = await fetch(`api/users-offers/${offerData?._id}`, {
+    //     method: 'PATCH',
+    //     body: JSON.stringify(updatedData)
+    //   });
+    //   const data = await response.json();
+    //   if (data) {
+    //     saveDataToSessionStorage('UserOffer', data.data);
+    //     setShowForm('yourOffer');
+    //   }
+    //   setLoading(false);
+    //   return;
+    // }
     formik.handleSubmit();
     setLoading(false);
   };
@@ -196,13 +200,24 @@ const PersonalizedOffer = () => {
 
   const [formik, isLoading]: any = useHandleForm({
     method: 'POST',
-    apiEndpoint: '/api/users-offers',
+    apiEndpoint: '/api/users',
     formikInitialValues,
     validationSchema: offerStep1Schema,
     handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
-    saveDataToSessionStorage('UserOffer', res.data);
+    dispatch(
+      setUserData({
+        ...res.data,
+        offerType: 'Standard',
+        totalPanels: data.number_of_panels,
+        capacityPerPanel: '440 Wp',
+        totalCapacity: data.vsi_required_capacity,
+        estimateProduction: data.vsi_required_capacity * 2000,
+        totalPayment: data.total_price_after_tax,
+        typeConsumption: data.type_consumption_point
+      })
+    );
     setShowForm('yourOffer');
     const arrayData = Object.keys(res.data);
     arrayData.forEach((key: any) => {
@@ -214,7 +229,7 @@ const PersonalizedOffer = () => {
 
   useEffect(() => {
     formik.setFieldValue('offerType', 'Personalized');
-    dispath(setUserData(formik.values));
+    // dispatch(setUserData(formik.values));
   }, [formik.values]);
 
   const { loading, signature, signingUrl, downloadPdf } =

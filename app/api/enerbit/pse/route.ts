@@ -1,3 +1,6 @@
+export const maxDuration = 30;
+export const dynamic = 'force-dynamic';
+
 import axios, { AxiosResponse } from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
