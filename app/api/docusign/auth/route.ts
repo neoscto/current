@@ -32,7 +32,7 @@ const generateEnvelopeData = async (offerData: any) => {
             (val: number, acc: number) => acc + val,
             0
           );
-          const value = `${sum / 1000} kWp`;
+          const value = `${(sum / 1000).toFixed(5)} kWp`;
           return { tabLabel: key.toLowerCase(), value };
         })
       : [];
