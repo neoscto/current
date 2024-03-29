@@ -1,34 +1,31 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
-import { useTranslation } from 'react-i18next';
-import { PopupModal, useCalendlyEventListener } from 'react-calendly';
 import NeosButton from '@/components/NeosButton';
-import { useRouter } from 'next/navigation';
+import { generatePDF } from '@/lib/actions/download-offer';
+import { RootState } from '@/store/store';
 import { getDataFromSessionStorage } from '@/utils/utils';
-import {
-  BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  ReferenceLine,
-  Label,
-  CartesianAxis
-} from 'recharts';
 import Rating from '@mui/material/Rating';
+import parse from 'html-react-parser';
 import html2Canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { useRouter } from 'next/navigation';
+import { PopupModal, useCalendlyEventListener } from 'react-calendly';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { usePDF } from 'react-to-pdf';
-import { sendOffer } from '@/lib/api';
-import parse from 'html-react-parser';
-import { generatePDF } from '@/lib/actions/download-offer';
+import {
+  Bar,
+  BarChart,
+  CartesianAxis,
+  Label,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from 'recharts';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const CustomTooltip = ({
   active,
@@ -204,6 +201,7 @@ const YourOffer = ({ handleNext, data }: any) => {
   const [referralCodeError, setReferralCodeError] = useState('');
   //state for referralCode
   const [referralCode, setReferralCode] = useState('');
+  const [isOfferDownloading, setIsOfferDownloading] = useState(false);
 
   // validateReferralCode
   const validateReferralCode = async () => {
@@ -239,6 +237,7 @@ const YourOffer = ({ handleNext, data }: any) => {
   };
 
   const handleDownloadOffer = async () => {
+    setIsOfferDownloading(true);
     try {
       // const response = await fetch('api/download-offer', {
       //   method: 'POST',
@@ -299,6 +298,8 @@ const YourOffer = ({ handleNext, data }: any) => {
     } catch (error) {
       // Handle error
       console.error('Error:', error);
+    } finally {
+      setIsOfferDownloading(false);
     }
   };
 
@@ -554,12 +555,25 @@ const YourOffer = ({ handleNext, data }: any) => {
                 <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center ">
                   <div className="lg:w-full w-auto  flex flex-col items-center">
                     <button
-                      className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
+                      className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
                       onClick={handleDownloadOffer} // uncomment
                       // disabled // comment and the coming soons below
                     >
-                      {t('Your-offer.download-offer')}
+                      <div className="flex items-center justify-center w-full">
+                        {isOfferDownloading ? (
+                          <CircularProgress
+                            color="inherit"
+                            sx={{
+                              width: '24px !important',
+                              height: '24px !important'
+                            }}
+                          />
+                        ) : (
+                          <span>{t('Your-offer.download-offer')}</span>
+                        )}
+                      </div>
                     </button>
+
                     <p className="font-sm text-[#2D9CDB] mt-1 ">
                       {t('Coming Soon...')}
                     </p>
