@@ -107,6 +107,15 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Chrome, Safari and Opera */
+input:-webkit-autofill {
+  transition: background-color 1s 5000s !important;
+}
+/* Firefox */
+input:-moz-ui-invalid {
+  box-shadow: none !important;
+}
+
 .css-18i9zaa {
   width: auto !important;
 }
