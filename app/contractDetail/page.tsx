@@ -28,7 +28,7 @@ const ContractDetail = ({
     const getPrice = async () => {
       const response = await fetch(`/api/users-offers/${userData.offerId}`);
       const { userOffer } = await response.json();
-      setDisplayValue(Number(userOffer.totalPayment.toFixed(2)));
+      setDisplayValue(Number(userOffer.totalPayment)?.toFixed(2));
     };
     userData.offerId && getPrice();
   }, [userData.offerId, userData._id]);
