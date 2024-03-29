@@ -1065,6 +1065,7 @@ export const calculateSolarPaybackPeriod = async (
     total_savings_w_neos,
     total_savings_without_neos,
     cumulative_savings,
+    yearly_consumption,
     type_consumption_point
   };
 };

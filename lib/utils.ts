@@ -10,6 +10,37 @@ export const dataURLToUint8Array = (dataURL: string): Uint8Array => {
   return bytes;
 };
 
+export const formatNumber = (num: number) => {
+  // Round the number to two decimal places
+  let roundedNum = Math.round(num * 100) / 100;
+
+  // Convert the number to a string and split it into whole and decimal parts
+  let parts = roundedNum.toString().split('.');
+
+  // Add the missing decimal zeros if necessary
+  if (parts.length === 1) {
+    parts.push('00');
+  } else if (parts[1].length === 1) {
+    parts[1] += '0';
+  }
+
+  // Replace the thousand separators in the whole part
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+  // Return the number with a comma as the decimal point
+  return parts[0] + ',' + parts[1];
+};
+
+export const formatChartValue = (num: number) => {
+  let parts = num.toString().split('.');
+
+  // Replace the thousand separators in the whole part
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+  // If there is a decimal part, join it back with a comma
+  return parts.length > 1 ? parts[0] + ',' + parts[1] : parts[0];
+};
+
 export const spanishMonths = [
   { name: 'Enero', index: 1 },
   { name: 'Febrero', index: 2 },
