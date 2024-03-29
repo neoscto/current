@@ -183,7 +183,7 @@ const CheckoutForm = () => {
           category="colored"
           type="submit"
           disabled={!stripe || loading}
-          sizeType="sm"
+          buttonSize="sm"
           title="PAY NOW"
           isLoading={loading}
         />

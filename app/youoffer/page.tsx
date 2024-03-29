@@ -417,7 +417,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                   category="colored"
                   className="lg:px-5 lg:py-3 text-[16px] leading-5 font-semibold h-[44px] rounded-[15px] w-auto lg:w-full px-[9px] py-3"
                   onClick={validateReferralCode}
-                  sizeType="sm"
+                  buttonSize="sm"
                   title={t('Your-offer.validate-btn')}
                 />
               </div>
@@ -795,7 +795,7 @@ const YourOffer = ({ handleNext, data }: any) => {
             }
             category="colored"
             onClick={scrollToDiv}
-            sizeType="lg"
+            buttonSize="lg"
             title={t('select-plan-btn')}
           />
         </div>
@@ -925,7 +925,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                   'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto  '
                 }
                 onClick={() => handleCalender()}
-                sizeType="lg"
+                buttonSize="lg"
                 title={t('Get-offer.book-expert-txt')}
               />
               {typeof window !== 'undefined' && (

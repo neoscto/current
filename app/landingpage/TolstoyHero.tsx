@@ -1,11 +1,11 @@
 'use client';
 
-const TolstoyHero = () => {
+const TolstoyHero = ({ src }: { src?: string }) => {
   return (
     <div className="rounded-2xl overflow-hidden">
       <iframe
         id="tolstoy"
-        src="https://player.gotolstoy.com/k71mlzqzwrqzo?host"
+        src={src || 'https://player.gotolstoy.com/k71mlzqzwrqzo?host'}
         style={{ width: '100%', height: '540px', maxWidth: '960px' }}
         scrolling="no"
         frameBorder="0"

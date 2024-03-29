@@ -5,6 +5,7 @@ import NeosButton from '@/components/NeosButton';
 import { useTranslation } from 'react-i18next';
 import VideoPreview from '@/app/videoPlayer/preview';
 import CircularProgress from '@mui/material/CircularProgress';
+import TolstoyHero from '@/app/landingpage/TolstoyHero';
 
 const Congrats = ({ generatePDF, isPDFLoading }: any) => {
   const { t } = useTranslation();
@@ -41,13 +42,14 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
 
       <div className="mx-auto flex justify-center items-center w-full lg:w-3/6">
         <div className="relative w-full lg:h-[520px] max-w-[310px] h-full video-container !rounded-3xl overflow-hidden">
-          <VideoPreview
+          {/* <VideoPreview
             custonClass="h-full w-full"
             url="https://videos.gotolstoy.com/public/41532226-45a4-45f6-a10f-a313cb492bc8/6c2ed4e4-393f-415d-8c6f-495ee6f13e80/6c2ed4e4-393f-415d-8c6f-495ee6f13e80.mp4"
             controls={false}
             muted
             autoPlay
-          />
+          /> */}
+          <TolstoyHero src="https://player.gotolstoy.com/fhxu96gim1qek" />
         </div>
       </div>
     </div>
