@@ -17,7 +17,7 @@ export async function GET(
     if (!userOffer) throw new Error('User offer not found 😔');
     let json_response = {
       status: 'success',
-      data: userOffer
+      userOffer
     };
     return NextResponse.json(json_response);
   } catch (error: any) {
