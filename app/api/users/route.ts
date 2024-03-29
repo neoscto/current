@@ -61,6 +61,8 @@ export async function POST(request: Request) {
       cups: body.cups,
       address: body.address,
       addressNo: body.addressNo,
+      nie: body.nie,
+      province: body.province,
       city: body.city,
       country: body.country,
       postcode: body.postcode,
