@@ -384,7 +384,7 @@ export const generatePDF = async ({
     );
 
     page.drawText(
-      `de electricidad al año, el equivalente a un ${formatNumber((globalCapacity * 2220) / yearlyConsumption)} del consumo total.`,
+      `de electricidad al año, el equivalente a un ${(((globalCapacity * 2220) / yearlyConsumption) * 100).toFixed(2)}% del consumo total.`,
       {
         x: 60,
         y: 470,
