@@ -614,9 +614,9 @@ const YourOffer = ({ handleNext, data }: any) => {
                       </div>
                     </button>
 
-                    <p className="font-sm text-[#2D9CDB] mt-1 ">
+                    {/* <p className="font-sm text-[#2D9CDB] mt-1 ">
                       {t('Coming Soon...')}
-                    </p>
+                    </p> */}
                   </div>
 
                   <div className="lg:w-full w-auto  flex flex-col items-center">
@@ -639,9 +639,9 @@ const YourOffer = ({ handleNext, data }: any) => {
                         )}
                       </div>
                     </button>
-                    <p className="font-sm text-[#2D9CDB] mt-1 ">
+                    {/* <p className="font-sm text-[#2D9CDB] mt-1 ">
                       {t('Coming Soon...')}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               </div>
