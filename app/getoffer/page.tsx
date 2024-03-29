@@ -53,7 +53,14 @@ const HorizontalLinearStepper = () => {
     emailAddress: '',
     phoneNumber: '',
     dialCode: '34',
-    numberofpeopleAdditionValue: 1
+    numberofpeopleAdditionValue: 1,
+    nie: '',
+    address: '',
+    addressNo: '',
+    city: '',
+    province: '',
+    country: '',
+    postcode: ''
   };
   const [showForm, setShowForm] = useState<string>('allOffers');
 
