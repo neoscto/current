@@ -10,6 +10,7 @@ import {
   chartPageHorizontalPositions,
   chartPageVerticalPositions,
   dataURLToUint8Array,
+  formatNumber,
   spanishMonths
 } from '../utils';
 import {
@@ -17,6 +18,7 @@ import {
   GenerateChartPageProps,
   GeneratePDFProps
 } from '../types';
+import fontkit from '@pdf-lib/fontkit';
 
 const embedChartBackground = async (
   pdfDoc: PDFDocument,
@@ -88,7 +90,19 @@ const generateChartPage = async ({
   );
   for (let i = 0; i < months.length; i++) {
     const month = months[i];
-    const chartUrl = await generateChart(records, month.index, month.name);
+    // const chartUrl = await generateChart(records, month.index, month.name);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/generate-chart`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          records,
+          filterMonth: month.index,
+          title: month.name
+        })
+      }
+    );
+    const chartUrl = await response.text();
     const verticalPositions = chartPageVerticalPositions(3);
     chartUrl &&
       (await drawChart({
@@ -103,22 +117,19 @@ const generateChartPage = async ({
   }
 };
 
-const generatePage8 = async (
+const generatePage6 = async (
   imagePath: string,
   pdfDoc: PDFDocument,
   pageWidth: number,
   pageHeight: number,
   globalCapacity: number,
-  helveticaFont: PDFFont,
+  codecFont: PDFFont,
   globalPrice: number,
   globalSavings: number,
   globalPaybackNeos: number,
   globalPaybackRooftop: number,
   globalTons: number
 ) => {
-  // const imageUrl = fs.readFileSync(
-  //   path.join(process.cwd(), 'public', imagePath)
-  // );
   const imageUrl = await fetch(imagePath).then((resp) => resp.arrayBuffer());
   const image = await pdfDoc.embedPng(imageUrl);
   const imageDims = image.scaleToFit(pageWidth, pageHeight);
@@ -131,73 +142,115 @@ const generatePage8 = async (
     width: imageDims.width,
     height: imageDims.height
   });
-  const fontSize = 10;
-  page.drawText(`${globalCapacity.toFixed(2)}`, {
-    x: 135,
-    y: 632,
-    size: fontSize,
-    font: helveticaFont,
-    color: rgb(0, 0, 0)
-  });
-  page.drawText(`${globalPrice.toFixed(2)}`, {
-    x: 239,
-    y: 632,
-    size: fontSize,
-    font: helveticaFont,
-    color: rgb(0, 0, 0)
-  });
-  page.drawText(`${(globalPrice / globalCapacity).toFixed(2)}`, {
-    x: 150,
-    y: 601,
-    size: fontSize,
-    font: helveticaFont,
-    color: rgb(0, 0, 0)
-  });
-  page.drawText(`${globalSavings.toFixed(2)}`, {
-    x: 273,
-    y: 232,
-    size: fontSize,
-    font: helveticaFont,
-    color: rgb(0, 0, 0)
-  });
-  page.drawText(`${(globalSavings / globalPrice).toFixed(2)}`, {
+  const fontSize = 11;
+  page.drawText('El precio de la Instalación Solar Virtual', {
     x: 60,
-    y: 217,
+    y: 647,
     size: fontSize,
-    font: helveticaFont,
+    font: codecFont,
     color: rgb(0, 0, 0)
   });
-  page.drawText(`${globalPaybackNeos.toFixed(2)}`, {
-    x: 396,
-    y: 157,
-    size: fontSize,
-    font: helveticaFont,
-    color: rgb(0, 0, 0)
-  });
-  page.drawText(`${globalPaybackRooftop.toFixed(2)}`, {
-    x: 470,
-    y: 142,
-    size: fontSize,
-    font: helveticaFont,
-    color: rgb(0, 0, 0)
-  });
-  page.drawText(`${globalTons.toFixed(2)}`, {
-    x: 99,
-    y: 93,
-    size: fontSize,
-    font: helveticaFont,
-    color: rgb(0, 0, 0)
-  });
+  page.drawText(
+    `propuesta de ${formatNumber(globalCapacity)} kWp es de €${formatNumber(globalPrice)}.`,
+    {
+      x: 60,
+      y: 632,
+      size: fontSize,
+      font: codecFont,
+      color: rgb(0, 0, 0)
+    }
+  );
+  page.drawText(
+    `.Esto equivale a €${formatNumber(globalPrice / globalCapacity)}/kWp antes de impuestos.`,
+    {
+      x: 60,
+      y: 601,
+      size: fontSize,
+      font: codecFont,
+      color: rgb(0, 0, 0)
+    }
+  );
+  page.drawText(
+    'Asumiendo una inflación del 3% anual en el precio de la energía, el ahorro total obtenido',
+    {
+      x: 59,
+      y: 250,
+      size: fontSize,
+      font: codecFont,
+      color: rgb(0, 0, 0)
+    }
+  );
+  page.drawText(
+    `por la Instalación Solar Virtual será de €${formatNumber(globalSavings)}. Esto supondrá un ahorro total`,
+    {
+      x: 58,
+      y: 234,
+      size: fontSize,
+      font: codecFont,
+      color: rgb(0, 0, 0)
+    }
+  );
+  page.drawText(
+    `${formatNumber(globalSavings / globalPrice)} veces mayor al coste de la inversión.`,
+    {
+      x: 58,
+      y: 217,
+      size: fontSize,
+      font: codecFont,
+      color: rgb(0, 0, 0)
+    }
+  );
+  page.drawText(
+    'Gracias a la superioridad productiva de nuestros parques solares, y al menor tamaño de',
+    {
+      x: 58,
+      y: 172,
+      size: fontSize,
+      font: codecFont,
+      color: rgb(0, 0, 0)
+    }
+  );
+  page.drawText(
+    `la inversión inicial, la Instalación Solar Virtual se amortizará en ${formatNumber(globalPaybackNeos)} años. Con su curva de`,
+    {
+      x: 58,
+      y: 157,
+      size: fontSize,
+      font: codecFont,
+      color: rgb(0, 0, 0)
+    }
+  );
+  page.drawText(
+    `consumo, el periodo medio de amortización de autoconsumo tradicional sería ${formatNumber(globalPaybackRooftop)} años.`,
+    {
+      x: 58,
+      y: 142,
+      size: fontSize,
+      font: codecFont,
+      color: rgb(0, 0, 0)
+    }
+  );
+  page.drawText(
+    `Evitará ${formatNumber(globalTons)} toneladas de CO2 gracias a la producción de energía renovable y sostenible.`,
+    {
+      x: 58,
+      y: 93,
+      size: fontSize,
+      font: codecFont,
+      color: rgb(0, 0, 0)
+    }
+  );
 };
 
 export const generatePDF = async ({
   initialPDFPath,
   page4BackgroundImage,
-  page8BackgroundImage,
+  page6BackgroundImage,
   lastPdfPage,
   chartBackground1,
   chartBackground2,
   csvPath,
+  codecRegularPath,
   globalCapacity,
   globalPanels,
   globalPercentage,
@@ -206,7 +259,8 @@ export const generatePDF = async ({
   globalPaybackNeos,
   globalPaybackRooftop,
   globalTons,
-  cumulativeSavings
+  cumulativeSavings,
+  yearlyConsumption
 }: GeneratePDFProps) => {
   try {
     console.log('🚀 Generating');
@@ -220,7 +274,7 @@ export const generatePDF = async ({
 
     // Create a new PDFDocument
     const newPdfDoc = await PDFDocument.create();
-
+    newPdfDoc.registerFontkit(fontkit);
     // Copy the pages from existingPdfDoc to newPdfDoc
     const copiedPages = await newPdfDoc.copyPages(
       existingPdfDoc,
@@ -232,9 +286,10 @@ export const generatePDF = async ({
     const pageHeight = 842; // A4 height in points
 
     // Embed the Helvetica font
-    const helveticaFont = await newPdfDoc.embedFont(
-      StandardFonts.HelveticaBold
+    const fontBytes = await fetch(codecRegularPath).then((resp) =>
+      resp.arrayBuffer()
     );
+    const codecFont = await newPdfDoc.embedFont(fontBytes);
 
     // Embed the background image
     const imageUrl = await fetch(page4BackgroundImage).then((resp) =>
@@ -260,58 +315,89 @@ export const generatePDF = async ({
     });
 
     // Set the font size
-    const fontSize = 10;
+    const fontSize = 11;
 
     page.drawText(
-      `${globalCapacity.toFixed(2)} KWp (${globalPanels.toFixed(2)}) Paneles`,
+      `${formatNumber(globalCapacity)} kWp (${formatNumber(globalPanels)}) Paneles`,
       {
         x: 120,
-        y: pageHeight - 225 - fontSize,
+        y: 606,
         size: fontSize,
-        font: helveticaFont,
+        font: codecFont,
         color: rgb(0, 0, 0)
       }
     );
-    page.drawText(`${(globalCapacity * 2220).toFixed(2)} KWh`, {
-      x: pageWidth - 210,
-      y: pageHeight - 225 - fontSize,
+    page.drawText(`${formatNumber(globalCapacity * 2220)} KWh`, {
+      x: 385,
+      y: 606,
       size: fontSize,
-      font: helveticaFont,
+      font: codecFont,
       color: rgb(0, 0, 0)
     });
-    page.drawText(`${globalCapacity.toFixed(2)}`, {
-      x: pageWidth - 114,
-      y: pageHeight - 322.5 - fontSize, // Adjust coordination system
+    page.drawText(
+      'Considerando el consumo eléctrico real, así como el perfil de producción energética de',
+      {
+        x: 60,
+        y: 550,
+        size: fontSize,
+        font: codecFont,
+        color: rgb(0, 0, 0)
+      }
+    );
+    page.drawText(
+      'nuestros parques solares, se ha realizado un estudio que calcula con exactitud el tamaño',
+      {
+        x: 60,
+        y: 535,
+        size: fontSize,
+        font: codecFont,
+        color: rgb(0, 0, 0)
+      }
+    );
+    page.drawText('ideal de su Instalación Solar Virtual.', {
+      x: 60,
+      y: 520,
       size: fontSize,
-      font: helveticaFont,
-      color: rgb(0, 0, 0)
-    });
-    page.drawText(`${globalPanels.toFixed(2)}`, {
-      x: 140,
-      y: pageHeight - 338 - fontSize, // Adjust coordination system
-      size: fontSize,
-      font: helveticaFont,
+      font: codecFont,
       color: rgb(0, 0, 0)
     });
 
-    page.drawText(`${(globalCapacity * 2220).toFixed(2)}`, {
-      x: pageWidth - 138,
-      y: pageHeight - 338 - fontSize, // Adjust coordination system
-      size: fontSize,
-      font: helveticaFont,
-      color: rgb(0, 0, 0)
-    });
-    page.drawText(`${globalPercentage.toFixed(2)}`, {
-      x: pageWidth - 311,
-      y: pageHeight - 352 - fontSize,
-      size: fontSize,
-      font: helveticaFont,
-      color: rgb(0, 0, 0)
-    });
+    page.drawText(
+      `En base a este estudio, se aconseja al cliente una Instalación Solar Virtual de ${formatNumber(globalCapacity)} kWp,`,
+      {
+        x: 60,
+        y: 500,
+        size: fontSize,
+        font: codecFont,
+        color: rgb(0, 0, 0)
+      }
+    );
+    page.drawText(
+      `equivalente a ${formatNumber(globalPanels)} paneles. Dicha Instalación Solar Virtual producirá ${formatNumber(globalCapacity * 2220)} KWh`,
+      {
+        x: 60,
+        y: 485,
+        size: fontSize,
+        font: codecFont,
+        color: rgb(0, 0, 0)
+      }
+    );
+
+    page.drawText(
+      `de electricidad al año, el equivalente a un ${formatNumber((globalCapacity * 2220) / yearlyConsumption)} del consumo total.`,
+      {
+        x: 60,
+        y: 470,
+        size: fontSize,
+        font: codecFont,
+        color: rgb(0, 0, 0)
+      }
+    );
+
     const csvReadStream = await fetch(csvPath).then((resp) => resp.body);
-    const records = await parseCSV(csvReadStream);
+    const records = await parseCSV(csvReadStream, globalCapacity);
 
-    // Generate 3 Chart Pages
+    // Generate Chart Page
 
     await generateChartPage({
       records,
@@ -326,13 +412,13 @@ export const generatePDF = async ({
       pageHeight
     });
 
-    await generatePage8(
-      page8BackgroundImage,
+    await generatePage6(
+      page6BackgroundImage,
       newPdfDoc,
       pageWidth,
       pageHeight,
       globalCapacity,
-      helveticaFont,
+      codecFont,
       globalPrice,
       globalSavings,
       globalPaybackNeos,
@@ -340,7 +426,9 @@ export const generatePDF = async ({
       globalTons
     );
 
-    const page9 = await embedChartBackground(
+    // Generate Payback Chart Page
+
+    const page7 = await embedChartBackground(
       newPdfDoc,
       chartBackground2,
       imageDims.width,
@@ -348,11 +436,22 @@ export const generatePDF = async ({
       pageWidth,
       pageHeight
     );
-    const chartUrl = await generatePaybackChart(cumulativeSavings, globalPrice);
+    // const chartUrl = await generatePaybackChart(cumulativeSavings, globalPrice);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/generate-payback-chart`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          cumulativeSavings,
+          globalPrice
+        })
+      }
+    );
+    const chartUrl = await response.text();
     chartUrl &&
       (await drawChart({
         pdfDoc: newPdfDoc,
-        page: page9,
+        page: page7,
         chartUrl,
         xPos: 50,
         yPos: 225,

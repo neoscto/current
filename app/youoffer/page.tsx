@@ -234,6 +234,10 @@ const YourOffer = ({ handleNext, data }: any) => {
     return `${process.env.NEXT_PUBLIC_BASE_URL}/${fileName}`;
   };
 
+  const generateFontPath = (fileName: string) => {
+    return `${process.env.NEXT_PUBLIC_BASE_URL}/fonts/${fileName}`;
+  };
+
   const handleDownloadOffer = async () => {
     try {
       // const response = await fetch('api/download-offer', {
@@ -246,22 +250,23 @@ const YourOffer = ({ handleNext, data }: any) => {
       //     data
       //   })
       // });
-      const chartBackground1 = generatePath('Background Charts.png');
-      const chartBackground2 = generatePath('Background Page 9.png');
+      const chartBackground1 = generatePath('Background Page 5.png');
+      const chartBackground2 = generatePath('Background Page 7.png');
       const initialPDFPath = generatePath('Pages 1-3.pdf');
-      const page4BackgroundImage = generatePath('Background Page 5.png');
-      const page8BackgroundImage = generatePath('Background Page 8.png');
+      const page4BackgroundImage = generatePath('Background Page 4.png');
+      const page6BackgroundImage = generatePath('Background Page 6.png');
       const lastPdfPage = generatePath('Last Page.pdf');
       const csvPath = generatePath('chart_data.csv');
-      // console.log('PDF Data: ', data);
+      const codecRegularPath = generateFontPath('codec-pro.regular.ttf');
       const pdfData = {
         initialPDFPath,
         page4BackgroundImage,
-        page8BackgroundImage,
+        page6BackgroundImage,
         lastPdfPage,
         chartBackground1,
         chartBackground2,
         csvPath,
+        codecRegularPath,
         globalCapacity: data.vsi_required_capacity,
         globalPanels: data.number_of_panels,
         globalPercentage: data.percent_savings_year1_w_neos,
@@ -270,7 +275,8 @@ const YourOffer = ({ handleNext, data }: any) => {
         globalPaybackNeos: data.payback_w_neos,
         globalPaybackRooftop: data.payback_rooftop,
         globalTons: data.neos_total_emissions_saved_in_tons,
-        cumulativeSavings: data.cumulative_savings
+        cumulativeSavings: data.cumulative_savings,
+        yearlyConsumption: data.yearly_consumption
       };
 
       const response = await generatePDF(pdfData);
@@ -415,20 +421,22 @@ const YourOffer = ({ handleNext, data }: any) => {
                 {/* Plan Buttons */}
                 <div className=" lg:w-full w-auto font-medium flex lg:gap-4 lg:justify-normal justify-center md:flex-row flex-col gap-3">
                   <button
-                    className={` w-full  border-2 rounded-2xl  p-4 ${userPlan == 'neos'
-                      ? 'border-[#66BCDA]'
-                      : 'border-[#E0E0E0]'
-                      }`}
+                    className={` w-full  border-2 rounded-2xl  p-4 ${
+                      userPlan == 'neos'
+                        ? 'border-[#66BCDA]'
+                        : 'border-[#E0E0E0]'
+                    }`}
                     onClick={updateUserPlanSelection('neos')}
                   >
                     {parse(t('offer.buyPanelProviderNeos'))}
                   </button>
 
                   <button
-                    className={` w-full font-medium  border-2 rounded-2xl  p-4 ${userPlan == 'current'
-                      ? 'border-[#66BCDA]'
-                      : 'border-[#E0E0E0]'
-                      }`}
+                    className={` w-full font-medium  border-2 rounded-2xl  p-4 ${
+                      userPlan == 'current'
+                        ? 'border-[#66BCDA]'
+                        : 'border-[#E0E0E0]'
+                    }`}
                     onClick={updateUserPlanSelection('current')}
                   >
                     {parse(t('offer.buyPanelProviderCurrent'))}
@@ -449,19 +457,19 @@ const YourOffer = ({ handleNext, data }: any) => {
                   <b>
                     {userPlan === 'neos'
                       ? data.percent_savings_year1_w_neos.toLocaleString(
-                        'en-US',
-                        {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
-                        }
-                      )
+                          'en-US',
+                          {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                          }
+                        )
                       : data.percent_savings_year1_without_neos.toLocaleString(
-                        'en-US',
-                        {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
-                        }
-                      )}
+                          'en-US',
+                          {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                          }
+                        )}
                     %
                   </b>{' '}
                   {t('')}
@@ -472,16 +480,16 @@ const YourOffer = ({ handleNext, data }: any) => {
                     €
                     {userPlan === 'neos'
                       ? data.savings_retail_w_neos.toLocaleString('en-US', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                      })
-                      : data.savings_retail_without_neos.toLocaleString(
-                        'en-US',
-                        {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
-                        }
-                      )}{' '}
+                        })
+                      : data.savings_retail_without_neos.toLocaleString(
+                          'en-US',
+                          {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                          }
+                        )}{' '}
                   </b>
                   {t('')}
                 </p>
@@ -491,13 +499,13 @@ const YourOffer = ({ handleNext, data }: any) => {
                     {' '}
                     {userPlan === 'neos'
                       ? data.payback_w_neos.toLocaleString('en-US', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                      })
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        })
                       : data.payback_without_neos.toLocaleString('en-US', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                      })}{' '}
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        })}{' '}
                     {t('years')}
                   </b>
                 </p>
@@ -507,37 +515,37 @@ const YourOffer = ({ handleNext, data }: any) => {
                     {' '}
                     {userPlan === 'neos'
                       ? data.neos_total_emissions_saved_in_tons.toLocaleString(
+                          'en-US',
+                          {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                          }
+                        )
+                      : data.neos_not_provider_total_emissions_saved_in_tons.toLocaleString(
+                          'en-US',
+                          {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                          }
+                        )}{' '}
+                    {t('tons')}
+                  </b>{' '}
+                  (
+                  {userPlan === 'neos'
+                    ? data.neos_elephants_carbon_capture.toLocaleString(
                         'en-US',
                         {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         }
                       )
-                      : data.neos_not_provider_total_emissions_saved_in_tons.toLocaleString(
+                    : data.neos_not_provider_elephants_carbon_capture.toLocaleString(
                         'en-US',
                         {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         }
                       )}{' '}
-                    {t('tons')}
-                  </b>{' '}
-                  (
-                  {userPlan === 'neos'
-                    ? data.neos_elephants_carbon_capture.toLocaleString(
-                      'en-US',
-                      {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                      }
-                    )
-                    : data.neos_not_provider_elephants_carbon_capture.toLocaleString(
-                      'en-US',
-                      {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                      }
-                    )}{' '}
                   {t('elephants')})
                 </p>
               </div>
@@ -548,7 +556,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                     <button
                       className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
                       onClick={handleDownloadOffer} // uncomment
-                    // disabled // comment and the coming soons below
+                      // disabled // comment and the coming soons below
                     >
                       {t('Your-offer.download-offer')}
                     </button>
@@ -584,14 +592,15 @@ const YourOffer = ({ handleNext, data }: any) => {
                     return (
                       <div
                         key={index}
-                        className={`w-full h-24 px-4 whitespace-pre border text-[#4F4F4F] text-[14px] leading-[17.64px] font-semibold border-b-0 flex items-center ${index === 0
-                          ? 'rounded-tl-3xl px-3 border-[#0F9DD0] bg-[#E8F5FA] max-w-[180px] min-w-[180px]'
-                          : index === 1
-                            ? 'max-w-[138px] min-w-[138px]'
-                            : index === 3
-                              ? ' border-[#E0E0E0] rounded-tr-3xl max-w-[108px] min-w-[108px]'
-                              : 'border-[#E0E0E0] max-w-[156px] min-w-[156px]'
-                          } flex items-center justify-center gap-1 text-center`}
+                        className={`w-full h-24 px-4 whitespace-pre border text-[#4F4F4F] text-[14px] leading-[17.64px] font-semibold border-b-0 flex items-center ${
+                          index === 0
+                            ? 'rounded-tl-3xl px-3 border-[#0F9DD0] bg-[#E8F5FA] max-w-[180px] min-w-[180px]'
+                            : index === 1
+                              ? 'max-w-[138px] min-w-[138px]'
+                              : index === 3
+                                ? ' border-[#E0E0E0] rounded-tr-3xl max-w-[108px] min-w-[108px]'
+                                : 'border-[#E0E0E0] max-w-[156px] min-w-[156px]'
+                        } flex items-center justify-center gap-1 text-center`}
                       >
                         {index === 0 && (
                           <img
@@ -613,44 +622,49 @@ const YourOffer = ({ handleNext, data }: any) => {
                     return (
                       <div className="flex w-full" key={index}>
                         <div
-                          className={`w-[225px] h-16 pl-[20px]  border border-[#E0E0E0] border-r-0 border-b-0 text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium ${index === panelChargeDetails.length - 1
-                            ? 'rounded-bl-3xl border-b-[1px]'
-                            : ''
-                            } flex items-center`}
+                          className={`w-[225px] h-16 pl-[20px]  border border-[#E0E0E0] border-r-0 border-b-0 text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium ${
+                            index === panelChargeDetails.length - 1
+                              ? 'rounded-bl-3xl border-b-[1px]'
+                              : ''
+                          } flex items-center`}
                         >
                           {t(`panel-charge.${charge.title}`)}
                         </div>
                         <div className="flex max-w-[calc(100%_-_225px)] w-full">
                           <div
-                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#0F9DD0] bg-[#E8F5FA] border-b-0 max-w-[180px] min-w-[180px] w-full ${index === panelChargeDetails.length - 1
-                              ? 'border-b-[1px]'
-                              : ''
-                              }`}
+                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#0F9DD0] bg-[#E8F5FA] border-b-0 max-w-[180px] min-w-[180px] w-full ${
+                              index === panelChargeDetails.length - 1
+                                ? 'border-b-[1px]'
+                                : ''
+                            }`}
                           >
                             {data.tableData[index].neosPanelProvider || '-'}
                           </div>
                           <div
-                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[138px] w-full ${index === panelChargeDetails.length - 1
-                              ? 'border-b-[1px]'
-                              : ''
-                              }`}
+                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[138px] w-full ${
+                              index === panelChargeDetails.length - 1
+                                ? 'border-b-[1px]'
+                                : ''
+                            }`}
                           >
                             {data.tableData[index].neosPanelKeepProvider || '-'}
                           </div>
                           <div
-                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[156px] w-full ${index === panelChargeDetails.length - 1
-                              ? 'border-b-[1px]'
-                              : ''
-                              }`}
+                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-r-0 border-b-0 max-w-[156px] w-full ${
+                              index === panelChargeDetails.length - 1
+                                ? 'border-b-[1px]'
+                                : ''
+                            }`}
                           >
                             {data.tableData[index].rooftopPanelKeepProvider ||
                               '-'}
                           </div>
                           <div
-                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-b-0 max-w-[108px] w-full ${index === panelChargeDetails.length - 1
-                              ? 'rounded-br-3xl border-b-[1px]'
-                              : ''
-                              }`}
+                            className={`flex justify-center items-center p-[18px] text-[#4F4F4F] text-[14px] leading-[17.64px] font-medium text-center border border-[#E0E0E0] border-b-0 max-w-[108px] w-full ${
+                              index === panelChargeDetails.length - 1
+                                ? 'rounded-br-3xl border-b-[1px]'
+                                : ''
+                            }`}
                           >
                             {data.tableData[index].keepProvider || '-'}
                           </div>
@@ -869,20 +883,22 @@ const YourOffer = ({ handleNext, data }: any) => {
 
               <div className="flex gap-2">
                 <button
-                  className={` p-4 border-2 rounded-3xl text-xs md:text-sm font-medium ${userPlanBar === 'neos'
-                    ? 'border-[#66BCDA]'
-                    : 'border-[#E0E0E0]'
-                    }`}
+                  className={` p-4 border-2 rounded-3xl text-xs md:text-sm font-medium ${
+                    userPlanBar === 'neos'
+                      ? 'border-[#66BCDA]'
+                      : 'border-[#E0E0E0]'
+                  }`}
                   onClick={updateUserPlanBarSelection('neos')}
                 >
                   {parse(t('How-it-work.chooseNeosPartner'))}
                 </button>
 
                 <button
-                  className={` p-4 border-2 rounded-3xl text-xs md:text-sm font-medium ${userPlanBar === 'current'
-                    ? 'border-[#66BCDA]'
-                    : 'border-[#E0E0E0]'
-                    }`}
+                  className={` p-4 border-2 rounded-3xl text-xs md:text-sm font-medium ${
+                    userPlanBar === 'current'
+                      ? 'border-[#66BCDA]'
+                      : 'border-[#E0E0E0]'
+                  }`}
                   onClick={updateUserPlanBarSelection('current')}
                 >
                   {parse(t('How-it-work.keepProvider'))}
@@ -958,13 +974,13 @@ const YourOffer = ({ handleNext, data }: any) => {
                   tickFormatter={(value) =>
                     value > 0
                       ? `${(
-                        (userPlanBar === 'neos'
-                          ? value * data.total_savings_w_neos
-                          : value * data.total_savings_w_neos) / 1000
-                      ).toLocaleString('en-US', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                      })}K`
+                          (userPlanBar === 'neos'
+                            ? value * data.total_savings_w_neos
+                            : value * data.total_savings_w_neos) / 1000
+                        ).toLocaleString('en-US', {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        })}K`
                       : value
                   }
                   className="lg:text-[12px] text-[6px] "

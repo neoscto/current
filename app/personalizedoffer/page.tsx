@@ -118,6 +118,7 @@ const PersonalizedOffer = () => {
     savings_retail_without_neos: 0,
     payback_w_neos: 0,
     payback_without_neos: 0,
+    yearly_consumption: 0,
     neos_total_emissions_saved_in_tons: 0,
     neos_not_provider_total_emissions_saved_in_tons: 0,
     neos_elephants_carbon_capture: 0,
