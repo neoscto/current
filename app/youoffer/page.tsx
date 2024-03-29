@@ -1,18 +1,18 @@
 'use client';
 import { useEffect, useState } from 'react';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
+import { useTranslation } from 'react-i18next';
+import { PopupModal, useCalendlyEventListener } from 'react-calendly';
 import NeosButton from '@/components/NeosButton';
 import { generatePDF } from '@/lib/actions/download-offer';
-import { RootState } from '@/store/store';
 import { getDataFromSessionStorage } from '@/utils/utils';
 import Rating from '@mui/material/Rating';
 import parse from 'html-react-parser';
 import html2Canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { useRouter } from 'next/navigation';
-import { PopupModal, useCalendlyEventListener } from 'react-calendly';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { usePDF } from 'react-to-pdf';
 import {
   Bar,
@@ -26,6 +26,7 @@ import {
   YAxis
 } from 'recharts';
 import CircularProgress from '@mui/material/CircularProgress';
+import { setUserData } from '@/features/common/commonSlice';
 
 const CustomTooltip = ({
   active,
@@ -80,6 +81,7 @@ const YourOffer = ({ handleNext, data }: any) => {
   const { userData }: any = useSelector(
     (state: RootState) => state.commonSlice
   );
+  const dispatch = useDispatch<AppDispatch>();
   const displayValue =
     Number(
       userData?.numberOfPeople ? userData?.numberOfPeople : userData?.cups
@@ -112,11 +114,11 @@ const YourOffer = ({ handleNext, data }: any) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  useEffect(() => {
-    const offerData: any = getDataFromSessionStorage('UserOffer');
-    setUserPlan(offerData?.plan ? offerData?.plan : 'neos');
-    scrollToTop();
-  }, []);
+  // useEffect(() => {
+  //   const offerData: any = getDataFromSessionStorage('UserOffer');
+  //   setUserPlan(offerData?.plan ? offerData?.plan : 'neos');
+  //   scrollToTop();
+  // }, []);
 
   useCalendlyEventListener({
     onEventScheduled: (e: any) => {
@@ -172,10 +174,11 @@ const YourOffer = ({ handleNext, data }: any) => {
   };
 
   const updateUserPlanSelection = (plan: string) => () => {
-    const offerData: any = getDataFromSessionStorage('UserOffer');
-    offerData.plan = plan;
-    sessionStorage.setItem('UserOffer', JSON.stringify(offerData));
+    // const offerData: any = getDataFromSessionStorage('UserOffer');
+    // offerData.plan = plan;
+    // sessionStorage.setItem('UserOffer', JSON.stringify(offerData));
     setUserPlan(plan);
+    dispatch(setUserData(plan));
   };
 
   const updateUserPlanBarSelection = (plan: string) => () => {
@@ -202,6 +205,7 @@ const YourOffer = ({ handleNext, data }: any) => {
   //state for referralCode
   const [referralCode, setReferralCode] = useState('');
   const [isOfferDownloading, setIsOfferDownloading] = useState(false);
+  const [isGeneratingContract, setIsGeneratingContract] = useState(false);
 
   // validateReferralCode
   const validateReferralCode = async () => {
@@ -300,6 +304,41 @@ const YourOffer = ({ handleNext, data }: any) => {
       console.error('Error:', error);
     } finally {
       setIsOfferDownloading(false);
+    }
+  };
+
+  const handleGenerateContract = async () => {
+    if (!userData._id) return router.push('/getoffer');
+    setIsGeneratingContract(true);
+    try {
+      const response = await fetch(`/api/users-offers`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          offerData: {
+            user: userData._id,
+            totalPanels: userData.totalPanels,
+            capacityPerPanel: userData.capacityPerPanel,
+            totalCapacity: userData.totalCapacity,
+            estimateProduction: userData.estimateProduction,
+            totalPayment: userData.totalPayment,
+            typeConsumption: userData.typeConsumption,
+            plan: userPlan,
+            offerType: userData.offerType,
+            clickedOnGenerate: true
+          },
+          offerId: userData.offerId
+        })
+      });
+      const { offer } = await response.json();
+      if (offer) {
+        dispatch(setUserData({ offerId: offer._id }));
+        router.push('/getoffer?activeStep=1');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setIsGeneratingContract(false);
     }
   };
 
@@ -581,10 +620,23 @@ const YourOffer = ({ handleNext, data }: any) => {
 
                   <div className="lg:w-full w-auto  flex flex-col items-center">
                     <button
-                      className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
-                      disabled
+                      className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
+                      onClick={handleGenerateContract} // uncomment
+                      // disabled // comment and the coming soons below
                     >
-                      {t('Your-offer.contract-btn-txt')}
+                      <div className="flex items-center justify-center w-full">
+                        {isGeneratingContract ? (
+                          <CircularProgress
+                            color="inherit"
+                            sx={{
+                              width: '24px !important',
+                              height: '24px !important'
+                            }}
+                          />
+                        ) : (
+                          <span>{t('Your-offer.contract-btn-txt')}</span>
+                        )}
+                      </div>
                     </button>
                     <p className="font-sm text-[#2D9CDB] mt-1 ">
                       {t('Coming Soon...')}

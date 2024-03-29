@@ -13,6 +13,7 @@ export const createOrUpdateUserOffer = async (
   offerId?: string
 ) => {
   try {
+    if (!offerData.user) throw new Error("User can't be empty 😔");
     if (offerId) {
       const existingUserOffer = await UserOffer.findByIdAndUpdate(
         stringToObjectId(offerId),
@@ -21,29 +22,27 @@ export const createOrUpdateUserOffer = async (
       )
         .lean()
         .exec();
-      return JSON.parse(JSON.stringify(existingUserOffer));
+      return existingUserOffer;
     }
-
-    if (!offerData.user) throw new Error("User can't be empty 😔");
-    const userOffer = (await UserOffer.create(offerData)).toObject();
-    return JSON.parse(JSON.stringify(userOffer));
+    const userOffer = await UserOffer.create(offerData);
+    return userOffer;
   } catch (error) {
     console.error(error);
     throw new Error('Error creating user offer 😔');
   }
 };
 
-export async function PUT(request: Request) {
+export async function POST(request: Request) {
   try {
     await connectDB();
 
     const body = await request.json();
 
     // Create User Offer
-    const data = await createOrUpdateUserOffer(body.offerData, body.offerId);
+    const offer = await createOrUpdateUserOffer(body.offerData, body.offerId);
     let json_response = {
       status: 'success',
-      data
+      offer
     };
     return new NextResponse(JSON.stringify(json_response), {
       status: 200,
