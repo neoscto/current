@@ -79,7 +79,7 @@ const HorizontalLinearStepper = () => {
     window.addEventListener('message', (event) => {
       if (event.data === 'redirect_success_url') {
         window.location.href = '/getoffer?activeStep=2';
-        window.removeEventListener('message', (event) => { });
+        window.removeEventListener('message', (event) => {});
       }
     });
   }, [signingUrl]);
@@ -109,8 +109,8 @@ const HorizontalLinearStepper = () => {
 
     router.push(
       pathname +
-      '?' +
-      createQueryString('activeStep', (Number(activeStep) + 1).toString())
+        '?' +
+        createQueryString('activeStep', (Number(activeStep) + 1).toString())
     );
     setSkipped(newSkipped);
   };
@@ -146,9 +146,9 @@ const HorizontalLinearStepper = () => {
     }
   };
 
-  useEffect(() => {
-    dispath(setUserData(formik.values));
-  }, [formik.values]);
+  // useEffect(() => {
+  //   dispath(setUserData(formik.values));
+  // }, [formik.values]);
 
   return (
     <MainContainer>
@@ -176,7 +176,8 @@ const HorizontalLinearStepper = () => {
                 }}
               >
                 <p>
-                  We are loading contract document. Please do not click anywhere.
+                  We are loading contract document. Please do not click
+                  anywhere.
                 </p>
                 <CircularProgress />
               </div>

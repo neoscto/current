@@ -34,7 +34,7 @@ interface FormData {
 }
 
 const StandardOffer = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch: any = useDispatch<AppDispatch>();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -135,7 +135,17 @@ const StandardOffer = () => {
       );
       if (newData) {
         setData(newData);
-        dispatch(setUserData(formik?.values));
+        dispatch(
+          setUserData({
+            ...formik?.values,
+            totalPanels: newData.number_of_panels,
+            capacityPerPanel: '440 Wp',
+            totalCapacity: newData.vsi_required_capacity,
+            estimateProduction: newData.vsi_required_capacity * 2000,
+            totalPayment: newData.total_price_after_tax,
+            typeConsumption: newData.type_consumption_point
+          })
+        );
         setShowForm('yourOffer');
         setServerError('');
       }
@@ -179,18 +189,7 @@ const StandardOffer = () => {
     handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
-    dispatch(
-      setUserData({
-        ...res.data,
-        offerType: 'Standard',
-        totalPanels: data.number_of_panels,
-        capacityPerPanel: '440 Wp',
-        totalCapacity: data.vsi_required_capacity,
-        estimateProduction: data.vsi_required_capacity * 2000,
-        totalPayment: data.total_price_after_tax,
-        typeConsumption: data.type_consumption_point
-      })
-    );
+    dispatch(setUserData(res.data));
     setShowForm('yourOffer');
     const arrayData = Object.keys(res.data);
     arrayData.forEach((key: any) => {
