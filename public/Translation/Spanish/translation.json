@@ -59,12 +59,13 @@
     "field-label1": "Número de personas que viven en la casa",
     "field-label2": "CUPS",
     "field-desc": "Puedes encontrar tu CUPS (Código Universal de Punto de Suministro) en tu factura de electricidad",
-    "form-t&c": "Al marcar esta casilla, confirma que ha leído, comprendido y aceptado nuestras ",
+    "form-t&c": "Al marcar, confirma que ha leído, comprendido y aceptado las",
     "form-t&c-txt": "Términos y Condiciones",
     "view-contract-txt": "VER CONTRATO"
   },
   "Your-offer": {
-    "title": "Precio Total (IVA incl.)",
+    "title": "Precio",
+    "contract-title": "Precio Total (IVA incl.)",
     "subtitle": "más IVA",
     "desc": "por 25 años de energía solar",
     "validate-btn": "validar",

@@ -593,7 +593,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
               <div className=" ">
                 <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center ">
-                  <div className="lg:w-full w-auto  flex flex-col items-center">
+                  <div className="lg:w-full w-auto  flex flex-col items-center min-w-[150px]">
                     <button
                       className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
                       onClick={handleDownloadOffer} // uncomment
@@ -614,16 +614,18 @@ const YourOffer = ({ handleNext, data }: any) => {
                       </div>
                     </button>
 
-                    {/* <p className="font-sm text-[#2D9CDB] mt-1 ">
+                    {/* <p className="font-sm text-[#2D9CDB] mt-1 hidden">
                       {t('Coming Soon...')}
                     </p> */}
                   </div>
 
                   <div className="lg:w-full w-auto  flex flex-col items-center">
                     <button
-                      className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
-                      onClick={handleGenerateContract} // uncomment
-                      disabled={!userData._id} // comment and the coming soons below
+                      // className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
+                      className="bg-[#cccccc] text-[#666666] p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
+                      // onClick={handleGenerateContract} // uncomment
+                      // disabled={!userData._id} // comment and the coming soons below
+                      disabled
                     >
                       <div className="flex items-center justify-center w-full min-w-[150px]">
                         {isGeneratingContract ? (
