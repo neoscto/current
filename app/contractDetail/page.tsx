@@ -261,7 +261,7 @@ const ContractDetail = ({
                     <p className={defaultTxtStyle}>
                       {/* {
                         // userData?.firstName ||
-                        "2972 Westheimer Rd. Santa Ana, Illinois 85486"
+                        "2972 Westheimer Rd. Santa Ana,Illinois 85486"
                       } */}
                       <input
                         type="text"
