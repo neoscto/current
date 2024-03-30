@@ -153,14 +153,14 @@ const generateEnvelopeData = async (offerData: any) => {
                 tabLabel: 'totalPayment',
                 value: formatNumber(paybackData.totalPayment)
               },
-              {
-                tabLabel: 'cups',
-                value: cups
-              },
-              {
-                tabLabel: 'typeConsumption',
-                value: typeConsumption
-              },
+              // {
+              //   tabLabel: 'cups',
+              //   value: cups
+              // },
+              // {
+              //   tabLabel: 'typeConsumption',
+              //   value: typeConsumption
+              // },
               {
                 tabLabel: 'addressNo',
                 value: offerData.addressNo
@@ -180,8 +180,8 @@ const generateEnvelopeData = async (offerData: any) => {
               {
                 tabLabel: 'country',
                 value: 'Spain'
-              },
-              ...powerConsumptionData
+              }
+              // ...powerConsumptionData
             ]
           }
         }

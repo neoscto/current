@@ -17,7 +17,9 @@ const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
 
     const getUserOfferDetails = async () => {
       if (userData.offerId && userData._id) {
-        const response = await fetch(`/api/users-offers/${userData.offerId}`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
+        );
         const { userOffer } = await response.json();
         if (!userOffer.contractSign && userOffer.filledInfo) {
           return router.push('/getoffer?activeStep=1');

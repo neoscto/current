@@ -41,18 +41,21 @@ const EmailSuccess = ({}: any) => {
         if (!offerId && !user) {
           throw new Error(`Offer and User not found!`);
         }
-        const response = await fetch('/api/users-offers', {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({
-            offerData: {
-              user,
-              contractSign: true,
-              contractSignAt: new Date()
-            },
-            offerId
-          })
-        });
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers`,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              offerData: {
+                user,
+                contractSign: true,
+                contractSignAt: new Date()
+              },
+              offerId
+            })
+          }
+        );
 
         if (!response.ok) {
           return router.push('/getoffer?activeStep=1');

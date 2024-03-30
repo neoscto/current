@@ -17,7 +17,9 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
   useEffect(() => {
     const checkUserOfferDetails = async () => {
       if (userData.offerId && userData._id) {
-        const response = await fetch(`/api/users-offers/${userData.offerId}`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
+        );
         const { userOffer } = await response.json();
         if (
           userOffer.paid &&
@@ -29,7 +31,7 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
           router.refresh();
           router.push('/getoffer');
         } else if (userOffer.paid && userOffer.contractSign) {
-          await fetch('/api/users-offers', {
+          await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers`, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({

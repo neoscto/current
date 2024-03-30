@@ -44,12 +44,15 @@ const CheckoutForm = () => {
       maximumFractionDigits: 2
     }) || 0
   );
+  const [totalPayment, setTotalPayment] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
     if (!userData._id && !userData.offerId) return router.push('/getoffer');
     const getPrice = async () => {
-      const response = await fetch(`/api/users-offers/${userData.offerId}`);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
+      );
       const { userOffer } = await response.json();
       setDisplayValue(
         userOffer.totalPayment.toLocaleString('en-US', {
@@ -57,6 +60,7 @@ const CheckoutForm = () => {
           maximumFractionDigits: 2
         })
       );
+      setTotalPayment(userOffer.totalPayment);
     };
     userData.offerId && getPrice();
   }, [userData.offerId, userData._id]);
@@ -96,20 +100,23 @@ const CheckoutForm = () => {
         setError(error.message || '');
       }
       if (token) {
-        const response = await fetch('/api/payment', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            token: token.id,
-            amount: displayValue,
-            // @ts-ignore
-            offerId: userData.offerId,
-            // @ts-ignore
-            userId: userData._id
-          })
-        });
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/payment`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              token: token.id,
+              amount: totalPayment,
+              // @ts-ignore
+              offerId: userData.offerId,
+              // @ts-ignore
+              userId: userData._id
+            })
+          }
+        );
         const paymentResponse = await response.json();
         if (paymentResponse.status === 'succeeded') {
           setIsPaymentSuccess(true);
@@ -190,7 +197,7 @@ const CheckoutForm = () => {
         <NeosButton
           category="colored"
           type="submit"
-          disabled={!stripe || loading}
+          disabled={!stripe || loading || !totalPayment}
           buttonsize="sm"
           title="PAY NOW"
           isLoading={loading}

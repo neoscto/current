@@ -311,25 +311,28 @@ const YourOffer = ({ handleNext, data }: any) => {
     if (!userData._id) return router.push('/getoffer');
     setIsGeneratingContract(true);
     try {
-      const response = await fetch(`/api/users-offers`, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          offerData: {
-            user: userData._id,
-            totalPanels: userData.totalPanels,
-            capacityPerPanel: userData.capacityPerPanel,
-            totalCapacity: userData.totalCapacity,
-            estimateProduction: userData.estimateProduction,
-            totalPayment: userData.totalPayment,
-            typeConsumption: userData.typeConsumption,
-            plan: userPlan,
-            offerType: userData.offerType,
-            clickedOnGenerate: true
-          },
-          offerId: userData.offerId
-        })
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers`,
+        {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            offerData: {
+              user: userData._id,
+              totalPanels: userData.totalPanels,
+              capacityPerPanel: userData.capacityPerPanel,
+              totalCapacity: userData.totalCapacity,
+              estimateProduction: userData.estimateProduction,
+              totalPayment: userData.totalPayment,
+              typeConsumption: userData.typeConsumption,
+              plan: userPlan,
+              offerType: userData.offerType,
+              clickedOnGenerate: true
+            },
+            offerId: userData.offerId
+          })
+        }
+      );
       const { offer } = await response.json();
       if (offer) {
         dispatch(setUserData({ offerId: offer._id }));
@@ -623,9 +626,9 @@ const YourOffer = ({ handleNext, data }: any) => {
                     <button
                       // className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
                       className="bg-[#cccccc] text-[#666666] p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
-                      // onClick={handleGenerateContract} // uncomment
-                      // disabled={!userData._id} // comment and the coming soons below
-                      disabled
+                      onClick={handleGenerateContract} // uncomment
+                      disabled={!userData._id} // comment and the coming soons below
+                      // disabled
                     >
                       <div className="flex items-center justify-center w-full min-w-[150px]">
                         {isGeneratingContract ? (
