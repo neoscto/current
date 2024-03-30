@@ -29,12 +29,14 @@ const Content = () => {
         <button
           className="hover:opacity-70 bg-white text-black font-semibold py-3 px-1 md:px-4 rounded-xl"
           onClick={() => router.push('/description')}
+          style={{ marginTop: '0.5rem' }}
         >
           {t('Home.btn1txt')}
         </button>
         <button
           className="hover:opacity-70 bg-transparent text-white font-semibold py-3 px-1 md:px-4 rounded-xl border-2 border-white"
           onClick={() => router.push('/getoffer')}
+          style={{ marginTop: '0.5rem' }}
         >
           {t('Home.btn2txt')}
         </button>
@@ -44,12 +46,14 @@ const Content = () => {
         <button
           className="hover:opacity-70 bg-white text-black font-semibold py-3 px-1 md:px-4 rounded-xl w-full text-center text-xs"
           onClick={() => router.push('/description')}
+          style={{ marginTop: '0.5rem' }}
         >
           {t('Home.btn1txt')}
         </button>
         <button
           className="hover:opacity-70 bg-transparent text-white font-semibold py-3 px-1 md:px-4 rounded-xl border-2 border-white w-full text-center text-xs"
           onClick={() => router.push('/getoffer')}
+          style={{ marginTop: '0.5rem' }}
         >
           {t('Home.btn2txt')}
         </button>
