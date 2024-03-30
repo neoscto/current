@@ -22,7 +22,7 @@ const GetOffer = () => {
   return (
     <>
       <div className=" w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9">
-        <div className="my-14">
+        <div className="my-14 max-md:mb-4">
           <Grid
             container
             spacing={{ xs: 2, md: 3 }}

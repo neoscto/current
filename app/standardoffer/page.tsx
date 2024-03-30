@@ -219,7 +219,7 @@ const StandardOffer = () => {
             showForm={showForm}
           />
           {showForm === 'soffer' && (
-            <div className=" w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9 my-14 md:my-0">
+            <div className=" w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9 my-14 max-md:mb-4 md:my-0">
               <div className="w-[100%] md:w-[85%] lg:w-[85%]  mx-auto ">
                 <h1 className="font-bold text-3xl mb-8 md:mb-11 lg:mb-11 text-center">
                   {t('Get-offer.Standard Offer')}
