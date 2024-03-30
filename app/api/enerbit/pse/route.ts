@@ -24,7 +24,12 @@ export async function POST(req: Request, res: Response) {
       //   res.status(200).json(response.data);
       return new NextResponse(JSON.stringify(response.data), {
         status: 200,
-        headers: { 'Content-Type': 'application/json' }
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+        }
       });
     } else {
       //   res.status(500).json({ error: 'Failed to fetch data' });
@@ -47,4 +52,20 @@ export async function POST(req: Request, res: Response) {
       headers: { 'Content-Type': 'application/json' }
     });
   }
+}
+
+export async function OPTIONS(request: Request) {
+  const allowedOrigin = request.headers.get('origin');
+  const response = new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': allowedOrigin || '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers':
+        'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version',
+      'Access-Control-Max-Age': '86400'
+    }
+  });
+
+  return response;
 }
