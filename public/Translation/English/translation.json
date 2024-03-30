@@ -64,7 +64,7 @@
     "view-contract-txt": "VIEW CONTRACT"
   },
   "Your-offer": {
-    "title": "Price",
+    "title": "Total Price (incl. VAT)",
     "subtitle": "plus VAT",
     "desc": "for 25 years of solar energy",
     "validate-btn": "validate",

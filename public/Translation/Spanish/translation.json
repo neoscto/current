@@ -64,7 +64,7 @@
     "view-contract-txt": "VER CONTRATO"
   },
   "Your-offer": {
-    "title": "Precio",
+    "title": "Precio Total (IVA incl.)",
     "subtitle": "más IVA",
     "desc": "por 25 años de energía solar",
     "validate-btn": "validar",
