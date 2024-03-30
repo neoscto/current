@@ -59,7 +59,7 @@
     "field-label1": "Número de personas que viven en la casa",
     "field-label2": "CUPS",
     "field-desc": "Puedes encontrar tu CUPS (Código Universal de Punto de Suministro) en tu factura de electricidad",
-    "form-t&c": "Al marcar, confirma que ha leído, comprendido y aceptado las",
+    "form-t&c": "Al marcar, confirma que ha leído, comprendido y aceptado las ",
     "form-t&c-txt": "Términos y Condiciones",
     "view-contract-txt": "VER CONTRATO"
   },
