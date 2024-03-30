@@ -9,6 +9,7 @@ import EmailSuccess from '../emailSuccess/page';
 // import { getAuthorizationUrl } from "@/services/docusign.service";
 import { getTechnicalDataFromApi } from '@/features/calculateSolarPaybackPeriod';
 import { useRouter } from 'next/navigation';
+import { formatNumber } from '@/lib/utils';
 
 const ContractDetail = ({
   handleNext,
@@ -19,7 +20,10 @@ const ContractDetail = ({
 }: any) => {
   const { userData } = useSelector((state: any) => state.commonSlice);
   const [displayValue, setDisplayValue] = useState(
-    Number(userData?.totalPayment)?.toFixed(2) || 0
+    userData?.totalPayment.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }) || 0
   );
   const [isButtonLoading, setIsButtonLoading] = useState(false);
   const router = useRouter();
@@ -28,7 +32,12 @@ const ContractDetail = ({
     const getPrice = async () => {
       const response = await fetch(`/api/users-offers/${userData.offerId}`);
       const { userOffer } = await response.json();
-      setDisplayValue(Number(userOffer.totalPayment)?.toFixed(2));
+      setDisplayValue(
+        userOffer.totalPayment.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        })
+      );
     };
     userData.offerId && getPrice();
   }, [userData.offerId, userData._id]);
