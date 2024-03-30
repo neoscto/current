@@ -92,7 +92,10 @@ const useDocusignService = (formik: any) => {
 
       const link = document.createElement('a');
 
-      link.download = 'document.pdf';
+      link.download =
+        userOffer.plan === 'neos'
+          ? 'Contrato - Instalación Neos y Suministro Neos.pdf'
+          : 'Contrato - Instalación Neos y Suministro Actual.pdf';
 
       link.href = window.URL.createObjectURL(blob);
 

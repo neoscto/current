@@ -43,6 +43,7 @@ const HorizontalLinearStepper = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const activeStep = searchParams.get('activeStep') || 0;
+  const { userData } = useSelector((state: any) => state.commonSlice);
 
   const formikInitialValues = {
     offerType: '',
@@ -85,6 +86,22 @@ const HorizontalLinearStepper = () => {
   useEffect(() => {
     window.addEventListener('message', (event) => {
       if (event.data === 'redirect_success_url') {
+        // const updateUserOffer = async () => {
+        //   console.log('User Offer: ', userData);
+        //   return await fetch('/api/users-offers', {
+        //     method: 'POST',
+        //     headers: { 'content-type': 'application/json' },
+        //     body: JSON.stringify({
+        //       offerData: {
+        //         user: userData._id,
+        //         contractSign: true,
+        //         contractSignAt: new Date()
+        //       },
+        //       offerId: userData.offerId
+        //     })
+        //   });
+        // };
+        // updateUserOffer();
         window.location.href = '/getoffer?activeStep=2';
         window.removeEventListener('message', (event) => {});
       }
@@ -164,7 +181,7 @@ const HorizontalLinearStepper = () => {
           <ProgressBar activeStep={activeStep} />
           {signingUrl || loading ? (
             signingUrl ? (
-              <div className="w-[90%] mx-5 border-[2px] mb-5">
+              <div className="w-[90%] mx-auto border-[2px] mb-5">
                 <iframe
                   src={signingUrl}
                   width="100%"

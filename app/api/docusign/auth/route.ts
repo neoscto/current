@@ -14,28 +14,102 @@ import {
 } from '@/features/calculateSolarPaybackPeriod';
 import * as jwt from 'jsonwebtoken';
 import { NextResponse } from 'next/server';
-import { createOrUpdateUserOffer } from '../../users-offers/route';
+import { formatNumber } from '@/lib/utils';
+import { stringToObjectId } from '@/lib/api-response';
+import { UserOffer, UserOfferSchemaProps } from '@/models/UsersOffers';
 
-const generateEnvelopeData = async (offerData: any) => {
-  if (offerData.offerId && offerData._id && offerData.cups) {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${offerData.offerId}`
-    );
-    const { userOffer: paybackData } = await response.json();
+const createOrUpdateUserOffer = async (
+  offerData: UserOfferSchemaProps,
+  offerId?: string
+) => {
+  try {
+    if (!offerData.user) throw new Error("User can't be empty 😔");
+    if (offerId) {
+      const existingUserOffer = await UserOffer.findByIdAndUpdate(
+        stringToObjectId(offerId),
+        { $set: offerData },
+        { new: true }
+      )
+        .lean()
+        .exec();
+      return existingUserOffer;
+    }
+    const userOffer = await UserOffer.create(offerData);
+    return userOffer;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error creating user offer 😔');
+  }
+};
+
+enum PLAN_TYPE {
+  Neos = 'neos',
+  Current = 'current'
+}
+
+type ConsumptionData = {
+  tabLabel: string;
+  value: string;
+};
+
+interface PlanInformation {
+  cups: string;
+  typeConsumption: string;
+  powerConsumptionData: Array<ConsumptionData>;
+}
+
+const getPlanInformation = async (
+  offerData: any,
+  paybackData: any
+): Promise<PlanInformation> => {
+  if (offerData.plan === PLAN_TYPE.Neos) {
     const { consumption_data } = await fetchData(offerData.cups);
     const processData: any = processConsumptionData(consumption_data);
     const typeConsumption = paybackData.typeConsumption;
     const orderedKeys = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6'];
-    const powerConsumptionData = typeConsumption
-      ? orderedKeys.map((key) => {
-          const sum = processData[key].reduce(
-            (val: number, acc: number) => acc + val,
-            0
-          );
-          const value = `${(sum / 1000).toFixed(5)} kWp`;
-          return { tabLabel: key.toLowerCase(), value };
-        })
-      : [];
+    const powerConsumptionData = orderedKeys.map((key) => {
+      const sum = processData[key].reduce(
+        (val: number, acc: number) => acc + val,
+        0
+      );
+      const value = `${formatNumber(sum / 1000, 5)} kWp`;
+      return { tabLabel: key.toLowerCase(), value };
+    });
+
+    return { cups: offerData.cups, typeConsumption, powerConsumptionData };
+  }
+  return { cups: '', typeConsumption: '', powerConsumptionData: [] };
+};
+
+const getLabelInformation = (label: string, length: number, value: string) => {
+  return new Array(length).fill(value).map((_, index) => ({
+    tabLabel: `${label}${index + 1}`,
+    value
+  }));
+};
+
+const generateEnvelopeData = async (offerData: any) => {
+  if (offerData.offerId && offerData._id) {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${offerData.offerId}`
+    );
+    const { userOffer: paybackData } = await response.json();
+    const { cups, typeConsumption, powerConsumptionData } =
+      await getPlanInformation(offerData, paybackData);
+
+    const fullNameList = getLabelInformation(
+      'fullName',
+      6,
+      `${offerData.firstName} ${offerData.lastName}`
+    );
+    const nieList = getLabelInformation('nie', 3, offerData.nie);
+    const addressList = getLabelInformation('address', 3, offerData.address);
+    const phoneNumberList = getLabelInformation(
+      'phoneNumber',
+      2,
+      offerData.phoneNumber
+    );
+
     const envelopeData = {
       status: 'sent',
       emailSubject: 'Please sign this document',
@@ -51,46 +125,17 @@ const generateEnvelopeData = async (offerData: any) => {
           roleName: 'Signer1',
           tabs: {
             textTabs: [
+              ...fullNameList,
+              ...nieList,
+              ...addressList,
+              ...phoneNumberList,
               {
                 tabLabel: 'lastName',
                 value: offerData.lastName
               },
-
-              {
-                tabLabel: 'nie1',
-                value: offerData.nie
-              },
-              {
-                tabLabel: 'nie2',
-                value: offerData.nie
-              },
-              {
-                tabLabel: 'nie3',
-                value: offerData.nie
-              },
-              {
-                tabLabel: 'address1',
-                value: offerData.address
-              },
-              {
-                tabLabel: 'address2',
-                value: offerData.address
-              },
-              {
-                tabLabel: 'address3',
-                value: offerData.address
-              },
-              {
-                tabLabel: 'phoneNumber1',
-                value: offerData.phoneNumber
-              },
-              {
-                tabLabel: 'phoneNumber2',
-                value: offerData.phoneNumber
-              },
               {
                 tabLabel: 'totalPanels',
-                value: paybackData.totalPanels.toFixed(2).toString()
+                value: formatNumber(paybackData.totalPanels)
               },
               {
                 tabLabel: 'capacityPerPanel',
@@ -98,19 +143,19 @@ const generateEnvelopeData = async (offerData: any) => {
               },
               {
                 tabLabel: 'totalCapacity',
-                value: `${paybackData.totalCapacity.toFixed(2).toString()} kWp`
+                value: `${formatNumber(paybackData.totalCapacity)} kWp`
               },
               {
                 tabLabel: 'estimateProduction',
-                value: `${paybackData.estimateProduction.toFixed(2).toString()} kWh`
+                value: `${formatNumber(paybackData.estimateProduction * 25)} kWh`
               },
               {
                 tabLabel: 'totalPayment',
-                value: paybackData.totalPayment.toFixed(2).toString()
+                value: formatNumber(paybackData.totalPayment)
               },
               {
                 tabLabel: 'cups',
-                value: offerData.cups
+                value: cups
               },
               {
                 tabLabel: 'typeConsumption',

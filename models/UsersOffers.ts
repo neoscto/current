@@ -32,6 +32,7 @@ export type UserOfferSchemaProps = {
   clickedOnGenerate?: boolean;
   filledInfo?: boolean;
   paid?: boolean;
+  congratsPageVisited?: boolean;
 };
 
 type UserOfferSchemaMethods = {};
@@ -86,10 +87,10 @@ class UserOfferSchema {
   @prop({ required: false })
   envelopeId: string;
 
-  @prop({ default: false, required: false })
+  @prop({ default: false })
   termsConditionRead: boolean;
 
-  @prop({ default: false, required: false })
+  @prop({ default: false })
   contractSign: boolean;
 
   @prop()
@@ -103,6 +104,9 @@ class UserOfferSchema {
 
   @prop({ default: false })
   paid: boolean;
+
+  @prop({ default: false })
+  congratsPageVisited: boolean;
 
   @prop({ default: new Date() })
   createdAt: Date;

@@ -34,3 +34,11 @@ export function getDataFromSessionStorage<T>(key: string): T | null {
     return null;
   }
 }
+
+export function removeDataFromSessionStorage(key: string): void {
+  try {
+    sessionStorage.removeItem(key);
+  } catch (error) {
+    console.error('Error removing data from sessionStorage:', error);
+  }
+}

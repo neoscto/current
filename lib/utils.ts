@@ -10,24 +10,33 @@ export const dataURLToUint8Array = (dataURL: string): Uint8Array => {
   return bytes;
 };
 
-export const formatNumber = (num: number) => {
-  // Round the number to two decimal places
-  let roundedNum = Math.round(num * 100) / 100;
+export const formatNumber = (num: number, decimalPlaces: number = 2) => {
+  if (![2, 5].includes(decimalPlaces)) {
+    throw new Error(
+      'This function only supports rounding to 2 or 5 decimal places.'
+    );
+  }
+
+  // Round the number to the specified decimal places
+  const powerOfTen = Math.pow(10, decimalPlaces);
+  let roundedNum = Math.round(num * powerOfTen) / powerOfTen;
 
   // Convert the number to a string and split it into whole and decimal parts
   let parts = roundedNum.toString().split('.');
 
   // Add the missing decimal zeros if necessary
   if (parts.length === 1) {
-    parts.push('00');
-  } else if (parts[1].length === 1) {
-    parts[1] += '0';
+    parts.push('0'.repeat(decimalPlaces));
+  } else {
+    while (parts[1].length < decimalPlaces) {
+      parts[1] += '0';
+    }
   }
 
   // Replace the thousand separators in the whole part
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
-  // Return the number with a comma as the decimal point
+  // Return the number with a comma as the decimal separator
   return parts[0] + ',' + parts[1];
 };
 

@@ -161,8 +161,8 @@ const ContractDetail = ({
   return (
     <>
       {showForm === 'yourDetails' ? (
-        <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white">
-          <div className="flex flex-col-reverse md:flex-row  justify-center">
+        <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white pb-5">
+          <div className="flex flex-col-reverse md:flex-row justify-center">
             <div className="w-full md:w-3/6 mb-10 md:mb-0">
               <h1 className="text-lg md:2xl lg:text-3xl font-bold mb-3.5">
                 {t('Details.title')}
@@ -261,7 +261,7 @@ const ContractDetail = ({
                     <p className={defaultTxtStyle}>
                       {/* {
                         // userData?.firstName ||
-                        "2972 Westheimer Rd. Santa Ana, Illinois 85486"
+                        "2972 Westheimer Rd. Santa Ana,Illinois 85486"
                       } */}
                       <input
                         type="text"
@@ -301,7 +301,7 @@ const ContractDetail = ({
                       />
                     </p>
                   </div>
-                  <div className="w-full md:w-2/5 mt-2.5 pt-2.5 md:border-t-0 md:mt-0 md:pt-0">
+                  <div className="w-full md:w-2/5 border-t border-[#E0E0E0] mt-2.5 pt-2.5 md:border-t-0 md:mt-0 md:pt-0">
                     <p className={labelStyle}>{t('Get-offer-form.province')}</p>
                     <p className={defaultTxtStyle}>
                       <input
@@ -316,7 +316,7 @@ const ContractDetail = ({
                   </div>
                 </div>
               </div>
-              <div className="flex items-start my-3.5">
+              <div className="flex items-center my-3.5">
                 <input
                   id="link-checkbox"
                   type="checkbox"

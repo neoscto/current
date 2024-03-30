@@ -5,31 +5,32 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import CheckoutForm from '../payment/page';
+import { useRouter } from 'next/navigation';
 
 const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
   const { t } = useTranslation();
+  const router = useRouter();
   const { userData } = useSelector((state: any) => state.commonSlice);
 
   useEffect(() => {
     setShowForm('paymentForm');
 
-    const updateOfferContract = async () => {
-      await fetch('/api/users-offers', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          offerData: {
-            user: userData._id,
-            contractSign: true,
-            contractSignAt: new Date()
-          },
-          offerId: userData.offerId
-        })
-      });
+    const getUserOfferDetails = async () => {
+      if (userData.offerId && userData._id) {
+        const response = await fetch(`/api/users-offers/${userData.offerId}`);
+        const { userOffer } = await response.json();
+        if (!userOffer.contractSign && userOffer.filledInfo) {
+          return router.push('/getoffer?activeStep=1');
+        } else if (!userOffer.contractSign && !userOffer.filledInfo) {
+          return router.push('/getoffer');
+        }
+      } else {
+        return router.push('/getoffer');
+      }
     };
 
-    updateOfferContract();
-  }, []);
+    getUserOfferDetails();
+  }, [userData.offerId, userData._id]);
 
   return (
     <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-5">

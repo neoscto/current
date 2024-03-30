@@ -8,7 +8,7 @@ import { NextResponse } from 'next/server';
 import { stringToObjectId } from '@/lib/api-response';
 import { UserOffer, UserOfferSchemaProps } from '@/models/UsersOffers';
 
-export const createOrUpdateUserOffer = async (
+const createOrUpdateUserOffer = async (
   offerData: UserOfferSchemaProps,
   offerId?: string
 ) => {

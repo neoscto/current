@@ -37,22 +37,29 @@ const EmailSuccess = ({}: any) => {
       try {
         isLoading(true);
         const offerId = searchParams.get('offer');
-        console.log('Offer Id: ', offerId);
-        if (!offerId) {
-          throw new Error(`Offer not found!`);
+        const user = searchParams.get('user');
+        if (!offerId && !user) {
+          throw new Error(`Offer and User not found!`);
         }
-        // const response = await fetch(`/api/users-offers/${offerId}`);
+        const response = await fetch('/api/users-offers', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            offerData: {
+              user,
+              contractSign: true,
+              contractSignAt: new Date()
+            },
+            offerId
+          })
+        });
 
-        // if (!response.ok) {
-        //   throw new Error(
-        //     `Network response was not ok, status: ${response.status}`
-        //   );
-        // }
+        if (!response.ok) {
+          return router.push('/getoffer?activeStep=1');
+        }
 
         // const data = await response.json();
-        console.log('Offer Id: ', offerId);
-        // const data = await getUser(offerId);
-        // setOfferData(data);
+        // const { userOffer } = await response.json(); // setOfferData(data);
         // saveDataToSessionStorage('UserOffer', data.data);
 
         window.parent.postMessage('redirect_success_url', '*');
