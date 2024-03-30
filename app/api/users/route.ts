@@ -6,7 +6,7 @@ import { createErrorResponse } from '@/lib/api-response';
 import connectDB from '@/lib/connect-db';
 import { NextResponse } from 'next/server';
 
-export const createOrUpdateUserByEmail = async (userData: UserSchemaProps) => {
+const createOrUpdateUserByEmail = async (userData: UserSchemaProps) => {
   try {
     let user: any;
     const { emailAddress } = userData;

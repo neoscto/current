@@ -1,7 +1,33 @@
 import { NextResponse } from 'next/server';
+import { UserOffer, UserOfferSchemaProps } from '@/models/UsersOffers';
 import { Payment, PaymentSchemaProps } from '@/models/Payment';
-import { createOrUpdateUserOffer } from '../users-offers/route';
+import { stringToObjectId } from '@/lib/api-response';
+
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+const createOrUpdateUserOffer = async (
+  offerData: UserOfferSchemaProps,
+  offerId?: string
+) => {
+  try {
+    if (!offerData.user) throw new Error("User can't be empty 😔");
+    if (offerId) {
+      const existingUserOffer = await UserOffer.findByIdAndUpdate(
+        stringToObjectId(offerId),
+        { $set: offerData },
+        { new: true }
+      )
+        .lean()
+        .exec();
+      return existingUserOffer;
+    }
+    const userOffer = await UserOffer.create(offerData);
+    return userOffer;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error creating user offer 😔');
+  }
+};
 
 const createPayment = async (paymentData: PaymentSchemaProps) => {
   try {
