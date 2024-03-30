@@ -266,7 +266,7 @@ const ContractDetail = ({
                       <input
                         type="text"
                         name="address"
-                        placeholder="Calle Princesa 31"
+                        placeholder="Calle Princesa"
                         value={formik.values.address || ''}
                         onChange={handleInputChange}
                         className="outline-none border-none focus:outline-none focus:border-none focus:ring-0 text-black"
@@ -324,7 +324,7 @@ const ContractDetail = ({
                 />
                 <label className="ms-2 mt-2 md:mt-0 text-[#4F4F4F] text-sm">
                   {t('Get-offer-form.form-t&c')}
-                  <span className="text-[#FD7C7C]"> NEOS </span>
+                  {/* <span className="text-[#FD7C7C]"> Neos </span> */}
                   <Link
                     href="/terms-and-conditions"
                     target="_blank"
