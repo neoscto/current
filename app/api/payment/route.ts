@@ -6,9 +6,10 @@ export async function POST(_request: Request, _response: Response) {
   const charge = await stripe.charges.create({
     amount: parseInt((body.amount * 100).toFixed(0), 10),
     currency: 'GBP',
-    ...(process.env.NODE_ENV === 'development'
-      ? { source: 'tok_visa' }
-      : { source: body.token }),
+    source: 'tok_visa',
+    // ...(process.env.NODE_ENV === 'development'
+    //   ? { source: 'tok_visa' }
+    //   : { source: body.token }),
     metadata: { userOffer: body.offerId, user: body.userId }
   });
   return new NextResponse(
