@@ -6,9 +6,51 @@ import { useTranslation } from 'react-i18next';
 import VideoPreview from '@/app/videoPlayer/preview';
 import CircularProgress from '@mui/material/CircularProgress';
 import TolstoyHero from '@/app/landingpage/TolstoyHero';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
+import { removeDataFromSessionStorage } from '@/utils/utils';
 
 const Congrats = ({ generatePDF, isPDFLoading }: any) => {
   const { t } = useTranslation();
+  const { userData } = useSelector((state: any) => state.commonSlice);
+  const router = useRouter();
+  useEffect(() => {
+    const checkUserOfferDetails = async () => {
+      if (userData.offerId && userData._id) {
+        const response = await fetch(`/api/users-offers/${userData.offerId}`);
+        const { userOffer } = await response.json();
+        if (
+          userOffer.paid &&
+          userOffer.contractSign &&
+          userOffer.congratsPageVisited
+        ) {
+          removeDataFromSessionStorage('UserOffer');
+          removeDataFromSessionStorage('docusignAccessToken');
+          router.refresh();
+          router.push('/getoffer');
+        } else if (userOffer.paid && userOffer.contractSign) {
+          await fetch('/api/users-offers', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              offerData: {
+                user: userData._id,
+                congratsPageVisited: true
+              },
+              offerId: userData.offerId
+            })
+          });
+        } else if (userOffer.contractSign) {
+          return router.push('/getoffer?activeStep=1');
+        } else {
+          return router.push('/getoffer');
+        }
+      } else {
+        return router.push('/getoffer');
+      }
+    };
+    checkUserOfferDetails();
+  }, [userData.offerId, userData._id]);
   return (
     <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-5">
       <div className="mx-auto flex flex-col justify-center items-center w-full lg:w-3/6">
