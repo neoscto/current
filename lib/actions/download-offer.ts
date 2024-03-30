@@ -151,7 +151,7 @@ const generatePage6 = async (
     color: rgb(0, 0, 0)
   });
   page.drawText(
-    `propuesta de ${formatNumber(globalCapacity)} kWp es de €${formatNumber(globalPrice)} sin 21% IVA.`,
+    `propuesta de ${formatNumber(globalCapacity)} kWp es de €${formatNumber(globalPrice * 1.21)} (21% IVA incluido).`,
     {
       x: 60,
       y: 632,
@@ -191,7 +191,7 @@ const generatePage6 = async (
     }
   );
   page.drawText(
-    `${formatNumber(globalSavings / globalPrice)} veces mayor al coste de la inversión.`,
+    `${formatNumber(globalSavings / (globalPrice * 1.21))} veces mayor al coste total de la inversión.`,
     {
       x: 58,
       y: 217,
