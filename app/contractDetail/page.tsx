@@ -266,7 +266,7 @@ const ContractDetail = ({
                       <input
                         type="text"
                         name="address"
-                        placeholder="Calle Princesa 31"
+                        placeholder="Calle Princesa"
                         value={formik.values.address || ''}
                         onChange={handleInputChange}
                         className="outline-none border-none focus:outline-none focus:border-none focus:ring-0 text-black"
