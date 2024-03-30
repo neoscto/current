@@ -24,7 +24,12 @@ export async function POST(req: Request, res: Response) {
       //   res.status(200).json(response.data);
       return new NextResponse(JSON.stringify(response.data), {
         status: 200,
-        headers: { 'Content-Type': 'application/json' }
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+        }
       });
     } else {
       //   res.status(500).json({ error: 'Failed to fetch data' });

@@ -46,7 +46,12 @@ export async function POST(request: Request) {
     };
     return new NextResponse(JSON.stringify(json_response), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' }
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+      }
     });
   } catch (error: any) {
     console.log('api error ===>', error);
