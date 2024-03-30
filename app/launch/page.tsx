@@ -27,15 +27,18 @@ const Launch = () => {
 
   const handleSubmit = async (values: SubmitValue) => {
     setLoading(true);
-    const response = await fetch('/api/collect-email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        input: values.input
-      })
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/collect-email`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          input: values.input
+        })
+      }
+    );
     form.reset();
     setLoading(false);
   };

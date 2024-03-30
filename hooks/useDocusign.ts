@@ -32,10 +32,13 @@ const useDocusignService = (formik: any) => {
         setLoading(true);
         try {
           // setUserOffer(offerData);
-          const response = await fetch('/api/docusign/auth', {
-            method: 'POST',
-            body: JSON.stringify({ code, userData })
-          });
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/docusign/auth`,
+            {
+              method: 'POST',
+              body: JSON.stringify({ code, userData })
+            }
+          );
           const { signingUrl, envelopeId, accessToken } = await response.json();
           // offerData.envelopeId = envelopeId;
           // setUserOffer(offerData);
@@ -78,7 +81,7 @@ const useDocusignService = (formik: any) => {
         Authorization: `Bearer ${docusignAccessToken}`
       };
 
-      const url = `/api/docusign/download?envelopeId=${envelopeId}`;
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/docusign/download?envelopeId=${envelopeId}`;
 
       const response = await fetch(url, {
         method: 'GET',
@@ -125,10 +128,13 @@ const useDocusignService = (formik: any) => {
     setLoading(true);
     try {
       // setUserOffer(offerData);
-      const response = await fetch('/api/docusign/auth', {
-        method: 'POST',
-        body: JSON.stringify({ code: '', offerData })
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/docusign/auth`,
+        {
+          method: 'POST',
+          body: JSON.stringify({ code: '', offerData })
+        }
+      );
       const { signingUrl, envelopeId, accessToken } = await response.json();
       offerData.envelopeId = envelopeId;
       setUserOffer(offerData);

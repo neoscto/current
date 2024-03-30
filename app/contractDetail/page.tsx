@@ -30,7 +30,9 @@ const ContractDetail = ({
   useEffect(() => {
     if (!userData._id && !userData.offerId) return router.push('/getoffer');
     const getPrice = async () => {
-      const response = await fetch(`/api/users-offers/${userData.offerId}`);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
+      );
       const { userOffer } = await response.json();
       setDisplayValue(
         userOffer.totalPayment.toLocaleString('en-US', {
@@ -91,25 +93,28 @@ const ContractDetail = ({
         addressNo: formik?.values?.addressNo,
         province: formik?.values?.province
       };
-      const response = await fetch('/api/users', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          ...userObj,
-          emailAddress: userData.emailAddress,
-          firstName: userData.firstName,
-          lastName: userData.lastName,
-          phoneNumber: userData.phoneNumber,
-          dialCode: userData.dialCode
-        })
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`,
+        {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            ...userObj,
+            emailAddress: userData.emailAddress,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            phoneNumber: userData.phoneNumber,
+            dialCode: userData.dialCode
+          })
+        }
+      );
       const { data } = await response.json();
       if (data) {
         const technicalData = await getTechnicalDataFromApi(
           formik?.values?.cups
         );
         const isPlanNeos = formik?.values?.plan === 'neos';
-        await fetch('/api/users-offers', {
+        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers`, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({
