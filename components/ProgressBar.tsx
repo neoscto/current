@@ -95,7 +95,7 @@ const ProgressBar = ({
               >
                 <StepLabel
                   {...labelProps}
-                  className="w-12  sm:w-24 md:w-auto flex item"
+                  className="w-12 sm:w-24 md:w-auto flex item"
                 >
                   {t(label)}
                 </StepLabel>

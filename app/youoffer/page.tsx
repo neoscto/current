@@ -175,10 +175,10 @@ const YourOffer = ({ handleNext, data }: any) => {
 
   const updateUserPlanSelection = (plan: string) => () => {
     // const offerData: any = getDataFromSessionStorage('UserOffer');
-    // offerData.plan = plan;
+    // userData.plan = plan;
     // sessionStorage.setItem('UserOffer', JSON.stringify(offerData));
+    dispatch(setUserData({ ...userData, plan }));
     setUserPlan(plan);
-    dispatch(setUserData(plan));
   };
 
   const updateUserPlanBarSelection = (plan: string) => () => {
@@ -599,7 +599,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                       onClick={handleDownloadOffer} // uncomment
                       //disabled
                     >
-                      <div className="flex items-center justify-center w-full">
+                      <div className="flex items-center justify-center w-full min-w-[150px]">
                         {isOfferDownloading ? (
                           <CircularProgress
                             color="inherit"
@@ -625,7 +625,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                       onClick={handleGenerateContract} // uncomment
                       disabled={!userData._id} // comment and the coming soons below
                     >
-                      <div className="flex items-center justify-center w-full">
+                      <div className="flex items-center justify-center w-full min-w-[150px]">
                         {isGeneratingContract ? (
                           <CircularProgress
                             color="inherit"
