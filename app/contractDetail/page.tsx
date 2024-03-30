@@ -324,7 +324,7 @@ const ContractDetail = ({
                 />
                 <label className="ms-2 mt-2 md:mt-0 text-[#4F4F4F] text-sm">
                   {t('Get-offer-form.form-t&c')}
-                  <span className="text-[#FD7C7C]"> NEOS </span>
+                  {/* <span className="text-[#FD7C7C]"> Neos </span> */}
                   <Link
                     href="/terms-and-conditions"
                     target="_blank"
