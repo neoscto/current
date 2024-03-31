@@ -306,7 +306,7 @@ const YourOffer = ({ handleNext, data }: any) => {
       setIsOfferDownloading(false);
     }
   };
-
+  console.log('User Data: ', userData);
   const handleGenerateContract = async () => {
     if (!userData._id) return router.push('/getoffer');
     setIsGeneratingContract(true);

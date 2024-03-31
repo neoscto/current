@@ -1,58 +1,71 @@
 'use client';
-import React, { useEffect } from 'react';
-import Image from 'next/image';
-import NeosButton from '@/components/NeosButton';
-import { useTranslation } from 'react-i18next';
-import VideoPreview from '@/app/videoPlayer/preview';
-import CircularProgress from '@mui/material/CircularProgress';
 import TolstoyHero from '@/app/landingpage/TolstoyHero';
-import { useSelector } from 'react-redux';
-import { useRouter } from 'next/navigation';
+import NeosButton from '@/components/NeosButton';
 import { removeDataFromSessionStorage } from '@/utils/utils';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 const Congrats = ({ generatePDF, isPDFLoading }: any) => {
   const { t } = useTranslation();
   const { userData } = useSelector((state: any) => state.commonSlice);
+  const [hasVisited, setHasVisited] = useState(false);
+  console.log('Has Visited: ', hasVisited);
   const router = useRouter();
   useEffect(() => {
     const checkUserOfferDetails = async () => {
       if (userData.offerId && userData._id) {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
-        );
-        const { userOffer } = await response.json();
-        if (
-          userOffer.paid &&
-          userOffer.contractSign &&
-          userOffer.congratsPageVisited
-        ) {
-          removeDataFromSessionStorage('UserOffer');
-          removeDataFromSessionStorage('docusignAccessToken');
-          router.refresh();
-          router.push('/getoffer');
-        } else if (userOffer.paid && userOffer.contractSign) {
-          await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers`, {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({
-              offerData: {
-                user: userData._id,
-                congratsPageVisited: true
-              },
-              offerId: userData.offerId
-            })
-          });
-        } else if (userOffer.contractSign) {
-          return router.push('/getoffer?activeStep=1');
-        } else {
-          return router.push('/getoffer');
+        try {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
+          );
+          const { userOffer } = await response.json();
+
+          if (userOffer.paid && userOffer.contractSign) {
+            if (userOffer.congratsPageVisited || hasVisited) {
+              removeDataFromSessionStorage('UserOffer');
+              removeDataFromSessionStorage('docusignAccessToken');
+              setHasVisited(false);
+              router.push('/getoffer');
+            } else {
+              await fetch(
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers`,
+                {
+                  method: 'POST',
+                  headers: { 'content-type': 'application/json' },
+                  body: JSON.stringify({
+                    offerData: {
+                      user: userData._id,
+                      congratsPageVisited: true
+                    },
+                    offerId: userData.offerId
+                  })
+                }
+              ).then((response) => {
+                if (response.ok) {
+                  setHasVisited(true);
+                } else {
+                  throw new Error('Failed to update visit status');
+                }
+              });
+            }
+          } else if (userOffer.contractSign) {
+            router.push('/getoffer?activeStep=1');
+          } else {
+            router.push('/getoffer');
+          }
+        } catch (error) {
+          console.error('Failed to check user offer details:', error);
         }
       } else {
-        return router.push('/getoffer');
+        router.push('/getoffer');
       }
     };
     checkUserOfferDetails();
-  }, [userData.offerId, userData._id]);
+  }, []);
+
   return (
     <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-5">
       <div className="mx-auto flex flex-col justify-center items-center w-full lg:w-3/6">

@@ -99,11 +99,15 @@ const generateEnvelopeData = async (offerData: any) => {
 
     const fullNameList = getLabelInformation(
       'fullName',
-      6,
+      4,
       `${offerData.firstName} ${offerData.lastName}`
     );
     const nieList = getLabelInformation('nie', 3, offerData.nie);
-    const addressList = getLabelInformation('address', 3, offerData.address);
+    const addressList = getLabelInformation(
+      'fullAddress',
+      2,
+      `${offerData.address} ${offerData.addressNo}, ${offerData.postcode}, ${offerData.city}, ${offerData.province}, España`
+    );
     const phoneNumberList = getLabelInformation(
       'phoneNumber',
       2,
@@ -153,14 +157,18 @@ const generateEnvelopeData = async (offerData: any) => {
                 tabLabel: 'totalPayment',
                 value: formatNumber(paybackData.totalPayment)
               },
-              // {
-              //   tabLabel: 'cups',
-              //   value: cups
-              // },
-              // {
-              //   tabLabel: 'typeConsumption',
-              //   value: typeConsumption
-              // },
+              {
+                tabLabel: 'cups',
+                value: cups
+              },
+              {
+                tabLabel: 'typeConsumption',
+                value: typeConsumption
+              },
+              {
+                tabLabel: 'address',
+                value: offerData.address
+              },
               {
                 tabLabel: 'addressNo',
                 value: offerData.addressNo
@@ -179,9 +187,9 @@ const generateEnvelopeData = async (offerData: any) => {
               },
               {
                 tabLabel: 'country',
-                value: 'Spain'
-              }
-              // ...powerConsumptionData
+                value: 'España'
+              },
+              ...powerConsumptionData
             ]
           }
         }
