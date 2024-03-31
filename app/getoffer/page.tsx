@@ -190,16 +190,8 @@ const HorizontalLinearStepper = () => {
                 ></iframe>
               </div>
             ) : (
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh'
-                }}
-              >
-                <p>
+              <div className="w-full flex flex-col gap-2 justify-center items-center h-screen">
+                <p className="text-center p-2 w-full max-sm:-ml-1">
                   We are loading contract document. Please do not click
                   anywhere.
                 </p>

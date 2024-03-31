@@ -9,7 +9,6 @@ import EmailSuccess from '../emailSuccess/page';
 // import { getAuthorizationUrl } from "@/services/docusign.service";
 import { getTechnicalDataFromApi } from '@/features/calculateSolarPaybackPeriod';
 import { useRouter } from 'next/navigation';
-import { formatNumber } from '@/lib/utils';
 
 const ContractDetail = ({
   handleNext,
@@ -334,7 +333,7 @@ const ContractDetail = ({
                 <input
                   id="link-checkbox"
                   type="checkbox"
-                  className="w-12 h-12 md:mt-1 md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded text-8xl"
+                  className="w-9 h-9 md:w-6 md:h-6 md:mt-1 text-blue-600 bg-gray-100 border-gray-300 rounded text-8xl"
                 />
                 <label className="ms-2 mt-2 md:mt-0 text-[#4F4F4F] text-sm">
                   {t('Get-offer-form.form-t&c')}
