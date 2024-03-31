@@ -178,7 +178,7 @@ const ContractDetail = ({
         <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white pb-5">
           <div className="flex flex-col-reverse md:flex-row justify-center">
             <div className="w-full md:w-3/6 mb-10 md:mb-0">
-              <h1 className="text-lg md:2xl lg:text-3xl font-bold mb-3.5">
+              <h1 className="text-[1.4rem] md:2xl lg:text-3xl font-bold mb-3.5 px-4 md:px-6">
                 {t('Details.title')}
               </h1>
               <div className="w-full border border-[#E0E0E0] rounded-3xl py-2.5 px-4 md:px-6">
@@ -350,9 +350,14 @@ const ContractDetail = ({
                 </label>
               </div>
               {isMobile ? (
-                <div className="block">
+                <div className="flex items-center justify-center w-full">
                   <NeosButton
-                    sx={{ mt: 3 }}
+                    sx={{
+                      mt: 3,
+                      height: '56px !important',
+                      maxWidth: '273px',
+                      fontSize: '18px !important'
+                    }}
                     category="colored"
                     onClick={handleViewContract}
                     buttonsize="lg"
@@ -367,8 +372,8 @@ const ContractDetail = ({
             <div className="flex justify-center items-center relative w-full md:w-3/6 pb-10 md:left-8 lg:left-12">
               <div className="inline-block md:px-4">
                 <img src="description.png" alt="Description image" />
-                <div className="-mt-12 text-center">
-                  <h1 className="text-lg md:2xl lg:text-3xl font-bold">
+                <div className="-mt-11 text-center">
+                  <h1 className="text-[1.5rem] leading-8 mt-5 sm:mt-3 lg:mt-0 md:text-[1.7rem] md:leading-9 lg:text-3xl font-bold">
                     {t('Your-offer.contract-title')}: €{displayValue}
                   </h1>
                   {/* <div className='inline-flex'>
