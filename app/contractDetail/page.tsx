@@ -28,10 +28,6 @@ const ContractDetail = ({
   const router = useRouter();
 
   useEffect(() => {
-    router.refresh();
-  }, []);
-
-  useEffect(() => {
     if (!userData._id && !userData.offerId) return router.push('/getoffer');
     const getPrice = async () => {
       const response = await fetch(
@@ -143,7 +139,7 @@ const ContractDetail = ({
   };
   const handleViewContract = async () => {
     if (!userData._id && !userData.offerId) return router.push('/getoffer');
-
+    router.refresh();
     setIsButtonLoading(true);
     const isChecked = document.getElementById(
       'link-checkbox'
