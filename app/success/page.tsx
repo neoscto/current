@@ -52,7 +52,7 @@ const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
           <div className="flex items-center">
             <Image src="/pdfIcon.png" alt="user image" width={34} height={34} />
             <p className="text-sm font-medium text-[#171717] ms-2">
-              Solardetails.pdf
+              Contrato - Firmado.pdf
             </p>
           </div>
           <NeosButton
