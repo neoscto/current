@@ -120,7 +120,7 @@ const CheckoutForm = () => {
         const paymentResponse = await response.json();
         if (paymentResponse.status === 'succeeded') {
           setIsPaymentSuccess(true);
-          window.location.href = '/getoffer?activeStep=3';
+          router.push('/getoffer?activeStep=3');
         }
       }
       // Send the token to your server to complete the payment
