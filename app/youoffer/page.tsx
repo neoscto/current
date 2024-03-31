@@ -795,6 +795,7 @@ const YourOffer = ({ handleNext, data }: any) => {
           </div>
 
           <NeosButton
+            id="btn"
             className={
               'px-[24px] sm:px-5 py-[17px] sm:py-3 text-sm sm:text-[16px] leading-4 sm:leading-5 font-semibold w-auto sm:whitespace-nowrap lg:!mr-[12px] sm:w-48'
             }
@@ -892,6 +893,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
             <div className="flex justify-center">
               <NeosButton
+                id="btn"
                 className={
                   'px-[24px] sm:px-5 py-[17px] sm:py-3 text-sm sm:text-[16px] leading-4 sm:leading-5 font-semibold w-auto sm:w-48'
                 }
@@ -1090,6 +1092,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
         <div className="flex justify-center my-8">
           <NeosButton
+            id="btn"
             category="colored"
             className="px-[24px] sm:px-5 py-[17px] sm:py-3 text-sm sm:text-[16px] leading-4 sm:leading-5 font-semibold w-auto sm:w-48"
             onClick={scrollToDiv}
