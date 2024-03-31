@@ -466,7 +466,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                 <div className=" lg:w-full w-auto font-medium flex lg:gap-4 lg:justify-normal justify-center md:flex-row flex-col gap-3">
                   <button
                     className={` w-full  border-2 rounded-2xl  p-4 ${
-                      userPlan == 'neos'
+                      userData.plan == 'neos'
                         ? 'border-[#66BCDA]'
                         : 'border-[#E0E0E0]'
                     }`}
@@ -477,7 +477,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
                   <button
                     className={` w-full font-medium  border-2 rounded-2xl  p-4 ${
-                      userPlan == 'current'
+                      userData.plan == 'current'
                         ? 'border-[#66BCDA]'
                         : 'border-[#E0E0E0]'
                     }`}
