@@ -626,9 +626,9 @@ const YourOffer = ({ handleNext, data }: any) => {
                     <button
                       // className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
                       className="bg-[#cccccc] text-[#666666] p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
-                      // onClick={handleGenerateContract} // uncomment
-                      // disabled={!userData._id} // comment and the coming soons below
-                      disabled
+                      onClick={handleGenerateContract} // uncomment
+                      disabled={!userData._id} // comment and the coming soons below
+                      // disabled
                     >
                       <div className="flex items-center justify-center w-full min-w-[150px]">
                         {isGeneratingContract ? (
