@@ -9,7 +9,6 @@ import EmailSuccess from '../emailSuccess/page';
 // import { getAuthorizationUrl } from "@/services/docusign.service";
 import { getTechnicalDataFromApi } from '@/features/calculateSolarPaybackPeriod';
 import { useRouter } from 'next/navigation';
-import { getAuthorizationUrl } from '@/services/docusign.service';
 
 const ContractDetail = ({
   handleNext,
