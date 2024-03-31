@@ -109,10 +109,9 @@ const CheckoutForm = () => {
             },
             body: JSON.stringify({
               token: token.id,
-              amount: totalPayment,
-              // @ts-ignore
+              // amount: totalPayment,
+              amount: 1,
               offerId: userData.offerId,
-              // @ts-ignore
               userId: userData._id
             })
           }
@@ -147,6 +146,9 @@ const CheckoutForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      {/* <h1 className="text-lg md:2xl lg:text-3xl font-bold  mt-2 mb-8 text-center">
+        {t('Your-offer.title')}: €{displayValue}
+      </h1> */}
       <h1 className="text-lg md:2xl lg:text-3xl font-bold  mt-2 mb-8 text-center">
         {t('Your-offer.title')}: €{displayValue}
       </h1>

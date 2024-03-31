@@ -373,7 +373,7 @@ const ContractDetail = ({
               <div className="inline-block md:px-4">
                 <img src="description.png" alt="Description image" />
                 <div className="-mt-11 text-center">
-                  <h1 className="text-[1.5rem] min-[350px]:text-[1.65rem] leading-9 mt-5 sm:mt-3 lg:mt-0 md:text-3xl md:leading-10 lg:text-[36px] lg:leading-[40px] font-bold">
+                  <h1 className="text-[1.5rem] min-[350px]:text-[1.65rem] leading-9 mt-5 sm:mt-3 lg:mt-0 md:text-3xl md:leading-10 lg:text-[34px] lg:leading-[38px] font-bold">
                     {t('Your-offer.contract-title')}:<br />€{displayValue}
                   </h1>
                   {/* <div className='inline-flex'>
