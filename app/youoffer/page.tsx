@@ -794,12 +794,22 @@ const YourOffer = ({ handleNext, data }: any) => {
             </div>
           </div>
 
-          <NeosButton
+          {/* <NeosButton
             id="btn"
             className={
               'px-[24px] sm:px-5 py-[17px] sm:py-3 text-sm sm:text-[16px] leading-4 sm:leading-5 font-semibold w-auto sm:whitespace-nowrap lg:!mr-[12px] sm:w-48'
             }
             category="colored"
+            onClick={scrollToDiv}
+            buttonsize="lg"
+            title={t('select-plan-btn')}
+          /> */}
+          <NeosButton
+            id="btn"
+            category="colored"
+            className={
+              'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto  '
+            }
             onClick={scrollToDiv}
             buttonsize="lg"
             title={t('select-plan-btn')}
@@ -892,13 +902,23 @@ const YourOffer = ({ handleNext, data }: any) => {
             </div>
 
             <div className="flex justify-center">
-              <NeosButton
+              {/* <NeosButton
                 id="btn"
                 className={
                   'px-[24px] sm:px-5 py-[17px] sm:py-3 text-sm sm:text-[16px] leading-4 sm:leading-5 font-semibold w-auto sm:w-48'
                 }
                 category="colored"
                 onClick={scrollToDiv}
+                title={t('select-plan-btn')}
+              /> */}
+              <NeosButton
+                id="btn"
+                category="colored"
+                className={
+                  'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto  '
+                }
+                onClick={scrollToDiv}
+                buttonsize="lg"
                 title={t('select-plan-btn')}
               />
             </div>
@@ -1091,11 +1111,21 @@ const YourOffer = ({ handleNext, data }: any) => {
         /> */}
 
         <div className="flex justify-center my-8">
-          <NeosButton
+          {/* <NeosButton
             id="btn"
             category="colored"
             className="px-[24px] sm:px-5 py-[17px] sm:py-3 text-sm sm:text-[16px] leading-4 sm:leading-5 font-semibold w-auto sm:w-48"
             onClick={scrollToDiv}
+            title={t('select-plan-btn')}
+          /> */}
+          <NeosButton
+            id="btn"
+            category="colored"
+            className={
+              'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto  '
+            }
+            onClick={scrollToDiv}
+            buttonsize="lg"
             title={t('select-plan-btn')}
           />
         </div>
