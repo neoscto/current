@@ -61,9 +61,7 @@ const PersonalizedOffer = () => {
   const searchParams = useSearchParams();
   const activeStep = searchParams.get('activeStep') || 0;
 
-  // useEffect(() => {
-  //   router.refresh();
-  // }, []);
+  const [showForm, setShowForm] = useState<string>('poffer');
 
   const formikInitialValues = {
     offerType: '',
@@ -138,7 +136,6 @@ const PersonalizedOffer = () => {
   const [phoneNumberError, setPhoneNumberError] = useState<string>('');
 
   const handleyourSaving = async () => {
-    router.refresh(); // Resolve cache issue
     formik.setFieldValue('offerType', 'Personalized');
 
     if (validateCUPS(formik.values.cups) !== true) {
@@ -212,7 +209,6 @@ const PersonalizedOffer = () => {
     formik.handleSubmit();
     setLoading(false);
   };
-  const [showForm, setShowForm] = useState<string>('poffer');
 
   const [formik, isLoading]: any = useHandleForm({
     method: 'POST',
