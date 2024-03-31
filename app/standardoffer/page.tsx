@@ -42,6 +42,10 @@ const StandardOffer = () => {
 
   const [phoneNumberError, setPhoneNumberError] = useState<string>('');
 
+  useEffect(() => {
+    router.refresh();
+  }, []);
+
   const formikInitialValues = {
     offerType: '',
     numberOfPeople: '',

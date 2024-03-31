@@ -26,6 +26,11 @@ const ContractDetail = ({
   );
   const [isButtonLoading, setIsButtonLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    router.refresh();
+  }, []);
+
   useEffect(() => {
     if (!userData._id && !userData.offerId) return router.push('/getoffer');
     const getPrice = async () => {

@@ -61,6 +61,10 @@ const PersonalizedOffer = () => {
   const searchParams = useSearchParams();
   const activeStep = searchParams.get('activeStep') || 0;
 
+  useEffect(() => {
+    router.refresh();
+  }, []);
+
   const formikInitialValues = {
     offerType: '',
     numberOfPeople: '',
