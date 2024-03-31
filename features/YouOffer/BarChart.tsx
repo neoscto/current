@@ -85,8 +85,6 @@ const BarChartComponent: React.FC<BarChartProps> = ({
         <div className=" h-80">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
-              width={150}
-              height={40}
               data={
                 userPlanBar === 'neos'
                   ? data.save_yearly_w_neos

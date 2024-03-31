@@ -373,8 +373,8 @@ const ContractDetail = ({
               <div className="inline-block md:px-4">
                 <img src="description.png" alt="Description image" />
                 <div className="-mt-11 text-center">
-                  <h1 className="text-[1.5rem] leading-8 mt-5 sm:mt-3 lg:mt-0 md:text-[1.7rem] md:leading-9 lg:text-3xl font-bold">
-                    {t('Your-offer.contract-title')}: €{displayValue}
+                  <h1 className="text-[1.5rem] min-[350px]:text-[1.65rem] leading-9 mt-5 sm:mt-3 lg:mt-0 md:text-3xl md:leading-10 lg:text-[36px] lg:leading-[40px] font-bold">
+                    {t('Your-offer.contract-title')}:<br />€{displayValue}
                   </h1>
                   {/* <div className='inline-flex'>
                                         <input id="link-checkbox" type="checkbox" value="" className="mt-[3px] w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded  " />

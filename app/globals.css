@@ -161,3 +161,9 @@ input:-moz-ui-invalid {
     color: white; /* Adjust as needed */
   }
 }
+
+.recharts-cartesian-axis-ticks {
+  @media only screen and (max-width: 500px) {
+    padding-right: 20px !important;
+  }
+}
