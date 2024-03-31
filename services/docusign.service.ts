@@ -47,7 +47,7 @@ export const createEnvelope = async (
   try {
     const response = await axios.post(
       // 'https://demo.docusign.net/restapi/v2.1/accounts/2a6cb19d-7b9b-45a0-8e7e-46e03d32b79c/envelopes',
-      `${process.env.NEXT_PUBLIC_DOCUSIGN_API_URL}/restapi/v2.1/accounts/40c6138b-5963-47e4-8903-79d2ec4220f3/envelopes`,
+      `${process.env.NEXT_PUBLIC_DOCUSIGN_API_URL}/restapi/v2.1/accounts/${process.env.NEXT_PUBLIC_DOCUSIGN_ACCOUNT_ID}/envelopes`,
       envelopeData,
       {
         headers: {
@@ -76,7 +76,7 @@ export const getEmbeddedSigningUrl = async (
 ): Promise<string> => {
   const response = await axios.post(
     // `https://demo.docusign.net/restapi/v2.1/accounts/2a6cb19d-7b9b-45a0-8e7e-46e03d32b79c/envelopes/${envelopeId}/views/recipient`,
-    `${process.env.NEXT_PUBLIC_DOCUSIGN_API_URL}/restapi/v2.1/accounts/40c6138b-5963-47e4-8903-79d2ec4220f3/envelopes/${envelopeId}/views/recipient`,
+    `${process.env.NEXT_PUBLIC_DOCUSIGN_API_URL}/restapi/v2.1/accounts/${process.env.NEXT_PUBLIC_DOCUSIGN_ACCOUNT_ID}/envelopes/${envelopeId}/views/recipient`,
     {
       returnUrl: `${process.env.NEXT_PUBLIC_DOCUSIGN_AFTER_SIGN_REDIRECT}?offer=${offerData.offerId}&user=${offerData._id}`,
       authenticationMethod: 'email',
