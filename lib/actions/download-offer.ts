@@ -327,7 +327,7 @@ export const generatePDF = async ({
         color: rgb(0, 0, 0)
       }
     );
-    page.drawText(`${formatNumber(globalCapacity * 2220)} KWh`, {
+    page.drawText(`${formatNumber(globalCapacity * 2220)} kWh`, {
       x: 385,
       y: 606,
       size: fontSize,
@@ -373,7 +373,7 @@ export const generatePDF = async ({
       }
     );
     page.drawText(
-      `equivalente a ${formatNumber(globalPanels)} paneles. Dicha Instalación Solar Virtual producirá ${formatNumber(globalCapacity * 2220)} KWh`,
+      `equivalente a ${formatNumber(globalPanels)} paneles. Dicha Instalación Solar Virtual producirá ${formatNumber(globalCapacity * 2220)} kWh`,
       {
         x: 60,
         y: 485,

@@ -40,11 +40,11 @@ export const HowItWorksList: { [key: string]: string }[] = [
   },
   {
     point4:
-      "Outside of solar production hours you will pay the market price of electricity, with a margin of €0.01 per KWh.",
+      "Outside of solar production hours you will pay the market price of electricity, with a margin of €0.01 per kWh.",
   },
   {
     point5:
-      "You will need to pay tolls and costs associated with using the grid, estimated at €0.02 per KWh.",
+      "You will need to pay tolls and costs associated with using the grid, estimated at €0.02 per kWh.",
   },
   {
     point6:
