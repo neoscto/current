@@ -175,7 +175,7 @@ const ContractDetail = ({
   return (
     <>
       {showForm === 'yourDetails' ? (
-        <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white pb-5">
+        <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white pb-5 mt-10 md:mt-0">
           <div className="flex flex-col-reverse md:flex-row justify-center">
             <div className="w-full md:w-3/6 mb-10 md:mb-0">
               <h1 className="text-[1.4rem] md:2xl lg:text-3xl font-bold mb-3.5 px-4 md:px-6">
