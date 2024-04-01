@@ -103,7 +103,7 @@ const HorizontalLinearStepper = () => {
         // };
         // updateUserOffer();
         window.location.href = '/getoffer?activeStep=2';
-        window.removeEventListener('message', (event) => {});
+        window.removeEventListener('message', (event) => { });
       }
     });
   }, [signingUrl]);
@@ -133,8 +133,8 @@ const HorizontalLinearStepper = () => {
 
     router.push(
       pathname +
-        '?' +
-        createQueryString('activeStep', (Number(activeStep) + 1).toString())
+      '?' +
+      createQueryString('activeStep', (Number(activeStep) + 1).toString())
     );
     setSkipped(newSkipped);
   };
@@ -192,8 +192,8 @@ const HorizontalLinearStepper = () => {
             ) : (
               <div className="w-full flex flex-col gap-2 justify-center items-center h-screen">
                 <p className="text-center p-2 w-full max-sm:-ml-1">
-                  We are loading contract document. Please do not click
-                  anywhere.
+                  We are loading your personalized contract. Please do not click
+                  anywhere else.
                 </p>
                 <CircularProgress />
               </div>
