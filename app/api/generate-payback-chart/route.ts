@@ -40,7 +40,7 @@ export async function POST(request: Request) {
         labels: cumulativeSavings.map((record: SavingRecord) => record.years),
         datasets: [
           {
-            label: 'Ahorros Acumulados',
+            // label: 'Ahorros Acumulados',
             data: cumulativeSavings.map(
               (record: SavingRecord) => record.saving
             ),
