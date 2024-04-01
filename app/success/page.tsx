@@ -6,6 +6,12 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import CheckoutForm from '../payment/page';
 import { useRouter } from 'next/navigation';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
 
 const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
   const { t } = useTranslation();
@@ -66,7 +72,9 @@ const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
       </div>
       <div className="w-full w-6/6 lg:w-3/6 px-0 md:px-9">
         <div className="p-6">
-          <CheckoutForm />
+          <Elements stripe={stripePromise}>
+            <CheckoutForm />
+          </Elements>
         </div>
       </div>
     </div>

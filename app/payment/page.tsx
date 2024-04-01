@@ -109,8 +109,8 @@ const CheckoutForm = () => {
             },
             body: JSON.stringify({
               token: token.id,
-              amount: totalPayment,
-              // amount: 1,
+              // amount: totalPayment,
+              amount: 1,
               offerId: userData.offerId,
               userId: userData._id
             })
@@ -204,7 +204,7 @@ const CheckoutForm = () => {
           type="submit"
           title="PAY NOW"
           isLoading={loading}
-          disabled={!stripe || loading || error || !totalPayment}
+          disabled={!stripe || loading || !totalPayment}
         />
       </div>
     </form>

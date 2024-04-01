@@ -6,6 +6,11 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ['mongoose', '@typegoose/typegoose']
   },
+  env: {
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:
+      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+  },
+
   async headers() {
     return [
       {

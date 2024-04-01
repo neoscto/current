@@ -12,7 +12,6 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
   const { t } = useTranslation();
   const { userData } = useSelector((state: any) => state.commonSlice);
   const [hasVisited, setHasVisited] = useState(false);
-  console.log('Has Visited: ', hasVisited);
   const router = useRouter();
   useEffect(() => {
     const checkUserOfferDetails = async () => {
