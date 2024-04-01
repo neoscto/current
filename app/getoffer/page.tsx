@@ -181,7 +181,7 @@ const HorizontalLinearStepper = () => {
           <ProgressBar activeStep={activeStep} />
           {signingUrl || loading ? (
             signingUrl ? (
-              <div className="w-[90%] mx-auto border-[2px] mb-5">
+              <div className="w-[90%] mx-auto border-[2px] mb-5 mt-[60px] md:mt-0">
                 <iframe
                   src={signingUrl}
                   width="100%"
