@@ -40,7 +40,7 @@ export async function POST(request: Request) {
         labels: cumulativeSavings.map((record: SavingRecord) => record.years),
         datasets: [
           {
-            // label: 'Ahorros Acumulados',
+            label: 'Ahorro Acumulado',
             data: cumulativeSavings.map(
               (record: SavingRecord) => record.saving
             ),
@@ -84,7 +84,7 @@ export async function POST(request: Request) {
         },
         plugins: {
           title: {
-            display: true,
+            display: false,
             text: 'Ahorro Acumulado',
             font: { size: 20 }
           },
