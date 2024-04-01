@@ -186,7 +186,7 @@
     "pay-btn-txt": "PAY NOW",
     "card-name": "Name on card",
     "card-number": "Card Number",
-    "cvv": "CVV",
+    "cvc": "CVC",
     "expiry": "Expiry",
     "element-not-found-err": "Card element not found",
     "insufficient-fund-err": "Insufficient funds. Please use a different card or check your balance."

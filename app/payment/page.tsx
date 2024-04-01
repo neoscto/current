@@ -109,8 +109,8 @@ const CheckoutForm = () => {
             },
             body: JSON.stringify({
               token: token.id,
-              // amount: totalPayment,
-              amount: 1,
+              amount: totalPayment,
+              // amount: 1,
               offerId: userData.offerId,
               userId: userData._id
             })
@@ -149,15 +149,15 @@ const CheckoutForm = () => {
       {/* <h1 className="text-lg md:2xl lg:text-3xl font-bold  mt-2 mb-8 text-center">
         {t('Your-offer.title')}: €{displayValue}
       </h1> */}
-      <h1 className="text-lg md:2xl lg:text-3xl font-bold  mt-2 mb-8 text-center">
-        {t('Your-offer.title')}: €{displayValue}
+      <h1 className="text-[1.5rem] min-[350px]:text-[1.65rem] leading-9 md:text-3xl md:leading-10 lg:text-[34px] lg:leading-[38px] font-bold text-center mt-2 mb-8">
+        {t('Your-offer.contract-title')}:<br />€{displayValue}
       </h1>
       <div className="rounded-3xl border border-[#E0E0E0] p-6">
         <p className="text-lg font-medium text-black">{t('Payment.title')}</p>
         <p className="text-[#667085] text-sm mb-8">{t('Payment.desc')}</p>
         <Grid container rowSpacing={3} columnSpacing={3}>
           {/* Name on card */}
-          <Grid item xs={8} sm={12} md={8}>
+          <Grid item xs={12} sm={12} md={12}>
             <NeosTextField
               placeholder="Olivia Rhye"
               label={t('Payment.card-name')}
@@ -170,13 +170,8 @@ const CheckoutForm = () => {
             />
           </Grid>
 
-          {/* Expire date */}
-          <Grid item xs={4} sm={12} md={4}>
-            <label className="">{t('Payment.expiry')}</label>
-            <CardExpiryElement className="border border-[#E0E0E0] rounded-[8px] p-3 mt-1" />
-          </Grid>
           {/* CARD number */}
-          <Grid item xs={8} sm={12} md={8}>
+          <Grid item xs={12} sm={12} md={12}>
             <label className="">{t('Payment.card-number')}</label>
             <CardNumberElement
               className="border border-[#E0E0E0] rounded-[8px] p-3 mt-1"
@@ -185,9 +180,16 @@ const CheckoutForm = () => {
               }}
             />
           </Grid>
-          {/* CVV */}
-          <Grid item xs={4} sm={12} md={4}>
-            <label className="">{t('Payment.cvv')}</label>
+
+          {/* Expire date */}
+          <Grid item xs={6} sm={6} md={6}>
+            <label className="">{t('Payment.expiry')}</label>
+            <CardExpiryElement className="border border-[#E0E0E0] rounded-[8px] p-3 mt-1" />
+          </Grid>
+
+          {/* CVC */}
+          <Grid item xs={6} sm={6} md={6}>
+            <label className="">{t('Payment.cvc')}</label>
             <CardCvcElement className="border border-[#E0E0E0] rounded-[8px] p-3 mt-1" />
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
@@ -197,12 +199,12 @@ const CheckoutForm = () => {
       </div>
       <div className="mt-8 text-center">
         <NeosButton
+          sx={{ width: '140px !important' }}
           category="colored"
           type="submit"
-          disabled={!stripe || loading || !totalPayment}
-          buttonsize="sm"
           title="PAY NOW"
           isLoading={loading}
+          disabled={!stripe || loading || error || !totalPayment}
         />
       </div>
     </form>
