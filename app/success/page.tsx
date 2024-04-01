@@ -16,27 +16,27 @@ const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
   const router = useRouter();
   const { userData } = useSelector((state: any) => state.commonSlice);
 
-  // useEffect(() => {
-  //   setShowForm('paymentForm');
+  useEffect(() => {
+    setShowForm('paymentForm');
 
-  //   const getUserOfferDetails = async () => {
-  //     if (userData.offerId && userData._id) {
-  //       const response = await fetch(
-  //         `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
-  //       );
-  //       const { userOffer } = await response.json();
-  //       if (!userOffer.contractSign && userOffer.filledInfo) {
-  //         return router.push('/getoffer?activeStep=1');
-  //       } else if (!userOffer.contractSign && !userOffer.filledInfo) {
-  //         return router.push('/getoffer');
-  //       }
-  //     } else {
-  //       return router.push('/getoffer');
-  //     }
-  //   };
+    const getUserOfferDetails = async () => {
+      if (userData.offerId && userData._id) {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
+        );
+        const { userOffer } = await response.json();
+        if (!userOffer.contractSign && userOffer.filledInfo) {
+          return router.push('/getoffer?activeStep=1');
+        } else if (!userOffer.contractSign && !userOffer.filledInfo) {
+          return router.push('/getoffer');
+        }
+      } else {
+        return router.push('/getoffer');
+      }
+    };
 
-  //   getUserOfferDetails();
-  // }, [userData.offerId, userData._id]);
+    getUserOfferDetails();
+  }, [userData.offerId, userData._id]);
 
   return (
     <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-5">
