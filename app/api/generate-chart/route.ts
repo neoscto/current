@@ -57,7 +57,7 @@ export async function POST(request: Request) {
             grid: { display: false },
             title: {
               display: true,
-              text: 'Producción (KWh)'
+              text: 'Producción (kWh)'
             }
           },
           x: {
