@@ -953,7 +953,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                 id="btn"
                 category="colored"
                 className={
-                  'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto  '
+                  'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold !w-[180px] sm:!w-auto'
                 }
                 onClick={() => handleCalender()}
                 buttonsize="lg"
