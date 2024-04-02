@@ -292,12 +292,16 @@ const YourOffer = ({ handleNext, data }: any) => {
       // Create a link element and simulate a click to trigger the download
       const a = document.createElement('a');
       a.href = url;
+      a.target = '_blank';
       a.download = 'Oferta - Instalación y Suministro Neos.pdf'; // Set the filename for the downloaded file
       document.body.appendChild(a);
       a.click();
 
       // Clean up by revoking the blob URL
-      window.URL.revokeObjectURL(url);
+      setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }, 100);
       // window.open(url, '_blank');
     } catch (error) {
       // Handle error
