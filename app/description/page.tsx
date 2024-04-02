@@ -48,7 +48,7 @@ const Description = () => {
           </div>
 
           <div className="flex flex-col justify-center items-center mt-4">
-            <h1 className=" text-2xl font-bold mb-4">
+            <h1 className=" text-2xl font-bold mt-6 mb-4">
               {t('Description.benefits')}
             </h1>
             <div className=" grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-3">
