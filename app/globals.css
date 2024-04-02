@@ -154,6 +154,10 @@ input:-moz-ui-invalid {
   }
 } */
 
+.PhoneInput {
+  font-size: 14px !important;
+}
+
 @layer utilities {
   .text-stroke {
     -webkit-text-stroke-width: 1px; /* Adjust as needed */
