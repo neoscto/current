@@ -45,7 +45,7 @@ const AcceptCookie = () => {
               </button>
               <button
                 onClick={handleReject}
-                className="bg-transparent border-black text-black px-4 py-2 rounded hover:bg-gray-200 focus:outline-none shadow"
+                className="bg-transparent text-black px-4 py-2 rounded hover:bg-gray-200 focus:outline-none shadow"
               >
                 {t('Home.cookie.rejectBtn')}
               </button>
