@@ -45,7 +45,7 @@ const ContractDetail = ({
   }, [userData.offerId, userData._id]);
   const dispatch = useDispatch();
   const labelStyle = 'font-medium text-base text-black';
-  const infoStyle = 'text-base font-normal text-gray-300';
+  const infoStyle = 'text-base font-normal text-[#495057]';
   const defaultTxtStyle = 'text-base font-normal text-[#bdbdbd]';
   // const [isChecked, setIsChecked] = useState(false);
   const { t } = useTranslation();
@@ -187,32 +187,40 @@ const ContractDetail = ({
                     <p className={labelStyle}>
                       {t('Get-offer-form.first-name')}
                     </p>
-                    <p className={infoStyle}>
-                      {formik?.values?.firstName || '-'}
-                    </p>
+                    <div className="w-full lg:w-[95%] bg-[#e9ecef] rounded-md p-2">
+                      <p className={infoStyle}>
+                        {formik?.values?.firstName || '-'}
+                      </p>
+                    </div>
                   </div>
                   <div className="w-full md:w-2/5 border-t border-[#E0E0E0] mt-2.5 pt-2.5 md:border-t-0 md:mt-0 md:pt-0">
                     <p className={labelStyle}>
                       {t('Get-offer-form.last-name')}
                     </p>
-                    <p className={infoStyle}>
-                      {formik?.values.lastName || '-'}
-                    </p>
+                    <div className="bg-[#e9ecef] rounded-md p-2">
+                      <p className={infoStyle}>
+                        {formik?.values.lastName || '-'}
+                      </p>
+                    </div>
                   </div>
                 </div>
                 {/* Email and phone */}
                 <div className="border-b border-[#E0E0E0] py-3.5 flex flex-col md:flex-row">
                   <div className="w-full md:w-3/5">
                     <p className={labelStyle}>{t('Get-offer-form.email')}</p>
-                    <p className={infoStyle}>
-                      {formik?.values.emailAddress || '-'}
-                    </p>
+                    <div className="w-full lg:w-[95%] bg-[#e9ecef] rounded-md p-2">
+                      <p className={infoStyle}>
+                        {formik?.values.emailAddress || '-'}
+                      </p>
+                    </div>
                   </div>
                   <div className="w-full md:w-2/5 border-t border-[#E0E0E0] mt-2.5 pt-2.5 md:border-t-0 md:mt-0 md:pt-0">
                     <p className={labelStyle}>{t('Get-offer-form.phone')}</p>
-                    <p className={infoStyle}>
-                      {formik?.values.phoneNumber || '-'}
-                    </p>
+                    <div className="bg-[#e9ecef] rounded-md p-2">
+                      <p className={infoStyle}>
+                        {formik?.values.phoneNumber || '-'}
+                      </p>
+                    </div>
                   </div>
                 </div>
                 {/* cups */}
