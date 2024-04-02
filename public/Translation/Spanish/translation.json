@@ -10,7 +10,8 @@
     "btn2txt": "CALCULAR MIS AHORROS",
     "cookie": {
       "description": "Utilizamos cookies para ofrecerte la mejor experiencia en nuestra web. Al continuar, aceptas nuestro uso de cookies.",
-      "acceptBtn": "Aceptar"
+      "acceptBtn": "Aceptar",
+      "rejectBtn": "Rechazar"
     }
   },
   "Description": {
