@@ -21,7 +21,6 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
             `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
           );
           const { userOffer } = await response.json();
-
           if (userOffer.paid && userOffer.contractSign) {
             if (userOffer.congratsPageVisited || hasVisited) {
               removeDataFromSessionStorage('UserOffer');
@@ -66,7 +65,7 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
   }, []);
 
   return (
-    <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-5">
+    <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-[70px] md:mt-7 lg:mt-0">
       <div className="mx-auto flex flex-col justify-center items-center w-full lg:w-3/6">
         <div className="w-12 h-12 relative">
           <Image src="/success.png" alt="user image" fill />
