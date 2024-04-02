@@ -33,9 +33,6 @@ export const privacyPolicyData = [
     subtitle10: 'CHANGES IN THE PRIVACY POLICY'
   },
   {
-    subtitle11: 'LEGAL NOTICE'
-  },
-  {
     subtitle12: 'INTELLECTUAL AND INDUSTRIAL PROPERTY'
   },
   {
