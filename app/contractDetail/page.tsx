@@ -9,6 +9,7 @@ import EmailSuccess from '../emailSuccess/page';
 // import { getAuthorizationUrl } from "@/services/docusign.service";
 import { getTechnicalDataFromApi } from '@/features/calculateSolarPaybackPeriod';
 import { useRouter } from 'next/navigation';
+import { validateCUPS } from '@/utils/utils';
 
 const ContractDetail = ({
   handleNext,
@@ -51,6 +52,7 @@ const ContractDetail = ({
   const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
   const [userPlan, setUserPlan] = useState('neos');
+  const [cupsError, setCupsError] = useState('');
 
   useEffect(() => {
     setShowForm('yourDetails');
@@ -148,6 +150,9 @@ const ContractDetail = ({
       formik?.values?.plan !== 'neos' ||
       formik?.values?.cups ||
       formik?.values?.offerType;
+    console.log('Include Cups: ', includeCups);
+    console.log('Value: ', formik.values.cups);
+    // console.log(validateCUPS(formik.values.cups));
     if (
       isChecked &&
       isChecked?.checked &&
@@ -159,6 +164,13 @@ const ContractDetail = ({
       formik?.values?.addressNo &&
       includeCups
     ) {
+      if (includeCups && validateCUPS(formik.values.cups) !== true) {
+        const errorMsg = validateCUPS(formik.values.cups) as string;
+        const translatedMsg = t(errorMsg);
+        setCupsError(translatedMsg);
+        setIsButtonLoading(false);
+        return;
+      }
       const userOfferData = await updateUserOffer();
       if (userOfferData) {
         dispatch(setUserData(userOfferData));
@@ -239,8 +251,11 @@ const ContractDetail = ({
                           placeholder="05"
                           value={formik.values.cups || ''}
                           onChange={handleInputChange}
-                          className="outline-none border-none focus:outline-none focus:border-none focus:ring-0 text-black"
+                          className="outline-none border-none focus:outline-none focus:border-none focus:ring-0 text-black w-[95%] md:w-[90%]"
                         />
+                        {cupsError && (
+                          <p className="cups-error-msg">{cupsError}</p>
+                        )}
                       </p>
                     </div>
                   </div>

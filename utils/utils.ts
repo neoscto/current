@@ -42,3 +42,26 @@ export function removeDataFromSessionStorage(key: string): void {
     console.error('Error removing data from sessionStorage:', error);
   }
 }
+
+export const validateCUPS = (cups: string): boolean | string => {
+  const cupsArray = cups.toUpperCase().replace(/\s/g, '').split(',');
+
+  for (const cup of cupsArray) {
+    if (!cup.startsWith('ES')) {
+      return cupsArray.length === 1
+        ? 'You made a mistake in your CUPS, please enter a valid CUPS'
+        : 'You made a mistake in at least one of your CUPS, please enter valid CUPS';
+    }
+    if (cup.length > 22) {
+      return 'You’ve entered more than one CUPS, please separate your CUPS with commas';
+    }
+
+    // Check if the length is either 20 or 22 characters
+    if (cup.length !== 20 && cup.length !== 22) {
+      return cupsArray.length === 1
+        ? 'You made a mistake in your CUPS, please enter a valid CUPS'
+        : 'You made a mistake in at least one of your CUPS, please enter valid CUPS';
+    }
+  }
+  return true;
+};

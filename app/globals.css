@@ -160,6 +160,13 @@ input:-moz-ui-invalid {
   color: rgba(0, 0, 0, 0.87) !important;
 }
 
+.cups-error-msg {
+  color: rgb(211, 47, 47) !important;
+  font-size: 12px !important;
+  margin-left: 2px;
+  margin-top: 2px;
+}
+
 @layer utilities {
   .text-stroke {
     -webkit-text-stroke-width: 1px; /* Adjust as needed */
