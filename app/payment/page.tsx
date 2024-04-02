@@ -1,6 +1,5 @@
 'use client';
 import NeosButton from '@/components/NeosButton';
-import NeosTextField from '@/components/NeosTextField';
 import { Grid } from '@mui/material';
 import {
   CardCvcElement,
@@ -131,18 +130,22 @@ const CheckoutForm = () => {
     }
   };
 
-  const validateName = (value: string) => {
-    const nameRegex = /^[a-zA-Z\s]*$/;
-    if (!nameRegex.test(value)) {
-      return setError('Please enter valid name');
-    }
-    if (!value) return setError('Name is required');
-    if (value.length < 3) {
-      setError('Name is too short');
-    } else {
-      setError(null);
-    }
-  };
+  // const validateName = (value: string) => {
+  //   setName(value);
+  //   const nameRegex = /^[a-zA-Z\s]*$/;
+  //   if (!nameRegex.test(value)) {
+  //     setError('Please enter valid name');
+  //     return false;
+  //   }
+  //   if (!value) return setError('Name is required');
+  //   if (value.length < 3) {
+  //     setError('Name is too short');
+  //     return false;
+  //   } else {
+  //     setError(null);
+  //     return true;
+  //   }
+  // };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -157,10 +160,11 @@ const CheckoutForm = () => {
         <p className="text-[#667085] text-sm mb-8">{t('Payment.desc')}</p>
         <Grid container rowSpacing={3} columnSpacing={3}>
           {/* Name on card */}
-          <Grid item xs={12} sm={12} md={12}>
+          {/* <Grid item xs={12} sm={12} md={12}>
             <NeosTextField
               placeholder="Olivia Rhye"
               label={t('Payment.card-name')}
+              value={name}
               onChange={(e) => {
                 validateName(e.target.value);
               }}
@@ -168,7 +172,7 @@ const CheckoutForm = () => {
                 validateName(e.target.value);
               }}
             />
-          </Grid>
+          </Grid> */}
 
           {/* CARD number */}
           <Grid item xs={12} sm={12} md={12}>

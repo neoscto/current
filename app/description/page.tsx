@@ -12,7 +12,7 @@ const Description = () => {
 
   return (
     <MainContainer>
-      <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white rounded-3xl mb-8">
+      <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white rounded-3xl my-8">
         <div className="flex flex-col lg:flex-row gap-4 w-[94%] mx-auto py-6 md:py-9 lg:py-9 ">
           <div className=" flex flex-col justify-center items-center w-full px-4 mt-3">
             <h1 className="text-2xl font-bold mb-4 text-center">
