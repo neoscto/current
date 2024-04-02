@@ -38,5 +38,27 @@ export const privacyPolicyData = [
   },
   {
     subtitle12: 'Intellectual and Industrial Property'
+  },
+  {
+    subtitle13: 'Responsibility for the Contents'
+  },
+  {
+    subtitle14: 'Reproduction of Contents'
+  },
+  {
+    subtitle15: 'Applicable Law'
+  },
+  {
+    subtitle16: 'Cookies'
+  },
+  {
+    subtitle17: 'Personal Data of Minors'
+  },
+  {
+    subtitle18: 'Exercising Your Data Protection Rights'
+  },
+  {
+    subtitle18:
+      'In Order to Exercise These Rights, You Must Identify Yourself by Presenting Your ID Card'
   }
 ];
