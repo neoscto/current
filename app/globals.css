@@ -156,6 +156,8 @@ input:-moz-ui-invalid {
 
 .PhoneInput {
   font-size: 14px !important;
+  font-weight: 400 !important;
+  color: rgba(0, 0, 0, 0.87) !important;
 }
 
 @layer utilities {
