@@ -34,20 +34,22 @@ const AcceptCookie = () => {
     <>
       {show && (
         <div className="fixed bottom-0 w-full bg-white bg-opacity-75 border-t border-gray-300 p-2 flex items-center justify-center text-sm">
-          <p className="text-blue-900">{t('Home.cookie.description')}</p>
-          <div className="flex items-center gap-2 ml-4">
-            <button
-              onClick={handleAccept}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none"
-            >
-              {t('Home.cookie.acceptBtn')}
-            </button>
-            <button
-              onClick={handleReject}
-              className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 focus:outline-none"
-            >
-              {t('Home.cookie.rejectBtn')}
-            </button>
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+            <p className="text-blue-900">{t('Home.cookie.description')}</p>
+            <div className="flex items-center gap-2 justify-center">
+              <button
+                onClick={handleAccept}
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none"
+              >
+                {t('Home.cookie.acceptBtn')}
+              </button>
+              <button
+                onClick={handleReject}
+                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 focus:outline-none"
+              >
+                {t('Home.cookie.rejectBtn')}
+              </button>
+            </div>
           </div>
         </div>
       )}
