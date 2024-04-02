@@ -14,8 +14,8 @@ const Description = () => {
     <MainContainer>
       <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white rounded-3xl my-8">
         <div className="flex flex-col lg:flex-row gap-4 w-[94%] mx-auto py-6 md:py-9 lg:py-9 ">
-          <div className=" flex flex-col justify-center items-center w-full px-4 mt-3">
-            <h1 className="text-2xl font-bold mb-4 text-center">
+          <div className=" flex flex-col justify-center items-center w-full px-4">
+            <h1 className="text-2xl font-bold mb-4 text-center mt-3">
               {t('Description.title')}
             </h1>
 
@@ -70,15 +70,15 @@ const Description = () => {
             </div>
           </div>
 
-          <div className=" flex flex-col justify-center items-center relative ">
+          <div className=" flex flex-col justify-center items-center relative">
             <img
               src="description.png"
               alt="Description image"
               width={425}
-              className="lg:flex hidden h-[90%] object-contain
+              className="lg:flex hidden h-[90%] object-contain 
             "
             />
-            <div className=" ">
+            <div className="">
               <Button
                 variant="filled"
                 size="md"
