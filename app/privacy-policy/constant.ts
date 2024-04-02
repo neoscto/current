@@ -3,62 +3,60 @@ export const privacyPolicyData = [
     subtitle0: 'INTRODUCTION'
   },
   {
-    subtitle1: 'Data Protection Officer'
+    subtitle1: 'DATA PROTECTION OFFICER'
   },
   {
-    subtitle2: 'Data Protection Policy'
+    subtitle2: 'DATA PROTECTION POLICY'
   },
   {
-    subtitle3: 'Data Collected, Purpose and Lawfulness'
+    subtitle3: 'DATA COLLECTED, PURPOSE AND LAWFULNESS'
   },
   {
-    subtitle4: 'Web Forms'
+    subtitle4: 'WEB FORMS'
   },
   {
-    subtitle5: 'Recipients of the Data'
+    subtitle5: 'RECIPIENTS OF THE DATA'
   },
   {
-    subtitle6: 'Technical and Organizational Measures for Data Protection'
+    subtitle6: 'TECHNICAL AND ORGANIZATIONAL MEASURES FOR DATA PROTECTION'
   },
   {
-    subtitle7: 'Data Retention'
+    subtitle7: 'DATA RETENTION'
   },
   {
-    subtitle8:
-      'Information on the Existence of Automated Decisions Including Profiling'
+    subtitle8: 'INFORMATION ON THE EXISTENCE OF AUTOMATED DECISIONS INCLUDING PROFILING'
   },
   {
-    subtitle9: 'Opposition'
+    subtitle9: 'OPPOSITION'
   },
   {
-    subtitle10: 'Changes in the Privacy Policy'
+    subtitle10: 'CHANGES IN THE PRIVACY POLICY'
   },
   {
     subtitle11: 'LEGAL NOTICE'
   },
   {
-    subtitle12: 'Intellectual and Industrial Property'
+    subtitle12: 'INTELLECTUAL AND INDUSTRIAL PROPERTY'
   },
   {
-    subtitle13: 'Responsibility for the Contents'
+    subtitle13: 'RESPONSIBILITY FOR THE CONTENTS'
   },
   {
-    subtitle14: 'Reproduction of Contents'
+    subtitle14: 'REPRODUCTION OF CONTENTS'
   },
   {
-    subtitle15: 'Applicable Law'
+    subtitle15: 'APPLICABLE LAW'
   },
   {
-    subtitle16: 'Cookies'
+    subtitle16: 'COOKIES'
   },
   {
-    subtitle17: 'Personal Data of Minors'
+    subtitle17: 'PERSONAL DATA OF MINORS'
   },
   {
-    subtitle18: 'Exercising Your Data Protection Rights'
+    subtitle18: 'EXERCISING YOUR DATA PROTECTION RIGHTS'
   },
   {
-    subtitle18:
-      'In Order to Exercise These Rights, You Must Identify Yourself by Presenting Your ID Card'
+    subtitle18: 'IN ORDER TO EXERCISE THESE RIGHTS, YOU MUST IDENTIFY YOURSELF BY PRESENTING YOUR ID CARD'
   }
 ];
