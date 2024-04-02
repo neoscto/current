@@ -12,7 +12,7 @@ const cookies = () => {
       <Box sx={{ width: '100%' }}>
         <div className="rounded-[30px] bg-[#01092299] max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto bg-white my-10">
           <div className="w-[94%] mx-auto py-6 md:py-9 lg:py-9">
-            <Typography variant="h4" className="text-center mb-12" gutterBottom>
+            <Typography variant="h4" className="text-center !mb-12" gutterBottom>
               {t('privacyPolicy.title')}
             </Typography>
             <div className=" flex flex-col gap-4">
