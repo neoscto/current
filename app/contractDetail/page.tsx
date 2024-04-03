@@ -8,9 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import EmailSuccess from '../emailSuccess/page';
 // import { getAuthorizationUrl } from "@/services/docusign.service";
 import { getTechnicalDataFromApi } from '@/features/calculateSolarPaybackPeriod';
-import { useRouter } from 'next/navigation';
 import { PLAN_TYPE, validateCUPS } from '@/utils/utils';
-import { OfferType } from '@/models/UsersOffers';
+import { useRouter } from 'next/navigation';
 
 const ContractDetail = ({
   handleNext,
