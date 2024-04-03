@@ -17,6 +17,7 @@ import { NextResponse } from 'next/server';
 import { formatNumber } from '@/lib/utils';
 import { stringToObjectId } from '@/lib/api-response';
 import { UserOffer, UserOfferSchemaProps } from '@/models/UsersOffers';
+import { PLAN_TYPE } from '@/utils/utils';
 
 const createOrUpdateUserOffer = async (
   offerData: UserOfferSchemaProps,
@@ -41,11 +42,6 @@ const createOrUpdateUserOffer = async (
     throw new Error('Error creating user offer 😔');
   }
 };
-
-enum PLAN_TYPE {
-  Neos = 'neos',
-  Current = 'current'
-}
 
 type ConsumptionData = {
   tabLabel: string;

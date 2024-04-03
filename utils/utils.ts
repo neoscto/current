@@ -65,3 +65,8 @@ export const validateCUPS = (cups: string): boolean | string => {
   }
   return true;
 };
+
+export enum PLAN_TYPE {
+  Neos = 'neos',
+  Current = 'current'
+}

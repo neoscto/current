@@ -9,7 +9,8 @@ import EmailSuccess from '../emailSuccess/page';
 // import { getAuthorizationUrl } from "@/services/docusign.service";
 import { getTechnicalDataFromApi } from '@/features/calculateSolarPaybackPeriod';
 import { useRouter } from 'next/navigation';
-import { validateCUPS } from '@/utils/utils';
+import { PLAN_TYPE, validateCUPS } from '@/utils/utils';
+import { OfferType } from '@/models/UsersOffers';
 
 const ContractDetail = ({
   handleNext,
@@ -146,22 +147,23 @@ const ContractDetail = ({
     const isChecked = document.getElementById(
       'link-checkbox'
     ) as HTMLInputElement | null;
-    const includeCups =
-      formik?.values?.plan !== 'neos' ||
-      formik?.values?.cups ||
-      formik?.values?.offerType;
-    console.log('Include Cups: ', includeCups);
-    console.log('Value: ', formik.values.cups);
-    // console.log(validateCUPS(formik.values.cups));
+    let includeCups = false;
     if (
-      isChecked &&
-      isChecked?.checked &&
-      formik?.values?.address &&
-      formik?.values?.postcode &&
-      formik?.values?.city &&
-      formik?.values?.nie &&
-      formik?.values?.province &&
-      formik?.values?.addressNo &&
+      formik?.values?.plan === PLAN_TYPE.Neos ||
+      formik?.values?.cups ||
+      formik?.values?.offerType === 'Personalized'
+    )
+      includeCups = true;
+    console.log(includeCups);
+    if (
+      (isChecked &&
+        isChecked?.checked &&
+        formik?.values?.address &&
+        formik?.values?.postcode &&
+        formik?.values?.city &&
+        formik?.values?.nie &&
+        formik?.values?.province &&
+        formik?.values?.addressNo) ||
       includeCups
     ) {
       if (includeCups && validateCUPS(formik.values.cups) !== true) {
