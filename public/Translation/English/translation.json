@@ -207,8 +207,8 @@
   },
   "congrats": {
     "title": "Congratulations!",
-    "desc1": "You have successfully signed the contract and make the payment.",
-    "desc2": "You can download below the signed contract."
+    "desc1": "You have successfully signed your contract and paid.",
+    "desc2": "Welcome to the Neos family!"
   },
   "launch": {
     "Pre_Sale_Launch": "Pre-Sale Launch!",
