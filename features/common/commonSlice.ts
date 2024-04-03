@@ -12,7 +12,7 @@ export const fetchPosts = createAsyncThunk('common/fetchPosts', async () => {
   return response.data;
 });
 
-export const userData = getDataFromSessionStorage('UserOffer') || {
+const initialUserData = {
   numberOfPeople: null,
   firstName: '',
   lastName: '',
@@ -35,6 +35,9 @@ export const userData = getDataFromSessionStorage('UserOffer') || {
   typeConsumption: ''
 };
 
+export const userData =
+  getDataFromSessionStorage('UserOffer') || initialUserData;
+
 const initialState = {
   post: [],
   userData,
@@ -50,6 +53,9 @@ const commonSlice = createSlice({
       state.userData = { ...state.userData, ...action.payload };
       saveDataToSessionStorage('UserOffer', state.userData);
     },
+    resetUserData: (state) => {
+      state.userData = initialUserData;
+    },
     setFormBack: (state, action) => {
       state.formBack = action.payload;
     },
@@ -64,5 +70,6 @@ const commonSlice = createSlice({
   }
 });
 
-export const { setUserData, setFormBack, setLanguage } = commonSlice.actions;
+export const { setUserData, resetUserData, setFormBack, setLanguage } =
+  commonSlice.actions;
 export default commonSlice.reducer;

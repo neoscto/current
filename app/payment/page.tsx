@@ -1,5 +1,6 @@
 'use client';
 import NeosButton from '@/components/NeosButton';
+import { setUserData } from '@/features/common/commonSlice';
 import { Grid } from '@mui/material';
 import {
   CardCvcElement,
@@ -11,7 +12,7 @@ import {
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const CARD_ELEMENT_OPTIONS = {
   disableLink: true,
@@ -68,8 +69,9 @@ const CheckoutForm = () => {
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const dispatch = useDispatch();
   // state for is payment success
-  const [isPaymentSuccess, setIsPaymentSuccess] = useState(false);
+  // const [isPaymentSuccess, setIsPaymentSuccess] = useState(false);
   const { t } = useTranslation();
 
   const handleSubmit = async (
@@ -117,7 +119,8 @@ const CheckoutForm = () => {
         );
         const paymentResponse = await response.json();
         if (paymentResponse.status === 'succeeded') {
-          setIsPaymentSuccess(true);
+          // setIsPaymentSuccess(true);
+          dispatch(setUserData({ ...userData, hasPaid: true }));
           router.push('/getoffer?activeStep=3');
         }
       }

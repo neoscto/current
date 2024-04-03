@@ -146,24 +146,20 @@ const ContractDetail = ({
     const isChecked = document.getElementById(
       'link-checkbox'
     ) as HTMLInputElement | null;
-    let includeCups = false;
-    if (
+    const includeCups =
       formik?.values?.plan === PLAN_TYPE.Neos ||
       formik?.values?.cups ||
-      formik?.values?.offerType === 'Personalized'
-    )
-      includeCups = true;
-    console.log(includeCups);
+      formik?.values?.offerType === 'Personalized';
+
     if (
-      (isChecked &&
-        isChecked?.checked &&
-        formik?.values?.address &&
-        formik?.values?.postcode &&
-        formik?.values?.city &&
-        formik?.values?.nie &&
-        formik?.values?.province &&
-        formik?.values?.addressNo) ||
-      includeCups
+      isChecked &&
+      isChecked?.checked &&
+      formik?.values?.address &&
+      formik?.values?.postcode &&
+      formik?.values?.city &&
+      formik?.values?.nie &&
+      formik?.values?.province &&
+      formik?.values?.addressNo
     ) {
       if (includeCups && validateCUPS(formik.values.cups) !== true) {
         const errorMsg = validateCUPS(formik.values.cups) as string;

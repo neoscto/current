@@ -1,17 +1,18 @@
 'use client';
 import TolstoyHero from '@/app/landingpage/TolstoyHero';
 import NeosButton from '@/components/NeosButton';
+import { resetUserData, setUserData } from '@/features/common/commonSlice';
 import { removeDataFromSessionStorage } from '@/utils/utils';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Congrats = ({ generatePDF, isPDFLoading }: any) => {
   const { t } = useTranslation();
   const { userData } = useSelector((state: any) => state.commonSlice);
-  const [hasVisited, setHasVisited] = useState(false);
+  const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {
     const checkUserOfferDetails = async () => {
@@ -21,34 +22,13 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
             `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
           );
           const { userOffer } = await response.json();
-          if (userOffer.paid && userOffer.contractSign) {
-            if (userOffer.congratsPageVisited || hasVisited) {
-              removeDataFromSessionStorage('UserOffer');
-              removeDataFromSessionStorage('docusignAccessToken');
-              setHasVisited(false);
-              router.push('/getoffer');
-            } else {
-              await fetch(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers`,
-                {
-                  method: 'POST',
-                  headers: { 'content-type': 'application/json' },
-                  body: JSON.stringify({
-                    offerData: {
-                      user: userData._id,
-                      congratsPageVisited: true
-                    },
-                    offerId: userData.offerId
-                  })
-                }
-              ).then((response) => {
-                if (response.ok) {
-                  setHasVisited(true);
-                } else {
-                  throw new Error('Failed to update visit status');
-                }
-              });
-            }
+          if ((userData.hasPaid || userOffer.paid) && userOffer.contractSign) {
+            const envelopeId = userOffer.envelopeId;
+            removeDataFromSessionStorage('UserOffer');
+            removeDataFromSessionStorage('docusignAccessToken');
+            dispatch(resetUserData());
+            dispatch(setUserData({ envelopeId, hasPaid: true }));
+            router.refresh();
           } else if (userOffer.contractSign) {
             router.push('/getoffer?activeStep=1');
           } else {
