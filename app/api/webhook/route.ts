@@ -55,7 +55,6 @@ const createPayment = async (paymentData: PaymentSchemaProps) => {
 export async function POST(_request: Request, _response: Response) {
   const sig = _request.headers.get('stripe-signature');
   let event;
-  let paid;
 
   try {
     const body = await _request.text();
@@ -71,7 +70,6 @@ export async function POST(_request: Request, _response: Response) {
   // Handle the event
   switch (event.type) {
     case 'charge.succeeded':
-      paid = true;
       const chargeCaptured = event.data.object;
       const { userOffer, user } = chargeCaptured.metadata;
       await createPayment({

@@ -27,7 +27,7 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
             removeDataFromSessionStorage('UserOffer');
             removeDataFromSessionStorage('docusignAccessToken');
             dispatch(resetUserData());
-            dispatch(setUserData({ envelopeId, hasPaid: true }));
+            // dispatch(setUserData({ envelopeId }));
             router.refresh();
           } else if (userOffer.contractSign) {
             router.push('/getoffer?activeStep=1');
@@ -58,7 +58,7 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
           <br></br>
           {t('congrats.desc2')}
         </label>
-        <div className="w-full border border-[#E0E0E0] rounded-xl py-3 px-4 flex justify-between items-center my-7">
+        {/* <div className="w-full border border-[#E0E0E0] rounded-xl py-3 px-4 flex justify-between items-center my-7">
           <div className="flex items-center">
             <Image src="/pdfIcon.png" alt="user image" width={34} height={34} />
             <p className="text-sm font-medium text-[#171717] ms-2">
@@ -72,7 +72,7 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
             title={t('Email-success.download-txt')}
             isLoading={isPDFLoading}
           />
-        </div>
+        </div> */}
       </div>
 
       <div className="mx-auto flex justify-center items-center w-full lg:w-3/6">
