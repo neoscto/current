@@ -812,7 +812,7 @@ const YourOffer = ({ handleNext, data }: any) => {
             id="btn"
             category="colored"
             className={
-              'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold !w-[180px] sm:!w-auto justify-self-center !lg:mr-8'
+              'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold !w-[180px] sm:!w-auto justify-self-center lg:!mr-8'
             }
             onClick={scrollToDiv}
             buttonsize="lg"
