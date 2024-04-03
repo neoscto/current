@@ -15,33 +15,33 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
   const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {
-    const checkUserOfferDetails = async () => {
-      if (userData.offerId && userData._id) {
-        try {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
-          );
-          const { userOffer } = await response.json();
-          if ((userData.hasPaid || userOffer.paid) && userOffer.contractSign) {
-            const envelopeId = userOffer.envelopeId;
-            removeDataFromSessionStorage('UserOffer');
-            removeDataFromSessionStorage('docusignAccessToken');
-            dispatch(resetUserData());
-            // dispatch(setUserData({ envelopeId }));
-            router.refresh();
-          } else if (userOffer.contractSign) {
-            router.push('/getoffer?activeStep=1');
-          } else {
-            router.push('/getoffer');
-          }
-        } catch (error) {
-          console.error('Failed to check user offer details:', error);
-        }
-      } else {
-        router.push('/getoffer');
-      }
-    };
-    checkUserOfferDetails();
+    // const checkUserOfferDetails = async () => {
+    //   if (userData.offerId && userData._id) {
+    //     try {
+    //       const response = await fetch(
+    //         `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
+    //       );
+    //       const { userOffer } = await response.json();
+    //       if ((userData.hasPaid || userOffer.paid) && userOffer.contractSign) {
+    //         const envelopeId = userOffer.envelopeId;
+    //         removeDataFromSessionStorage('UserOffer');
+    //         removeDataFromSessionStorage('docusignAccessToken');
+    //         dispatch(resetUserData());
+    //         // dispatch(setUserData({ envelopeId }));
+    //         router.refresh();
+    //       } else if (userOffer.contractSign) {
+    //         router.push('/getoffer?activeStep=1');
+    //       } else {
+    //         router.push('/getoffer');
+    //       }
+    //     } catch (error) {
+    //       console.error('Failed to check user offer details:', error);
+    //     }
+    //   } else {
+    //     router.push('/getoffer');
+    //   }
+    // };
+    // checkUserOfferDetails();
   }, []);
 
   return (
@@ -53,7 +53,7 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
         <h1 className="text-lg md:2xl lg:text-3xl font-bold mb-3.5 mt-2">
           {t('congrats.title')}
         </h1>
-        <label className="ext-sm font-normal text-[#828282] text-center ">
+        <label className="ext-sm font-normal text-[#828282] text-center mb-[70px] md:mb-0">
           {t('congrats.desc1')}
           <br></br>
           {t('congrats.desc2')}
@@ -75,7 +75,7 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
         </div> */}
       </div>
 
-      <div className="mx-auto flex justify-center items-center w-full lg:w-3/6">
+      <div className="mx-auto flex justify-center items-center w-full lg:w-3/6 lg:!mt-5">
         <div className="relative w-full lg:h-[520px] max-w-[310px] h-full video-container !rounded-3xl overflow-hidden">
           {/* <VideoPreview
             custonClass="h-full w-full"
