@@ -54,7 +54,7 @@
     "address": "Dirección",
     "address-no": "Número",
     "province": "Provincia",
-    "nie": "NIE/NIF",
+    "nie": "DNI/NIF/NIE",
     "postcode": "Código Postal",
     "city": "Ciudad",
     "field-label1": "Número de personas que viven en la casa",
