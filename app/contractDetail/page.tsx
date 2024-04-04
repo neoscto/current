@@ -341,7 +341,7 @@ const ContractDetail = ({
                       <input
                         type="text"
                         name="province"
-                        placeholder="Comunidad de Madrid"
+                        placeholder="Madrid"
                         value={formik.values.province || ''}
                         onChange={handleInputChange}
                         className="outline-none border-none focus:outline-none focus:border-none focus:ring-0 text-black"
