@@ -332,7 +332,7 @@ export const generatePDF = async ({
       color: rgb(0, 0, 0)
     });
     page.drawText(
-      `${formatNumber(globalCapacity)} kWp (${formatNumber(globalPanels)}) Paneles`,
+      `${formatNumber(globalCapacity)} kWp (${formatNumber(globalPanels)} Paneles)`,
       {
         x: 120,
         y: 522,
