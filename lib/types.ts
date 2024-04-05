@@ -16,14 +16,14 @@ export interface GeneratePDFProps {
   codecRegularPath: string;
   globalCapacity: number;
   globalPanels: number;
-  globalPercentage: number;
   globalPrice: number;
   globalSavings: number;
-  globalPaybackNeos: number;
+  globalPayback: number;
   globalPaybackRooftop: number;
   globalTons: number;
   cumulativeSavings: SavingRecord[];
   yearlyConsumption: number;
+  planName: string;
 }
 
 export interface Chart {
@@ -47,4 +47,5 @@ export interface GenerateChartPageProps extends Chart {
   imageHeight: number;
   pageWidth: number;
   pageHeight: number;
+  maxProduction: number;
 }

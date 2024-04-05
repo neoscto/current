@@ -19,7 +19,7 @@ Chart.defaults.font.size = 25;
 Chart.defaults.font.family = 'Roboto';
 export async function POST(request: Request) {
   try {
-    const { cumulativeSavings, globalPrice } = await request.json();
+    const { cumulativeSavings, globalPrice, planName } = await request.json();
 
     const width = 700;
     const height = 600;
@@ -84,8 +84,8 @@ export async function POST(request: Request) {
         },
         plugins: {
           title: {
-            display: false,
-            text: 'Ahorro Acumulado',
+            display: true,
+            text: planName,
             font: { size: 20 }
           },
           legend: {

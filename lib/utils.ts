@@ -78,3 +78,11 @@ export const chartPageVerticalPositions = (itemsPerLevel: number) => {
 };
 
 export const chartPageHorizontalPositions = [50, 225, 400];
+
+export const findMaxProduction = (records: any) => {
+  return (
+    Math.ceil(
+      Math.max(...records.map((record: any) => record.production)) / 10
+    ) * 10
+  );
+};

@@ -272,14 +272,24 @@ const YourOffer = ({ handleNext, data }: any) => {
         codecRegularPath,
         globalCapacity: data.vsi_required_capacity,
         globalPanels: data.number_of_panels,
-        globalPercentage: data.percent_savings_year1_w_neos,
         globalPrice: data.total_price_before_tax,
-        globalSavings: data.total_savings_w_neos,
-        globalPaybackNeos: data.payback_w_neos,
+        globalSavings:
+          userPlan === 'neos'
+            ? data.total_savings_w_neos
+            : data.total_savings_without_neos,
+        globalPayback:
+          userPlan === 'neos' ? data.payback_w_neos : data.payback_without_neos,
         globalPaybackRooftop: data.payback_rooftop,
         globalTons: data.neos_total_emissions_saved_in_tons,
-        cumulativeSavings: data.cumulative_savings,
-        yearlyConsumption: data.yearly_consumption
+        cumulativeSavings:
+          userPlan === 'neos'
+            ? data.neos_cumulative_savings
+            : data.current_cumulative_savings,
+        yearlyConsumption: data.yearly_consumption,
+        planName:
+          userPlan === 'neos'
+            ? 'Instalación y Suministro Neos'
+            : 'Instalación y Suministro Actual'
       };
 
       const response = await generatePDF(pdfData);
@@ -293,7 +303,10 @@ const YourOffer = ({ handleNext, data }: any) => {
       const a = document.createElement('a');
       a.href = url;
       a.target = '_blank';
-      a.download = 'Oferta - Instalación y Suministro Neos.pdf'; // Set the filename for the downloaded file
+      a.download =
+        userPlan === 'neos'
+          ? 'Oferta - Instalación y Suministro Neos'
+          : 'Oferta - Instalación y Suministro Actual'; // Set the filename for the downloaded file
       document.body.appendChild(a);
       a.click();
 
