@@ -119,7 +119,7 @@ const YourOffer = ({ handleNext, data }: any) => {
   useEffect(() => {
     // const offerData: any = getDataFromSessionStorage('UserOffer');
     setUserPlan(userData.plan ?? 'neos');
-    // scrollToTop();
+    scrollToTop();
   }, []);
 
   useCalendlyEventListener({

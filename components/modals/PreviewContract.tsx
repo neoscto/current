@@ -182,7 +182,9 @@ const PreviewContract = () => {
             <NeosButton
               id="btn"
               category="colored"
-              className={'p-4 text-sm leading-4 font-semibold w-fit mb-4'}
+              className={
+                'p-4 text-sm leading-4 font-semibold !w-[200px] sm:!w-auto mb-4'
+              }
               buttonsize="lg"
               title={t('preview-contract.generate-my-contract')}
               onClick={handleGenerateContract}

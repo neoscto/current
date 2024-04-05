@@ -205,10 +205,23 @@ const CheckoutForm = () => {
         </Grid>
       </div>
       <div className="mt-8 text-center">
-        <NeosButton
+        {/* <NeosButton
           sx={{ width: '140px !important' }}
           category="colored"
           type="submit"
+          title="PAY NOW"
+          isLoading={loading}
+          disabled={!stripe || loading || !totalPayment}
+        /> */}
+        <NeosButton
+          sx={{
+            height: '56px !important',
+            maxWidth: '273px',
+            fontSize: '18px !important'
+          }}
+          type="submit"
+          category="colored"
+          buttonsize="lg"
           title="PAY NOW"
           isLoading={loading}
           disabled={!stripe || loading || !totalPayment}
