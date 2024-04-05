@@ -27,6 +27,8 @@ import {
 } from 'recharts';
 import CircularProgress from '@mui/material/CircularProgress';
 import { setUserData } from '@/features/common/commonSlice';
+import { openModal } from '@/features/modals/previewContractSlice';
+import PreviewContract from '@/components/modals/PreviewContract';
 
 const CustomTooltip = ({
   active,
@@ -638,29 +640,20 @@ const YourOffer = ({ handleNext, data }: any) => {
 
                   <div className="lg:w-full w-auto  flex flex-col items-center">
                     <button
-                      // Gray out: className="bg-[#cccccc] text-[#666666] p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
-                      className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
-                      onClick={handleGenerateContract} // uncomment
-                      disabled={!userData._id} // comment and the coming soons below
-                      // disabled
+                      className="bg-[#cccccc] text-[#666666] p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
+                      onClick={() => {
+                        if (userData.offerId)
+                          return router.push('/getoffer?activeStep=1');
+                        else dispatch(openModal());
+                      }}
                     >
-                      <div className="flex items-center justify-center w-full min-w-[150px]">
-                        {isGeneratingContract ? (
-                          <CircularProgress
-                            color="inherit"
-                            sx={{
-                              width: '24px !important',
-                              height: '24px !important'
-                            }}
-                          />
-                        ) : (
-                          <span>{t('Your-offer.contract-btn-txt')}</span>
-                        )}
-                      </div>
+                      <span>
+                        {userData.offerId
+                          ? t('preview-contract.generate-my-contract')
+                          : t('preview-contract.title')}
+                      </span>
+                      <PreviewContract />
                     </button>
-                    {/* <p className="font-sm text-[#2D9CDB] mt-1 ">
-                      {t('Coming Soon...')}
-                    </p> */}
                   </div>
                 </div>
               </div>
