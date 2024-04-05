@@ -269,6 +269,13 @@
       "answer21": "<p>Starting is easy. Simply visit our website, estimate the number of solar panels that fit your needs, sign your contract, and pay for your extra awesome installation, all within 10 minutes. Welcome to the future of energy!</p>"
     }
   },
+  "preview-contract": {
+    "neos": "I understand that this contract is for the plan in which I buy a Neos virtual solar installation and make Neos my electricity provider.",
+    "current": "I understand that this contract is for the plan in which I buy a Neos virtual solar installation and keep my current electricity provider.",
+    "download-contract": "Download Contract",
+    "generate-my-contract": "Generate My Contract",
+    "error-msg": "Checking this box is required to generate your contract."
+  },
   "Switch between the two plans above to compare our estimates": "Switch between the two plans above to compare our estimates",
   "Percent savings in your first year": "Percent savings in your first year",
   "lower electricity bills": "",

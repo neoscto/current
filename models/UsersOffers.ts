@@ -32,7 +32,7 @@ export type UserOfferSchemaProps = {
   clickedOnGenerate?: boolean;
   filledInfo?: boolean;
   paid?: boolean;
-  congratsPageVisited?: boolean;
+  hasReadContract?: boolean;
 };
 
 type UserOfferSchemaMethods = {};
@@ -106,7 +106,7 @@ class UserOfferSchema {
   paid: boolean;
 
   @prop({ default: false })
-  congratsPageVisited: boolean;
+  hasReadContract: boolean;
 
   @prop({ default: new Date() })
   createdAt: Date;

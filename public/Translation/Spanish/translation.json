@@ -269,6 +269,13 @@
       "answer21": "<p>Empezar es fácil. Visite nuestra página web, calcule su oferta, firme su contrato y pague por su instalación, todo en 10 minutos. ¡Bienvenido al futuro de la energía!</p>"
     }
   },
+  "preview-contract": {
+    "neos": "Entiendo que este contrato es para el plan en el que compro una instalación solar virtual de Neos y hago de Neos mi comercializadora.",
+    "current": "Entiendo que este contrato es para el plan en el que compro una instalación solar virtual de Neos y mantengo mi comercializadora actual.",
+    "download-contract": "Descargar Contrato",
+    "generate-my-contract": "Generar Mi Contrato",
+    "error-msg": "Es necesario marcar esta casilla para generar tu contrato."
+  },
   "Switch between the two plans above to compare our estimates": "Cambia entre los dos planes anteriores para comparar nuestras estimaciones",
   "Percent savings in your first year": "Porcentaje de ahorro en tu primer año",
   "lower electricity bills": "",
