@@ -256,8 +256,8 @@ const YourOffer = ({ handleNext, data }: any) => {
       //   })
       // });
       enum PLANS {
-        Neos = 'Neos Instalación y Suministro Neos',
-        Current = 'Neos Instalación y Suministro Actual'
+        Neos = 'Oferta Neos Instalación y Suministro Neos',
+        Current = 'Oferta Neos Instalación y Suministro Actual'
       }
       const chartBackground1 = generatePath('Background Page 5.png');
       const chartBackground2 = generatePath('Background Page 7.png');
