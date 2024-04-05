@@ -15,33 +15,32 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
   const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {
-    // const checkUserOfferDetails = async () => {
-    //   if (userData.offerId && userData._id) {
-    //     try {
-    //       const response = await fetch(
-    //         `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
-    //       );
-    //       const { userOffer } = await response.json();
-    //       if ((userData.hasPaid || userOffer.paid) && userOffer.contractSign) {
-    //         const envelopeId = userOffer.envelopeId;
-    //         removeDataFromSessionStorage('UserOffer');
-    //         removeDataFromSessionStorage('docusignAccessToken');
-    //         dispatch(resetUserData());
-    //         // dispatch(setUserData({ envelopeId }));
-    //         router.refresh();
-    //       } else if (userOffer.contractSign) {
-    //         router.push('/getoffer?activeStep=1');
-    //       } else {
-    //         router.push('/getoffer');
-    //       }
-    //     } catch (error) {
-    //       console.error('Failed to check user offer details:', error);
-    //     }
-    //   } else {
-    //     router.push('/getoffer');
-    //   }
-    // };
-    // checkUserOfferDetails();
+    const checkUserOfferDetails = async () => {
+      if (userData.offerId && userData._id) {
+        try {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
+          );
+          const { userOffer } = await response.json();
+          if ((userData.hasPaid || userOffer.paid) && userOffer.contractSign) {
+            removeDataFromSessionStorage('UserOffer');
+            removeDataFromSessionStorage('docusignAccessToken');
+            dispatch(resetUserData());
+            // dispatch(setUserData({ envelopeId }));
+            router.refresh();
+          } else if (userOffer.contractSign) {
+            router.push('/getoffer?activeStep=1');
+          } else {
+            router.push('/getoffer');
+          }
+        } catch (error) {
+          console.error('Failed to check user offer details:', error);
+        }
+      } else {
+        router.push('/getoffer');
+      }
+    };
+    checkUserOfferDetails();
   }, []);
 
   return (
