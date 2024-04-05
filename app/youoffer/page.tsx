@@ -116,11 +116,11 @@ const YourOffer = ({ handleNext, data }: any) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // useEffect(() => {
-  //   const offerData: any = getDataFromSessionStorage('UserOffer');
-  //   setUserPlan(offerData?.plan ? offerData?.plan : 'neos');
-  //   scrollToTop();
-  // }, []);
+  useEffect(() => {
+    // const offerData: any = getDataFromSessionStorage('UserOffer');
+    setUserPlan(userData.plan ?? 'neos');
+    // scrollToTop();
+  }, []);
 
   useCalendlyEventListener({
     onEventScheduled: (e: any) => {
@@ -614,7 +614,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                 <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center ">
                   <div className="lg:w-full w-auto  flex flex-col items-center min-w-[150px]">
                     <button
-                      className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
+                      className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white px-3 py-4 text-base font-bold border rounded-xl w-full h-full uppercase"
                       onClick={handleDownloadOffer} // uncomment
                       //disabled
                     >
@@ -638,9 +638,9 @@ const YourOffer = ({ handleNext, data }: any) => {
                     </p> */}
                   </div>
 
-                  <div className="lg:w-full w-auto  flex flex-col items-center">
+                  <div className="lg:w-full w-auto flex flex-col items-center">
                     <button
-                      className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
+                      className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white px-3 py-4 text-base font-bold border rounded-xl w-full h-full uppercase"
                       onClick={() => {
                         if (userData.offerId)
                           return router.push('/getoffer?activeStep=1');

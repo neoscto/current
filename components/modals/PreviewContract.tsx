@@ -3,15 +3,21 @@ import { closeModal } from '@/features/modals/previewContractSlice';
 import { Backdrop, Box, Fade, Modal, Typography } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import { useState } from 'react';
+import Image from 'next/image';
 
 import { useDispatch, useSelector } from 'react-redux';
 import NeosButton from '../NeosButton';
 import { PLAN_TYPE } from '@/utils/utils';
-import PdfViewer from '../PdfViewer';
+// import PdfViewer from '../PdfViewer';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/navigation';
 import { setUserData } from '@/features/common/commonSlice';
 import CloseIcon from '@mui/icons-material/Close';
+
+enum CONTRACTS {
+  Neos = 'Plantilla de Contrato - Instalación Neos y Suministro Neos.pdf',
+  Current = 'Plantilla de Contrato - Instalación Neos y Suministro Actual.pdf'
+}
 
 const PreviewContract = () => {
   const { userData } = useSelector((state: any) => state.commonSlice);
@@ -31,6 +37,7 @@ const PreviewContract = () => {
     setTimeout(() => {
       dispatch(closeModal());
     }, 200);
+    error && setError('');
   };
 
   const handleDownload = async () => {
@@ -41,9 +48,7 @@ const PreviewContract = () => {
       const a = document.createElement('a');
       a.href = url;
       a.download =
-        userData.plan === PLAN_TYPE.Neos
-          ? 'Modelo de Contrato - Instalación Neos y Suministro Neos.pdf'
-          : 'Modelo de Contrato - Instalación Neos y Suministro Actual.pdf';
+        userData.plan === PLAN_TYPE.Neos ? CONTRACTS.Neos : CONTRACTS.Current;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -61,6 +66,7 @@ const PreviewContract = () => {
       return;
     }
     setIsGeneratingContract(true);
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers`,
@@ -95,6 +101,7 @@ const PreviewContract = () => {
       console.error('Error:', error);
     } finally {
       setIsGeneratingContract(false);
+      error && setError('');
     }
   };
 
@@ -113,17 +120,38 @@ const PreviewContract = () => {
       }}
     >
       <Fade in={open}>
-        <Box className="bg-white absolute top-1/2 left-1/2 w-full md:w-4/5 lg:w-3/5 xl:w-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-solid border-black p-4 shadow-xl rounded-lg h-[98%] md:h-[95%]">
+        <Box className="bg-white absolute top-1/2 left-1/2 w-full md:w-4/5 lg:w-3/5 xl:w-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-solid border-black p-4 shadow-xl rounded-lg h-fit">
           <Box
             className="flex justify-end w-full cursor-pointer"
             onClick={handleCloseModal}
           >
             <CloseIcon className="w-6 h-6" />
           </Box>
-          <Box
+          {/* <Box
             className={`overflow-y-auto h-[59%] min-[400px]:h-[63%] lg:h-[67%] flex justify-center items-center overflow-x-auto lg:overflow-x-hidden`}
           >
             <PdfViewer fileUrl={fileUrl} />
+          </Box> */}
+          <Box className="w-full border border-[#E0E0E0] rounded-xl py-3 px-4 flex justify-between items-center my-7">
+            <div className="flex items-center">
+              <Image
+                src="/pdfIcon.png"
+                alt="user image"
+                width={34}
+                height={34}
+              />
+              <p className="text-sm font-medium text-[#171717] ms-2">
+                {userData.plan === PLAN_TYPE.Neos
+                  ? CONTRACTS.Neos
+                  : CONTRACTS.Current}
+              </p>
+            </div>
+            <NeosButton
+              sx={{ width: '140px !important' }}
+              category="colored"
+              onClick={handleDownload}
+              title={t('Email-success.download-txt')}
+            />
           </Box>
           <Box className="my-5 flex items-center justify-center pr-2">
             <Checkbox
@@ -131,7 +159,7 @@ const PreviewContract = () => {
               onChange={(e) => setIsChecked(e.target.checked)}
               inputProps={{ 'aria-label': 'controlled' }}
             />
-            <Typography className="text-sm">
+            <Typography>
               {userData.plan === PLAN_TYPE.Neos
                 ? t('preview-contract.neos')
                 : t('preview-contract.current')}
@@ -141,7 +169,7 @@ const PreviewContract = () => {
             {error}
           </Typography>
           <Box className="flex justify-center items-center gap-2 mt-4">
-            <NeosButton
+            {/* <NeosButton
               id="btn"
               category="colored"
               className={
@@ -150,13 +178,11 @@ const PreviewContract = () => {
               buttonsize="lg"
               title={t('preview-contract.download-contract')}
               onClick={handleDownload}
-            />
+            /> */}
             <NeosButton
               id="btn"
               category="colored"
-              className={
-                'p-3 min-[400px]:p-4 text-sm md:text-[14px] leading-4 font-semibold w-fit'
-              }
+              className={'p-4 text-sm leading-4 font-semibold w-fit mb-4'}
               buttonsize="lg"
               title={t('preview-contract.generate-my-contract')}
               onClick={handleGenerateContract}

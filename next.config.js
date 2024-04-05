@@ -9,10 +9,10 @@ const nextConfig = {
   env: {
     STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY
   },
-  webpack: (config) => {
-    config.resolve.alias.canvas = false;
-    return config;
-  },
+  // webpack: (config) => {
+  //   config.resolve.alias.canvas = false;
+  //   return config;
+  // },
   async headers() {
     return [
       {
