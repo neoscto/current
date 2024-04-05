@@ -640,7 +640,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
                   <div className="lg:w-full w-auto  flex flex-col items-center">
                     <button
-                      className="bg-[#cccccc] text-[#666666] p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
+                      className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white p-4 text-base font-bold border rounded-xl w-full h-full uppercase"
                       onClick={() => {
                         if (userData.offerId)
                           return router.push('/getoffer?activeStep=1');
