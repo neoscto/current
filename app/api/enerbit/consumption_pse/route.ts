@@ -5,13 +5,21 @@ export const dynamic = 'force-dynamic';
 import axios, { AxiosResponse } from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
+import https from 'https';
 
 export async function POST(req: Request, res: Response) {
   const body = await req.json();
   try {
     const { cupsCode, WEBTOKEN } = body;
+    const httpsAgent = new https.Agent({
+      rejectUnauthorized: false
+    });
 
-    const response = await axios.get(
+    const instance = axios.create({
+      httpsAgent
+    });
+
+    const response = await instance.get(
       `https://data.enerbit.es/api/sips/consumption_pse/?cups=${cupsCode}&replace=true`,
       {
         headers: {
