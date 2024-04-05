@@ -637,7 +637,11 @@ const YourOffer = ({ handleNext, data }: any) => {
                         else dispatch(openModal());
                       }}
                     >
-                      <span>Preview Contract</span>
+                      <span>
+                        {userData.offerId
+                          ? t('preview-contract.generate-my-contract')
+                          : t('preview-contract.title')}
+                      </span>
                       <PreviewContract />
                     </button>
                   </div>

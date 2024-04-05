@@ -155,7 +155,7 @@ const PreviewContract = () => {
               id="btn"
               category="colored"
               className={
-                '!bg-[#cccccc] hover:!bg-gray-400 !text-[#666666] p-3 min-[400px]:p-4 text-sm md:text-[14px] leading-4 font-semibold w-fit !border-none'
+                'p-3 min-[400px]:p-4 text-sm md:text-[14px] leading-4 font-semibold w-fit'
               }
               buttonsize="lg"
               title={t('preview-contract.generate-my-contract')}

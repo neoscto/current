@@ -274,7 +274,8 @@
     "current": "Entiendo que este contrato es para el plan en el que compro una instalación solar virtual de Neos y mantengo mi comercializadora actual.",
     "download-contract": "Descargar Contrato",
     "generate-my-contract": "Generar Mi Contrato",
-    "error-msg": "Es necesario marcar esta casilla para generar tu contrato."
+    "error-msg": "Es necesario marcar esta casilla para generar tu contrato.",
+    "title": "Previsualizar Contrato"
   },
   "Switch between the two plans above to compare our estimates": "Cambia entre los dos planes anteriores para comparar nuestras estimaciones",
   "Percent savings in your first year": "Porcentaje de ahorro en tu primer año",
