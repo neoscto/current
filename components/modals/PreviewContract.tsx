@@ -150,7 +150,7 @@ const PreviewContract = () => {
               category="colored"
               className="!w-[140px]"
               title={t('Email-success.download-txt')}
-              onClick={handleGenerateContract}
+              onClick={handleDownload}
             />
           </Box>
           <Box className="my-5 flex items-center justify-center pr-2">
@@ -181,7 +181,7 @@ const PreviewContract = () => {
             /> */}
             <NeosButton
               category="colored"
-              className="w-[180px] lg:w-[230px]"
+              className="!w-[180px] lg:!w-[230px]"
               title={t('preview-contract.generate-my-contract')}
               onClick={handleGenerateContract}
               isLoading={isGeneratingContract}

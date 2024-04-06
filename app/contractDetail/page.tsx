@@ -115,6 +115,12 @@ const ContractDetail = ({
         const technicalData = await getTechnicalDataFromApi(
           formik?.values?.cups
         );
+        if (!technicalData) {
+          const errorMsg =
+            'You made a mistake in your CUPS, please enter a valid CUPS';
+          setCupsError(t(errorMsg));
+          return;
+        }
         const isPlanNeos = formik?.values?.plan === 'neos';
         await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers`, {
           method: 'POST',
@@ -143,43 +149,48 @@ const ContractDetail = ({
     if (!userData._id && !userData.offerId) return router.push('/getoffer');
     router.refresh();
     setIsButtonLoading(true);
-    const isChecked = document.getElementById(
-      'link-checkbox'
-    ) as HTMLInputElement | null;
-    const includeCups =
-      formik?.values?.plan === PLAN_TYPE.Neos ||
-      formik?.values?.cups ||
-      formik?.values?.offerType === 'Personalized';
+    try {
+      const isChecked = document.getElementById(
+        'link-checkbox'
+      ) as HTMLInputElement | null;
+      const includeCups =
+        formik?.values?.plan === PLAN_TYPE.Neos ||
+        formik?.values?.cups ||
+        formik?.values?.offerType === 'Personalized';
 
-    if (
-      isChecked &&
-      isChecked?.checked &&
-      formik?.values?.address &&
-      formik?.values?.postcode &&
-      formik?.values?.city &&
-      formik?.values?.nie &&
-      formik?.values?.province &&
-      formik?.values?.addressNo
-    ) {
-      if (includeCups && validateCUPS(formik.values.cups) !== true) {
-        const errorMsg = validateCUPS(formik.values.cups) as string;
-        const translatedMsg = t(errorMsg);
-        setCupsError(translatedMsg);
-        setIsButtonLoading(false);
-        return;
+      if (
+        isChecked &&
+        isChecked?.checked &&
+        formik?.values?.address &&
+        formik?.values?.postcode &&
+        formik?.values?.city &&
+        formik?.values?.nie &&
+        formik?.values?.province &&
+        formik?.values?.addressNo
+      ) {
+        if (includeCups && validateCUPS(formik.values.cups) !== true) {
+          const errorMsg = validateCUPS(formik.values.cups) as string;
+          const translatedMsg = t(errorMsg);
+          setCupsError(translatedMsg);
+          setIsButtonLoading(false);
+          return;
+        }
+        const userOfferData = await updateUserOffer();
+        if (userOfferData) {
+          dispatch(setUserData(userOfferData));
+          redirectDocuSign();
+          // setShowForm("emailSuccess");
+          dispatch(setFormBack('emailDetails'));
+          return userOfferData;
+        }
+      } else {
+        alert(t('Details.alert'));
       }
-      const userOfferData = await updateUserOffer();
-      if (userOfferData) {
-        dispatch(setUserData(userOfferData));
-        redirectDocuSign();
-        // setShowForm("emailSuccess");
-        dispatch(setFormBack('emailDetails'));
-        return userOfferData;
-      }
-    } else {
-      alert(t('Details.alert'));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsButtonLoading(false);
     }
-    setIsButtonLoading(false);
   };
   return (
     <>
