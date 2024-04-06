@@ -8,21 +8,21 @@ const Content = () => {
   return (
     <div className="bg-[#01092299] text-white md:max-w-md lg:max-w-2xl w-full p-6 md:p-8 lg:p-12 flex flex-col gap-5 rounded-r-3xl md:rounded-l-none rounded-l-3xl">
       <h1 className="font-bold text-white text-xl md:text-2xl lg:text-3xl md:text-left text-center">
-        {t('We Are Live!')}
+        {t('Our Virtual Solar Installations Are Now Available!')}
       </h1>
       <p className="font-normal text-sm md:text-base lg:text-xl   ">
         {t(
-          'We are thrilled to announce that sales for our virtual solar installations are live! Calculate your savings and get exclusive access to electricity from our solar parks.'
+          'Dive into the era of sustainable living without the hassle. Discover how much you can save and secure your exclusive spot to harness the power of the sun with our solar parks.'
         )}
       </p>
       <ul className=" ml-3 list-disc font-normal text-sm md:text-base lg:text-xl ">
         <li>
-          {t('The cheapest source of electricity, for your home or business.')}
+          {t('Unbeatable Savings: Tap into the most affordable electricity for your home or business.')}
         </li>
         <li>
-          {t('No installation required: no rooftop panels, no in-home setup.')}
+          {t('Zero Hassle: Forget about roof installations or complex setups inside your home.')}
         </li>
-        <li>{t('Instant connection: receive your electricity right away.')}</li>
+        <li>{t('Power On-Demand: Connect instantly and start receiving clean, renewable energy right away.')}</li>
       </ul>
       {/* for desktop */}
       <div className="hidden md:flex flex-row gap-3 text-xs md:text-sm lg:text-base">
