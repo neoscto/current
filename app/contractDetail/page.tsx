@@ -149,6 +149,7 @@ const ContractDetail = ({
     if (!userData._id && !userData.offerId) return router.push('/getoffer');
     router.refresh();
     setIsButtonLoading(true);
+    setCupsError('');
     try {
       const isChecked = document.getElementById(
         'link-checkbox'
