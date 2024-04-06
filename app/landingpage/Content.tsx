@@ -12,7 +12,7 @@ const Content = () => {
       </h1>
       <p className="font-normal text-sm md:text-base lg:text-xl   ">
         {t(
-          'We are thrilled to announce that sales for our virtual solar installations are live! Calculate your savings and get exclusive access to our first solar parks.'
+          'We are thrilled to announce that sales for our virtual solar installations are live! Calculate your savings and get exclusive access to our solar parks.'
         )}
       </p>
       <ul className=" ml-3 list-disc font-normal text-sm md:text-base lg:text-xl ">
