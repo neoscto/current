@@ -333,11 +333,23 @@ export const calculateSolarPaybackPeriod = async (
           ? technical_data.tipoPerfilConsumo.slice(1).toUpperCase()
           : null;
         let relevant_prices = POWER_PRICES[type_consumption_point];
+        // let contracted_powers: Record<string, number> = {};
+        // for (let i = 1; i <= 7; i++) {
+        //   const contract_value = technical_data[`potenciasContratadasEnWP${i}`];
+        //   console.log(`Value ${i}: ${contract_value}`);
+        //   contracted_powers[`P${i}`] = parseFloat(contract_value || '0');
+        // }
         let contracted_powers: Record<string, number> = {};
-        for (let i = 1; i <= 7; i++) {
-          contracted_powers[`P${i}`] = parseFloat(
-            technical_data[`potenciasContratadasEnWP${i}`] || '0'
-          );
+        for (let i = 1; i <= 6; i++) {
+          const powerKey = `potenciasContratadasEnWP${i}`;
+          let powerValue = parseFloat(technical_data[powerKey]);
+
+          // Check if the result is NaN. If so, replace with 0.
+          if (isNaN(powerValue)) {
+            powerValue = 0;
+          }
+
+          contracted_powers[`P${i}`] = powerValue;
         }
 
         let final_charges: number[] = Object.entries(relevant_prices).map(
