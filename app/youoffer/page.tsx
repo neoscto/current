@@ -207,7 +207,7 @@ const YourOffer = ({ handleNext, data }: any) => {
   //state for referralCode
   const [referralCode, setReferralCode] = useState('');
   const [isOfferDownloading, setIsOfferDownloading] = useState(false);
-  const [isGeneratingContract, setIsGeneratingContract] = useState(false);
+  const [isPreviewingContract, setIsPreviewingContract] = useState(false);
 
   // validateReferralCode
   const validateReferralCode = async () => {
@@ -323,41 +323,45 @@ const YourOffer = ({ handleNext, data }: any) => {
     }
   };
 
-  const handleGenerateContract = async () => {
-    if (!userData._id) return router.push('/getoffer');
-    setIsGeneratingContract(true);
+  const handlePreviewContract = async () => {
+    setIsPreviewingContract(true);
+
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers`,
-        {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({
-            offerData: {
-              user: userData._id,
-              totalPanels: userData.totalPanels,
-              capacityPerPanel: userData.capacityPerPanel,
-              totalCapacity: userData.totalCapacity,
-              estimateProduction: userData.estimateProduction,
-              totalPayment: userData.totalPayment,
-              typeConsumption: userData.typeConsumption,
-              plan: userPlan,
-              offerType: userData.offerType,
-              clickedOnGenerate: true
-            },
-            offerId: userData.offerId
-          })
+      if (userData.offerId) {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers`,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              offerData: {
+                user: userData._id,
+                totalPanels: userData.totalPanels,
+                capacityPerPanel: userData.capacityPerPanel,
+                totalCapacity: userData.totalCapacity,
+                estimateProduction: userData.estimateProduction,
+                totalPayment: userData.totalPayment,
+                typeConsumption: userData.typeConsumption,
+                plan: userPlan,
+                offerType: userData.offerType,
+                clickedOnGenerate: true
+              },
+              offerId: userData.offerId
+            })
+          }
+        );
+        const { offer } = await response.json();
+        if (offer) {
+          dispatch(setUserData({ offerId: offer._id }));
+          router.push('/getoffer?activeStep=1');
         }
-      );
-      const { offer } = await response.json();
-      if (offer) {
-        dispatch(setUserData({ offerId: offer._id }));
-        router.push('/getoffer?activeStep=1');
+      } else {
+        dispatch(openModal());
       }
     } catch (error) {
       console.error('Error:', error);
     } finally {
-      setIsGeneratingContract(false);
+      setIsPreviewingContract(false);
     }
   };
 
@@ -641,17 +645,25 @@ const YourOffer = ({ handleNext, data }: any) => {
                   <div className="lg:w-full w-auto flex flex-col items-center">
                     <button
                       className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white px-3 py-4 text-base font-bold border rounded-xl w-full h-full uppercase"
-                      onClick={() => {
-                        if (userData.offerId)
-                          return router.push('/getoffer?activeStep=1');
-                        else dispatch(openModal());
-                      }}
+                      onClick={handlePreviewContract}
                     >
-                      <span>
-                        {userData.offerId
-                          ? t('preview-contract.generate-my-contract')
-                          : t('preview-contract.title')}
-                      </span>
+                      <div className="flex items-center justify-center w-full min-w-[150px]">
+                        {isPreviewingContract ? (
+                          <CircularProgress
+                            color="inherit"
+                            sx={{
+                              width: '24px !important',
+                              height: '24px !important'
+                            }}
+                          />
+                        ) : (
+                          <span>
+                            {userData.offerId
+                              ? t('preview-contract.generate-my-contract')
+                              : t('preview-contract.title')}
+                          </span>
+                        )}
+                      </div>
                       <PreviewContract />
                     </button>
                   </div>
