@@ -115,7 +115,7 @@ const ContractDetail = ({
         const technicalData = await getTechnicalDataFromApi(
           formik?.values?.cups
         );
-        if (!technicalData) {
+        if (formik?.values?.cups && !technicalData) {
           const errorMsg =
             'You made a mistake in your CUPS, please enter a valid CUPS';
           setCupsError(t(errorMsg));
