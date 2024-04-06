@@ -110,8 +110,8 @@ const CheckoutForm = () => {
             },
             body: JSON.stringify({
               token: token.id,
-              // amount: totalPayment,
-              amount: 1,
+              amount: totalPayment,
+              // amount: 1,
               offerId: userData.offerId,
               userId: userData._id
             })
