@@ -8,11 +8,11 @@ const Content = () => {
   return (
     <div className="bg-[#01092299] text-white md:max-w-md lg:max-w-2xl w-full p-6 md:p-8 lg:p-12 flex flex-col gap-5 rounded-r-3xl md:rounded-l-none rounded-l-3xl">
       <h1 className="font-bold text-white text-xl md:text-2xl lg:text-3xl md:text-left text-center">
-        {t('Pre-Sale Launch!')}
+        {t('We Are Live!')}
       </h1>
       <p className="font-normal text-sm md:text-base lg:text-xl   ">
         {t(
-          'We’re thrilled to announce that pre-sales for our virtual solar installations start later this month! Get exclusive access to our waitlist by calculating your savings.'
+          'We are thrilled to announce that sales for our virtual solar installations are live! Calculate your savings and get exclusive access to our first solar parks.'
         )}
       </p>
       <ul className=" ml-3 list-disc font-normal text-sm md:text-base lg:text-xl ">
