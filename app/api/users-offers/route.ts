@@ -1,36 +1,10 @@
 export const maxDuration = 30;
 export const dynamic = 'force-dynamic';
 
+import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
 import { createErrorResponse } from '@/lib/api-response';
 import connectDB from '@/lib/connect-db';
 import { NextResponse } from 'next/server';
-
-import { stringToObjectId } from '@/lib/api-response';
-import { UserOffer, UserOfferSchemaProps } from '@/models/UsersOffers';
-
-const createOrUpdateUserOffer = async (
-  offerData: UserOfferSchemaProps,
-  offerId?: string
-) => {
-  try {
-    if (!offerData.user) throw new Error("User can't be empty 😔");
-    if (offerId) {
-      const existingUserOffer = await UserOffer.findByIdAndUpdate(
-        stringToObjectId(offerId),
-        { $set: offerData },
-        { new: true }
-      )
-        .lean()
-        .exec();
-      return existingUserOffer;
-    }
-    const userOffer = await UserOffer.create(offerData);
-    return userOffer;
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error creating user offer 😔');
-  }
-};
 
 export async function POST(request: Request) {
   try {

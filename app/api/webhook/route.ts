@@ -1,42 +1,16 @@
-import { NextResponse } from 'next/server';
-import { UserOffer, UserOfferSchemaProps } from '@/models/UsersOffers';
+import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
 import { Payment, PaymentSchemaProps } from '@/models/Payment';
-import { stringToObjectId } from '@/lib/api-response';
+import { NextResponse } from 'next/server';
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-const createOrUpdateUserOffer = async (
-  offerData: UserOfferSchemaProps,
-  offerId?: string
-) => {
-  try {
-    if (!offerData.user) throw new Error("User can't be empty 😔");
-    if (offerId) {
-      const existingUserOffer = await UserOffer.findByIdAndUpdate(
-        stringToObjectId(offerId),
-        { $set: offerData },
-        { new: true }
-      )
-        .lean()
-        .exec();
-      return existingUserOffer;
-    }
-    const userOffer = await UserOffer.create(offerData);
-    return userOffer;
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error creating user offer 😔');
-  }
-};
-
 const createPayment = async (paymentData: PaymentSchemaProps) => {
   try {
-    const { user, userOffer, transactionId, status, amountPaid } = paymentData;
-    if (!user || !userOffer || !transactionId || !status || !amountPaid) {
+    const { userOffer, transactionId, status, amountPaid } = paymentData;
+    if (!userOffer || !transactionId || !status || !amountPaid) {
       throw new Error('Invalid payment data');
     }
     const payment = await Payment.create({
-      user,
       userOffer,
       transactionId,
       status,
@@ -71,15 +45,31 @@ export async function POST(_request: Request, _response: Response) {
   switch (event.type) {
     case 'charge.succeeded':
       const chargeCaptured = event.data.object;
-      const { userOffer, user } = chargeCaptured.metadata;
+      const {
+        userOffer,
+        emailAddress,
+        firstName,
+        lastName,
+        phoneNumber,
+        dialCode
+      } = chargeCaptured.metadata;
       await createPayment({
         userOffer,
-        user,
         status: chargeCaptured.status,
         transactionId: chargeCaptured.id,
         amountPaid: Number((chargeCaptured.amount / 100).toFixed(2))
       });
-      await createOrUpdateUserOffer({ user, paid: true }, userOffer);
+      await createOrUpdateUserOffer(
+        {
+          emailAddress,
+          firstName,
+          lastName,
+          phoneNumber,
+          dialCode,
+          paid: true
+        },
+        userOffer
+      );
       break;
     case 'charge.expired':
       const chargeExpired = event.data.object;
