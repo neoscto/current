@@ -3,10 +3,10 @@ import { stringToObjectId } from '@/lib/api-response';
 import { UserOffer, UserOfferSchemaProps } from '@/models/UsersOffers';
 
 export const createOrUpdateUserOffer = async (
-  offerData: UserOfferSchemaProps,
-  offerId?: string
+  offerData: UserOfferSchemaProps
 ) => {
   try {
+    const offerId = offerData?._id;
     if (offerId) {
       const existingUserOffer = await UserOffer.findByIdAndUpdate(
         stringToObjectId(offerId),

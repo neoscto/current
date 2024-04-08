@@ -13,7 +13,7 @@ import useHandleForm from '@/hooks/useHandleForm';
 import { offerStep1Schema } from '@/utils/validations/offers.validation';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Grid } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
 import NeosTextField from '@/components/NeosTextField';
 import {
   getDataFromSessionStorage,
@@ -190,17 +190,17 @@ const PersonalizedOffer = () => {
 
   const [formik, isLoading]: any = useHandleForm({
     method: 'POST',
-    apiEndpoint: '/api/users',
+    apiEndpoint: '/api/users-offers',
     formikInitialValues,
     validationSchema: offerStep1Schema,
     handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
-    dispatch(setUserData(res.data));
+    dispatch(setUserData(res.offer));
     setShowForm('yourOffer');
-    const arrayData = Object.keys(res.data);
+    const arrayData = Object.keys(res.offer);
     arrayData.forEach((key: any) => {
-      formik.setFieldValue(key, res.data[key] || '');
+      formik.setFieldValue(key, res.offer[key] || '');
     });
   }
 
@@ -213,6 +213,14 @@ const PersonalizedOffer = () => {
 
   const { loading, signature, signingUrl, downloadPdf } =
     useDocusignService(formik);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center w-full h-screen">
+        <CircularProgress className="w-8 h-8" />
+      </div>
+    );
+  }
 
   return (
     <MainContainer>

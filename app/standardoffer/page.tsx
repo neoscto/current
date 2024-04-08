@@ -9,7 +9,7 @@ import useHandleForm from '@/hooks/useHandleForm';
 import { AppDispatch } from '@/store/store';
 import { offerStep1Schema } from '@/utils/validations/offers.validation';
 import { Button } from '@mantine/core';
-import { Grid } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -184,17 +184,17 @@ const StandardOffer = () => {
 
   const [formik, isLoading]: any = useHandleForm({
     method: 'POST',
-    apiEndpoint: '/api/users',
+    apiEndpoint: '/api/users-offers',
     formikInitialValues,
     validationSchema: offerStep1Schema,
     handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
-    dispatch(setUserData(res.data));
+    dispatch(setUserData(res.offer));
     setShowForm('yourOffer');
-    const arrayData = Object.keys(res.data);
+    const arrayData = Object.keys(res.offer);
     arrayData.forEach((key: any) => {
-      formik.setFieldValue(key, res.data[key] || '');
+      formik.setFieldValue(key, res.offer[key] || '');
     });
   }
 
@@ -207,6 +207,14 @@ const StandardOffer = () => {
 
   const { loading, signature, signingUrl, downloadPdf } =
     useDocusignService(formik);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center w-full h-screen">
+        <CircularProgress className="w-8 h-8" />
+      </div>
+    );
+  }
 
   return (
     <MainContainer>

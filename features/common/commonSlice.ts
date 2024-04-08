@@ -23,7 +23,6 @@ const initialUserData = {
   referralCode: '',
   dialCode: '',
   _id: '',
-  offerId: '',
   isValidCode: false,
   plan: 'neos',
   offerType: '',
