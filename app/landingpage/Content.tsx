@@ -6,26 +6,34 @@ const Content = () => {
   const { t } = useTranslation();
   const router = useRouter();
   return (
-    <div className="bg-[#01092299] text-white md:max-w-md lg:max-w-2xl w-full p-6 md:p-8 lg:p-12 flex flex-col gap-5 rounded-r-3xl md:rounded-l-none rounded-l-3xl">
-      <h1 className="font-bold text-white text-xl md:text-2xl lg:text-3xl md:text-left text-center">
+    <div className="bg-[#01092299] text-white md:max-w-md lg:max-w-2xl w-full p-6 md:p-8 lg:p-12 flex flex-col gap-5 rounded-r-3xl md:rounded-l-none rounded-l-3xl md:-ml-3">
+      <h1 className="font-bold text-white text-xl md:text-2xl lg:text-3xl md:text-left text-center md:ml-3">
         {t('Our Virtual Solar Installations Are Now Available!')}
       </h1>
-      <p className="font-normal text-sm md:text-base lg:text-xl   ">
+      <p className="font-normal text-sm md:text-base lg:text-xl md:ml-3">
         {t(
           'Dive into the era of sustainable living without the hassle. Discover how much you can save and secure your exclusive spot to harness the power of the sun with our solar parks.'
         )}
       </p>
-      <ul className=" ml-3 list-disc font-normal text-sm md:text-base lg:text-xl ">
+      <ul className="ml-3 list-disc font-normal text-sm md:text-base lg:text-xl md:ml-6">
         <li>
-          {t('Unbeatable Savings: Tap into the most affordable electricity for your home or business.')}
+          {t(
+            'Unbeatable Savings: Tap into the most affordable electricity for your home or business.'
+          )}
         </li>
         <li>
-          {t('Zero Hassle: Forget about roof installations or complex setups inside your home.')}
+          {t(
+            'Zero Hassle: Forget about roof installations or complex setups inside your home.'
+          )}
         </li>
-        <li>{t('Power On-Demand: Connect instantly and start receiving clean, renewable energy right away.')}</li>
+        <li>
+          {t(
+            'Power On-Demand: Connect instantly and start receiving clean, renewable energy right away.'
+          )}
+        </li>
       </ul>
       {/* for desktop */}
-      <div className="hidden md:flex flex-row gap-3 text-xs md:text-sm lg:text-base">
+      <div className="hidden md:flex flex-row gap-3 text-xs md:text-sm lg:text-base md:ml-3">
         <button
           className="hover:opacity-70 bg-white text-black font-semibold py-3 px-1 md:px-4 rounded-xl"
           onClick={() => router.push('/description')}

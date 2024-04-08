@@ -2,7 +2,7 @@
 
 const TolstoyHero = ({ src }: { src?: string }) => {
   return (
-    <div className="rounded-2xl overflow-hidden">
+    <div className="rounded-2xl overflow-hidden z-10 relative">
       <iframe
         id="tolstoy"
         src={src || 'https://player.gotolstoy.com/k71mlzqzwrqzo?host'}
