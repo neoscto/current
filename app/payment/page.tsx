@@ -48,22 +48,22 @@ const CheckoutForm = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!userData._id && !userData.offerId) return router.push('/getoffer');
+    if (!userData._id) return router.push('/getoffer');
     const getPrice = async () => {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData._id}`
       );
-      const { userOffer } = await response.json();
+      const { offer } = await response.json();
       setDisplayValue(
-        userOffer.totalPayment.toLocaleString('en-US', {
+        offer.totalPayment.toLocaleString('en-US', {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2
         })
       );
-      setTotalPayment(userOffer.totalPayment);
+      setTotalPayment(offer.totalPayment);
     };
-    userData.offerId && getPrice();
-  }, [userData.offerId, userData._id]);
+    userData._id && getPrice();
+  }, [userData._id]);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -78,7 +78,7 @@ const CheckoutForm = () => {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
-    if (!userData.offerId && !userData._id) return router.push('/getoffer');
+    if (!userData._id) return router.push('/getoffer');
 
     setLoading(true);
 
@@ -112,8 +112,7 @@ const CheckoutForm = () => {
               token: token.id,
               amount: totalPayment,
               // amount: 1,
-              offerId: userData.offerId,
-              userId: userData._id
+              userOffer: userData._id
             })
           }
         );

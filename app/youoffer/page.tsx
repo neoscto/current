@@ -122,6 +122,25 @@ const YourOffer = ({ handleNext, data }: any) => {
     scrollToTop();
   }, []);
 
+  useEffect(() => {
+    const updateUserOfferPlan = async () => {
+      if (userData._id) {
+        await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData._id}`,
+          {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              ...userData,
+              plan: userPlan
+            })
+          }
+        );
+      }
+    };
+    updateUserOfferPlan();
+  }, [userData.plan]);
+
   useCalendlyEventListener({
     onEventScheduled: (e: any) => {
       const offerData: any = getDataFromSessionStorage('UserOffer');

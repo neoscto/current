@@ -20,14 +20,14 @@ const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
     setShowForm('paymentForm');
 
     const getUserOfferDetails = async () => {
-      if (userData.offerId && userData._id) {
+      if (userData._id) {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData._id}`
         );
-        const { userOffer } = await response.json();
-        if (!userOffer.contractSign && userOffer.filledInfo) {
+        const { offer } = await response.json();
+        if (!offer.contractSign && offer.filledInfo) {
           return router.push('/getoffer?activeStep=1');
-        } else if (!userOffer.contractSign && !userOffer.filledInfo) {
+        } else if (!offer.contractSign && !offer.filledInfo) {
           return router.push('/getoffer');
         }
       } else {
@@ -36,7 +36,7 @@ const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
     };
 
     getUserOfferDetails();
-  }, [userData.offerId, userData._id]);
+  }, [userData._id]);
 
   return (
     <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-[70px] md:mt-7 lg:mt-0">

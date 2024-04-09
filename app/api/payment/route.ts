@@ -11,7 +11,7 @@ export async function POST(_request: Request, _response: Response) {
       ? { source: 'tok_visa' }
       : { source: body.token }),
     metadata: {
-      userOffer: body.offerId,
+      userOffer: body._id,
       emailAddress: body.emailAddress,
       firstName: body.firstName,
       lastName: body.lastName,

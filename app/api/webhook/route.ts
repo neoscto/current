@@ -59,17 +59,15 @@ export async function POST(_request: Request, _response: Response) {
         transactionId: chargeCaptured.id,
         amountPaid: Number((chargeCaptured.amount / 100).toFixed(2))
       });
-      await createOrUpdateUserOffer(
-        {
-          emailAddress,
-          firstName,
-          lastName,
-          phoneNumber,
-          dialCode,
-          paid: true
-        },
-        userOffer
-      );
+      await createOrUpdateUserOffer({
+        _id: userOffer,
+        emailAddress,
+        firstName,
+        lastName,
+        phoneNumber,
+        dialCode,
+        paid: true
+      });
       break;
     case 'charge.expired':
       const chargeExpired = event.data.object;
