@@ -22,7 +22,6 @@ import PhoneInput, {
 import 'react-phone-number-input/style.css';
 import { useDispatch } from 'react-redux';
 import YourOffer from '../youoffer/page';
-import { OFFER_TYPE } from '@/models/UsersOffers';
 
 interface FormData {
   numberOfPeople: string;
