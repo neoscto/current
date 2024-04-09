@@ -12,13 +12,11 @@ export async function GET(
   try {
     await connectDB();
     const id = params.id;
-    const userOffer = await UserOffer.findById(stringToObjectId(id))
-      .lean()
-      .exec();
-    if (!userOffer) throw new Error('User offer not found 😔');
+    const offer = await UserOffer.findById(stringToObjectId(id)).lean().exec();
+    if (!offer) throw new Error('User offer not found 😔');
     let json_response = {
       status: 'success',
-      userOffer
+      offer
     };
     return NextResponse.json(json_response);
   } catch (error: any) {
@@ -54,7 +52,14 @@ export async function PUT(
       phoneNumber: offer.phoneNumber,
       plan: offer.plan,
       dialCode: offer.dialCode,
-      referralCode: offer.referralCode
+      referralCode: offer.referralCode,
+      address: offer.address,
+      postcode: offer.postcode,
+      city: offer.city,
+      nie: offer.nie,
+      addressNo: offer.addressNo,
+      province: offer.province,
+      typeConsumption: offer.typeConsumption
     };
     let json_response = {
       status: 'success',

@@ -36,6 +36,7 @@ const getPlanInformation = async (
     const { consumption_data } = await fetchData(offerData.cups);
     const processData: any = processConsumptionData(consumption_data);
     const typeConsumption = paybackData.typeConsumption;
+    console.log('Type Consumption: ', typeConsumption);
     const orderedKeys = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6'];
     const powerConsumptionData = orderedKeys.map((key) => {
       const sum = processData[key].reduce(
@@ -59,11 +60,11 @@ const getLabelInformation = (label: string, length: number, value: string) => {
 };
 
 const generateEnvelopeData = async (offerData: any) => {
-  if (offerData.offerId && offerData._id) {
+  if (offerData._id) {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${offerData.offerId}`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${offerData._id}`
     );
-    const { userOffer: paybackData } = await response.json();
+    const { offer: paybackData } = await response.json();
     const { cups, typeConsumption, powerConsumptionData } =
       await getPlanInformation(offerData, paybackData);
 
@@ -184,10 +185,7 @@ export async function POST(_request: Request, _response: Response) {
       envelopeId,
       offerData
     );
-    await createOrUpdateUserOffer(
-      { ...offerData, envelopeId },
-      offerData.offerId
-    );
+    await createOrUpdateUserOffer({ ...offerData, envelopeId });
     return new NextResponse(
       JSON.stringify({ signingUrl, envelopeId, accessToken }),
       {
