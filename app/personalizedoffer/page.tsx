@@ -1,36 +1,28 @@
 'use client';
-import React, { useCallback, useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import MainContainer from '@/components/sharedComponents/MainContainer';
-import { setUserData } from '@/features/common/commonSlice';
-import { AppDispatch } from '@/store/store';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import useHandleForm from '@/hooks/useHandleForm';
-import { offerStep1Schema } from '@/utils/validations/offers.validation';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Grid } from '@mui/material';
 import NeosTextField from '@/components/NeosTextField';
-import {
-  getDataFromSessionStorage,
-  saveDataToSessionStorage,
-  validateCUPS
-} from '@/utils/utils';
-import 'react-phone-number-input/style.css';
+import ProgressBar from '@/components/ProgressBar';
+import MainContainer from '@/components/sharedComponents/MainContainer';
+import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPeriod';
+import { setUserData } from '@/features/common/commonSlice';
+import useDocusignService from '@/hooks/useDocusign';
+import useHandleForm from '@/hooks/useHandleForm';
+import { AppDispatch } from '@/store/store';
+import { validateCUPS } from '@/utils/utils';
+import { offerStep1Schema } from '@/utils/validations/offers.validation';
+import { Button } from '@mantine/core';
+import { CircularProgress, Grid } from '@mui/material';
+import Box from '@mui/material/Box';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import PhoneInput, {
   Country,
   getCountryCallingCode,
   isValidPhoneNumber
 } from 'react-phone-number-input';
-import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPeriod';
+import 'react-phone-number-input/style.css';
+import { useDispatch } from 'react-redux';
 import YourOffer from '../youoffer/page';
-import { Button } from '@mantine/core';
-import useDocusignService from '@/hooks/useDocusign';
-import ProgressBar from '@/components/ProgressBar';
 
 const PersonalizedOffer = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -160,48 +152,41 @@ const PersonalizedOffer = () => {
       setServerError('Please try one more time?');
       return;
     }
-
-    // const offerData: any = getDataFromSessionStorage('UserOffer');
-    // if (offerData) {
-    //   const updatedData = {
-    //     firsName: formik?.values?.firstName,
-    //     lastName: formik.values.lastName,
-    //     emailAddress: formik.values.emailAddress,
-    //     numberOfPeople: formik.values.numberOfPeople,
-    //     phoneNumber: formik.values.phoneNumber,
-    //     dialCode: formik.values.dialCode,
-    //     cups: formik.values.cups
-    //   };
-    //   const response = await fetch(`api/users-offers/${offerData?._id}`, {
-    //     method: 'PATCH',
-    //     body: JSON.stringify(updatedData)
-    //   });
-    //   const data = await response.json();
-    //   if (data) {
-    //     saveDataToSessionStorage('UserOffer', data.data);
-    //     setShowForm('yourOffer');
-    //   }
-    //   setLoading(false);
-    //   return;
-    // }
     formik.handleSubmit();
     setLoading(false);
   };
 
   const [formik, isLoading]: any = useHandleForm({
     method: 'POST',
-    apiEndpoint: '/api/users',
+    apiEndpoint: '/api/users-offers',
     formikInitialValues,
     validationSchema: offerStep1Schema,
     handleSuccessResponce
   });
-  function handleSuccessResponce(res: any) {
-    dispatch(setUserData(res.data));
+  async function handleSuccessResponce(res: any) {
+    dispatch(setUserData({ ...res.offer, offerType: 'Personalized' }));
     setShowForm('yourOffer');
-    const arrayData = Object.keys(res.data);
+    const arrayData = Object.keys(res.offer);
     arrayData.forEach((key: any) => {
-      formik.setFieldValue(key, res.data[key] || '');
+      formik.setFieldValue(key, res.offer[key] || '');
     });
+    await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${res.offer.id}`,
+      {
+        method: 'PUT',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          ...res.offer,
+          offerType: 'Personalized',
+          totalPanels: data.number_of_panels,
+          capacityPerPanel: '440 Wp',
+          totalCapacity: data.vsi_required_capacity,
+          estimateProduction: data.vsi_required_capacity * 2000,
+          totalPayment: data.total_price_after_tax,
+          typeConsumption: data.type_consumption_point
+        })
+      }
+    );
   }
 
   const { t } = useTranslation();
@@ -213,6 +198,14 @@ const PersonalizedOffer = () => {
 
   const { loading, signature, signingUrl, downloadPdf } =
     useDocusignService(formik);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center w-full h-screen">
+        <CircularProgress className="w-8 h-8" />
+      </div>
+    );
+  }
 
   return (
     <MainContainer>
@@ -323,7 +316,7 @@ const PersonalizedOffer = () => {
                     }}
                     classNames={{}}
                     onClick={() => handleyourSaving()}
-                    loading={buttonLoading}
+                    loading={buttonLoading || isLoading}
                   >
                     {t('Calculate-saving-btn')}
                   </Button>

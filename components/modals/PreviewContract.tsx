@@ -69,31 +69,20 @@ const PreviewContract = () => {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData._id}`,
         {
-          method: 'POST',
+          method: 'PUT',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({
-            offerData: {
-              user: userData._id,
-              totalPanels: userData.totalPanels,
-              capacityPerPanel: userData.capacityPerPanel,
-              totalCapacity: userData.totalCapacity,
-              estimateProduction: userData.estimateProduction,
-              totalPayment: userData.totalPayment,
-              typeConsumption: userData.typeConsumption,
-              plan: userData.plan,
-              offerType: userData.offerType,
-              clickedOnGenerate: true,
-              hasReadContract: true
-            },
-            offerId: userData.offerId
+            ...userData,
+            hasReadContract: true,
+            clickedOnGenerate: true
           })
         }
       );
       const { offer } = await response.json();
       if (offer) {
-        dispatch(setUserData({ offerId: offer._id }));
+        dispatch(setUserData({ hasReadContract: true }));
         handleCloseModal();
         router.push('/getoffer?activeStep=1');
       }

@@ -85,6 +85,13 @@ const ContractDetail = ({
 
   const updateUserOffer = async () => {
     try {
+      const technicalData = await getTechnicalDataFromApi(formik?.values?.cups);
+      if (formik?.values?.cups && !technicalData) {
+        const errorMsg =
+          'You made a mistake in your CUPS, please enter a valid CUPS';
+        setCupsError(t(errorMsg));
+        return;
+      }
       const userObj = {
         address: formik?.values?.address,
         postcode: formik?.values?.postcode,
@@ -95,59 +102,34 @@ const ContractDetail = ({
         addressNo: formik?.values?.addressNo,
         province: formik?.values?.province
       };
+      const isPlanNeos = formik?.values?.plan === 'neos';
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData._id}`,
         {
-          method: 'POST',
+          method: 'PUT',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({
+            ...userData,
             ...userObj,
-            emailAddress: userData.emailAddress,
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            phoneNumber: userData.phoneNumber,
-            dialCode: userData.dialCode
+            filledInfo: true,
+            ...(isPlanNeos && {
+              typeConsumption: technicalData?.tipoPerfilConsumo
+                .slice(1)
+                .toUpperCase()
+            })
           })
         }
       );
-      const { data } = await response.json();
-      if (data) {
-        const technicalData = await getTechnicalDataFromApi(
-          formik?.values?.cups
-        );
-        if (formik?.values?.cups && !technicalData) {
-          const errorMsg =
-            'You made a mistake in your CUPS, please enter a valid CUPS';
-          setCupsError(t(errorMsg));
-          return;
-        }
-        const isPlanNeos = formik?.values?.plan === 'neos';
-        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers`, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({
-            offerData: {
-              user: userData._id,
-              ...(isPlanNeos && {
-                typeConsumption: technicalData?.tipoPerfilConsumo
-                  .slice(1)
-                  .toUpperCase()
-              }),
-              filledInfo: true
-            },
-            offerId: userData.offerId
-          })
-        });
-      }
-      return data;
+      const { offer } = await response.json();
+      return offer;
     } catch (error) {
       console.error(error);
       // throw new Error(error);
     }
   };
   const handleViewContract = async () => {
-    if (!userData._id && !userData.offerId) return router.push('/getoffer');
-    router.refresh();
+    if (!userData._id || !userData.hasReadContract)
+      return router.push('/getoffer');
     setIsButtonLoading(true);
     setCupsError('');
     try {

@@ -7,41 +7,15 @@ import {
   createEnvelope,
   getEmbeddedSigningUrl
 } from '@/services/docusign.service';
-// import { POWER_PRICES } from '@/utils/utils';
 import {
   fetchData,
   processConsumptionData
 } from '@/features/calculateSolarPaybackPeriod';
+import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
+import { formatNumber } from '@/lib/utils';
+import { PLAN_TYPE } from '@/utils/utils';
 import * as jwt from 'jsonwebtoken';
 import { NextResponse } from 'next/server';
-import { formatNumber } from '@/lib/utils';
-import { stringToObjectId } from '@/lib/api-response';
-import { UserOffer, UserOfferSchemaProps } from '@/models/UsersOffers';
-import { PLAN_TYPE } from '@/utils/utils';
-
-const createOrUpdateUserOffer = async (
-  offerData: UserOfferSchemaProps,
-  offerId?: string
-) => {
-  try {
-    if (!offerData.user) throw new Error("User can't be empty 😔");
-    if (offerId) {
-      const existingUserOffer = await UserOffer.findByIdAndUpdate(
-        stringToObjectId(offerId),
-        { $set: offerData },
-        { new: true }
-      )
-        .lean()
-        .exec();
-      return existingUserOffer;
-    }
-    const userOffer = await UserOffer.create(offerData);
-    return userOffer;
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error creating user offer 😔');
-  }
-};
 
 type ConsumptionData = {
   tabLabel: string;
@@ -62,6 +36,7 @@ const getPlanInformation = async (
     const { consumption_data } = await fetchData(offerData.cups);
     const processData: any = processConsumptionData(consumption_data);
     const typeConsumption = paybackData.typeConsumption;
+    console.log('Type Consumption: ', typeConsumption);
     const orderedKeys = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6'];
     const powerConsumptionData = orderedKeys.map((key) => {
       const sum = processData[key].reduce(
@@ -85,11 +60,11 @@ const getLabelInformation = (label: string, length: number, value: string) => {
 };
 
 const generateEnvelopeData = async (offerData: any) => {
-  if (offerData.offerId && offerData._id) {
+  if (offerData._id) {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${offerData.offerId}`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${offerData._id}`
     );
-    const { userOffer: paybackData } = await response.json();
+    const { offer: paybackData } = await response.json();
     const { cups, typeConsumption, powerConsumptionData } =
       await getPlanInformation(offerData, paybackData);
 
@@ -195,19 +170,6 @@ const generateEnvelopeData = async (offerData: any) => {
   }
 };
 
-// const updateEnvelopeId = async (id: string, envelopeId: string) => {
-//   const parsedId = stringToObjectId(id);
-//   return await UsersOffers.findByIdAndUpdate(
-//     parsedId,
-//     { envelopeId },
-//     {
-//       new: true
-//     }
-//   )
-//     .lean()
-//     .exec();
-// };
-
 export async function POST(_request: Request, _response: Response) {
   try {
     await connectDB();
@@ -223,10 +185,7 @@ export async function POST(_request: Request, _response: Response) {
       envelopeId,
       offerData
     );
-    await createOrUpdateUserOffer(
-      { user: offerData._id, envelopeId },
-      offerData.offerId
-    );
+    await createOrUpdateUserOffer({ ...offerData, envelopeId });
     return new NextResponse(
       JSON.stringify({ signingUrl, envelopeId, accessToken }),
       {
@@ -246,9 +205,7 @@ export async function POST(_request: Request, _response: Response) {
 const getAccessToken = async () => {
   const iat = Math.floor(Date.now() / 1000);
   const payload = {
-    // iss: 'cc82c409-08f6-4fe1-bdd3-03fb28efd21e',
     iss: process.env.NEXT_PUBLIC_DOCUSIGN_INTEGRATION_KEY,
-    // sub: '0d895940-2603-4e3a-94e2-e4687fcc2da0',
     sub: process.env.NEXT_PUBLIC_DOCUSIGN_USER_ID,
     aud: process.env.NEXT_PUBLIC_DOCUSIGN_ACCOUNT,
     iat: iat,

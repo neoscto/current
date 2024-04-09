@@ -5,19 +5,33 @@ import {
   index,
   prop
 } from '@typegoose/typegoose';
-import type { Ref } from '@typegoose/typegoose';
 import mongoose, { Document } from 'mongoose';
-import { UserSchema } from './User';
 
-enum OfferType {
+enum OFFER_TYPE {
   Standard = 'Standard',
   Personalized = 'Personalized'
 }
 
 export type UserOfferSchemaProps = {
   // user: () => mongoose.Types.ObjectId;
-  user: any;
-  offerType?: OfferType;
+  _id?: string;
+  emailAddress: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  referralCode?: string;
+  dialCode: string;
+  address?: string;
+  addressNo?: string;
+  city?: string;
+  province?: string;
+  country?: string;
+  nie?: string;
+  postcode?: string;
+  cups?: string;
+  noOfPeople?: boolean;
+  numberOfPeopleAdditionValue?: boolean;
+  offerType?: OFFER_TYPE;
   plan?: string;
   totalPanels?: number;
   capacityPerPanel?: string;
@@ -33,6 +47,7 @@ export type UserOfferSchemaProps = {
   filledInfo?: boolean;
   paid?: boolean;
   hasReadContract?: boolean;
+  downloadedOffer?: boolean;
 };
 
 type UserOfferSchemaMethods = {};
@@ -57,11 +72,56 @@ export type UserOfferDocument = Document & UserOfferSchemaType;
 })
 @index({ email: 1 })
 class UserOfferSchema {
-  @prop({ required: true, ref: () => UserSchema })
-  user: Ref<UserSchema>;
+  @prop({ required: true })
+  emailAddress: string;
+
+  @prop({ required: true })
+  firstName: string;
+
+  @prop({ required: true })
+  lastName: string;
+
+  @prop({ required: true })
+  phoneNumber: string;
+
+  @prop({ required: true })
+  dialCode: string;
 
   @prop({ required: false })
-  offerType: OfferType;
+  cups: string;
+
+  @prop({ required: false })
+  numberOfPeople: number;
+
+  @prop({ required: false })
+  numberOfPeopleAdditionValue: number;
+
+  @prop({ required: false })
+  address: string;
+
+  @prop({ required: false })
+  addressNo: string;
+
+  @prop({ required: false })
+  city: string;
+
+  @prop({ required: false })
+  country: string;
+
+  @prop({ required: false })
+  nie: string;
+
+  @prop({ required: false })
+  province: string;
+
+  @prop({ required: false })
+  postcode: string;
+
+  @prop({ required: false })
+  referralCode: string;
+
+  @prop({ required: false })
+  offerType: OFFER_TYPE;
 
   @prop({ required: false })
   plan: string;
@@ -107,6 +167,9 @@ class UserOfferSchema {
 
   @prop({ default: false })
   hasReadContract: boolean;
+
+  @prop({ default: false })
+  downloadedOffer: boolean;
 
   @prop({ default: new Date() })
   createdAt: Date;

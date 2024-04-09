@@ -1,7 +1,6 @@
 'use client';
 import TolstoyHero from '@/app/landingpage/TolstoyHero';
-import NeosButton from '@/components/NeosButton';
-import { resetUserData, setUserData } from '@/features/common/commonSlice';
+import { resetUserData } from '@/features/common/commonSlice';
 import { removeDataFromSessionStorage } from '@/utils/utils';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -16,19 +15,19 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
   const router = useRouter();
   useEffect(() => {
     const checkUserOfferDetails = async () => {
-      if (userData.offerId && userData._id) {
+      if (userData._id) {
         try {
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData._id}`
           );
-          const { userOffer } = await response.json();
-          if ((userData.hasPaid || userOffer.paid) && userOffer.contractSign) {
+          const { offer } = await response.json();
+          if ((userData.hasPaid || offer.paid) && offer.contractSign) {
             removeDataFromSessionStorage('UserOffer');
             removeDataFromSessionStorage('docusignAccessToken');
             dispatch(resetUserData());
             // dispatch(setUserData({ envelopeId }));
             router.refresh();
-          } else if (userOffer.contractSign) {
+          } else if (offer.contractSign) {
             router.push('/getoffer?activeStep=1');
           } else {
             router.push('/getoffer');
