@@ -17,7 +17,7 @@ const Content = () => {
       </p>
       <ul className="ml-3 list-disc font-normal text-sm md:text-base lg:text-xl">
         <li>
-          {t("Cheaper than rooftop panels, cuts your monthly bills by 75% for 25 years, and generates revenue for you.")}
+          {t("Cheaper than rooftop panels and cuts your monthly bills by 75% for 25 years.")}
         </li>
         <li>
           {t("You’re already connected to the electricity grid, so you're all set to receive clean energy from our solar parks immediately.")}
