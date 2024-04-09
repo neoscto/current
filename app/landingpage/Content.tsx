@@ -12,17 +12,17 @@ const Content = () => {
       </h1>
       <p className="font-normal text-sm md:text-base lg:text-xl">
         {t(
-          'Buy a Virtual Solar Installation, which refers to solar power for your home or business without any rooftop panels!'
+          'Buy a Virtual Solar Installation and receive electricity generated in our solar parks straight to your home or business, without the need for any on-site installation.'
         )}
       </p>
       <ul className="ml-3 list-disc font-normal text-sm md:text-base lg:text-xl">
         <li>
-          {t("Cheaper than rooftop panels and cuts your monthly bills by 75% for 25 years.")}
+          {t("Costs less yet generates more electricity than rooftop panels, and cuts your monthly electricity bills by 75% for 25 years.")}
         </li>
         <li>
-          {t("You’re already connected to the electricity grid, so you're all set to receive clean energy from our solar parks immediately.")}
+          {t("You’re already connected to the electrical grid, so you're all set to receive power immediately.")}
         </li>
-        <li>{t('We make sure you can transfer ownership to your loved ones and other locations at any time.')}</li>
+        <li>{t('You can transfer your Virtual Solar Installation to your loved ones or to other locations at any time.')}</li>
       </ul>
       {/* for desktop */}
       <div className="hidden md:flex flex-row gap-3 text-xs md:text-sm lg:text-base md:ml-3">

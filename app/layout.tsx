@@ -108,7 +108,7 @@ export default function RootLayout({
         <meta
           property="og:description"
           content={t(
-            'Access the most affordable solar energy, easily, without any rooftop or in-home installations. Our large-scale solar farms deliver electricity directly to your home or business through the existing electricity grid, immediately providing you with solar power in a cheaper manner than rooftop installations.'
+            'Access the most affordable solar energy, easily, without any rooftop or in-home installations. Our large-scale solar farms deliver electricity directly to your home or business through the existing electrical grid, immediately providing you with solar power in a cheaper manner than rooftop installations.'
           )}
         />
         <meta property="og:image" content="/landingpage-bg.png" />
