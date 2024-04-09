@@ -25,7 +25,7 @@ const Content = () => {
         <li>{t('Instant: Your home is already connected to the electricity grid, so we can send you electricity from our solar parks right away.')}</li>
       </ul>
       {/* for desktop */}
-      <div className="hidden md:flex flex-row gap-3 text-xs md:text-sm lg:text-base">
+      <div className="hidden md:flex flex-row gap-3 text-xs md:text-sm lg:text-base md:ml-3">
         <button
           className="hover:opacity-70 bg-white text-black font-semibold py-3 px-1 md:px-4 rounded-xl"
           onClick={() => router.push('/description')}
