@@ -1,11 +1,11 @@
 'use client';
 import NeosButton from '@/components/NeosButton';
+import CircularProgress from '@mui/material/CircularProgress';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
-import { saveDataToSessionStorage } from '@/utils/utils';
 import { useEffect, useState } from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 interface OfferData {
   numberOfPeople: string;
@@ -16,7 +16,7 @@ interface OfferData {
   phoneNumber: string;
   numberofpeopleAdditionValue: number;
 }
-const EmailSuccess = ({ }: any) => {
+const EmailSuccess = ({}: any) => {
   const displayValue = 3;
   const { t } = useTranslation();
   const router = useRouter();
@@ -25,6 +25,7 @@ const EmailSuccess = ({ }: any) => {
   };
   const searchParams = useSearchParams();
   const event = searchParams.get('event');
+  const { userData } = useSelector((state: any) => state.commonSlice);
 
   const gotToHomePage = () => {
     window.parent.postMessage('gotToHomePage', '*');
@@ -37,22 +38,18 @@ const EmailSuccess = ({ }: any) => {
       try {
         isLoading(true);
         const offerId = searchParams.get('offer');
-        const user = searchParams.get('user');
-        if (!offerId && !user) {
-          throw new Error(`Offer and User not found!`);
+        if (!offerId) {
+          throw new Error(`Offer not found!`);
         }
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${offerId}`,
           {
-            method: 'POST',
+            method: 'PUT',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({
-              offerData: {
-                user,
-                contractSign: true,
-                contractSignAt: new Date()
-              },
-              offerId
+              ...userData,
+              contractSign: true,
+              contractSignAt: new Date()
             })
           }
         );

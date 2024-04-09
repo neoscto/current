@@ -78,7 +78,7 @@ export const getEmbeddedSigningUrl = async (
     // `https://demo.docusign.net/restapi/v2.1/accounts/2a6cb19d-7b9b-45a0-8e7e-46e03d32b79c/envelopes/${envelopeId}/views/recipient`,
     `${process.env.NEXT_PUBLIC_DOCUSIGN_API_URL}/restapi/v2.1/accounts/${process.env.NEXT_PUBLIC_DOCUSIGN_ACCOUNT_ID}/envelopes/${envelopeId}/views/recipient`,
     {
-      returnUrl: `${process.env.NEXT_PUBLIC_DOCUSIGN_AFTER_SIGN_REDIRECT}?offer=${offerData.offerId}&user=${offerData._id}`,
+      returnUrl: `${process.env.NEXT_PUBLIC_DOCUSIGN_AFTER_SIGN_REDIRECT}?offer=${offerData._id}`,
       authenticationMethod: 'email',
       phoneNumber: offerData.phoneNumber,
       email: offerData.emailAddress,

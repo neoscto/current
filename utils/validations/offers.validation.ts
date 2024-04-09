@@ -4,7 +4,7 @@ import * as yup from 'yup';
 // const phoneValidation = yup
 //   .string()
 //   .matches(phoneRegExp, "offer.validation.phoneNumber.valid");
-let EMAIL_REGX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
+let EMAIL_REGX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
 export const offerStep1Schema = yup.object().shape({
   offerType: yup.string().required(),
@@ -31,5 +31,3 @@ export const offerStep1Schema = yup.object().shape({
         .min(1, 'offer.validation.numberOfPeople.min')
   })
 });
-
-export type OfferStep1SchemaType = yup.InferType<typeof offerStep1Schema>;

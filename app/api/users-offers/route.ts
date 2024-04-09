@@ -1,48 +1,59 @@
 export const maxDuration = 30;
 export const dynamic = 'force-dynamic';
 
+import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
 import { createErrorResponse } from '@/lib/api-response';
 import connectDB from '@/lib/connect-db';
 import { NextResponse } from 'next/server';
-
-import { stringToObjectId } from '@/lib/api-response';
-import { UserOffer, UserOfferSchemaProps } from '@/models/UsersOffers';
-
-const createOrUpdateUserOffer = async (
-  offerData: UserOfferSchemaProps,
-  offerId?: string
-) => {
-  try {
-    if (!offerData.user) throw new Error("User can't be empty 😔");
-    if (offerId) {
-      const existingUserOffer = await UserOffer.findByIdAndUpdate(
-        stringToObjectId(offerId),
-        { $set: offerData },
-        { new: true }
-      )
-        .lean()
-        .exec();
-      return existingUserOffer;
-    }
-    const userOffer = await UserOffer.create(offerData);
-    return userOffer;
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error creating user offer 😔');
-  }
-};
 
 export async function POST(request: Request) {
   try {
     await connectDB();
 
     const body = await request.json();
-
+    if (!body.emailAddress) {
+      return createErrorResponse('Email is required', 400);
+    }
+    // generate 8 character random string for referral code
+    const codeString = 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789';
+    let referralCode = '';
+    for (let i = 0; i < 8; i++) {
+      referralCode += codeString.charAt(
+        Math.floor(Math.random() * codeString.length)
+      );
+    }
+    const requestBody: any = {
+      _id: body._id,
+      emailAddress: body.emailAddress,
+      firstName: body.firstName,
+      lastName: body.lastName,
+      dialCode: body.dialCode,
+      phoneNumber: body.phoneNumber,
+      cups: body.cups,
+      referralCode: referralCode,
+      numberOfPeople: body.numberOfPeople
+    };
     // Create User Offer
-    const offer = await createOrUpdateUserOffer(body.offerData, body.offerId);
+    const offer = await createOrUpdateUserOffer(requestBody);
+    if (!offer) {
+      return createErrorResponse('Error creating offer', 500);
+    }
+    const safeOffer = {
+      _id: offer._id,
+      cups: offer.cups,
+      emailAddress: offer.emailAddress,
+      firstName: offer.firstName,
+      lastName: offer.lastName,
+      numberOfPeople: offer.numberOfPeople,
+      offerType: offer.offerType,
+      phoneNumber: offer.phoneNumber,
+      plan: offer.plan,
+      dialCode: offer.dialCode,
+      referralCode
+    };
     let json_response = {
       status: 'success',
-      offer
+      offer: safeOffer
     };
     return new NextResponse(JSON.stringify(json_response), {
       status: 200,

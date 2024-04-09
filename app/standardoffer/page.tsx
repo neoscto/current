@@ -9,7 +9,7 @@ import useHandleForm from '@/hooks/useHandleForm';
 import { AppDispatch } from '@/store/store';
 import { offerStep1Schema } from '@/utils/validations/offers.validation';
 import { Button } from '@mantine/core';
-import { Grid } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -155,47 +155,41 @@ const StandardOffer = () => {
       setServerError('Please try one more time?');
       return;
     }
-    // if (offerData) {
-    //   const updatedData = {
-    //     firsName: formik?.values?.firstName,
-    //     lastName: formik.values.lastName,
-    //     emailAddress: formik.values.emailAddress,
-    //     numberOfPeople: formik.values.numberOfPeople,
-    //     phoneNumber: formik.values.phoneNumber,
-    //     dialCode: formik.values.dialCode,
-    //     cups: formik.values.cups
-    //   };
-    //   console.log('Offer Data: ', offerData);
-    //   const response = await fetch(`api/users`, {
-    //     method: 'POST',
-    //     body: JSON.stringify(updatedData)
-    //   });
-    //   const data = await response.json();
-    //   if (data) {
-    //     dispatch(setUserData(data.data));
-    //     setShowForm('yourOffer');
-    //   }
-    //   setLoading(false);
-    //   return;
-    // }
     formik.handleSubmit();
     setLoading(false);
   };
 
   const [formik, isLoading]: any = useHandleForm({
     method: 'POST',
-    apiEndpoint: '/api/users',
+    apiEndpoint: '/api/users-offers',
     formikInitialValues,
     validationSchema: offerStep1Schema,
     handleSuccessResponce
   });
-  function handleSuccessResponce(res: any) {
-    dispatch(setUserData(res.data));
+  async function handleSuccessResponce(res: any) {
+    dispatch(setUserData({ ...res.offer, offerType: 'Standard' }));
     setShowForm('yourOffer');
-    const arrayData = Object.keys(res.data);
+    const arrayData = Object.keys(res.offer);
     arrayData.forEach((key: any) => {
-      formik.setFieldValue(key, res.data[key] || '');
+      formik.setFieldValue(key, res.offer[key] || '');
     });
+    await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${res.offer.id}`,
+      {
+        method: 'PUT',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          ...res.offer,
+          offerType: 'Standard',
+          totalPanels: data.number_of_panels,
+          capacityPerPanel: '440 Wp',
+          totalCapacity: data.vsi_required_capacity,
+          estimateProduction: data.vsi_required_capacity * 2000,
+          totalPayment: data.total_price_after_tax,
+          typeConsumption: data.type_consumption_point
+        })
+      }
+    );
   }
 
   const { t } = useTranslation();
@@ -207,6 +201,14 @@ const StandardOffer = () => {
 
   const { loading, signature, signingUrl, downloadPdf } =
     useDocusignService(formik);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center w-full h-screen">
+        <CircularProgress className="w-8 h-8" />
+      </div>
+    );
+  }
 
   return (
     <MainContainer>
