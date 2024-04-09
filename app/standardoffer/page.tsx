@@ -22,6 +22,7 @@ import PhoneInput, {
 import 'react-phone-number-input/style.css';
 import { useDispatch } from 'react-redux';
 import YourOffer from '../youoffer/page';
+import { OFFER_TYPE } from '@/models/UsersOffers';
 
 interface FormData {
   numberOfPeople: string;
@@ -139,7 +140,6 @@ const StandardOffer = () => {
         dispatch(
           setUserData({
             ...formik?.values,
-            offerType: 'Standard',
             totalPanels: newData.number_of_panels,
             capacityPerPanel: '440 Wp',
             totalCapacity: newData.vsi_required_capacity,
@@ -181,6 +181,7 @@ const StandardOffer = () => {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
           ...res.offer,
+          offerType: 'Standard',
           totalPanels: data.number_of_panels,
           capacityPerPanel: '440 Wp',
           totalCapacity: data.vsi_required_capacity,

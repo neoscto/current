@@ -112,7 +112,12 @@ const CheckoutForm = () => {
               token: token.id,
               amount: totalPayment,
               // amount: 1,
-              userOffer: userData._id
+              userOffer: userData._id,
+              emailAddress: userData.emailAddress,
+              firstName: userData.firstName,
+              lastName: userData.lastName,
+              phoneNumber: userData.phoneNumber,
+              dialCode: userData.dialCode
             })
           }
         );

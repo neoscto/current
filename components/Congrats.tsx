@@ -1,7 +1,6 @@
 'use client';
 import TolstoyHero from '@/app/landingpage/TolstoyHero';
-import NeosButton from '@/components/NeosButton';
-import { resetUserData, setUserData } from '@/features/common/commonSlice';
+import { resetUserData } from '@/features/common/commonSlice';
 import { removeDataFromSessionStorage } from '@/utils/utils';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
