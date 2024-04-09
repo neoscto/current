@@ -3,6 +3,7 @@ import { stringToObjectId } from '@/lib/api-response';
 import { createErrorResponse } from '@/lib/api-response';
 import connectDB from '@/lib/connect-db';
 import { NextResponse } from 'next/server';
+import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
 
 export async function GET(
   _request: Request,
@@ -27,6 +28,45 @@ export async function GET(
 
     return createErrorResponse(error.message, 500);
   }
+}
+
+export async function PUT(
+  _request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    await connectDB();
+    const id = params.id;
+    if (!id) throw new Error('User offer id is required');
+    const body = await _request.json();
+    const offer = await createOrUpdateUserOffer(body);
+    if (!offer) {
+      return createErrorResponse('Error creating offer', 500);
+    }
+    const safeOffer = {
+      _id: offer._id,
+      cups: offer.cups,
+      emailAddress: offer.emailAddress,
+      firstName: offer.firstName,
+      lastName: offer.lastName,
+      numberOfPeople: offer.numberOfPeople,
+      offerType: offer.offerType,
+      phoneNumber: offer.phoneNumber,
+      plan: offer.plan,
+      dialCode: offer.dialCode,
+      referralCode: offer.referralCode
+    };
+    let json_response = {
+      status: 'success',
+      offer: safeOffer
+    };
+    return new NextResponse(JSON.stringify(json_response), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  } catch (error) {}
 }
 
 export async function OPTIONS(request: Request) {

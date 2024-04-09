@@ -20,7 +20,7 @@ import PhoneInput, {
   isValidPhoneNumber
 } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import YourOffer from '../youoffer/page';
 
 interface FormData {
@@ -39,6 +39,7 @@ const StandardOffer = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const activeStep = searchParams.get('activeStep') || 0;
+  const { userData } = useSelector((state: any) => state.commonSlice);
 
   const [phoneNumberError, setPhoneNumberError] = useState<string>('');
 
@@ -189,13 +190,29 @@ const StandardOffer = () => {
     validationSchema: offerStep1Schema,
     handleSuccessResponce
   });
-  function handleSuccessResponce(res: any) {
+  async function handleSuccessResponce(res: any) {
     dispatch(setUserData(res.offer));
     setShowForm('yourOffer');
     const arrayData = Object.keys(res.offer);
     arrayData.forEach((key: any) => {
       formik.setFieldValue(key, res.offer[key] || '');
     });
+    await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${res.offer.id}`,
+      {
+        method: 'PUT',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          ...res.offer,
+          totalPanels: data.number_of_panels,
+          capacityPerPanel: '440 Wp',
+          totalCapacity: data.vsi_required_capacity,
+          estimateProduction: data.vsi_required_capacity * 2000,
+          totalPayment: data.total_price_after_tax,
+          typeConsumption: data.type_consumption_point
+        })
+      }
+    );
   }
 
   const { t } = useTranslation();
