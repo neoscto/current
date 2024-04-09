@@ -47,6 +47,7 @@ export type UserOfferSchemaProps = {
   filledInfo?: boolean;
   paid?: boolean;
   hasReadContract?: boolean;
+  downloadedOffer?: boolean;
 };
 
 type UserOfferSchemaMethods = {};
@@ -166,6 +167,9 @@ class UserOfferSchema {
 
   @prop({ default: false })
   hasReadContract: boolean;
+
+  @prop({ default: false })
+  downloadedOffer: boolean;
 
   @prop({ default: new Date() })
   createdAt: Date;

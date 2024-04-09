@@ -20,7 +20,7 @@ import PhoneInput, {
   isValidPhoneNumber
 } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import YourOffer from '../youoffer/page';
 
 interface FormData {
@@ -39,7 +39,6 @@ const StandardOffer = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const activeStep = searchParams.get('activeStep') || 0;
-  const { userData } = useSelector((state: any) => state.commonSlice);
 
   const [phoneNumberError, setPhoneNumberError] = useState<string>('');
 
@@ -140,6 +139,7 @@ const StandardOffer = () => {
         dispatch(
           setUserData({
             ...formik?.values,
+            offerType: 'Standard',
             totalPanels: newData.number_of_panels,
             capacityPerPanel: '440 Wp',
             totalCapacity: newData.vsi_required_capacity,
@@ -156,29 +156,6 @@ const StandardOffer = () => {
       setServerError('Please try one more time?');
       return;
     }
-    // if (offerData) {
-    //   const updatedData = {
-    //     firsName: formik?.values?.firstName,
-    //     lastName: formik.values.lastName,
-    //     emailAddress: formik.values.emailAddress,
-    //     numberOfPeople: formik.values.numberOfPeople,
-    //     phoneNumber: formik.values.phoneNumber,
-    //     dialCode: formik.values.dialCode,
-    //     cups: formik.values.cups
-    //   };
-    //   console.log('Offer Data: ', offerData);
-    //   const response = await fetch(`api/users`, {
-    //     method: 'POST',
-    //     body: JSON.stringify(updatedData)
-    //   });
-    //   const data = await response.json();
-    //   if (data) {
-    //     dispatch(setUserData(data.data));
-    //     setShowForm('yourOffer');
-    //   }
-    //   setLoading(false);
-    //   return;
-    // }
     formik.handleSubmit();
     setLoading(false);
   };
@@ -191,7 +168,7 @@ const StandardOffer = () => {
     handleSuccessResponce
   });
   async function handleSuccessResponce(res: any) {
-    dispatch(setUserData(res.offer));
+    dispatch(setUserData({ ...res.offer, offerType: 'Standard' }));
     setShowForm('yourOffer');
     const arrayData = Object.keys(res.offer);
     arrayData.forEach((key: any) => {
