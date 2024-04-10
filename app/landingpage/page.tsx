@@ -8,7 +8,7 @@ import ScrollingBanner from '@/components/ScrollingBanner';
 
 const LandingPage = () => {
   return (
-    <MainContainer>
+    <MainContainer isHomepage={true}>
       <ScrollingBanner />
       <div className=" flex flex-col gap-6 my-8 mx-4 md:mx-8">
         <div className="relative flex flex-col gap-6 md:gap-0 md:flex-row justify-center items-center">

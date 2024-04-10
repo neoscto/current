@@ -99,18 +99,19 @@ const Footer = () => {
             </div>
 
             <Link
+              href="/terms-and-conditions"
+              className="text-base text-white font-medium"
+            >
+              {t('Footer.terms')}
+            </Link>
+
+            <Link
               href="/privacy-policy"
               className="text-base text-white font-medium"
             >
               {t('Footer.policy')}
             </Link>
 
-            <Link
-              href="/terms-and-conditions"
-              className="text-base text-white font-medium"
-            >
-              {t('Footer.terms')}
-            </Link>
             <Link href="/cookies" className="text-base text-white font-medium">
               {t('Footer.cookies')}
             </Link>

@@ -8,7 +8,8 @@ import { RootState } from '@/store/store';
 import { usePathname, useRouter } from 'next/navigation';
 
 interface MainContainerProps {
-  children: ReactNode;
+  isHomepage?: boolean;
+  children: React.ReactNode;
 }
 
 const notRestrictedPages = [
@@ -23,7 +24,7 @@ const notRestrictedPages = [
   '/personalizedoffer'
 ];
 
-const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
+const MainContainer: React.FC<MainContainerProps> = ({ isHomepage = false, children }) => {
   const { language } = useSelector((state: RootState) => state.commonSlice);
   const { t, i18n } = useTranslation();
   const router = useRouter();
@@ -40,9 +41,11 @@ const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
       i18n.changeLanguage(language as string);
     }
   }, [language, i18n.language]);
+
   return (
     <div className="landing-page-container w-full flex flex-col  min-h-screen relative">
-      <Navbar />
+      <Navbar isHomepage={isHomepage} />
+
       <div className="flex-1 flex justify-center items-center">{children}</div>
 
       <Footer />

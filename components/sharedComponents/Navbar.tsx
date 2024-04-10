@@ -15,7 +15,11 @@ import { AppDispatch, RootState } from '@/store/store';
 import { setLanguage } from '@/features/common/commonSlice';
 import NeosSelect from '../NeosSelect';
 
-const Navbar = () => {
+interface NavbarProps {
+  isHomepage?: boolean;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ isHomepage = false }) => {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const dispath = useDispatch<AppDispatch>();
@@ -28,8 +32,9 @@ const Navbar = () => {
       i18n.changeLanguage(language as string);
     }
   }, [language, i18n.language]);
+
   return (
-    <div className="mt-9 xl:max-w-[1200px] px-6 md:px-10 xl:px-0 mx-auto w-full py-4 lg:py-6 flex justify-between items-center ">
+    <div className={`${isHomepage ? 'mt-9' : ''} xl:max-w-[1200px] px-6 md:px-10 xl:px-0 mx-auto w-full py-4 lg:py-6 flex justify-between items-center`}>
       <Image
         src={neoslogo}
         alt="Neos logo"
