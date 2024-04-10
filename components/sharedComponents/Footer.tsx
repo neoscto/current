@@ -35,6 +35,35 @@ const Footer = () => {
               <span>+34 900 732 890</span>
             </Link>
 
+            <div className="flex flex-row gap-2 md:hidden">
+              <Link
+                href="https://www.instagram.com/neos.energy/"
+                className="invert brightness-0"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <InstagramIcon />
+              </Link>
+
+              <Link
+                href="https://www.linkedin.com/company/neos-energy/"
+                className="invert brightness-0"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <LinkedInIcon />
+              </Link>
+
+              <Link
+                href="https://twitter.com/Neos_Energy"
+                className="invert brightness-0"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <XIcon />
+              </Link>
+            </div>
+
             <span className="text-white font-medium items-center md:flex hidden">
               {t('Footer.copyright')} {moment(new Date()).format('YYYY')} Neos.{' '}
               {t('Footer.rights')}
@@ -42,62 +71,11 @@ const Footer = () => {
           </div>
 
           {/* middle Container */}
-          <div className="hidden md:flex flex-col gap-4 justify-center items-center max-w-[calc(33%_-_8px)] w-full">
-            <Image
-              src={neoslogo}
-              alt="Neos logo"
-              width={100}
-              className="h-[20px] md:h-auto lg:h-auto -ms-1 md:ms-0 lg:ms-0 cursor-pointer object-contain"
-              priority
-            />
-            <div className="flex flex-row gap-2">
-              <Link
-                href="https://www.instagram.com/neos.energy/"
-                className="invert brightness-0"
-              >
-                <InstagramIcon />
-              </Link>
-
-              <Link
-                href="https://www.linkedin.com/company/neos-energy/"
-                className="invert brightness-0"
-              >
-                <LinkedInIcon />
-              </Link>
-              <Link
-                href="https://twitter.com/Neos_Energy"
-                className="invert brightness-0"
-              >
-                <XIcon />
-              </Link>
-            </div>
-          </div>
+          {/* ... */}
 
           {/* Right Container */}
           <div className="md:max-w-[calc(33%_-_8px)] w-full flex flex-col gap-2 md:items-end items-center">
-            {/* Social media Links */}
-            <div className="flex flex-row gap-2 md:hidden">
-              <Link
-                href="https://www.instagram.com/neos.energy/"
-                className="invert brightness-0"
-              >
-                <InstagramIcon />
-              </Link>
-
-              <Link
-                href="https://www.linkedin.com/company/neos-energy/"
-                className="invert brightness-0"
-              >
-                <LinkedInIcon />
-              </Link>
-              <Link
-                href="https://twitter.com/Neos_Energy"
-                className="invert brightness-0"
-              >
-                <XIcon />
-              </Link>
-            </div>
-
+            {/* Terms and Policies Links */}
             <Link
               href="/terms-and-conditions"
               className="text-base text-white font-medium"
