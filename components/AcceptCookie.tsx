@@ -33,7 +33,7 @@ const AcceptCookie = () => {
   return (
     <>
       {show && (
-        <div className="fixed bottom-0 w-full bg-white bg-opacity-75 border-t border-gray-300 p-2 flex items-center justify-center text-sm">
+        <div className="fixed bottom-0 w-full bg-white bg-opacity-75 border-t border-gray-300 p-2 flex items-center justify-center text-sm z-50">
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
             <p className="text-blue-900">{t('Home.cookie.description')}</p>
             <div className="flex items-center gap-2 justify-center">
