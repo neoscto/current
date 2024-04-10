@@ -29,7 +29,7 @@ const Navbar = () => {
     }
   }, [language, i18n.language]);
   return (
-    <div className="xl:max-w-[1200px] px-6 md:px-10 xl:px-0 mx-auto w-full py-4 lg:py-6 flex justify-between items-center ">
+    <div className="mt-9 xl:max-w-[1200px] px-6 md:px-10 xl:px-0 mx-auto w-full py-4 lg:py-6 flex justify-between items-center ">
       <Image
         src={neoslogo}
         alt="Neos logo"
