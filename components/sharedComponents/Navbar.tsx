@@ -48,7 +48,9 @@ const Navbar: React.FC<NavbarProps> = ({ isHomepage = false }) => {
       <div className="items-center select-container gap-x-2 flex">
         <Link
           href="/faq"
-          className=" hover:opacity-70 font-bold border-2 border-white rounded-lg text-center text-lg md:text-xl  text-white px-4 py-1 "
+
+          className=" hover:opacity-70 font-bold border-2 border-white rounded-lg text-center text-sm md:text-base  text-white px-3"
+          style={{ paddingTop: '0.4rem', paddingBottom: '0.4rem' }}
         >
           {t('Home.nav.faq')}
         </Link>
