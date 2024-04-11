@@ -166,7 +166,7 @@ const generatePage6 = async (
   page.drawText(
     'Asumiendo una inflación del 3% anual en el precio de la energía, el ahorro total obtenido',
     {
-      x: 59,
+      x: 60,
       y: 250,
       size: fontSize,
       font: codecFont,
@@ -176,7 +176,7 @@ const generatePage6 = async (
   page.drawText(
     `por la Instalación Solar Virtual será de €${formatNumber(globalSavings)}. Esto supondrá un ahorro total ${formatNumber(globalSavings / (globalPrice * 1.21))} veces`,
     {
-      x: 58,
+      x: 60,
       y: 234,
       size: fontSize,
       font: codecFont,
@@ -184,7 +184,7 @@ const generatePage6 = async (
     }
   );
   page.drawText('mayor al coste total de la inversión.', {
-    x: 58,
+    x: 60,
     y: 217,
     size: fontSize,
     font: codecFont,
@@ -193,7 +193,7 @@ const generatePage6 = async (
   page.drawText(
     'Gracias a la superioridad productiva de nuestros parques solares, y al menor tamaño de',
     {
-      x: 58,
+      x: 60,
       y: 172,
       size: fontSize,
       font: codecFont,
@@ -203,7 +203,7 @@ const generatePage6 = async (
   page.drawText(
     `la inversión inicial, la Instalación Solar Virtual se amortizará en ${formatNumber(globalPayback)} años. Con su curva de`,
     {
-      x: 58,
+      x: 60,
       y: 157,
       size: fontSize,
       font: codecFont,
@@ -213,7 +213,7 @@ const generatePage6 = async (
   page.drawText(
     `consumo, el periodo medio de amortización de autoconsumo tradicional sería ${formatNumber(globalPaybackRooftop)} años.`,
     {
-      x: 58,
+      x: 60,
       y: 142,
       size: fontSize,
       font: codecFont,
@@ -223,7 +223,7 @@ const generatePage6 = async (
   page.drawText(
     `Evitará ${formatNumber(globalTons)} toneladas de CO2 gracias a la producción de energía renovable y sostenible.`,
     {
-      x: 58,
+      x: 60,
       y: 93,
       size: fontSize,
       font: codecFont,
