@@ -144,7 +144,7 @@ const generatePage6 = async (
   });
   const fontSize = 11;
   page.drawText(
-    `El precio de la Instalación Solar Virtual propuesta de ${formatNumber(globalCapacity)} kWp es de €${formatNumber(globalPrice * 1.21)} (21% IVA incluido).`,
+    `El precio de la Instalación Solar Virtual de ${formatNumber(globalCapacity)} kWp es de €${formatNumber(globalPrice * 1.21)} (IVA incluido).`,
     {
       x: 60,
       y: 647,
@@ -308,7 +308,7 @@ export const generatePDF = async ({
     const fontSize = 11;
 
     page.drawText(
-      `Esta oferta refleja el plan “${planName}”. Si desea seleccionar el otro`,
+      `Esta oferta refleja el plan “${planName}”.`,
       {
         x: 60,
         y: 660,
@@ -318,20 +318,10 @@ export const generatePDF = async ({
       }
     );
     page.drawText(
-      'plan, puede hacerlo en la página de la oferta desde la que descargó esta oferta.',
-      {
-        x: 60,
-        y: 645,
-        size: fontSize,
-        font: codecFont,
-        color: rgb(0, 0, 0)
-      }
-    );
-    page.drawText(
       `${formatNumber(globalCapacity)} kWp (${formatNumber(globalPanels)} Paneles)`,
       {
         x: 120,
-        y: 537,
+        y: 552,
         size: fontSize,
         font: codecFont,
         color: rgb(0, 0, 0)
@@ -339,7 +329,7 @@ export const generatePDF = async ({
     );
     page.drawText(`${formatNumber(globalCapacity * 2220)} kWh`, {
       x: 385,
-      y: 537,
+      y: 552,
       size: fontSize,
       font: codecFont,
       color: rgb(0, 0, 0)
@@ -348,7 +338,7 @@ export const generatePDF = async ({
       'Considerando el consumo eléctrico real, así como el perfil de producción energética de',
       {
         x: 60,
-        y: 500,
+        y: 515,
         size: fontSize,
         font: codecFont,
         color: rgb(0, 0, 0)
@@ -358,7 +348,7 @@ export const generatePDF = async ({
       'nuestros parques solares, se ha realizado un estudio que calcula con exactitud el tamaño',
       {
         x: 60,
-        y: 485,
+        y: 500,
         size: fontSize,
         font: codecFont,
         color: rgb(0, 0, 0)
@@ -366,7 +356,7 @@ export const generatePDF = async ({
     );
     page.drawText('ideal de su Instalación Solar Virtual.', {
       x: 60,
-      y: 470,
+      y: 485,
       size: fontSize,
       font: codecFont,
       color: rgb(0, 0, 0)
@@ -376,7 +366,7 @@ export const generatePDF = async ({
       `En base a este estudio, se aconseja al cliente una Instalación Solar Virtual de ${formatNumber(globalCapacity)} kWp,`,
       {
         x: 60,
-        y: 455,
+        y: 470,
         size: fontSize,
         font: codecFont,
         color: rgb(0, 0, 0)
@@ -386,7 +376,7 @@ export const generatePDF = async ({
       `equivalente a ${formatNumber(globalPanels)} paneles. Dicha Instalación Solar Virtual producirá ${formatNumber(globalCapacity * 2220)} kWh`,
       {
         x: 60,
-        y: 440,
+        y: 455,
         size: fontSize,
         font: codecFont,
         color: rgb(0, 0, 0)
@@ -397,7 +387,7 @@ export const generatePDF = async ({
       `de electricidad al año, el equivalente a un ${(((globalCapacity * 2220) / yearlyConsumption) * 100).toFixed(2)}% del consumo total.`,
       {
         x: 60,
-        y: 425,
+        y: 440,
         size: fontSize,
         font: codecFont,
         color: rgb(0, 0, 0)
