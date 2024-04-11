@@ -20,7 +20,7 @@ const Content = () => {
           {t("Costs less yet generates more electricity than rooftop panels, and cuts your monthly electricity bills by 75% for 25 years.")}
         </li>
         <li>
-          {t("You’re already connected to the electrical grid, so you can receive clean energy today.")}
+          {t("You can start receiving clean energy today, with no installation required at your location.")}
         </li>
         <li>{t('You can transfer your Virtual Solar Installation to your loved ones or to other locations at any time.')}</li>
       </ul>
