@@ -1092,3 +1092,4 @@ export const calculateSolarPaybackPeriod = async (
     type_consumption_point
   };
 };
+// redeployed
