@@ -58,6 +58,8 @@
     "nie": "DNI/NIF/NIE",
     "postcode": "Postcode",
     "city": "City",
+    "iban": "IBAN",
+    "bic": "BIC",
     "field-label1": "Number of people living in house",
     "field-label2": "CUPS",
     "field-desc": "You can find your CUPS (Universal Supply Point Code) in your electricity bill",
@@ -113,6 +115,16 @@
       },
       "cups": {
         "required": "CUPS is required"
+      },
+      "iban": {
+        "required": "IBAN is required",
+        "invalid": "Invalid IBAN",
+        "invalid-length": "Invalid IBAN length"
+      },
+      "bic": {
+        "required": "BIC is required",
+        "invalid": "Invalid BIC",
+        "invalid-length": "Invalid IBAN length"
       },
       "numberOfPeople": {
         "required": "Number of people living in house is required",
@@ -288,6 +300,10 @@
   "CO2 emissions avoided": "CO2 emission avoided",
   "tons": "tons",
   "elephants": "elephants",
+  "Invalid BIC Length": "Invalid BIC Length",
+  "Invalid IBAN Length": "Invalid IBAN Length",
+  "Invalid BIC": "Invalid BIC",
+  "Invalid IBAN": "Invalid IBAN",
   "You made a mistake in your CUPS, please enter a valid CUPS": "You made a mistake in your CUPS, please enter a valid CUPS",
   "You made a mistake in at least one of your CUPS, please enter valid CUPS": "You made a mistake in at least one of your CUPS, please enter valid CUPS",
   "You’ve entered more than one CUPS, please separate your CUPS with commas": "You’ve entered more than one CUPS, please separate your CUPS with commas",

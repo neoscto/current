@@ -31,7 +31,9 @@ const initialUserData = {
   totalCapacity: '',
   estimateProduction: '',
   totalPayment: '',
-  typeConsumption: ''
+  typeConsumption: '',
+  iban: '',
+  bic: ''
 };
 
 export const userData =
