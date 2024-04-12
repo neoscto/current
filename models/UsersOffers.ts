@@ -48,6 +48,8 @@ export type UserOfferSchemaProps = {
   paid?: boolean;
   hasReadContract?: boolean;
   downloadedOffer?: boolean;
+  iban?: string;
+  bic?: string;
 };
 
 type UserOfferSchemaMethods = {};
@@ -170,6 +172,12 @@ class UserOfferSchema {
 
   @prop({ default: false })
   downloadedOffer: boolean;
+
+  @prop({ required: false })
+  iban: string;
+
+  @prop({ required: false })
+  bic: string;
 
   @prop({ default: new Date() })
   createdAt: Date;

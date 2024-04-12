@@ -160,6 +160,14 @@ const generateEnvelopeData = async (offerData: any) => {
                 tabLabel: 'country',
                 value: 'España'
               },
+              {
+                tabLabel: 'iban',
+                value: offerData.iban
+              },
+              {
+                tabLabel: 'bic',
+                value: offerData.bic
+              },
               ...powerConsumptionData
             ]
           }

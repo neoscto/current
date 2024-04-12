@@ -59,7 +59,9 @@ export async function PUT(
       nie: offer.nie,
       addressNo: offer.addressNo,
       province: offer.province,
-      typeConsumption: offer.typeConsumption
+      typeConsumption: offer.typeConsumption,
+      iban: offer.iban,
+      bic: offer.bic
     };
     let json_response = {
       status: 'success',

@@ -13,7 +13,10 @@ import { AppDispatch, RootState } from '@/store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import useHandleForm from '@/hooks/useHandleForm';
-import { offerStep1Schema } from '@/utils/validations/offers.validation';
+import {
+  detailFormSchema,
+  offerStep1Schema
+} from '@/utils/validations/offers.validation';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import useDocusignService from '@/hooks/useDocusign';
 import { saveDataToSessionStorage } from '@/utils/utils';
@@ -61,7 +64,9 @@ const HorizontalLinearStepper = () => {
     city: '',
     province: '',
     country: '',
-    postcode: ''
+    postcode: '',
+    iban: '',
+    bic: ''
   };
   const [showForm, setShowForm] = useState<string>('allOffers');
 
@@ -69,7 +74,7 @@ const HorizontalLinearStepper = () => {
     method: 'POST',
     apiEndpoint: '/api/users-offers',
     formikInitialValues,
-    validationSchema: offerStep1Schema,
+    validationSchema: detailFormSchema,
     handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
@@ -103,7 +108,7 @@ const HorizontalLinearStepper = () => {
         // };
         // updateUserOffer();
         window.location.href = '/getoffer?activeStep=2';
-        window.removeEventListener('message', (event) => { });
+        window.removeEventListener('message', (event) => {});
       }
     });
   }, [signingUrl]);
@@ -133,8 +138,8 @@ const HorizontalLinearStepper = () => {
 
     router.push(
       pathname +
-      '?' +
-      createQueryString('activeStep', (Number(activeStep) + 1).toString())
+        '?' +
+        createQueryString('activeStep', (Number(activeStep) + 1).toString())
     );
     setSkipped(newSkipped);
   };
