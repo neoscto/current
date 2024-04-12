@@ -257,7 +257,7 @@ const ContractDetail = ({
                         <input
                           type="text"
                           name="cups"
-                          placeholder="ES"
+                          placeholder="CUPS"
                           value={formik.values.cups || ''}
                           onChange={handleInputChange}
                           className="outline-none border-none focus:outline-none focus:border-none focus:ring-0 text-black w-[95%] md:w-[90%]"
