@@ -7,7 +7,7 @@ import { setUserData } from '@/features/common/commonSlice';
 import useDocusignService from '@/hooks/useDocusign';
 import useHandleForm from '@/hooks/useHandleForm';
 import { AppDispatch } from '@/store/store';
-import { cupsErrorTypes, validateCUPS } from '@/utils/utils';
+import { validateCUPS } from '@/utils/utils';
 import { offerStep1Schema } from '@/utils/validations/offers.validation';
 import { Button } from '@mantine/core';
 import { CircularProgress, Grid } from '@mui/material';
@@ -32,7 +32,6 @@ const PersonalizedOffer = () => {
   const activeStep = searchParams.get('activeStep') || 0;
 
   const [showForm, setShowForm] = useState<string>('poffer');
-  const [cupsError, setCupsError] = useState('');
 
   const formikInitialValues = {
     offerType: '',
@@ -46,14 +45,65 @@ const PersonalizedOffer = () => {
     numberofpeopleAdditionValue: 1
   };
 
-  const [data, setData] = useState<any>({});
-  const [cupsCode, setCupsCode] = useState('');
+  const [data, setData] = useState({
+    total_price_before_tax: 0,
+    neos_installation_tax: 0,
+    number_of_panels: 0,
+    required_capacity: 0,
+    vsi_required_capacity: 0,
+    total_price_after_tax: 0,
+    tableData: [
+      {
+        neosPanelProvider: '',
+        neosPanelKeepProvider: '',
+        rooftopPanelKeepProvider: '',
+        keepProvider: ''
+      },
+      {
+        neosPanelProvider: '',
+        neosPanelKeepProvider: '',
+        rooftopPanelKeepProvider: '',
+        keepProvider: ''
+      },
+      {
+        neosPanelProvider: '',
+        neosPanelKeepProvider: '',
+        rooftopPanelKeepProvider: '',
+        keepProvider: ''
+      },
+      {
+        neosPanelProvider: '',
+        neosPanelKeepProvider: '',
+        rooftopPanelKeepProvider: '',
+        keepProvider: ''
+      },
+      {
+        neosPanelProvider: '',
+        neosPanelKeepProvider: '',
+        rooftopPanelKeepProvider: '',
+        keepProvider: ''
+      }
+    ],
+    percent_savings_year1_w_neos: 0,
+    percent_savings_year1_without_neos: 0,
+    savings_retail_w_neos: 0,
+    savings_retail_without_neos: 0,
+    payback_w_neos: 0,
+    payback_without_neos: 0,
+    yearly_consumption: 0,
+    neos_total_emissions_saved_in_tons: 0,
+    neos_not_provider_total_emissions_saved_in_tons: 0,
+    neos_elephants_carbon_capture: 0,
+    neos_not_provider_elephants_carbon_capture: 0,
+    save_yearly_w_neos: [{ years: 0, saving: '' }],
+    save_yearly_without_neos: [{ years: 0, saving: '' }],
+    type_consumption_point: ''
+  });
 
   const [buttonLoading, setLoading] = useState<boolean>(false);
 
   const [serverError, setServerError] = useState('');
   const [phoneNumberError, setPhoneNumberError] = useState<string>('');
-  const { t } = useTranslation();
 
   const handleyourSaving = async () => {
     formik.setFieldValue('offerType', 'Personalized');
@@ -81,22 +131,7 @@ const PersonalizedOffer = () => {
         formik.values.numberOfPeople,
         formik.values.cups
       );
-      if (newData?.error) {
-        switch (newData.type) {
-          case cupsErrorTypes.INSUFFICIENT_HISTORY:
-          case cupsErrorTypes.NEGATIVE_SAVINGS:
-          case cupsErrorTypes.API_ISSUE:
-            formik.setFieldError('cups', newData.message);
-            break;
-          case cupsErrorTypes.MULTIPLE_ISSUES:
-            formik.setFieldError('cups', newData.message);
-            setCupsCode(newData.cupsCode);
-            break;
-        }
-        setLoading(false);
-        return;
-      } else if (newData) {
-        console.log('New Data: ', newData);
+      if (newData) {
         setData(newData);
         dispatch(
           setUserData({
@@ -104,27 +139,23 @@ const PersonalizedOffer = () => {
             totalPanels: newData.number_of_panels,
             capacityPerPanel: '440 Wp',
             totalCapacity: newData.vsi_required_capacity,
-            estimateProduction: newData.vsi_required_capacity! * 2000,
+            estimateProduction: newData.vsi_required_capacity * 2000,
             totalPayment: newData.total_price_after_tax,
             typeConsumption: newData.type_consumption_point
           })
         );
+        setShowForm('yourOffer');
+        setServerError('');
       }
-      setShowForm('yourOffer');
-      setServerError('');
     } catch (error) {
       setLoading(false);
       setServerError('Please try one more time?');
-
       return;
     }
     formik.handleSubmit();
     setLoading(false);
   };
 
-  useEffect(() => {
-    router.refresh();
-  }, []);
   const [formik, isLoading]: any = useHandleForm({
     method: 'POST',
     apiEndpoint: '/api/users-offers',
@@ -158,6 +189,8 @@ const PersonalizedOffer = () => {
     );
   }
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     formik.setFieldValue('offerType', 'Personalized');
     // dispatch(setUserData(formik.values));
@@ -184,14 +217,12 @@ const PersonalizedOffer = () => {
             setShowForm={setShowForm}
             showForm={showForm}
           />
-
           {showForm === 'poffer' && (
-            <div className="w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9 my-14 max-md:mb-4 md:my-0">
+            <div className="  w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9 my-14 max-md:mb-4 md:my-0">
               <div className="w-[100%] md:w-[85%] lg:w-[85%]  mx-auto ">
                 <h1 className="font-bold text-3xl mb-8 md:mb-11 lg:mb-11 text-center">
                   {t('Get-offer.Personalized Offer')}
                 </h1>
-
                 <Grid container rowSpacing={3} columnSpacing={3}>
                   <Grid item xs={12}>
                     <NeosTextField
@@ -202,9 +233,7 @@ const PersonalizedOffer = () => {
                       value={formik.values.cups}
                       onChange={formik.handleChange}
                       error={Boolean(formik.errors.cups)}
-                      helperText={t(formik.errors.cups, {
-                        cups_code: cupsCode
-                      })}
+                      helperText={t(formik.errors.cups)}
                     />
                     <p className="font-sm text-[#2D9CDB] mt-1">
                       <p className="font-sm text-[#2D9CDB] mt-1">
@@ -213,9 +242,6 @@ const PersonalizedOffer = () => {
                           : t('Get-offer-form.field-desc')}
                       </p>
                     </p>
-                    {/* {cupsError && (
-                      <p className="text-sm text-red-600">{cupsError}</p>
-                    )} */}
                   </Grid>
                   <Grid item xs={12} sm={6} md={6}>
                     <NeosTextField
@@ -279,7 +305,6 @@ const PersonalizedOffer = () => {
                     </p>
                   </Grid>
                 </Grid>
-
                 <div className="text-center mt-14">
                   <Button
                     variant="filled"

@@ -1,4 +1,3 @@
-import { cupsErrorTypes } from '@/utils/utils';
 import axios, { AxiosResponse } from 'axios';
 import test from 'node:test';
 
@@ -220,7 +219,7 @@ interface ProcessedData {
 
 export function processConsumptionData(
   consumptionData: ConsumptionData
-): ProcessedData | number {
+): ProcessedData {
   const { cons_month } = consumptionData.summary;
   const Year: string[] = [];
   const Month: string[] = [];
@@ -232,23 +231,21 @@ export function processConsumptionData(
   const P6: number[] = [];
   const Total: number[] = [];
 
-  if (cons_month.length !== 0) {
-    for (const entry of cons_month) {
-      const { month_date, data } = entry;
-      const [YearVal, MonthVal] = month_date.match(/(\d{4})(\d{2})/)!.slice(1);
-      Year.push(YearVal);
-      Month.push(MonthVal);
-      P1.push(data[0]);
-      P2.push(data[1]);
-      P3.push(data[2]);
-      P4.push(data[3]);
-      P5.push(data[4]);
-      P6.push(data[5]);
-      Total.push(data.reduce((acc, val) => acc + val, 0));
-    }
-    return { Year, Month, P1, P2, P3, P4, P5, P6, Total };
+  for (const entry of cons_month) {
+    const { month_date, data } = entry;
+    const [YearVal, MonthVal] = month_date.match(/(\d{4})(\d{2})/)!.slice(1);
+    Year.push(YearVal);
+    Month.push(MonthVal);
+    P1.push(data[0]);
+    P2.push(data[1]);
+    P3.push(data[2]);
+    P4.push(data[3]);
+    P5.push(data[4]);
+    P6.push(data[5]);
+    Total.push(data.reduce((acc, val) => acc + val, 0));
   }
-  return 0;
+
+  return { Year, Month, P1, P2, P3, P4, P5, P6, Total };
 }
 
 export const fetchData = async (cups_code: string) => {
@@ -306,13 +303,9 @@ export const calculateSolarPaybackPeriod = async (
       .map((cup) => cup.trim());
 
     const allData = await Promise.all(cups_codes.map(fetchData));
-    if (!allData[0].consumption_data || !allData[0].technical_data) {
-      return {
-        error: true,
-        type: cupsErrorTypes.API_ISSUE,
-        message:
-          "Sorry, we are having an issue connecting to the electric grid's database today! Please try again in a few hours."
-      };
+
+    if (!allData) {
+      throw new Error('erorr');
     }
 
     let industrial_customer = false;
@@ -320,17 +313,10 @@ export const calculateSolarPaybackPeriod = async (
     if (cups_codes.length === 1) {
       const { consumption_data, technical_data } = allData[0];
 
-      const final_df: any = processConsumptionData(consumption_data);
-      if (!final_df)
-        return {
-          error: true,
-          type: cupsErrorTypes.INSUFFICIENT_HISTORY,
-          message:
-            "Your CUPS is relatively new and doesn't hold enough consumption history. Replace it with an older CUPS or use the Standard Offer."
-        };
       if (consumption_data && technical_data) {
+        const final_df = processConsumptionData(consumption_data);
         let mean_daily_average_consumption: number =
-          final_df.Total.reduce((acc: number, val: number) => acc + val, 0) /
+          final_df.Total.reduce((acc, val) => acc + val, 0) /
           (final_df.Year.length * DAYS_IN_MONTH);
 
         required_capacity =
@@ -339,7 +325,7 @@ export const calculateSolarPaybackPeriod = async (
           required_capacity / SOLAR_PARK_PRODUCTIVITY_BOOST;
 
         yearly_consumption =
-          (final_df.Total.reduce((acc: number, val: number) => acc + val, 0) /
+          (final_df.Total.reduce((acc, val) => acc + val, 0) /
             final_df.Year.length) *
           MONTHS_IN_YEAR;
 
@@ -414,19 +400,10 @@ export const calculateSolarPaybackPeriod = async (
         if (!data) return;
         const { consumption_data, technical_data } = data;
 
-        const final_df: any = processConsumptionData(consumption_data);
-        if (typeof final_df === 'number') {
-          return {
-            error: true,
-            type: cupsErrorTypes.MULTIPLE_ISSUES,
-            cupsCode: data.consumption_data.history[0].cups,
-            message:
-              "One of the CUPS used, {{cups_code}}, is relatively new and doesn't hold enough consumption history. Remove it, replace with an older CUPS, or use the Standard Offer."
-          };
-        }
         if (consumption_data && technical_data) {
+          const final_df = processConsumptionData(consumption_data);
           let mean_daily_average_consumption: number =
-            final_df.Total.reduce((acc: number, val: number) => acc + val, 0) /
+            final_df.Total.reduce((acc, val) => acc + val, 0) /
             (final_df.Year.length * DAYS_IN_MONTH);
           const individual_required_capacity: number =
             mean_daily_average_consumption / SEVILLA_HSP / SYSTEM_EFFICIENCY;
@@ -436,7 +413,7 @@ export const calculateSolarPaybackPeriod = async (
           vsi_required_capacity += vsi_individual_required_capacity;
 
           const individual_yearly_consumption: number =
-            (final_df.Total.reduce((acc: number, val: number) => acc + val, 0) /
+            (final_df.Total.reduce((acc, val) => acc + val, 0) /
               final_df.Year.length) *
             MONTHS_IN_YEAR;
           yearly_consumption += individual_yearly_consumption;
@@ -521,9 +498,9 @@ export const calculateSolarPaybackPeriod = async (
     0
   );
 
-  //   console.log(`\nYearly Fixed Charge: €${yearly_fixed_charge.toFixed(2)}.`);
+  //   console.log(`\nYearly Fixed Charge: â¬${yearly_fixed_charge.toFixed(2)}.`);
   //   console.log(
-  //     `Total Fixed Charges Over 25 Years: €${total_fixed_charges.toFixed(2)}.`
+  //     `Total Fixed Charges Over 25 Years: â¬${total_fixed_charges.toFixed(2)}.`
   //   );
 
   //   let yearly_variable_bill: number =
@@ -572,9 +549,9 @@ export const calculateSolarPaybackPeriod = async (
     total_fixed_charges +
     rooftop_installation_price_after_tax +
     required_capacity *
-      ROOFTOP_MAINTENANCE_PER_MONTH *
-      MONTHS_IN_YEAR *
-      YEARS_IN_CONTRACT +
+    ROOFTOP_MAINTENANCE_PER_MONTH *
+    MONTHS_IN_YEAR *
+    YEARS_IN_CONTRACT +
     ROOFTOP_GRID_COVERAGE_PERCENT * total_variable_charges;
 
   let customers_revenue: number = REVENUE_PER_KWH_CONSUMED * yearly_consumption;
@@ -670,7 +647,7 @@ export const calculateSolarPaybackPeriod = async (
   // console.log(`\nRecommended Capacity: ${required_capacity.toFixed(2)} kW.`);
   // console.log(`Number of Panels: ${number_of_panels.toFixed(2)}.`);
   // console.log(
-  //   `Total Price: €${total_price_before_tax.toFixed(2)} (+ VAT: €${neos_installation_tax.toFixed(2)}).\n`
+  //   `Total Price: â¬${total_price_before_tax.toFixed(2)} (+ VAT: â¬${neos_installation_tax.toFixed(2)}).\n`
   // );
   // console.log(`Your yearly consumption: ${yearly_consumption.toFixed(2)} kWh.`);
 
@@ -713,22 +690,22 @@ export const calculateSolarPaybackPeriod = async (
 
   // console.log(`We estimate that:
   //       - With a regular provider:
-  //       1. You'd spend €${total_spending_w_regular_provider.toFixed(2)} over 25 years.
+  //       1. You'd spend â¬${total_spending_w_regular_provider.toFixed(2)} over 25 years.
   //       - With Neos virtual installations and Neos as a provider:
-  //       1. You'd spend €${total_price_before_tax.toFixed(2)} on the installation, €${neos_installation_tax.toFixed(2)} on VAT, coming to a total of €${total_price_after_tax.toFixed(2)}.
-  //       2. You'd spend €${electricity_costs_w_neos.toFixed(2)} over 25 years.
-  //       3. Saving €${savings_retail_w_neos.toFixed(2)} (${percent_savings_w_neos.toFixed(2)}%) off your monthly electricity bills.
-  //       4. Saving €${savings_with_installation_w_neos.toFixed(2)} (${percent_savings_ultimate_w_neos.toFixed(2)}%) if we include the installation cost.
+  //       1. You'd spend â¬${total_price_before_tax.toFixed(2)} on the installation, â¬${neos_installation_tax.toFixed(2)} on VAT, coming to a total of â¬${total_price_after_tax.toFixed(2)}.
+  //       2. You'd spend â¬${electricity_costs_w_neos.toFixed(2)} over 25 years.
+  //       3. Saving â¬${savings_retail_w_neos.toFixed(2)} (${percent_savings_w_neos.toFixed(2)}%) off your monthly electricity bills.
+  //       4. Saving â¬${savings_with_installation_w_neos.toFixed(2)} (${percent_savings_ultimate_w_neos.toFixed(2)}%) if we include the installation cost.
   //       - With Neos virtual installations and a regular provider:
-  //       1. You'd spend €${total_price_before_tax.toFixed(2)} on the installation, €${neos_installation_tax.toFixed(2)} on VAT, coming to a total of €${total_price_after_tax.toFixed(2)}.
-  //       2. You'd spend €${electricity_costs_without_neos.toFixed(2)} over 25 years.
-  //       3. Saving €${savings_retail_without_neos.toFixed(2)} (${percent_savings_without_neos.toFixed(2)}%) off your monthly electricity bills.
-  //       4. Saving €${savings_with_installation_without_neos.toFixed(2)} (${percent_savings_ultimate_without_neos.toFixed(2)}%) if we include the installation cost.
+  //       1. You'd spend â¬${total_price_before_tax.toFixed(2)} on the installation, â¬${neos_installation_tax.toFixed(2)} on VAT, coming to a total of â¬${total_price_after_tax.toFixed(2)}.
+  //       2. You'd spend â¬${electricity_costs_without_neos.toFixed(2)} over 25 years.
+  //       3. Saving â¬${savings_retail_without_neos.toFixed(2)} (${percent_savings_without_neos.toFixed(2)}%) off your monthly electricity bills.
+  //       4. Saving â¬${savings_with_installation_without_neos.toFixed(2)} (${percent_savings_ultimate_without_neos.toFixed(2)}%) if we include the installation cost.
   //       - With off-grid rooftop panels and a regular provider:
-  //       1. You'd spend €${rooftop_installation_price_before_tax.toFixed(2)} on the installation, €${rooftop_installation_tax.toFixed(2)} on VAT, coming to a total of €${rooftop_installation_price_after_tax.toFixed(2)}.
-  //       2. You'd spend €${electricity_costs_rooftop.toFixed(2)} over 25 years.
-  //       3. Saving €${savings_retail_rooftop.toFixed(2)} (${percent_savings_retail_rooftop.toFixed(2)}%) off your monthly electricity bills.
-  //       4. Saving €${savings_with_installation_rooftop.toFixed(2)} (${percent_savings_ultimate_rooftop.toFixed(2)}%) if we include the installation cost.\n`);
+  //       1. You'd spend â¬${rooftop_installation_price_before_tax.toFixed(2)} on the installation, â¬${rooftop_installation_tax.toFixed(2)} on VAT, coming to a total of â¬${rooftop_installation_price_after_tax.toFixed(2)}.
+  //       2. You'd spend â¬${electricity_costs_rooftop.toFixed(2)} over 25 years.
+  //       3. Saving â¬${savings_retail_rooftop.toFixed(2)} (${percent_savings_retail_rooftop.toFixed(2)}%) off your monthly electricity bills.
+  //       4. Saving â¬${savings_with_installation_rooftop.toFixed(2)} (${percent_savings_ultimate_rooftop.toFixed(2)}%) if we include the installation cost.\n`);
 
   // console.log('Neos as Provider:');
   let total_savings_w_neos: number = 0;
@@ -744,10 +721,10 @@ export const calculateSolarPaybackPeriod = async (
 
     net_spendings_w_neos_provider.push(
       fixed_charge +
-        spend_non_solar +
-        spend_solar +
-        total_customer_fees / YEARS_IN_CONTRACT -
-        revenue
+      spend_non_solar +
+      spend_solar +
+      total_customer_fees / YEARS_IN_CONTRACT -
+      revenue
     );
     savings_w_neos.push(
       total_regular_bills_w_inflation[i] - net_spendings_w_neos_provider[i]
@@ -769,15 +746,7 @@ export const calculateSolarPaybackPeriod = async (
   for (let i = 0; i < 25; i++) {
     total_savings_w_neos += savings_w_neos[i];
 
-    // console.log(`- Year ${i+1}: €${total_savings_w_neos.toFixed(2)}.`);
-  }
-  if (total_savings_w_neos < 0) {
-    return {
-      error: true,
-      type: cupsErrorTypes.NEGATIVE_SAVINGS,
-      message:
-        'Your consumption is too small for you to enjoy the benefits of solar energy. Try a different CUPS or pool many CUPS together, separated by commas. You will get a more appealing offer right away!'
-    };
+    // console.log(`- Year ${i+1}: â¬${total_savings_w_neos.toFixed(2)}.`);
   }
 
   let sum = 0;
@@ -850,8 +819,8 @@ export const calculateSolarPaybackPeriod = async (
     const profit: number = profits_without_neos_provider[i];
     const net_spending: number =
       vsi_required_capacity *
-        MAINTENANCE_FEE_PER_MONTH_PER_KW *
-        MONTHS_IN_YEAR +
+      MAINTENANCE_FEE_PER_MONTH_PER_KW *
+      MONTHS_IN_YEAR +
       bill -
       profit;
     net_spendings_without_neos_provider.push(net_spending);
@@ -876,15 +845,7 @@ export const calculateSolarPaybackPeriod = async (
     //   years: i + 1,
     //   saving: total_savings_without_neos.toFixed(2)
     // });
-    // console.log(`- Year ${i}: €${total_savings_without_neos.toFixed(2)}.`);
-  }
-  if (total_savings_without_neos < 0) {
-    return {
-      error: true,
-      type: cupsErrorTypes.NEGATIVE_SAVINGS,
-      message:
-        'Your consumption is too small for you to enjoy the benefits of solar energy. Try a different CUPS or pool many CUPS together, separated by commas. You will get a more appealing offer right away!'
-    };
+    // console.log(`- Year ${i}: â¬${total_savings_without_neos.toFixed(2)}.`);
   }
   sum = 0;
   for (let i = 0; i < 25; i++) {
@@ -893,7 +854,7 @@ export const calculateSolarPaybackPeriod = async (
       years: i + 1,
       saving: (sum / total_savings_w_neos).toFixed(6)
     });
-    // console.log(`- Year ${i}: €${total_savings_without_neos.toFixed(2)}.`);
+    // console.log(`- Year ${i}: â¬${total_savings_without_neos.toFixed(2)}.`);
     current_cumulative_savings.push({ years: i + 1, saving: sum });
   }
 
@@ -964,7 +925,7 @@ export const calculateSolarPaybackPeriod = async (
 
   for (let i = 0; i < 25; i++) {
     total_savings_rooftop += rooftop_savings[i];
-    // console.log(`- Year ${i}: €${total_savings_rooftop.toFixed(2)}.`);
+    // console.log(`- Year ${i}: â¬${total_savings_rooftop.toFixed(2)}.`);
   }
 
   let rooftop_sum: number = 0;
