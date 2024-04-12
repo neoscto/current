@@ -22,7 +22,7 @@ const Content = () => {
         <li>
           {t("It doesn't require a physical installation at your location, so you can start receiving clean energy today.")}
         </li>
-        <li>{t('You can transfer your Virtual Solar Installation to your loved ones or to other locations at any time.')}</li>
+        <li>{t('You can assign your Virtual Solar Installation to your loved ones or to other locations at any time.')}</li>
       </ul>
       {/* for desktop */}
       <div className="hidden md:flex flex-row gap-3 text-xs md:text-sm lg:text-base md:ml-3">
