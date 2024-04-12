@@ -7,20 +7,20 @@ const Content = () => {
   const router = useRouter();
   return (
     <div className="bg-[#01092299] text-white md:max-w-md lg:max-w-2xl w-full p-6 md:p-8 lg:p-12 flex flex-col gap-5 rounded-r-3xl md:rounded-l-none rounded-l-3xl">
-      <h1 className="font-bold text-white text-xl md:text-2xl lg:text-3xl md:text-left text-center">
-        {t('Save 75% On Your Electricity Bill Today!')}
+      <h1 className="font-bold text-white text-lg md:text-2xl lg:text-3xl md:text-left text-center">
+        {t('Save 75% on Electricity with Neos Virtual Solar!')}
       </h1>
-      <p className="font-normal text-sm md:text-base lg:text-xl">
+      <p className="font-normal text-base md:text-base lg:text-xl">
         {t(
-          "Calculate the savings you'd make with a Virtual Solar Installation that delivers electricity from a solar park directly to your home or business."
+          "Calculate how much you would save if you had a Virtual Solar Installation that delivers electricity from a solar park directly to your home or business."
         )}
       </p>
-      <ul className="ml-3 list-disc font-normal text-sm md:text-base lg:text-xl">
+      <ul className="ml-3 list-disc font-normal text-base md:text-base lg:text-xl">
         <li>
-          {t("Costs less yet generates more electricity than rooftop panels, and cuts your monthly electricity bills by 75% for 25 years.")}
+          {t("It costs less yet generates more electricity than rooftop panels.")}
         </li>
         <li>
-          {t("You can start receiving clean energy today, with no installation required at your location.")}
+          {t("It doesn't require a physical installation at your location, so you can start receiving clean energy today.")}
         </li>
         <li>{t('You can transfer your Virtual Solar Installation to your loved ones or to other locations at any time.')}</li>
       </ul>
@@ -34,7 +34,7 @@ const Content = () => {
           {t('Home.btn1txt')}
         </button>
         <button
-          className="hover:opacity-70 bg-transparent text-white font-semibold py-3 px-1 md:px-4 rounded-xl border-2 border-white"
+          className="hover:opacity-70 bg-white text-black font-semibold py-3 px-1 md:px-4 rounded-xl"
           onClick={() => router.push('/getoffer')}
           style={{ marginTop: '0.5rem' }}
         >
@@ -51,7 +51,7 @@ const Content = () => {
           {t('Home.btn1txt')}
         </button>
         <button
-          className="hover:opacity-70 bg-transparent text-white font-semibold py-3 px-1 md:px-4 rounded-xl border-2 border-white w-full text-center text-xs"
+          className="hover:opacity-70 bg-white text-black font-semibold py-3 px-1 md:px-4 rounded-xl w-full text-center text-xs"
           onClick={() => router.push('/getoffer')}
           style={{ marginTop: '0.5rem' }}
         >
