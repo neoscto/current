@@ -8,7 +8,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import EmailSuccess from '../emailSuccess/page';
 // import { getAuthorizationUrl } from "@/services/docusign.service";
 import { getTechnicalDataFromApi } from '@/features/calculateSolarPaybackPeriod';
-import { PLAN_TYPE, validateCUPS } from '@/utils/utils';
+import {
+  PLAN_TYPE,
+  validateBIC,
+  validateCUPS,
+  validateIBAN
+} from '@/utils/utils';
 import { useRouter } from 'next/navigation';
 
 const ContractDetail = ({
@@ -52,7 +57,6 @@ const ContractDetail = ({
   const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
   const [userPlan, setUserPlan] = useState('neos');
-  const [cupsError, setCupsError] = useState('');
 
   useEffect(() => {
     setShowForm('yourDetails');
@@ -87,9 +91,10 @@ const ContractDetail = ({
     try {
       const technicalData = await getTechnicalDataFromApi(formik?.values?.cups);
       if (formik?.values?.cups && !technicalData) {
-        const errorMsg =
-          'You made a mistake in your CUPS, please enter a valid CUPS';
-        setCupsError(t(errorMsg));
+        formik.setFieldError(
+          'cups',
+          'You made a mistake in your CUPS, please enter a valid CUPS'
+        );
         return;
       }
       const userObj = {
@@ -100,7 +105,9 @@ const ContractDetail = ({
         cups: formik?.values?.cups,
         nie: formik?.values?.nie,
         addressNo: formik?.values?.addressNo,
-        province: formik?.values?.province
+        province: formik?.values?.province,
+        iban: formik?.values?.iban,
+        bic: formik?.values?.bic
       };
       const isPlanNeos = formik?.values?.plan === 'neos';
       const response = await fetch(
@@ -131,7 +138,7 @@ const ContractDetail = ({
     if (!userData._id || !userData.hasReadContract)
       return router.push('/getoffer');
     setIsButtonLoading(true);
-    setCupsError('');
+    formik.setErrors({});
     try {
       const isChecked = document.getElementById(
         'link-checkbox'
@@ -149,13 +156,24 @@ const ContractDetail = ({
         formik?.values?.city &&
         formik?.values?.nie &&
         formik?.values?.province &&
-        formik?.values?.addressNo
+        formik?.values?.addressNo &&
+        formik?.values?.iban &&
+        formik?.values?.bic
       ) {
         if (includeCups && validateCUPS(formik.values.cups) !== true) {
-          const errorMsg = validateCUPS(formik.values.cups) as string;
-          const translatedMsg = t(errorMsg);
-          setCupsError(translatedMsg);
-          setIsButtonLoading(false);
+          formik.setFieldError('cups', validateCUPS(formik.values.cups));
+          return;
+        }
+        if (
+          validateIBAN(formik?.values?.iban) !== true ||
+          validateBIC(formik?.values?.bic) !== true
+        ) {
+          if (validateIBAN(formik?.values?.iban) !== true) {
+            formik.setFieldError('iban', validateIBAN(formik?.values?.iban));
+          }
+          if (validateBIC(formik?.values?.bic) !== true) {
+            formik.setFieldError('bic', validateBIC(formik?.values?.bic));
+          }
           return;
         }
         const userOfferData = await updateUserOffer();
@@ -244,8 +262,8 @@ const ContractDetail = ({
                           onChange={handleInputChange}
                           className="outline-none border-none focus:outline-none focus:border-none focus:ring-0 text-black w-[95%] md:w-[90%]"
                         />
-                        {cupsError && (
-                          <p className="cups-error-msg">{cupsError}</p>
+                        {formik?.errors?.cups && (
+                          <p className="error-msg">{t(formik?.errors?.cups)}</p>
                         )}
                       </p>
                     </div>
@@ -315,7 +333,7 @@ const ContractDetail = ({
                     </p>
                   </div>
                 </div>
-                <div className="py-3.5 flex flex-col md:flex-row">
+                <div className="border-b border-[#E0E0E0] py-3.5 flex flex-col md:flex-row">
                   <div className="w-full md:w-3/5">
                     <p className={labelStyle}>{t('Get-offer-form.city')}</p>
                     <p className={defaultTxtStyle}>
@@ -340,6 +358,42 @@ const ContractDetail = ({
                         onChange={handleInputChange}
                         className="outline-none border-none focus:outline-none focus:border-none focus:ring-0 text-black"
                       />
+                    </p>
+                  </div>
+                </div>
+                <div className="py-3.5 flex flex-col md:flex-row">
+                  <div className="w-full md:w-3/5">
+                    <p className={labelStyle}>{t('Get-offer-form.iban')}</p>
+                    <p className={defaultTxtStyle}>
+                      <input
+                        type="text"
+                        name="iban"
+                        placeholder="IBAN"
+                        max={24}
+                        value={formik.values.iban || ''}
+                        onChange={handleInputChange}
+                        className="outline-none border-none focus:outline-none focus:border-none focus:ring-0 text-black w-[98%]"
+                      />
+                      {formik?.errors?.iban && (
+                        <p className="error-msg">{t(formik?.errors?.iban)}</p>
+                      )}
+                    </p>
+                  </div>
+                  <div className="w-full md:w-2/5 border-t border-[#E0E0E0] mt-2.5 pt-2.5 md:border-t-0 md:mt-0 md:pt-0">
+                    <p className={labelStyle}>{t('Get-offer-form.bic')}</p>
+                    <p className={defaultTxtStyle}>
+                      <input
+                        type="text"
+                        name="bic"
+                        placeholder="BIC"
+                        value={formik.values.bic || ''}
+                        max={11}
+                        onChange={handleInputChange}
+                        className="outline-none border-none focus:outline-none focus:border-none focus:ring-0 text-black"
+                      />
+                      {formik?.errors?.bic && (
+                        <p className="error-msg">{t(formik?.errors?.bic)}</p>
+                      )}
                     </p>
                   </div>
                 </div>

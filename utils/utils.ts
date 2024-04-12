@@ -70,3 +70,36 @@ export enum PLAN_TYPE {
   Neos = 'neos',
   Current = 'current'
 }
+
+export function addOneYearToDate(dateStr: string) {
+  // Parse the input date string into a Date object
+  const date = new Date(dateStr);
+  date.setFullYear(date.getFullYear() + 1);
+  const year = date.getFullYear();
+  const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  const day = ('0' + date.getDate()).slice(-2);
+  const newDateStr = `${year}-${month}-${day}`;
+  return newDateStr;
+}
+
+export const validateIBAN = (iban: string): boolean | string => {
+  if (iban.length !== 24) {
+    return 'Invalid IBAN length';
+  }
+  const spainIbanRegex = /^ES\d{2}\d{20}$/;
+  if (!spainIbanRegex.test(iban)) {
+    return 'Invalid IBAN';
+  }
+  return true;
+};
+
+export const validateBIC = (bic: string): boolean | string => {
+  if (bic.length < 8 || bic.length > 11) {
+    return 'Invalid BIC length';
+  }
+  const bicRegex = /^[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?$/;
+  if (!bicRegex.test(bic)) {
+    return 'Invalid BIC';
+  }
+  return true;
+};
