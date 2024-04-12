@@ -43,7 +43,8 @@
     "Approximate offer": "Oferta apróximada",
     "btn": "OBTENER OFERTA",
     "review-expert-txt": "Revisa tu propuesta con tu experto solar",
-    "book-expert-txt": "HABLA CON UN EXPERTO"
+    "book-expert-txt": "HABLA CON UN EXPERTO",
+    "nan-single-cup": "Tu CUPS es relativamente nuevo y no tiene suficiente historial de consumo. Reemplázalo con un CUPS más antiguo o utiliza la Oferta Estándar."
   },
   "Get-offer-form": {
     "form-placeholder": "Ingresa aquí",
@@ -297,6 +298,10 @@
   "You made a mistake in your CUPS, please enter a valid CUPS": "Ha cometido un error en su CUPS, por favor introduzca un CUPS válido",
   "You made a mistake in at least one of your CUPS, please enter valid CUPS": "Ha cometido un error en al menos uno de sus CUPS, por favor introduzca un CUPS válido",
   "You’ve entered more than one CUPS, please separate your CUPS with commas": "Ha introducido más de un CUPS, por favor separe sus CUPS con comas",
+  "Your CUPS is relatively new and doesn't hold enough consumption history. Replace it with an older CUPS or use the Standard Offer.": "Tu CUPS es relativamente nuevo y no tiene suficiente historial de consumo. Reemplázalo con un CUPS más antiguo o utiliza la Oferta Estándar.",
+  "One of the CUPS used, {{cups_code}}, is relatively new and doesn't hold enough consumption history. Remove it, replace with an older CUPS, or use the Standard Offer.": "Uno de los CUPS utilizados, {{cups_code}}, es relativamente nuevo y no tiene suficiente historial de consumo. Elimínalo, reemplázalo con un CUPS más antiguo o utiliza la Oferta Estándar.",
+  "Your consumption is too small for you to enjoy the benefits of solar energy. Try a different CUPS or pool many CUPS together, separated by commas. You will get a more appealing offer right away!": "Tu consumo es demasiado pequeño para que puedas disfrutar de las ventajas de la energía solar. Prueba con otro CUPS o junta varios CUPS, separados por comas. Obtendrás enseguida una oferta más atractiva.",
+  "Sorry, we are having an issue connecting to the electric grid's database today! Please try again in a few hours.": "Lo siento, estamos teniendo un problema para conectarnos a la base de datos de la red eléctrica hoy. Por favor, inténtalo de nuevo en unas horas.",
   "Backed by": "Respaldado por",
   "Please try one more time?": "¿Por favor, inténtalo una vez más?",
   "Access the most affordable solar energy, easily, without any rooftop or in-home installations. Our large-scale solar farms deliver electricity directly to your home or business through the existing electrical grid, immediately providing you with solar power in a cheaper manner than rooftop installations.": "Acceda fácilmente a la energía solar más asequible, sin necesidad de instalaciones en tejados o viviendas. Nuestras huertas solares a gran escala suministran electricidad directamente a tu casa o negocio a través de la red eléctrica existente, proporcionándote inmediatamente energía solar de forma más barata que las instalaciones en tejados.",

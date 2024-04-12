@@ -11,15 +11,15 @@ export async function POST(req: Request, res: Response) {
 
   try {
     const { cupsCode, WEBTOKEN } = body;
-    const httpsAgent = new https.Agent({
-      rejectUnauthorized: false
-    });
+    // const httpsAgent = new https.Agent({
+    //   rejectUnauthorized: false
+    // });
 
-    const instance = axios.create({
-      httpsAgent
-    });
+    // const instance = axios.create({
+    //   httpsAgent
+    // });
 
-    const response = await instance.get(
+    const response = await axios.get(
       `https://data.enerbit.es/api/sips/pse/?cups=${cupsCode}&replace=true`,
       {
         headers: {
