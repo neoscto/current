@@ -899,7 +899,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                 </div>
                 <p className="text-sm leading-5 text-[#4F4F4F]">
                   "
-                  {`${t('I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.')}`}
+                  {`${t('I love Neos! I live in a flat, so without them, I would have never been able to benefit from solar power.')}`}
                   "
                 </p>
               </div>
