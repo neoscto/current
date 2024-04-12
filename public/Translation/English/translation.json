@@ -43,7 +43,8 @@
     "Approximate offer": "Approximate offer",
     "btn": "GET OFFER",
     "review-expert-txt": "Review your offer\non a quick call with\none of our experts",
-    "book-expert-txt": "TALK TO AN EXPERT"
+    "book-expert-txt": "TALK TO AN EXPERT",
+    "nan-single-cup": "Your CUPS is relatively new and doesn't hold enough consumption history. Replace it with an older CUPS or use the Standard Offer."
   },
   "Get-offer-form": {
     "form-placeholder": "Enter here",
@@ -307,6 +308,10 @@
   "You made a mistake in your CUPS, please enter a valid CUPS": "You made a mistake in your CUPS, please enter a valid CUPS",
   "You made a mistake in at least one of your CUPS, please enter valid CUPS": "You made a mistake in at least one of your CUPS, please enter valid CUPS",
   "You’ve entered more than one CUPS, please separate your CUPS with commas": "You’ve entered more than one CUPS, please separate your CUPS with commas",
+  "Your CUPS is relatively new and doesn't hold enough consumption history. Replace it with an older CUPS or use the Standard Offer.": "Your CUPS is relatively new and doesn't hold enough consumption history. Replace it with an older CUPS or use the Standard Offer.",
+  "One of the CUPS used, {{cups_code}}, is relatively new and doesn't hold enough consumption history. Remove it, replace with an older CUPS, or use the Standard Offer.": "One of the CUPS used, {{cups_code}}, is relatively new and doesn't hold enough consumption history. Remove it, replace with an older CUPS, or use the Standard Offer.",
+  "Your consumption is too small for you to enjoy the benefits of solar energy. Try a different CUPS or pool many CUPS together, separated by commas. You will get a more appealing offer right away!": "Your consumption is too small for you to enjoy the benefits of solar energy. Try a different CUPS or pool many CUPS together, separated by commas. You will get a more appealing offer right away!",
+  "Sorry, we are having an issue connecting to the electric grid's database today! Please try again in a few hours.": "Sorry, we are having an issue connecting to the electric grid's database today! Please try again in a few hours.",
   "Backed by": "Backed by",
   "Please try one more time?": "Please try one more time?",
   "Access the most affordable solar energy, easily, without any rooftop or in-home installations. Our large-scale solar farms deliver electricity directly to your home or business through the existing electrical grid, immediately providing you with solar power in a cheaper manner than rooftop installations.": "Access the most affordable solar energy, easily, without any rooftop or in-home installations. Our large-scale solar farms deliver electricity directly to your home or business through the existing electrical grid, immediately providing you with solar power in a cheaper manner than rooftop installations.",

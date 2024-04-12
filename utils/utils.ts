@@ -71,6 +71,13 @@ export enum PLAN_TYPE {
   Current = 'current'
 }
 
+export enum cupsErrorTypes {
+  INSUFFICIENT_HISTORY = 'INSUFFICIENT_HISTORY',
+  MULTIPLE_ISSUES = 'MULTIPLE_ISSUES',
+  NEGATIVE_SAVINGS = 'NEGATIVE_SAVINGS',
+  API_ISSUE = 'API_ISSUE'
+}
+
 export function addOneYearToDate(dateStr: string) {
   // Parse the input date string into a Date object
   const date = new Date(dateStr);

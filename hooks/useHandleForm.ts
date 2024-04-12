@@ -43,7 +43,8 @@ export default function useHandleForm({
     try {
       const response = await fetch(apiEndpoint, {
         method: 'POST',
-        body: JSON.stringify(value)
+        body: JSON.stringify(value),
+        cache: 'no-cache'
       });
       const data = await response.json();
       if (data?.type === 'validationError') {
