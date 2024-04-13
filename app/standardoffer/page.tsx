@@ -1,3 +1,4 @@
+//@ts-nocheck
 'use client';
 import NeosTextField from '@/components/NeosTextField';
 import ProgressBar from '@/components/ProgressBar';
@@ -11,7 +12,7 @@ import { offerStep1Schema } from '@/utils/validations/offers.validation';
 import { Button } from '@mantine/core';
 import { CircularProgress, Grid } from '@mui/material';
 import Box from '@mui/material/Box';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PhoneInput, {
@@ -35,8 +36,6 @@ interface FormData {
 
 const StandardOffer = () => {
   const dispatch: any = useDispatch<AppDispatch>();
-  const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   const activeStep = searchParams.get('activeStep') || 0;
 

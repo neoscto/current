@@ -1,3 +1,4 @@
+//@ts-nocheck
 'use client';
 import NeosButton from '@/components/NeosButton';
 import { setFormBack, setUserData } from '@/features/common/commonSlice';

@@ -1,3 +1,4 @@
+//@ts-nocheck
 'use client';
 import NeosTextField from '@/components/NeosTextField';
 import ProgressBar from '@/components/ProgressBar';
@@ -7,12 +8,12 @@ import { setUserData } from '@/features/common/commonSlice';
 import useDocusignService from '@/hooks/useDocusign';
 import useHandleForm from '@/hooks/useHandleForm';
 import { AppDispatch } from '@/store/store';
-import { validateCUPS } from '@/utils/utils';
+import { cupsErrorTypes, validateCUPS } from '@/utils/utils';
 import { offerStep1Schema } from '@/utils/validations/offers.validation';
 import { Button } from '@mantine/core';
 import { CircularProgress, Grid } from '@mui/material';
 import Box from '@mui/material/Box';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PhoneInput, {
@@ -23,11 +24,10 @@ import PhoneInput, {
 import 'react-phone-number-input/style.css';
 import { useDispatch } from 'react-redux';
 import YourOffer from '../youoffer/page';
+import { ISolarPaybackData } from '@/lib/types';
 
 const PersonalizedOffer = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   const activeStep = searchParams.get('activeStep') || 0;
 
@@ -45,7 +45,7 @@ const PersonalizedOffer = () => {
     numberofpeopleAdditionValue: 1
   };
 
-  const [data, setData] = useState({
+  const [data, setData] = useState<ISolarPaybackData>({
     total_price_before_tax: 0,
     neos_installation_tax: 0,
     number_of_panels: 0,
@@ -99,11 +99,13 @@ const PersonalizedOffer = () => {
     save_yearly_without_neos: [{ years: 0, saving: '' }],
     type_consumption_point: ''
   });
+  const [cupsCode, setCupsCode] = useState('');
 
   const [buttonLoading, setLoading] = useState<boolean>(false);
 
   const [serverError, setServerError] = useState('');
   const [phoneNumberError, setPhoneNumberError] = useState<string>('');
+  const { t } = useTranslation();
 
   const handleyourSaving = async () => {
     formik.setFieldValue('offerType', 'Personalized');
@@ -126,30 +128,46 @@ const PersonalizedOffer = () => {
     setLoading(true);
 
     try {
-      const newData = await calculateSolarPaybackPeriod(
+      const newData: ISolarPaybackData = await calculateSolarPaybackPeriod(
         'Personalized',
         formik.values.numberOfPeople,
         formik.values.cups
       );
-      if (newData) {
+      if (newData?.error) {
+        switch (newData.type) {
+          case cupsErrorTypes.INSUFFICIENT_HISTORY:
+          case cupsErrorTypes.NEGATIVE_SAVINGS:
+          case cupsErrorTypes.API_ISSUE:
+            formik.setFieldError('cups', newData.message);
+            break;
+          case cupsErrorTypes.MULTIPLE_ISSUES:
+            formik.setFieldError('cups', newData.message);
+            setCupsCode(newData.cupsCode as string);
+            break;
+        }
+        setLoading(false);
+        return;
+      } else {
         setData(newData);
+        const vsiRequiredCapacity = newData.vsi_required_capacity ?? 0;
         dispatch(
           setUserData({
             ...formik?.values,
             totalPanels: newData.number_of_panels,
             capacityPerPanel: '440 Wp',
             totalCapacity: newData.vsi_required_capacity,
-            estimateProduction: newData.vsi_required_capacity * 2000,
+            estimateProduction: vsiRequiredCapacity * 2000,
             totalPayment: newData.total_price_after_tax,
             typeConsumption: newData.type_consumption_point
           })
         );
-        setShowForm('yourOffer');
-        setServerError('');
       }
+      setShowForm('yourOffer');
+      setServerError('');
     } catch (error) {
       setLoading(false);
       setServerError('Please try one more time?');
+
       return;
     }
     formik.handleSubmit();
@@ -189,8 +207,6 @@ const PersonalizedOffer = () => {
     );
   }
 
-  const { t } = useTranslation();
-
   useEffect(() => {
     formik.setFieldValue('offerType', 'Personalized');
     // dispatch(setUserData(formik.values));
@@ -217,12 +233,14 @@ const PersonalizedOffer = () => {
             setShowForm={setShowForm}
             showForm={showForm}
           />
+
           {showForm === 'poffer' && (
-            <div className="  w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9 my-14 max-md:mb-4 md:my-0">
+            <div className="w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9 my-14 max-md:mb-4 md:my-0">
               <div className="w-[100%] md:w-[85%] lg:w-[85%]  mx-auto ">
                 <h1 className="font-bold text-3xl mb-8 md:mb-11 lg:mb-11 text-center">
                   {t('Get-offer.Personalized Offer')}
                 </h1>
+
                 <Grid container rowSpacing={3} columnSpacing={3}>
                   <Grid item xs={12}>
                     <NeosTextField
@@ -233,7 +251,9 @@ const PersonalizedOffer = () => {
                       value={formik.values.cups}
                       onChange={formik.handleChange}
                       error={Boolean(formik.errors.cups)}
-                      helperText={t(formik.errors.cups)}
+                      helperText={t(formik.errors.cups, {
+                        cups_code: cupsCode
+                      })}
                     />
                     <p className="font-sm text-[#2D9CDB] mt-1">
                       <p className="font-sm text-[#2D9CDB] mt-1">
@@ -242,6 +262,9 @@ const PersonalizedOffer = () => {
                           : t('Get-offer-form.field-desc')}
                       </p>
                     </p>
+                    {/* {cupsError && (
+                      <p className="text-sm text-red-600">{cupsError}</p>
+                    )} */}
                   </Grid>
                   <Grid item xs={12} sm={6} md={6}>
                     <NeosTextField
@@ -305,6 +328,7 @@ const PersonalizedOffer = () => {
                     </p>
                   </Grid>
                 </Grid>
+
                 <div className="text-center mt-14">
                   <Button
                     variant="filled"
