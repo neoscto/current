@@ -128,11 +128,10 @@ const StandardOffer = () => {
     setLoading(true);
 
     try {
-      const newData = await calculateSolarPaybackPeriod(
-        'Standard',
-        formik.values.numberOfPeople,
-        formik.values.cups
-      );
+      const newData = await calculateSolarPaybackPeriod({
+        offerType: 'Standard',
+        user_cups_code: formik.values.numberOfPeople
+      });
       if (newData) {
         setData(newData);
         dispatch(

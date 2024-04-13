@@ -128,11 +128,10 @@ const PersonalizedOffer = () => {
     setLoading(true);
 
     try {
-      const newData: ISolarPaybackData = await calculateSolarPaybackPeriod(
-        'Personalized',
-        formik.values.numberOfPeople,
-        formik.values.cups
-      );
+      const newData: ISolarPaybackData = await calculateSolarPaybackPeriod({
+        offerType: 'Personalized',
+        user_cups_code: formik.values.cups
+      });
       if (newData?.error) {
         switch (newData.type) {
           case cupsErrorTypes.INSUFFICIENT_HISTORY:

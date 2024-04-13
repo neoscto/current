@@ -263,11 +263,15 @@ export const fetchData = async (cups_code: string) => {
   }
 };
 
-export const calculateSolarPaybackPeriod = async (
-  offerType: string,
-  number_of_people?: number,
-  user_cups_code?: string
-) => {
+export const calculateSolarPaybackPeriod = async ({
+  offerType,
+  number_of_people,
+  user_cups_code
+}: {
+  offerType: string;
+  number_of_people?: number;
+  user_cups_code?: string;
+}) => {
   let required_capacity: number = 0;
   let vsi_required_capacity: number = 0;
   let yearly_fixed_charge: number = 0;

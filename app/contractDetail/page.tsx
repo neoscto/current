@@ -13,9 +13,12 @@ import {
   PLAN_TYPE,
   validateBIC,
   validateCUPS,
-  validateIBAN
+  validateIBAN,
+  cupsErrorTypes
 } from '@/utils/utils';
 import { useRouter } from 'next/navigation';
+import { calculateSolarPaybackPeriod } from '@/features/calculateSolarPaybackPeriod';
+import { ISolarPaybackData } from '@/lib/types';
 
 const ContractDetail = ({
   handleNext,
@@ -58,6 +61,7 @@ const ContractDetail = ({
   const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
   const [userPlan, setUserPlan] = useState('neos');
+  const [cupsCode, setCupsCode] = useState('');
 
   useEffect(() => {
     setShowForm('yourDetails');
@@ -90,14 +94,25 @@ const ContractDetail = ({
 
   const updateUserOffer = async () => {
     try {
-      const technicalData = await getTechnicalDataFromApi(formik?.values?.cups);
-      if (formik?.values?.cups && !technicalData) {
-        formik.setFieldError(
-          'cups',
-          'You made a mistake in your CUPS, please enter a valid CUPS'
-        );
+      const newData: ISolarPaybackData = await calculateSolarPaybackPeriod({
+        offerType: userData.offerType,
+        user_cups_code: formik.values.cups
+      });
+      if (newData?.error) {
+        switch (newData.type) {
+          case cupsErrorTypes.INSUFFICIENT_HISTORY:
+          case cupsErrorTypes.NEGATIVE_SAVINGS:
+          case cupsErrorTypes.API_ISSUE:
+            formik.setFieldError('cups', newData.message);
+            break;
+          case cupsErrorTypes.MULTIPLE_ISSUES:
+            formik.setFieldError('cups', newData.message);
+            setCupsCode(newData.cupsCode as string);
+            break;
+        }
         return;
       }
+      const technicalData = await getTechnicalDataFromApi(formik?.values?.cups);
       const userObj = {
         address: formik?.values?.address,
         postcode: formik?.values?.postcode,
@@ -264,7 +279,9 @@ const ContractDetail = ({
                           className="outline-none border-none focus:outline-none focus:border-none focus:ring-0 text-black w-[95%] md:w-[90%]"
                         />
                         {formik?.errors?.cups && (
-                          <p className="error-msg">{t(formik?.errors?.cups)}</p>
+                          <p className="error-msg">
+                            {t(formik?.errors?.cups, { cups_code: cupsCode })}
+                          </p>
                         )}
                       </p>
                     </div>
