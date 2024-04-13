@@ -49,6 +49,7 @@ export async function POST(request: Request) {
       phoneNumber: offer.phoneNumber,
       plan: offer.plan,
       dialCode: offer.dialCode,
+      switching: offer.switching,
       referralCode
     };
     let json_response = {

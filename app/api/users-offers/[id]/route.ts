@@ -61,7 +61,8 @@ export async function PUT(
       province: offer.province,
       typeConsumption: offer.typeConsumption,
       iban: offer.iban,
-      bic: offer.bic
+      bic: offer.bic,
+      switching: offer.switching
     };
     let json_response = {
       status: 'success',

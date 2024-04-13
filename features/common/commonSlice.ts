@@ -33,7 +33,8 @@ const initialUserData = {
   totalPayment: '',
   typeConsumption: '',
   iban: '',
-  bic: ''
+  bic: '',
+  switching: 'C1'
 };
 
 export const userData =
