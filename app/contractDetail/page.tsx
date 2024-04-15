@@ -1,4 +1,3 @@
-//@ts-nocheck
 'use client';
 import NeosButton from '@/components/NeosButton';
 import { setFormBack, setUserData } from '@/features/common/commonSlice';
@@ -94,6 +93,7 @@ const ContractDetail = ({
 
   const updateUserOffer = async () => {
     try {
+      //@ts-ignore
       const newData: ISolarPaybackData = await calculateSolarPaybackPeriod({
         offerType: userData.offerType,
         user_cups_code: formik.values.cups

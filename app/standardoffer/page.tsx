@@ -1,4 +1,3 @@
-//@ts-nocheck
 'use client';
 import NeosTextField from '@/components/NeosTextField';
 import ProgressBar from '@/components/ProgressBar';
@@ -54,7 +53,7 @@ const StandardOffer = () => {
   };
 
   const [showForm, setShowForm] = useState<string>('soffer');
-
+  //@ts-ignore
   const [data, setData] = useState({
     total_price_before_tax: 0,
     neos_installation_tax: 0,
@@ -130,9 +129,10 @@ const StandardOffer = () => {
     try {
       const newData = await calculateSolarPaybackPeriod({
         offerType: 'Standard',
-        user_cups_code: formik.values.numberOfPeople
+        number_of_people: formik.values.numberOfPeople
       });
       if (newData) {
+        //@ts-ignore
         setData(newData);
         dispatch(
           setUserData({
@@ -140,6 +140,7 @@ const StandardOffer = () => {
             totalPanels: newData.number_of_panels,
             capacityPerPanel: '440 Wp',
             totalCapacity: newData.vsi_required_capacity,
+            //@ts-ignore
             estimateProduction: newData.vsi_required_capacity * 2000,
             totalPayment: newData.total_price_after_tax,
             typeConsumption: newData.type_consumption_point

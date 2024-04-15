@@ -1,4 +1,3 @@
-//@ts-nocheck
 'use client';
 import NeosTextField from '@/components/NeosTextField';
 import ProgressBar from '@/components/ProgressBar';
@@ -44,7 +43,7 @@ const PersonalizedOffer = () => {
     dialCode: '34',
     numberofpeopleAdditionValue: 1
   };
-
+  //@ts-ignore
   const [data, setData] = useState<ISolarPaybackData>({
     total_price_before_tax: 0,
     neos_installation_tax: 0,
@@ -128,6 +127,7 @@ const PersonalizedOffer = () => {
     setLoading(true);
 
     try {
+      //@ts-ignore
       const newData: ISolarPaybackData = await calculateSolarPaybackPeriod({
         offerType: 'Personalized',
         user_cups_code: formik.values.cups
@@ -147,6 +147,7 @@ const PersonalizedOffer = () => {
         setLoading(false);
         return;
       } else {
+        //@ts-ignore
         setData(newData);
         const vsiRequiredCapacity = newData.vsi_required_capacity ?? 0;
         dispatch(
@@ -198,6 +199,7 @@ const PersonalizedOffer = () => {
           totalPanels: data.number_of_panels,
           capacityPerPanel: '440 Wp',
           totalCapacity: data.vsi_required_capacity,
+          //@ts-ignore
           estimateProduction: data.vsi_required_capacity * 2000,
           totalPayment: data.total_price_after_tax,
           typeConsumption: data.type_consumption_point
