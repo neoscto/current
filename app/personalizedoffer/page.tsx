@@ -96,6 +96,7 @@ const PersonalizedOffer = () => {
     neos_not_provider_elephants_carbon_capture: 0,
     save_yearly_w_neos: [{ years: 0, saving: '' }],
     save_yearly_without_neos: [{ years: 0, saving: '' }],
+    total_savings_w_neos: 0,
     type_consumption_point: ''
   });
   const [cupsCode, setCupsCode] = useState('');
@@ -158,6 +159,11 @@ const PersonalizedOffer = () => {
             totalCapacity: newData.vsi_required_capacity,
             estimateProduction: vsiRequiredCapacity * 2000,
             totalPayment: newData.total_price_after_tax,
+            neosTotalEmissionSaved: newData.neos_total_emissions_saved_in_tons,
+            paybackWithNeos: newData.payback_w_neos,
+            percentSavingsYear1WithNeos: newData.percent_savings_year1_w_neos,
+            totalSavingsWithNeos: newData.total_savings_w_neos,
+            yearlyConsumption: newData.yearly_consumption,
             typeConsumption: newData.type_consumption_point
           })
         );
@@ -202,6 +208,11 @@ const PersonalizedOffer = () => {
           //@ts-ignore
           estimateProduction: data.vsi_required_capacity * 2000,
           totalPayment: data.total_price_after_tax,
+          neosTotalEmissionSaved: data.neos_total_emissions_saved_in_tons,
+          paybackWithNeos: data.payback_w_neos,
+          percentSavingsYear1WithNeos: data.percent_savings_year1_w_neos,
+          totalSavingsWithNeos: data.total_savings_w_neos,
+          yearlyConsumption: data.yearly_consumption,
           typeConsumption: data.type_consumption_point
         })
       }

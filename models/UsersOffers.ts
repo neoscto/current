@@ -38,6 +38,11 @@ export type UserOfferSchemaProps = {
   totalCapacity?: number;
   estimateProduction?: number;
   totalPayment?: number;
+  neosTotalEmissionSaved?: number;
+  paybackWithNeos?: number;
+  percentSavingsYear1WithNeos?: number;
+  totalSavingsWithNeos?: number;
+  yearlyConsumption?: number;
   typeConsumption?: string;
   envelopeId?: string;
   termsConditionRead?: boolean;
@@ -143,6 +148,21 @@ class UserOfferSchema {
 
   @prop({ required: false })
   totalPayment: number;
+
+  @prop({ required: false })
+  neosTotalEmissionSaved: number;
+
+  @prop({ required: false })
+  paybackWithNeos: number;
+
+  @prop({ required: false })
+  percentSavingsYear1WithNeos: number;
+
+  @prop({ required: false })
+  totalSavingsWithNeos: number;
+
+  @prop({ required: false })
+  yearlyConsumption: number;
 
   @prop({ required: false })
   typeConsumption: string;
