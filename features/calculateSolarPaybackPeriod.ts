@@ -1113,6 +1113,7 @@ export const calculateSolarPaybackPeriod = async ({
         keepProvider: '0'
       }
     ],
+    percent_savings_w_neos,
     percent_savings_year1_w_neos,
     percent_savings_year1_without_neos,
     savings_retail_w_neos,

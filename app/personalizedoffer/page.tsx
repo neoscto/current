@@ -161,7 +161,7 @@ const PersonalizedOffer = () => {
             totalPayment: newData.total_price_after_tax,
             neosTotalEmissionSaved: newData.neos_total_emissions_saved_in_tons,
             paybackWithNeos: newData.payback_w_neos,
-            percentSavingsYear1WithNeos: newData.percent_savings_year1_w_neos,
+            percentSavings: newData.percent_savings_w_neos,
             totalSavingsWithNeos: newData.total_savings_w_neos,
             yearlyConsumption: newData.yearly_consumption,
             typeConsumption: newData.type_consumption_point
@@ -210,7 +210,7 @@ const PersonalizedOffer = () => {
           totalPayment: data.total_price_after_tax,
           neosTotalEmissionSaved: data.neos_total_emissions_saved_in_tons,
           paybackWithNeos: data.payback_w_neos,
-          percentSavingsYear1WithNeos: data.percent_savings_year1_w_neos,
+          percentSavings: data.percent_savings_w_neos,
           totalSavingsWithNeos: data.total_savings_w_neos,
           yearlyConsumption: data.yearly_consumption,
           typeConsumption: data.type_consumption_point

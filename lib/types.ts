@@ -78,6 +78,7 @@ export interface ISolarPaybackData {
   vsi_required_capacity?: number;
   total_price_after_tax?: number;
   type_consumption_point?: any;
+  percent_savings_w_neos?: number;
   percent_savings_year1_w_neos?: number;
   percent_savings_year1_without_neos?: number;
   savings_retail_w_neos?: number;
