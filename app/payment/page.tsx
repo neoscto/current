@@ -63,7 +63,7 @@ const CheckoutForm = () => {
       setTotalPayment(offer.totalPayment);
     };
     userData._id && getPrice();
-  }, [userData._id]);
+  }, []);
 
   const stripe = useStripe();
   const elements = useElements();

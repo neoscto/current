@@ -56,6 +56,7 @@ export type UserOfferSchemaProps = {
   iban?: string;
   bic?: string;
   switching?: string;
+  powerConsumptionValues?: string[];
 };
 
 type UserOfferSchemaMethods = {};
@@ -202,6 +203,9 @@ class UserOfferSchema {
 
   @prop({ required: false, default: 'C1' })
   switching: string;
+
+  @prop({ required: false })
+  powerConsumptionValues: string[];
 
   @prop({ default: new Date() })
   createdAt: Date;

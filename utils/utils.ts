@@ -110,3 +110,107 @@ export const validateBIC = (bic: string): boolean | string => {
   }
   return true;
 };
+
+export const convertDateToSimpleFormat = (
+  dateStr: string,
+  addYear?: boolean
+) => {
+  const date = new Date(dateStr);
+  addYear && date.setFullYear(date.getFullYear() + 1);
+  const year = date.getFullYear();
+  const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  const day = ('0' + date.getDate()).slice(-2);
+  return `${year}-${month}-${day}`;
+};
+
+export const getPowerConsumptionValues = (powerConsumptionValues: string[]) => {
+  const powerLabels = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6'];
+  return powerLabels.reduce((acc: any, key: string, index: number) => {
+    acc[key] = powerConsumptionValues[index];
+    return acc;
+  }, {});
+};
+
+export const getEnerbitData = (offerData: any) => {
+  return {
+    customer: {
+      cif: offerData.nie,
+      name: `${offerData.firstName} ${offerData.lastName}`,
+      surname1: offerData.lastName,
+      address_name: `${offerData.address}, ${offerData.addressNo}`,
+      postal_code: offerData.postcode,
+      town: offerData.city,
+      province: offerData.province,
+      email: offerData.emailAddress,
+      phone: offerData.phoneNumber
+    },
+    products: [
+      {
+        content: {
+          switching: offerData.switching,
+          sva: [
+            {
+              code: 'COM-CUOTA_GESTION',
+              price_day: offerData.totalPayment,
+              margin_com: offerData.totalPayment,
+              description: 'Gestión de comercialización',
+              margin_agent: 0,
+              margin_master: 0
+            }
+          ],
+          cnae: '9820',
+          cups: offerData.cups,
+          address_name: `${offerData.address}, ${offerData.addressNo}`,
+          postal_code: offerData.postcode,
+          town: offerData.city,
+          province: offerData.province,
+          tariff: {
+            tariff_name: `INDEXADA ${offerData.typeConsumption}`,
+            ...getPowerConsumptionValues(offerData.powerConsumptionValues),
+            atr: offerData.typeConsumption,
+            start_date: convertDateToSimpleFormat(offerData.createdAt),
+            end_date: convertDateToSimpleFormat(offerData.createdAt, true)
+          },
+          incumbent: {
+            cif: offerData.nie,
+            name: `${offerData.firstName} ${offerData.lastName}`,
+            surname1: offerData.lastName,
+            address_name: `${offerData.address}, ${offerData.addressNo}`,
+            postal_code: offerData.postcode,
+            town: offerData.city,
+            province: offerData.province,
+            email: offerData.emailAddress,
+            phone: offerData.phoneNumber
+          },
+          bank_content: {
+            cif: offerData.nie,
+            name: `${offerData.firstName} ${offerData.lastName}`,
+            surname1: offerData.lastName,
+            address_name: `${offerData.address}, ${offerData.addressNo}`,
+            postal_code: offerData.postcode,
+            town: offerData.city,
+            province: offerData.province,
+            iban: offerData.iban.slice(0, 4),
+            bank_code: offerData.iban.slice(4, 8),
+            branch_office: offerData.iban.slice(8, 12),
+            control: offerData.iban.slice(12, 14),
+            account: offerData.iban.slice(14, 24)
+          },
+          send_direction: {
+            cif: offerData.nie,
+            name: `${offerData.firstName} ${offerData.lastName}`,
+            address_name: `${offerData.address}, ${offerData.addressNo}`,
+            postal_code: offerData.postcode,
+            town: offerData.city,
+            province: offerData.province
+          },
+          habitual_residence: false,
+          estimated_consumption: '6.1',
+          expected_activation_date: null
+        }
+      }
+    ],
+    signatory_person1_nif: offerData.nie,
+    signatory_person1_name: `${offerData.firstName} ${offerData.lastName}`
+  };
+};

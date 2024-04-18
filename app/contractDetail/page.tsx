@@ -125,7 +125,10 @@ const ContractDetail = ({
         iban: formik?.values?.iban,
         bic: formik?.values?.bic
       };
-      const isPlanNeos = formik?.values?.plan === 'neos';
+      // const isPlanNeos = formik?.values?.plan === 'neos';
+      const typeConsumption = technicalData?.tipoPerfilConsumo
+        .slice(1)
+        .toUpperCase();
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData._id}`,
         {
@@ -135,11 +138,7 @@ const ContractDetail = ({
             ...userData,
             ...userObj,
             filledInfo: true,
-            ...(isPlanNeos && {
-              typeConsumption: technicalData?.tipoPerfilConsumo
-                .slice(1)
-                .toUpperCase()
-            })
+            typeConsumption: typeConsumption ?? ''
           })
         }
       );

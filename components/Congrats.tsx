@@ -1,7 +1,11 @@
 'use client';
 import TolstoyHero from '@/app/landingpage/TolstoyHero';
 import { resetUserData } from '@/features/common/commonSlice';
-import { removeDataFromSessionStorage } from '@/utils/utils';
+import {
+  PLAN_TYPE,
+  getEnerbitData,
+  removeDataFromSessionStorage
+} from '@/utils/utils';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -22,6 +26,13 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
           );
           const { offer } = await response.json();
           if ((userData.hasPaid || offer.paid) && offer.contractSign) {
+            if (offer.plan === PLAN_TYPE.Neos) {
+              const enerbitData = getEnerbitData(offer);
+              await fetch(
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/enerbit/send_electricity`,
+                { method: 'POST', body: JSON.stringify(enerbitData) }
+              );
+            }
             removeDataFromSessionStorage('UserOffer');
             removeDataFromSessionStorage('docusignAccessToken');
             dispatch(resetUserData());
@@ -75,13 +86,6 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
 
       <div className="mx-auto flex justify-center items-center w-full lg:w-3/6 lg:!mt-5">
         <div className="relative w-full lg:h-[520px] max-w-[310px] h-full video-container !rounded-3xl overflow-hidden">
-          {/* <VideoPreview
-            custonClass="h-full w-full"
-            url="https://videos.gotolstoy.com/public/41532226-45a4-45f6-a10f-a313cb492bc8/6c2ed4e4-393f-415d-8c6f-495ee6f13e80/6c2ed4e4-393f-415d-8c6f-495ee6f13e80.mp4"
-            controls={false}
-            muted
-            autoPlay
-          /> */}
           <TolstoyHero src="https://player.gotolstoy.com/2jaoummpafsuk" />
         </div>
       </div>

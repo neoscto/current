@@ -36,7 +36,7 @@ const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
     };
 
     getUserOfferDetails();
-  }, [userData._id]);
+  }, []);
 
   return (
     <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-[70px] md:mt-7 lg:mt-0">

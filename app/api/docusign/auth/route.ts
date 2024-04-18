@@ -23,33 +23,28 @@ type ConsumptionData = {
 };
 
 interface PlanInformation {
-  cups: string;
   typeConsumption: string;
   powerConsumptionData: Array<ConsumptionData>;
 }
 
-const getPlanInformation = async (
-  offerData: any,
-  paybackData: any
-): Promise<PlanInformation> => {
+const getPlanInformation = async (offerData: any): Promise<PlanInformation> => {
   if (offerData.plan === PLAN_TYPE.Neos) {
     const { consumption_data } = await fetchData(offerData.cups);
     const processData: any = processConsumptionData(consumption_data);
-    const typeConsumption = paybackData.typeConsumption;
-    console.log('Type Consumption: ', typeConsumption);
+    const typeConsumption = offerData.typeConsumption;
     const orderedKeys = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6'];
     const powerConsumptionData = orderedKeys.map((key) => {
       const sum = processData[key].reduce(
         (val: number, acc: number) => acc + val,
         0
       );
-      const value = `${formatNumber(sum / 1000, 5)} kWp`;
+      const value = `${sum / 1000}`;
       return { tabLabel: key.toLowerCase(), value };
     });
 
-    return { cups: offerData.cups, typeConsumption, powerConsumptionData };
+    return { typeConsumption, powerConsumptionData };
   }
-  return { cups: '', typeConsumption: '', powerConsumptionData: [] };
+  return { typeConsumption: '', powerConsumptionData: [] };
 };
 
 const getLabelInformation = (label: string, length: number, value: string) => {
@@ -59,15 +54,12 @@ const getLabelInformation = (label: string, length: number, value: string) => {
   }));
 };
 
-const generateEnvelopeData = async (offerData: any) => {
+const generateEnvelopeData = async (
+  offerData: any,
+  typeConsumption: string,
+  powerConsumptionData: Array<ConsumptionData>
+) => {
   if (offerData._id) {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${offerData._id}`
-    );
-    const { offer: paybackData } = await response.json();
-    const { cups, typeConsumption, powerConsumptionData } =
-      await getPlanInformation(offerData, paybackData);
-
     const fullNameList = getLabelInformation(
       'fullName',
       4,
@@ -110,27 +102,27 @@ const generateEnvelopeData = async (offerData: any) => {
               },
               {
                 tabLabel: 'totalPanels',
-                value: formatNumber(paybackData.totalPanels)
+                value: formatNumber(offerData.totalPanels)
               },
               {
                 tabLabel: 'capacityPerPanel',
-                value: paybackData.capacityPerPanel
+                value: offerData.capacityPerPanel
               },
               {
                 tabLabel: 'totalCapacity',
-                value: `${formatNumber(paybackData.totalCapacity)} kWp`
+                value: `${formatNumber(offerData.totalCapacity)} kWp`
               },
               {
                 tabLabel: 'estimateProduction',
-                value: `${formatNumber(paybackData.estimateProduction * 25)} kWh`
+                value: `${formatNumber(offerData.estimateProduction * 25)} kWh`
               },
               {
                 tabLabel: 'totalPayment',
-                value: formatNumber(paybackData.totalPayment)
+                value: formatNumber(offerData.totalPayment)
               },
               {
                 tabLabel: 'cups',
-                value: cups
+                value: offerData.cups
               },
               {
                 tabLabel: 'typeConsumption',
@@ -186,14 +178,30 @@ export async function POST(_request: Request, _response: Response) {
     const offerData = body.offerData;
     const accessToken: string = await getAccessToken();
     // const accessToken = process.env.NEXT_PUBLIC_DOCUSIGN_API_TOKEN || "";
-    const envelopeData = await generateEnvelopeData(offerData);
+    const { typeConsumption, powerConsumptionData } =
+      await getPlanInformation(offerData);
+
+    const envelopeData = await generateEnvelopeData(
+      offerData,
+      typeConsumption,
+      powerConsumptionData.map((item: ConsumptionData) => ({
+        ...item,
+        value: `${formatNumber(Number(item.value), 5)} kWp`
+      }))
+    );
     const envelopeId = await createEnvelope(accessToken, envelopeData);
     const signingUrl = await getEmbeddedSigningUrl(
       accessToken,
       envelopeId,
       offerData
     );
-    await createOrUpdateUserOffer({ ...offerData, envelopeId });
+    await createOrUpdateUserOffer({
+      ...offerData,
+      envelopeId,
+      powerConsumptionValues: powerConsumptionData.map(
+        (item: ConsumptionData) => Number(item.value.split(' ')[0]).toFixed(1)
+      )
+    });
     return new NextResponse(
       JSON.stringify({ signingUrl, envelopeId, accessToken }),
       {
