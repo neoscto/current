@@ -40,7 +40,7 @@ export type UserOfferSchemaProps = {
   totalPayment?: number;
   neosTotalEmissionSaved?: number;
   paybackWithNeos?: number;
-  percentSavingsYear1WithNeos?: number;
+  percentSavings?: number;
   totalSavingsWithNeos?: number;
   yearlyConsumption?: number;
   typeConsumption?: string;
@@ -157,7 +157,7 @@ class UserOfferSchema {
   paybackWithNeos: number;
 
   @prop({ required: false })
-  percentSavingsYear1WithNeos: number;
+  percentSavings: number;
 
   @prop({ required: false })
   totalSavingsWithNeos: number;

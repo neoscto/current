@@ -33,7 +33,7 @@ const initialUserData = {
   totalPayment: '',
   neosTotalEmissionSaved: '',
   paybackWithNeos: '',
-  percentSavingsYear1WithNeos: '',
+  percentSavings: '',
   totalSavingsWithNeos: '',
   yearlyConsumption: '',
   typeConsumption: '',
