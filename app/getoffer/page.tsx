@@ -23,6 +23,7 @@ import { saveDataToSessionStorage } from '@/utils/utils';
 import { CircularProgress } from '@mui/material';
 import Congrats from '@/components/Congrats';
 import ProgressBar from '@/components/ProgressBar';
+import TolstoyWidget from '@/components/TolstoyWidget';
 
 const steps = [
   'Receive Your Offer',
@@ -265,6 +266,9 @@ const HorizontalLinearStepper = () => {
             </React.Fragment>
           )}
         </Box>
+        {pathname === 'getoffer' && (
+          <TolstoyWidget src="https://player.gotolstoy.com/69p3nvx0gtqkb" />
+        )}
       </div>
     </MainContainer>
   );

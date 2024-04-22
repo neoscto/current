@@ -24,6 +24,7 @@ import 'react-phone-number-input/style.css';
 import { useDispatch } from 'react-redux';
 import YourOffer from '../youoffer/page';
 import { ISolarPaybackData } from '@/lib/types';
+import TolstoyWidget from '@/components/TolstoyWidget';
 
 const PersonalizedOffer = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -366,6 +367,7 @@ const PersonalizedOffer = () => {
             </div>
           )}
         </Box>
+        <TolstoyWidget src="https://player.gotolstoy.com/y90k387w8fwhy" />
       </div>
     </MainContainer>
   );
