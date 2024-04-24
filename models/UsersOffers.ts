@@ -7,10 +7,10 @@ import {
 } from '@typegoose/typegoose';
 import mongoose, { Document } from 'mongoose';
 
-enum OFFER_TYPE {
-  Standard = 'Standard',
-  Personalized = 'Personalized'
-}
+// enum OFFER_TYPE {
+//   Standard = 'Standard',
+//   Personalized = 'Personalized'
+// }
 
 export type UserOfferSchemaProps = {
   // user: () => mongoose.Types.ObjectId;
@@ -29,9 +29,9 @@ export type UserOfferSchemaProps = {
   nie?: string;
   postcode?: string;
   cups?: string;
-  noOfPeople?: boolean;
-  numberOfPeopleAdditionValue?: boolean;
-  offerType?: OFFER_TYPE;
+  // noOfPeople?: boolean;
+  // numberOfPeopleAdditionValue?: boolean;
+  // offerType?: OFFER_TYPE;
   plan?: string;
   totalPanels?: number;
   capacityPerPanel?: string;
@@ -99,11 +99,11 @@ class UserOfferSchema {
   @prop({ required: false })
   cups: string;
 
-  @prop({ required: false })
-  numberOfPeople: number;
+  // @prop({ required: false })
+  // numberOfPeople: number;
 
-  @prop({ required: false })
-  numberOfPeopleAdditionValue: number;
+  // @prop({ required: false })
+  // numberOfPeopleAdditionValue: number;
 
   @prop({ required: false })
   address: string;
@@ -129,8 +129,8 @@ class UserOfferSchema {
   @prop({ required: false })
   referralCode: string;
 
-  @prop({ required: false })
-  offerType: OFFER_TYPE;
+  // @prop({ required: false })
+  // offerType: OFFER_TYPE;
 
   @prop({ required: false })
   plan: string;

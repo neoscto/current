@@ -13,7 +13,7 @@ export const fetchPosts = createAsyncThunk('common/fetchPosts', async () => {
 });
 
 const initialUserData = {
-  numberOfPeople: null,
+  // numberOfPeople: null,
   firstName: '',
   lastName: '',
   emailAddress: '',
@@ -25,7 +25,7 @@ const initialUserData = {
   _id: '',
   isValidCode: false,
   plan: 'neos',
-  offerType: '',
+  // offerType: '',
   totalPanels: '',
   capacityPerPanel: '',
   totalCapacity: '',

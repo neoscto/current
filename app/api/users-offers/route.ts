@@ -30,8 +30,8 @@ export async function POST(request: Request) {
       dialCode: body.dialCode,
       phoneNumber: body.phoneNumber,
       cups: body.cups,
-      referralCode: referralCode,
-      numberOfPeople: body.numberOfPeople
+      referralCode: referralCode
+      // numberOfPeople: body.numberOfPeople
     };
     // Create User Offer
     const offer = await createOrUpdateUserOffer(requestBody);
@@ -44,8 +44,8 @@ export async function POST(request: Request) {
       emailAddress: offer.emailAddress,
       firstName: offer.firstName,
       lastName: offer.lastName,
-      numberOfPeople: offer.numberOfPeople,
-      offerType: offer.offerType,
+      // numberOfPeople: offer.numberOfPeople,
+      // offerType: offer.offerType,
       phoneNumber: offer.phoneNumber,
       plan: offer.plan,
       dialCode: offer.dialCode,
