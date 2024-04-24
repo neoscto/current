@@ -3,6 +3,7 @@ import { Grid } from '@mui/material';
 import { GetOfferCardData } from '@/utils/StaticData';
 import OfferCard from './offerCard';
 import { useRouter } from 'next/navigation';
+import TolstoyWidget from '@/components/TolstoyWidget';
 
 const GetOffer = () => {
   const router = useRouter();
@@ -36,6 +37,7 @@ const GetOffer = () => {
           </Grid>
         </div>
       </div>
+      <TolstoyWidget src="https://player.gotolstoy.com/69p3nvx0gtqkb" />
     </>
   );
 };

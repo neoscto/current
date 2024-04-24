@@ -5,6 +5,7 @@ import { descriptionList } from '@/utils/StaticData';
 import { useTranslation } from 'react-i18next';
 import parse from 'html-react-parser';
 import { Button } from '@mantine/core';
+import WhatsappWidget from '@/components/WhatsappWidget';
 
 const Description = () => {
   const router = useRouter();
@@ -98,6 +99,7 @@ const Description = () => {
           </div>
         </div>
       </div>
+      <WhatsappWidget />
     </MainContainer>
   );
 };

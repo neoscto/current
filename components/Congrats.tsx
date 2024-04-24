@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import WhatsappWidget from './WhatsappWidget';
 
 const Congrats = ({ generatePDF, isPDFLoading }: any) => {
   const { t } = useTranslation();
@@ -89,6 +90,7 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
           <TolstoyHero src="https://player.gotolstoy.com/2jaoummpafsuk" />
         </div>
       </div>
+      <WhatsappWidget />
     </div>
   );
 };

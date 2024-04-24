@@ -5,6 +5,7 @@ import Licensed from '@/components/Licensed';
 import TolstoyHero from './TolstoyHero';
 import Content from './Content';
 import ScrollingBanner from '@/components/ScrollingBanner';
+import WhatsappWidget from '@/components/WhatsappWidget';
 
 const LandingPage = () => {
   return (
@@ -19,6 +20,7 @@ const LandingPage = () => {
         </div>
         <Licensed />
       </div>
+      <WhatsappWidget />
     </MainContainer>
   );
 };

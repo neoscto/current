@@ -1,5 +1,6 @@
 'use client';
 import NeosButton from '@/components/NeosButton';
+import WhatsappWidget from '@/components/WhatsappWidget';
 import { setUserData } from '@/features/common/commonSlice';
 import { Grid } from '@mui/material';
 import {
@@ -13,28 +14,6 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-
-const CARD_ELEMENT_OPTIONS = {
-  disableLink: true,
-  style: {
-    base: {
-      iconColor: '#FD7C7C',
-      color: '#000000',
-      fontSize: '14px',
-      ':-webkit-autofill': {
-        color: '#fce883'
-      },
-      '::placeholder': {
-        color: 'rgb(0, 0, 0, 0.3)',
-        fontSize: '14px'
-      }
-    },
-    invalid: {
-      iconColor: '#d32f2f',
-      color: '#d32f2f'
-    }
-  }
-};
 
 const CheckoutForm = () => {
   const { userData } = useSelector((state: any) => state.commonSlice);
@@ -156,9 +135,6 @@ const CheckoutForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* <h1 className="text-lg md:2xl lg:text-3xl font-bold  mt-2 mb-8 text-center">
-        {t('Your-offer.title')}: €{displayValue}
-      </h1> */}
       <h1 className="text-[1.5rem] min-[350px]:text-[1.65rem] leading-9 md:text-3xl md:leading-10 lg:text-[34px] lg:leading-[38px] font-bold text-center mt-2 mb-8">
         {t('Your-offer.contract-title')}:<br />€{displayValue}
       </h1>
@@ -166,21 +142,6 @@ const CheckoutForm = () => {
         <p className="text-lg font-medium text-black">{t('Payment.title')}</p>
         <p className="text-[#667085] text-sm mb-8">{t('Payment.desc')}</p>
         <Grid container rowSpacing={3} columnSpacing={3}>
-          {/* Name on card */}
-          {/* <Grid item xs={12} sm={12} md={12}>
-            <NeosTextField
-              placeholder="Olivia Rhye"
-              label={t('Payment.card-name')}
-              value={name}
-              onChange={(e) => {
-                validateName(e.target.value);
-              }}
-              onBlur={(e) => {
-                validateName(e.target.value);
-              }}
-            />
-          </Grid> */}
-
           {/* CARD number */}
           <Grid item xs={12} sm={12} md={12}>
             <label className="">{t('Payment.card-number')}</label>
@@ -209,14 +170,6 @@ const CheckoutForm = () => {
         </Grid>
       </div>
       <div className="mt-8 text-center">
-        {/* <NeosButton
-          sx={{ width: '140px !important' }}
-          category="colored"
-          type="submit"
-          title="PAY NOW"
-          isLoading={loading}
-          disabled={!stripe || loading || !totalPayment}
-        /> */}
         <NeosButton
           sx={{
             height: '56px !important',
@@ -231,6 +184,7 @@ const CheckoutForm = () => {
           disabled={!stripe || loading || !totalPayment}
         />
       </div>
+      <WhatsappWidget />
     </form>
   );
 };

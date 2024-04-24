@@ -266,9 +266,6 @@ const HorizontalLinearStepper = () => {
             </React.Fragment>
           )}
         </Box>
-        {pathname === '/getoffer' && (
-          <TolstoyWidget src="https://player.gotolstoy.com/69p3nvx0gtqkb" />
-        )}
       </div>
     </MainContainer>
   );
