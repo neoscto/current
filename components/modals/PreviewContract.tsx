@@ -60,7 +60,7 @@ const PreviewContract = () => {
   };
 
   const handleGenerateContract = async () => {
-    if (!userData._id) return router.push('/getoffer');
+    if (!userData._id) return router.push('/personalizedoffer');
     if (!isChecked) {
       setError(t('preview-contract.error-msg'));
       return;
@@ -84,7 +84,7 @@ const PreviewContract = () => {
       if (offer) {
         dispatch(setUserData({ hasReadContract: true }));
         handleCloseModal();
-        router.push('/getoffer?activeStep=1');
+        router.push('/personalizedoffer?activeStep=1');
       }
     } catch (error) {
       console.error('Error:', error);

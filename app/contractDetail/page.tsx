@@ -38,7 +38,8 @@ const ContractDetail = ({
   const router = useRouter();
 
   useEffect(() => {
-    if (!userData._id && !userData.offerId) return router.push('/getoffer');
+    if (!userData._id && !userData.offerId)
+      return router.push('/personalizedoffer');
     const getPrice = async () => {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData.offerId}`
@@ -96,7 +97,7 @@ const ContractDetail = ({
     try {
       //@ts-ignore
       const newData: ISolarPaybackData = await calculateSolarPaybackPeriod({
-        offerType: userData.offerType,
+        offerType: 'Personalized',
         user_cups_code: formik.values.cups
       });
       if (newData?.error) {
@@ -152,7 +153,7 @@ const ContractDetail = ({
   };
   const handleViewContract = async () => {
     if (!userData._id || !userData.hasReadContract)
-      return router.push('/getoffer');
+      return router.push('/personalizedoffer');
     setIsButtonLoading(true);
     formik.setErrors({});
     try {
@@ -160,9 +161,8 @@ const ContractDetail = ({
         'link-checkbox'
       ) as HTMLInputElement | null;
       const includeCups =
-        formik?.values?.plan === PLAN_TYPE.Neos ||
-        formik?.values?.cups ||
-        formik?.values?.offerType === 'Personalized';
+        formik?.values?.plan === PLAN_TYPE.Neos || formik?.values?.cups;
+      // formik?.values?.offerType === 'Personalized';
 
       if (
         isChecked &&
@@ -180,14 +180,13 @@ const ContractDetail = ({
           formik.setFieldError('cups', validateCUPS(formik.values.cups));
           return;
         }
-        if (
-          validateIBAN(formik?.values?.iban) !== true ||
-          validateBIC(formik?.values?.bic) !== true
-        ) {
-          if (validateIBAN(formik?.values?.iban) !== true) {
+        const isIBANInvalid = validateIBAN(formik?.values?.iban) !== true;
+        const isBICInvalid = validateBIC(formik?.values?.bic) !== true;
+        if (isIBANInvalid || isBICInvalid) {
+          if (isIBANInvalid) {
             formik.setFieldError('iban', validateIBAN(formik?.values?.iban));
           }
-          if (validateBIC(formik?.values?.bic) !== true) {
+          if (isBICInvalid) {
             formik.setFieldError('bic', validateBIC(formik?.values?.bic));
           }
           return;

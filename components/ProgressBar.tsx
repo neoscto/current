@@ -1,12 +1,12 @@
 'use client';
 
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Stepper from '@mui/material/Stepper';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
 
 const steps = [
   'Receive Your Offer',

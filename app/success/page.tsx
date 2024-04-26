@@ -26,12 +26,12 @@ const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
         );
         const { offer } = await response.json();
         if (!offer.contractSign && offer.filledInfo) {
-          return router.push('/getoffer?activeStep=1');
+          return router.push('/personalizedoffer?activeStep=1');
         } else if (!offer.contractSign && !offer.filledInfo) {
-          return router.push('/getoffer');
+          return router.push('/personalizedoffer');
         }
       } else {
-        return router.push('/getoffer');
+        return router.push('/personalizedoffer');
       }
     };
 

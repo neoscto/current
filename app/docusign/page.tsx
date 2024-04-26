@@ -8,13 +8,13 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 interface OfferData {
-  numberOfPeople: string;
+  // numberOfPeople: string;
   cups: string;
   firstName: string;
   lastName: string;
   emailAddress: string;
   phoneNumber: string;
-  numberofpeopleAdditionValue: number;
+  // numberofpeopleAdditionValue: number;
 }
 const EmailSuccess = ({}: any) => {
   const displayValue = 3;
@@ -55,7 +55,7 @@ const EmailSuccess = ({}: any) => {
         );
 
         if (!response.ok) {
-          return router.push('/getoffer?activeStep=1');
+          return router.push('/personalizedoffer?activeStep=1');
         }
 
         // const data = await response.json();
@@ -120,11 +120,11 @@ const EmailSuccess = ({}: any) => {
             <div className="-mt-12 text-center">
               <h1 className="text-lg md:2xl lg:text-3xl font-bold">
                 {t('Your-offer.title')}: €
-                {Number(
+                {/* {Number(
                   offerData?.numberOfPeople
                     ? offerData?.numberOfPeople
                     : offerData?.cups
-                ) + 1}
+                ) + 1} */}
               </h1>
               {/* <p className="text-sm md:text-base lg:text-base mt-1 text-[#4F4F4F] font-medium mt-0">
                             With Commercialisation Agreement

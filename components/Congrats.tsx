@@ -40,15 +40,15 @@ const Congrats = ({ generatePDF, isPDFLoading }: any) => {
             // dispatch(setUserData({ envelopeId }));
             router.refresh();
           } else if (offer.contractSign) {
-            router.push('/getoffer?activeStep=1');
+            router.push('/personalizedoffer?activeStep=1');
           } else {
-            router.push('/getoffer');
+            router.push('/personalizedoffer');
           }
         } catch (error) {
           console.error('Failed to check user offer details:', error);
         }
       } else {
-        router.push('/getoffer');
+        router.push('/personalizedoffer');
       }
     };
     checkUserOfferDetails();

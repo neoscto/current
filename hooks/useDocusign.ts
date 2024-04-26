@@ -45,7 +45,7 @@ const useDocusignService = (formik: any) => {
 
           const handleMessage = async (event: any) => {
             if (event.data === 'changeRoute') {
-              route.push('/getoffer?activeStep=2');
+              route.push('/personalizedoffer?activeStep=2');
               setSigningUrl('');
             }
             if (event.data === 'gotToHomePage') {

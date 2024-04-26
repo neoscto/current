@@ -43,7 +43,7 @@ const Description = () => {
                   fontSize: '14px'
                 }}
                 classNames={{}}
-                onClick={() => router.push('/getoffer')}
+                onClick={() => router.push('/personalizedoffer')}
               >
                 {t('Calculate-saving-btn')}
               </Button>
@@ -91,7 +91,7 @@ const Description = () => {
                   fontSize: '14px'
                 }}
                 className=""
-                onClick={() => router.push('/getoffer')}
+                onClick={() => router.push('/personalizedoffer')}
               >
                 {t('Calculate-saving-btn')}
               </Button>

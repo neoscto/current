@@ -27,7 +27,7 @@ const CheckoutForm = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!userData._id) return router.push('/getoffer');
+    if (!userData._id) return router.push('/personalizedoffer');
     const getPrice = async () => {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData._id}`
@@ -57,7 +57,7 @@ const CheckoutForm = () => {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
-    if (!userData._id) return router.push('/getoffer');
+    if (!userData._id) return router.push('/personalizedoffer');
 
     setLoading(true);
 
@@ -104,7 +104,7 @@ const CheckoutForm = () => {
         if (paymentResponse.status === 'succeeded') {
           // setIsPaymentSuccess(true);
           dispatch(setUserData({ ...userData, hasPaid: true }));
-          router.push('/getoffer?activeStep=3');
+          router.push('/personalizedoffer?activeStep=3');
         }
       }
       // Send the token to your server to complete the payment

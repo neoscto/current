@@ -12,7 +12,6 @@ import { offerStep1Schema } from '@/utils/validations/offers.validation';
 import { Button } from '@mantine/core';
 import { CircularProgress, Grid } from '@mui/material';
 import Box from '@mui/material/Box';
-import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PhoneInput, {
@@ -21,24 +20,23 @@ import PhoneInput, {
   isValidPhoneNumber
 } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const PersonalizedForm = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const searchParams = useSearchParams();
-  const activeStep = searchParams.get('activeStep') || 0;
+  const { userData } = useSelector((state: any) => state.commonSlice);
 
   const [showForm, setShowForm] = useState<string>('poffer');
 
   const formikInitialValues = {
     // offerType: '',
     // numberOfPeople: '',
-    cups: '',
-    firstName: '',
-    lastName: '',
-    emailAddress: '',
-    phoneNumber: '',
-    dialCode: '34'
+    cups: userData.cups || '',
+    firstName: userData.firstName || '',
+    lastName: userData.lastName || '',
+    emailAddress: userData.emailAddress || '',
+    phoneNumber: userData.phoneNumber || '',
+    dialCode: userData.dialCode || '34'
     // numberofpeopleAdditionValue: 1
   };
   //@ts-ignore
@@ -218,14 +216,18 @@ const PersonalizedForm = () => {
     );
   }
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center w-full h-screen">
-        <CircularProgress className="w-8 h-8" />
-      </div>
-    );
-  }
+  // useEffect(() => {
+  //   formik.setFieldValue('offerType', 'Personalized');
+  //   // dispatch(setUserData(formik.values));
+  // }, [formik.values]);
 
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex justify-center items-center w-full h-screen">
+  //       <CircularProgress className="w-8 h-8" />
+  //     </div>
+  //   );
+  // }
   return (
     <div className="my-4 xl:max-w-[1200px] max-w-[calc(100%_-_40px)] relative rounded-[30px] bg-[#01092299] w-full mx-auto bg-white overflow-hidden">
       <Box sx={{ width: '100%' }}>
@@ -237,118 +239,121 @@ const PersonalizedForm = () => {
           /> */}
 
         {showForm === 'poffer' && (
-          <div className="w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9 my-14 max-md:mb-4 md:my-0">
-            <div className="w-[100%] md:w-[85%] lg:w-[85%]  mx-auto ">
-              <h1 className="font-bold text-3xl mb-8 md:mb-11 lg:mb-11 text-center">
-                {t('Get-offer.Personalized Offer')}
-              </h1>
+          <>
+            <div className="w-[90%] md:w-[80%] lg:w-[60%] mx-auto pb-6 md:pb-9 lg:pb-9 my-14 max-md:mb-4 md:my-0">
+              <div className="w-[100%] md:w-[85%] lg:w-[85%]  mx-auto ">
+                <h1 className="font-bold text-3xl mb-8 md:mb-11 lg:mb-11 text-center">
+                  {t('Get-offer.Personalized Offer')}
+                </h1>
 
-              <Grid container rowSpacing={3} columnSpacing={3}>
-                <Grid item xs={12}>
-                  <NeosTextField
-                    placeholder={t('Get-offer-form.form-placeholder')}
-                    label={t('Get-offer-form.cups')}
-                    type="text"
-                    name="cups"
-                    value={formik.values.cups}
-                    onChange={formik.handleChange}
-                    error={Boolean(formik.errors.cups)}
-                    helperText={t(formik.errors.cups, {
-                      cups_code: cupsCode
-                    })}
-                  />
-                  <p className="font-sm text-[#2D9CDB] mt-1">
+                <Grid container rowSpacing={3} columnSpacing={3}>
+                  <Grid item xs={12}>
+                    <NeosTextField
+                      placeholder={t('Get-offer-form.form-placeholder')}
+                      label={t('Get-offer-form.cups')}
+                      type="text"
+                      name="cups"
+                      value={formik.values.cups}
+                      onChange={formik.handleChange}
+                      error={Boolean(formik.errors.cups)}
+                      helperText={t(formik.errors.cups, {
+                        cups_code: cupsCode
+                      })}
+                    />
                     <p className="font-sm text-[#2D9CDB] mt-1">
-                      {formik.values.cups
-                        ? null
-                        : t('Get-offer-form.field-desc')}
+                      <p className="font-sm text-[#2D9CDB] mt-1">
+                        {formik.values.cups || userData?.cups
+                          ? null
+                          : t('Get-offer-form.field-desc')}
+                      </p>
                     </p>
-                  </p>
-                  {/* {cupsError && (
+                    {/* {cupsError && (
                       <p className="text-sm text-red-600">{cupsError}</p>
                     )} */}
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <NeosTextField
+                      placeholder={t('Get-offer-form.form-placeholder')}
+                      label={t('Get-offer-form.first-name')}
+                      name="firstName"
+                      value={formik.values.firstName}
+                      onChange={formik.handleChange}
+                      error={Boolean(formik.errors.firstName)}
+                      helperText={t(formik.errors.firstName)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <NeosTextField
+                      placeholder={t('Get-offer-form.form-placeholder')}
+                      label={t('Get-offer-form.last-name')}
+                      name="lastName"
+                      value={formik.values.lastName}
+                      onChange={formik.handleChange}
+                      error={Boolean(formik.errors.lastName)}
+                      helperText={t(formik.errors.lastName)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <NeosTextField
+                      placeholder={t('Get-offer-form.form-placeholder')}
+                      label={t('Get-offer-form.email')}
+                      name="emailAddress"
+                      value={formik.values.emailAddress}
+                      onChange={formik.handleChange}
+                      error={Boolean(formik.errors.emailAddress)}
+                      helperText={t(formik.errors.emailAddress)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <label className="text-sm text-black  font-medium mb-1.5 block">
+                      {t('Get-offer-form.phone')}
+                    </label>
+                    <PhoneInput
+                      placeholder={t('Get-offer-form.form-placeholder')}
+                      name="phoneNumber"
+                      className="border border-[#E0E0E0] rounded-[8px] p-3 w-full"
+                      international
+                      value={formik.values.phoneNumber}
+                      countryCallingCodeEditable={false}
+                      defaultCountry="ES"
+                      onCountryChange={(country: Country) => {
+                        const dialCode = getCountryCallingCode(country);
+                        formik.setFieldValue('dialCode', dialCode);
+                      }}
+                      onChange={(value) => {
+                        formik.setFieldValue('phoneNumber', value);
+                      }}
+                    />
+                    <p className="text-xs text-[#d32f2f] mt-1 ml-3">
+                      {formik.values.phoneNumber
+                        ? isValidPhoneNumber(formik.values.phoneNumber)
+                          ? undefined
+                          : t('Invalid phone number')
+                        : t(`${phoneNumberError}`)}
+                    </p>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6} md={6}>
-                  <NeosTextField
-                    placeholder={t('Get-offer-form.form-placeholder')}
-                    label={t('Get-offer-form.first-name')}
-                    name="firstName"
-                    value={formik.values.firstName}
-                    onChange={formik.handleChange}
-                    error={Boolean(formik.errors.firstName)}
-                    helperText={t(formik.errors.firstName)}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={6}>
-                  <NeosTextField
-                    placeholder={t('Get-offer-form.form-placeholder')}
-                    label={t('Get-offer-form.last-name')}
-                    name="lastName"
-                    value={formik.values.lastName}
-                    onChange={formik.handleChange}
-                    error={Boolean(formik.errors.lastName)}
-                    helperText={t(formik.errors.lastName)}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={6}>
-                  <NeosTextField
-                    placeholder={t('Get-offer-form.form-placeholder')}
-                    label={t('Get-offer-form.email')}
-                    name="emailAddress"
-                    value={formik.values.emailAddress}
-                    onChange={formik.handleChange}
-                    error={Boolean(formik.errors.emailAddress)}
-                    helperText={t(formik.errors.emailAddress)}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={6}>
-                  <label className="text-sm text-black  font-medium mb-1.5 block">
-                    {t('Get-offer-form.phone')}
-                  </label>
-                  <PhoneInput
-                    placeholder={t('Get-offer-form.form-placeholder')}
-                    name="phoneNumber"
-                    className="border border-[#E0E0E0] rounded-[8px] p-3 w-full"
-                    international
-                    value={formik.values.phoneNumber}
-                    countryCallingCodeEditable={false}
-                    defaultCountry="ES"
-                    onCountryChange={(country: Country) => {
-                      const dialCode = getCountryCallingCode(country);
-                      formik.setFieldValue('dialCode', dialCode);
-                    }}
-                    onChange={(value) => {
-                      formik.setFieldValue('phoneNumber', value);
-                    }}
-                  />
-                  <p className="text-xs text-[#d32f2f] mt-1 ml-3">
-                    {formik.values.phoneNumber
-                      ? isValidPhoneNumber(formik.values.phoneNumber)
-                        ? undefined
-                        : t('Invalid phone number')
-                      : t(`${phoneNumberError}`)}
-                  </p>
-                </Grid>
-              </Grid>
 
-              <div className="text-center mt-14">
-                <Button
-                  variant="filled"
-                  size="lg"
-                  style={{
-                    backgroundColor: '#FD7C7C',
-                    borderRadius: '16px',
-                    height: '56px'
-                  }}
-                  classNames={{}}
-                  onClick={() => handleyourSaving()}
-                  loading={buttonLoading || isLoading}
-                >
-                  {t('Calculate-saving-btn')}
-                </Button>
+                <div className="text-center mt-14">
+                  <Button
+                    variant="filled"
+                    size="lg"
+                    style={{
+                      backgroundColor: '#FD7C7C',
+                      borderRadius: '16px',
+                      height: '56px'
+                    }}
+                    classNames={{}}
+                    onClick={() => handleyourSaving()}
+                    loading={buttonLoading || isLoading}
+                  >
+                    {t('Calculate-saving-btn')}
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
+            <TolstoyWidget src="https://player.gotolstoy.com/y90k387w8fwhy" />
+          </>
         )}
         {showForm === 'yourOffer' && (
           <div className="mt-8 md:mt-0">
@@ -356,7 +361,6 @@ const PersonalizedForm = () => {
           </div>
         )}
       </Box>
-      <TolstoyWidget src="https://player.gotolstoy.com/y90k387w8fwhy" />
     </div>
   );
 };

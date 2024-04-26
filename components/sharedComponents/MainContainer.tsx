@@ -15,16 +15,17 @@ interface MainContainerProps {
 const notRestrictedPages = [
   '/',
   '/description',
-  '/getoffer',
   '/faq',
   '/privacy-policy',
   '/terms-and-conditions',
   '/cookies',
-  '/standardoffer',
   '/personalizedoffer'
 ];
 
-const MainContainer: React.FC<MainContainerProps> = ({ isHomepage = false, children }) => {
+const MainContainer: React.FC<MainContainerProps> = ({
+  isHomepage = false,
+  children
+}) => {
   const { language } = useSelector((state: RootState) => state.commonSlice);
   const { t, i18n } = useTranslation();
   const router = useRouter();

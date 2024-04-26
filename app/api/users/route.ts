@@ -66,8 +66,8 @@ export async function POST(request: Request) {
       city: body.city,
       country: body.country,
       postcode: body.postcode,
-      referralCode: referralCode,
-      numberOfPeople: body.numberOfPeople
+      referralCode: referralCode
+      // numberOfPeople: body.numberOfPeople
     };
     // Create User
     const { data, error } = await createOrUpdateUserByEmail(requestBody);
