@@ -170,7 +170,7 @@ const PreviewContract = () => {
             /> */}
             <NeosButton
               category="colored"
-              className="!w-[180px] lg:!w-[230px]"
+              className="!w-[180px] lg:!w-[240px]"
               title={t('preview-contract.generate-my-contract')}
               onClick={handleGenerateContract}
               isLoading={isGeneratingContract}
