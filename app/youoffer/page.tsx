@@ -570,7 +570,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                     <button
                       className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white px-3 py-4 text-base font-bold border rounded-xl w-full h-full uppercase"
                       onClick={handleDownloadOffer} // uncomment
-                      disabled={!userData._id}
+                      disabled={!userData._id || isOfferDownloading}
                     >
                       <div className="flex items-center justify-center w-full min-w-[150px]">
                         {isOfferDownloading ? (
@@ -596,7 +596,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                     <button
                       className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white px-3 py-4 text-base font-bold border rounded-xl w-full h-full uppercase"
                       onClick={handlePreviewContract}
-                      disabled={!userData._id}
+                      disabled={!userData._id || isOfferDownloading}
                     >
                       <div className="flex items-center justify-center w-full min-w-[150px]">
                         {isPreviewingContract ? (
