@@ -2,19 +2,19 @@
 import { useEffect, useState } from 'react';
 
 import NeosButton from '@/components/NeosButton';
+import PreviewContract from '@/components/modals/PreviewContract';
 import { setUserData } from '@/features/common/commonSlice';
+import { openModal } from '@/features/modals/previewContractSlice';
 import { generatePDF } from '@/lib/actions/download-offer';
-import { RootState } from '@/store/store';
+import { AppDispatch, RootState } from '@/store/store';
 import { getDataFromSessionStorage } from '@/utils/utils';
+import CircularProgress from '@mui/material/CircularProgress';
 import Rating from '@mui/material/Rating';
 import parse from 'html-react-parser';
-import html2Canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 import { useRouter } from 'next/navigation';
 import { PopupModal, useCalendlyEventListener } from 'react-calendly';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { usePDF } from 'react-to-pdf';
 import {
   Bar,
   BarChart,
@@ -81,27 +81,14 @@ const YourOffer = ({ handleNext, data }: any) => {
   const { userData }: any = useSelector(
     (state: RootState) => state.commonSlice
   );
+  const dispatch = useDispatch<AppDispatch>();
+
   const router = useRouter();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<number | null>(5);
-  const [isMobile, setIsMobile] = useState(false);
   const [userPlan, setUserPlan] = useState('neos');
   const [userPlanBar, setUserPlanBar] = useState('neos');
-  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
-
-  const handleResize = () => {
-    if (window.innerWidth < 768) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
-  };
-
-  useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-  });
 
   const isBrowser = () => typeof window !== 'undefined'; //The approach recommended by Next.js
 
@@ -110,14 +97,30 @@ const YourOffer = ({ handleNext, data }: any) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // useEffect(() => {
-  //   // const offerData: any = getDataFromSessionStorage('UserOffer');
-  //   console.log('User Plan: ', formik.values.plan);
-  //   setUserPlan(!!userData?.plan ? userData.plan : 'neos');
-  //   // dispatch(setUserData({ ...userData, userPlan }));
-  //   console.log('User Plan: ', userPlan);
-  //   scrollToTop();
-  // }, []);
+  useEffect(() => {
+    // const offerData: any = getDataFromSessionStorage('UserOffer');
+    setUserPlan(userData.plan ?? 'neos');
+    scrollToTop();
+  }, []);
+
+  useEffect(() => {
+    const updateUserOfferPlan = async () => {
+      if (userData._id) {
+        await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData._id}`,
+          {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              ...userData,
+              plan: userPlan
+            })
+          }
+        );
+      }
+    };
+    updateUserOfferPlan();
+  }, [userData.plan]);
 
   useCalendlyEventListener({
     onEventScheduled: (e: any) => {
@@ -173,9 +176,6 @@ const YourOffer = ({ handleNext, data }: any) => {
   };
 
   const updateUserPlanSelection = (plan: string) => () => {
-    // const offerData: any = getDataFromSessionStorage('UserOffer');
-    // offerData.plan = plan;
-    // sessionStorage.setItem('UserOffer', JSON.stringify(offerData));
     dispatch(setUserData({ ...userData, plan }));
     setUserPlan(plan);
   };
@@ -184,25 +184,12 @@ const YourOffer = ({ handleNext, data }: any) => {
     setUserPlanBar(plan);
   };
 
-  const downloadPagePdf = () => {
-    setTimeout(() => {
-      let page: any = document.getElementById('content-id');
-      html2Canvas(page).then((canvas: any) => {
-        let imgData = canvas.toDataURL('image/png');
-        // create image from imgData
-        let pdf = new jsPDF('p', 'mm', 'a4');
-        let width = pdf.internal.pageSize.getWidth();
-        let height = pdf.internal.pageSize.getHeight();
-        pdf.addImage(imgData, 'JPEG', 0, 0, width, 350);
-        pdf.save('offer.pdf');
-      });
-    }, 2000);
-  };
-
   // state for referralCodeError
   const [referralCodeError, setReferralCodeError] = useState('');
   //state for referralCode
   const [referralCode, setReferralCode] = useState('');
+  const [isOfferDownloading, setIsOfferDownloading] = useState(false);
+  const [isPreviewingContract, setIsPreviewingContract] = useState(false);
 
   // validateReferralCode
   const validateReferralCode = async () => {
@@ -229,8 +216,6 @@ const YourOffer = ({ handleNext, data }: any) => {
     }
   };
 
-  const { toPDF, targetRef } = usePDF({ filename: 'offer.pdf' });
-
   const generatePath = (fileName: string) => {
     return `${process.env.NEXT_PUBLIC_BASE_URL}/${fileName}`;
   };
@@ -240,8 +225,12 @@ const YourOffer = ({ handleNext, data }: any) => {
   };
 
   const handleDownloadOffer = async () => {
-    setIsGeneratingPdf(true);
+    setIsOfferDownloading(true);
     try {
+      enum PLANS {
+        Neos = 'Instalación Neos y Suministro Neos',
+        Current = 'Instalación Neos y Suministro Actual'
+      }
       const chartBackground1 = generatePath('Background Page 5.png');
       const chartBackground2 = generatePath('Background Page 7.png');
       const initialPDFPath = generatePath('Pages 1-3.pdf');
@@ -249,7 +238,7 @@ const YourOffer = ({ handleNext, data }: any) => {
       const page6BackgroundImage = generatePath('Background Page 6.png');
       const lastPdfPage = generatePath('Last Page.pdf');
       const csvPath = generatePath('chart_data.csv');
-      const fontPath = generateFontPath('codec-pro.regular.ttf');
+      const codecRegularPath = generateFontPath('codec-pro.regular.ttf');
       const pdfData = {
         initialPDFPath,
         page4BackgroundImage,
@@ -258,16 +247,24 @@ const YourOffer = ({ handleNext, data }: any) => {
         chartBackground1,
         chartBackground2,
         csvPath,
-        fontPath,
+        codecRegularPath,
         globalCapacity: data.vsi_required_capacity,
         globalPanels: data.number_of_panels,
-        globalPercentage: data.percent_savings_year1_w_neos,
         globalPrice: data.total_price_before_tax,
-        globalSavings: data.total_savings_w_neos,
-        globalPaybackNeos: data.payback_w_neos,
+        globalSavings:
+          userPlan === 'neos'
+            ? data.total_savings_w_neos
+            : data.total_savings_without_neos,
+        globalPayback:
+          userPlan === 'neos' ? data.payback_w_neos : data.payback_without_neos,
         globalPaybackRooftop: data.payback_rooftop,
         globalTons: data.neos_total_emissions_saved_in_tons,
-        cumulativeSavings: data.cumulative_savings
+        cumulativeSavings:
+          userPlan === 'neos'
+            ? data.neos_cumulative_savings
+            : data.current_cumulative_savings,
+        yearlyConsumption: data.yearly_consumption,
+        planName: userPlan === 'neos' ? PLANS.Neos : PLANS.Current
       };
 
       const response = await generatePDF(pdfData);
@@ -278,52 +275,50 @@ const YourOffer = ({ handleNext, data }: any) => {
       const url = window.URL.createObjectURL(blob);
 
       // Create a link element and simulate a click to trigger the download
-      // const a = document.createElement('a');
-      // a.href = url;
-      // a.download = 'Download Offer.pdf'; // Set the filename for the downloaded file
-      // document.body.appendChild(a);
-      // a.click();
-      window.open(url, '_blank');
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = userPlan === 'neos' ? PLANS.Neos : PLANS.Current;
+      document.body.appendChild(a);
+      a.click();
+
       // Clean up by revoking the blob URL
-      setTimeout(() => window.URL.revokeObjectURL(url), 100);
+      setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }, 100);
       // window.open(url, '_blank');
+      setIsOfferDownloading(false);
+      await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData._id}`,
+        {
+          method: 'PUT',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            ...userData,
+            downloadedOffer: true
+          })
+        }
+      );
     } catch (error) {
       // Handle error
       console.error('Error:', error);
     } finally {
-      setIsGeneratingPdf(false);
+      setIsOfferDownloading(false);
     }
   };
 
-  const handleGenerateContract = async () => {
-    if (!userData._id) return router.push('/getoffer');
+  const handlePreviewContract = async () => {
+    setIsPreviewingContract(true);
     try {
-      const requestData = {
-        user: userData._id,
-        totalPanels: userData.totalPanels,
-        capacityPerPanel: userData.capacityPerPanel,
-        totalCapacity: userData.totalCapacity,
-        estimateProduction: userData.estimateProduction,
-        totalPayment: userData.totalPayment,
-        typeConsumption: userData.typeConsumption,
-        plan: userPlan,
-        offerType: userData.offerType,
-        clickedOnGenerate: true
-      };
-      const response = await fetch('/api/users-offers', {
-        method: 'PATCH',
-        body: JSON.stringify({
-          offerData: requestData,
-          offerId: userData.offerId
-        })
-      });
-      const { data } = await response.json();
-      if (data) {
-        dispatch(setUserData({ offerId: data._id }));
-        router.push('/getoffer?activeStep=1');
+      if (userData.hasReadContract) {
+        router.push('/personalizedoffer?activeStep=1');
+      } else if (userData._id && !userData.hasReadContract) {
+        dispatch(openModal());
       }
     } catch (error) {
       console.error('Error:', error);
+    } finally {
+      setIsPreviewingContract(false);
     }
   };
 
@@ -332,11 +327,7 @@ const YourOffer = ({ handleNext, data }: any) => {
   }
 
   return (
-    <div
-      className="max-w-[1200px] w-full mx-auto"
-      id="content-id"
-      ref={targetRef}
-    >
+    <div className="max-w-[1200px] w-full mx-auto" id="content-id">
       <div className="w-full bg-white lg:px-[70px] lg:pb-[18px] px-5 py-4">
         {/* Offer and virtual solar */}
         <div className="flex lg:justify-end lg:gap-[131px] items-end flex-col lg:flex-row gap-[29px]">
@@ -401,8 +392,9 @@ const YourOffer = ({ handleNext, data }: any) => {
                 <NeosButton
                   category="colored"
                   className="lg:px-5 lg:py-3 text-[16px] leading-5 font-semibold h-[44px] rounded-[15px] w-auto lg:w-full px-[9px] py-3"
-                  title={t('Your-offer.validate-btn')}
                   onClick={validateReferralCode}
+                  buttonsize="sm"
+                  title={t('Your-offer.validate-btn')}
                 />
               </div>
             </div>
@@ -447,7 +439,7 @@ const YourOffer = ({ handleNext, data }: any) => {
                 <div className=" lg:w-full w-auto font-medium flex lg:gap-4 lg:justify-normal justify-center md:flex-row flex-col gap-3">
                   <button
                     className={` w-full  border-2 rounded-2xl  p-4 ${
-                      userPlan == 'neos'
+                      userData.plan == 'neos'
                         ? 'border-[#66BCDA]'
                         : 'border-[#E0E0E0]'
                     }`}
@@ -458,7 +450,7 @@ const YourOffer = ({ handleNext, data }: any) => {
 
                   <button
                     className={` w-full font-medium  border-2 rounded-2xl  p-4 ${
-                      userPlan == 'current'
+                      userData.plan == 'current'
                         ? 'border-[#66BCDA]'
                         : 'border-[#E0E0E0]'
                     }`}
@@ -577,38 +569,57 @@ const YourOffer = ({ handleNext, data }: any) => {
 
               <div className=" ">
                 <div className="flex md:gap-4 lg:mt-[22px] mt-[16px] md:flex-row flex-col gap-3 justify-center ">
-                  {/* <div className="lg:w-full w-auto  flex flex-col items-center"> */}
-                  <NeosButton
-                    className="p-4 text-base font-bold border rounded-xl w-auto lg:w-full h-full uppercase"
-                    onClick={handleDownloadOffer}
-                    title={t('Your-offer.download-offer')}
-                    category="colored"
-                    isLoading={isGeneratingPdf}
-                    // disabled={isGeneratingPdf}
-                  />
-                  {/* <p className="font-sm text-[#2D9CDB] mt-1 ">
-                      {t('Coming Soon...')}
-                    </p> */
-                  /* </div> */}
-                  <div className="lg:w-full w-auto  flex flex-col items-center">
+                  <div className="lg:w-full w-auto  flex flex-col items-center min-w-[150px]">
                     <button
-                      className=" bg-[#cccccc] text-[#666666] p-4 text-base font-bold border border-[#999999] rounded-xl w-full h-full uppercase"
-                      // disabled
-                      onClick={handleGenerateContract}
+                      className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white px-3 py-4 text-base font-bold border rounded-xl w-full h-full uppercase"
+                      onClick={handleDownloadOffer} // uncomment
+                      disabled={!userData._id || isOfferDownloading}
                     >
-                      {t('Your-offer.contract-btn-txt')}
+                      <div className="flex items-center justify-center w-full min-w-[150px]">
+                        {isOfferDownloading ? (
+                          <CircularProgress
+                            color="inherit"
+                            sx={{
+                              width: '24px !important',
+                              height: '24px !important'
+                            }}
+                          />
+                        ) : (
+                          <span>{t('Your-offer.download-offer')}</span>
+                        )}
+                      </div>
                     </button>
-                    {/* <NeosButton
-                      className="p-4 text-base font-bold border rounded-xl w-auto lg:w-full h-full uppercase"
-                      onClick={handleDownloadOffer}
-                      title={t('Your-offer.contract-btn-txt')}
-                      category="colored"
-                      isLoading={isGeneratingPdf}
-                      disabled={true}
-                    /> */}
-                    <p className="font-sm text-[#2D9CDB] mt-1 ">
+
+                    {/* <p className="font-sm text-[#2D9CDB] mt-1 hidden">
                       {t('Coming Soon...')}
-                    </p>
+                    </p> */}
+                  </div>
+
+                  <div className="lg:w-full w-auto flex flex-col items-center">
+                    <button
+                      className="bg-[#fd7c7c] hover:bg-[#ffa4a4] text-white px-3 py-4 text-base font-bold border rounded-xl w-full h-full uppercase"
+                      onClick={handlePreviewContract}
+                      disabled={!userData._id || isOfferDownloading}
+                    >
+                      <div className="flex items-center justify-center w-full min-w-[150px]">
+                        {isPreviewingContract ? (
+                          <CircularProgress
+                            color="inherit"
+                            sx={{
+                              width: '24px !important',
+                              height: '24px !important'
+                            }}
+                          />
+                        ) : (
+                          <span>
+                            {userData.hasReadContract
+                              ? t('preview-contract.generate-my-contract')
+                              : t('preview-contract.title')}
+                          </span>
+                        )}
+                      </div>
+                      <PreviewContract />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -756,13 +767,25 @@ const YourOffer = ({ handleNext, data }: any) => {
             </div>
           </div>
 
-          <NeosButton
+          {/* <NeosButton
+            id="btn"
             className={
-              ' text-sm whitespace-nowrap font-semibold lg:!mr-[12px] w-48 '
+              'px-[24px] sm:px-5 py-[17px] sm:py-3 text-sm sm:text-[16px] leading-4 sm:leading-5 font-semibold w-auto sm:whitespace-nowrap lg:!mr-[12px] sm:w-48'
             }
             category="colored"
-            title={t('select-plan-btn')}
             onClick={scrollToDiv}
+            buttonsize="lg"
+            title={t('select-plan-btn')}
+          /> */}
+          <NeosButton
+            id="btn"
+            category="colored"
+            className={
+              'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold !w-[180px] sm:!w-auto justify-self-center lg:!mr-8'
+            }
+            onClick={scrollToDiv}
+            buttonsize="lg"
+            title={t('select-plan-btn')}
           />
         </div>
 
@@ -845,20 +868,31 @@ const YourOffer = ({ handleNext, data }: any) => {
                 </div>
                 <p className="text-sm leading-5 text-[#4F4F4F]">
                   "
-                  {`${t('I love Neos! Thanks to them, my electricity bills are near €0,00 month after month! I live in a flat, so without them, I would have never been able to access solar panels.')}`}
+                  {`${t('I love Neos! I live in a flat, so without them, I would have never been able to benefit from solar power.')}`}
                   "
                 </p>
               </div>
             </div>
 
             <div className="flex justify-center">
-              <NeosButton
+              {/* <NeosButton
+                id="btn"
                 className={
-                  'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto  '
+                  'px-[24px] sm:px-5 py-[17px] sm:py-3 text-sm sm:text-[16px] leading-4 sm:leading-5 font-semibold w-auto sm:w-48'
                 }
                 category="colored"
-                title={t('select-plan-btn')}
                 onClick={scrollToDiv}
+                title={t('select-plan-btn')}
+              /> */}
+              <NeosButton
+                id="btn"
+                category="colored"
+                className={
+                  'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold !w-[180px] sm:!w-auto'
+                }
+                onClick={scrollToDiv}
+                buttonsize="lg"
+                title={t('select-plan-btn')}
               />
             </div>
           </div>
@@ -888,10 +922,11 @@ const YourOffer = ({ handleNext, data }: any) => {
                 id="btn"
                 category="colored"
                 className={
-                  'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold w-auto  '
+                  'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold !w-[180px] sm:!w-auto'
                 }
-                title={t('Get-offer.book-expert-txt')}
                 onClick={() => handleCalender()}
+                buttonsize="lg"
+                title={t('Get-offer.book-expert-txt')}
               />
               {typeof window !== 'undefined' && (
                 <PopupModal
@@ -1049,11 +1084,22 @@ const YourOffer = ({ handleNext, data }: any) => {
         /> */}
 
         <div className="flex justify-center my-8">
-          <NeosButton
+          {/* <NeosButton
+            id="btn"
             category="colored"
-            className="px-5 py-3 text-[16px] leading-5 font-semibold w-auto"
-            title={t('select-plan-btn')}
+            className="px-[24px] sm:px-5 py-[17px] sm:py-3 text-sm sm:text-[16px] leading-4 sm:leading-5 font-semibold w-auto sm:w-48"
             onClick={scrollToDiv}
+            title={t('select-plan-btn')}
+          /> */}
+          <NeosButton
+            id="btn"
+            category="colored"
+            className={
+              'px-[24px] lg:py-[14px] py-[17px] text-sm leading-4 font-semibold !w-[180px] sm:!w-auto'
+            }
+            onClick={scrollToDiv}
+            buttonsize="lg"
+            title={t('select-plan-btn')}
           />
         </div>
 

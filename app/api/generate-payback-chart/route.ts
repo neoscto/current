@@ -7,6 +7,7 @@ import Chart from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import path from 'path';
 import { SavingRecord } from '@/lib/types';
+import { formatChartValue } from '@/lib/utils';
 
 const resolved1 = path.resolve('./fonts/Roboto-Regular.ttf');
 const resolved2 = path.resolve('./fonts/Roboto-Bold.ttf');
@@ -18,7 +19,7 @@ Chart.defaults.font.size = 25;
 Chart.defaults.font.family = 'Roboto';
 export async function POST(request: Request) {
   try {
-    const { cumulativeSavings, globalPrice } = await request.json();
+    const { cumulativeSavings, globalPrice, planName } = await request.json();
 
     const width = 700;
     const height = 600;
@@ -39,7 +40,7 @@ export async function POST(request: Request) {
         labels: cumulativeSavings.map((record: SavingRecord) => record.years),
         datasets: [
           {
-            label: 'Cumulative Savings',
+            label: 'Ahorro Acumulado',
             data: cumulativeSavings.map(
               (record: SavingRecord) => record.saving
             ),
@@ -67,6 +68,10 @@ export async function POST(request: Request) {
             ticks: {
               font: {
                 size: 14
+              },
+              callback: function (value: number) {
+                // Convert the number to a Spanish number format
+                return formatChartValue(value);
               }
             },
             beginAtZero: true,
@@ -80,7 +85,7 @@ export async function POST(request: Request) {
         plugins: {
           title: {
             display: true,
-            text: 'Ahorro Acumulado',
+            text: planName,
             font: { size: 20 }
           },
           legend: {
@@ -95,8 +100,8 @@ export async function POST(request: Request) {
             annotations: {
               line1: {
                 type: 'line',
-                yMin: globalPrice,
-                yMax: globalPrice,
+                yMin: globalPrice * 1.21,
+                yMax: globalPrice * 1.21,
                 borderColor: 'rgb(255, 99, 132)',
                 borderWidth: 2,
                 label: {

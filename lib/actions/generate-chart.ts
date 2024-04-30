@@ -74,7 +74,7 @@ export const generateChart = async (
             grid: { display: false },
             title: {
               display: true,
-              text: 'Producción (KWh)'
+              text: 'Producción (kWh)'
             }
           },
           x: {

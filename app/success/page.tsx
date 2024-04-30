@@ -1,37 +1,45 @@
 'use client';
 import NeosButton from '@/components/NeosButton';
-import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import CheckoutForm from '../payment/page';
+import { useRouter } from 'next/navigation';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY!);
 
 const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
   const { t } = useTranslation();
+  const router = useRouter();
   const { userData } = useSelector((state: any) => state.commonSlice);
 
   useEffect(() => {
     setShowForm('paymentForm');
-    const updateOfferContract = async () => {
-      await fetch('/api/users-offers', {
-        method: 'PATCH',
-        body: JSON.stringify({
-          offerData: {
-            user: userData._id,
-            contractSign: true,
-            contractSignAt: new Date()
-          },
-          offerId: userData.offerId
-        })
-      });
+
+    const getUserOfferDetails = async () => {
+      if (userData._id) {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${userData._id}`
+        );
+        const { offer } = await response.json();
+        if (!offer.contractSign && offer.filledInfo) {
+          return router.push('/personalizedoffer?activeStep=1');
+        } else if (!offer.contractSign && !offer.filledInfo) {
+          return router.push('/personalizedoffer');
+        }
+      } else {
+        return router.push('/personalizedoffer');
+      }
     };
 
-    updateOfferContract();
+    getUserOfferDetails();
   }, []);
 
   return (
-    <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-5">
+    <div className="max-w-[93%] md:max-w-[88%] lg:max-w-[83%] w-full mx-auto flex flex-col lg:flex-row pb-14 mt-[70px] md:mt-7 lg:mt-0">
       <div className="mx-auto flex flex-col justify-center items-center w-full lg:w-3/6">
         <div className="w-12 h-12 relative">
           <Image src="/success.png" alt="user image" fill />
@@ -48,20 +56,23 @@ const Success = ({ generatePDF, setShowForm, showForm, isPDFLoading }: any) => {
           <div className="flex items-center">
             <Image src="/pdfIcon.png" alt="user image" width={34} height={34} />
             <p className="text-sm font-medium text-[#171717] ms-2">
-              Solardetails.pdf
+              Contrato - Firmado.pdf
             </p>
           </div>
           <NeosButton
+            sx={{ width: '140px !important' }}
             category="colored"
-            title={t('Email-success.download-txt')}
             onClick={generatePDF}
-            disabled={isPDFLoading}
+            title={t('Email-success.download-txt')}
+            isLoading={isPDFLoading}
           />
         </div>
       </div>
       <div className="w-full w-6/6 lg:w-3/6 px-0 md:px-9">
         <div className="p-6">
-          <CheckoutForm />
+          <Elements stripe={stripePromise}>
+            <CheckoutForm />
+          </Elements>
         </div>
       </div>
     </div>

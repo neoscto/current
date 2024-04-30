@@ -1,21 +1,20 @@
 'use client';
 import NeosButton from '@/components/NeosButton';
+import CircularProgress from '@mui/material/CircularProgress';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useTranslation } from 'react-i18next';
-import { saveDataToSessionStorage } from '@/utils/utils';
 import { useEffect, useState } from 'react';
-import { CircularProgress } from '@mui/material';
-import { getUser } from '@/lib/actions/user';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 interface OfferData {
-  numberOfPeople: string;
+  // numberOfPeople: string;
   cups: string;
   firstName: string;
   lastName: string;
   emailAddress: string;
   phoneNumber: string;
-  numberofpeopleAdditionValue: number;
+  // numberofpeopleAdditionValue: number;
 }
 const EmailSuccess = ({}: any) => {
   const displayValue = 3;
@@ -26,6 +25,7 @@ const EmailSuccess = ({}: any) => {
   };
   const searchParams = useSearchParams();
   const event = searchParams.get('event');
+  const { userData } = useSelector((state: any) => state.commonSlice);
 
   const gotToHomePage = () => {
     window.parent.postMessage('gotToHomePage', '*');
@@ -41,18 +41,25 @@ const EmailSuccess = ({}: any) => {
         if (!offerId) {
           throw new Error(`Offer not found!`);
         }
-        // const response = await fetch(`/api/users-offers/${offerId}`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users-offers/${offerId}`,
+          {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              ...userData,
+              contractSign: true,
+              contractSignAt: new Date()
+            })
+          }
+        );
 
-        // if (!response.ok) {
-        //   throw new Error(
-        //     `Network response was not ok, status: ${response.status}`
-        //   );
-        // }
+        if (!response.ok) {
+          return router.push('/personalizedoffer?activeStep=1');
+        }
 
         // const data = await response.json();
-        // console.log('Offer Id: ', offerId);
-        // const data = await getUser(offerId);
-        // setOfferData(data);
+        // const { userOffer } = await response.json(); // setOfferData(data);
         // saveDataToSessionStorage('UserOffer', data.data);
 
         window.parent.postMessage('redirect_success_url', '*');
@@ -113,11 +120,11 @@ const EmailSuccess = ({}: any) => {
             <div className="-mt-12 text-center">
               <h1 className="text-lg md:2xl lg:text-3xl font-bold">
                 {t('Your-offer.title')}: €
-                {Number(
+                {/* {Number(
                   offerData?.numberOfPeople
                     ? offerData?.numberOfPeople
                     : offerData?.cups
-                ) + 1}
+                ) + 1} */}
               </h1>
               {/* <p className="text-sm md:text-base lg:text-base mt-1 text-[#4F4F4F] font-medium mt-0">
                             With Commercialisation Agreement
@@ -129,7 +136,7 @@ const EmailSuccess = ({}: any) => {
           <div className="flex items-center">
             <Image src="/pdfIcon.png" alt="user image" width={34} height={34} />
             <p className="text-sm font-medium text-[#171717] ms-2">
-              Solardetails.pdf
+              Contrato - Firmado.pdf
             </p>
           </div>
           <div className="w-full md:w-fit mt-4 md:mt-0">

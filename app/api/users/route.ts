@@ -1,10 +1,39 @@
 export const maxDuration = 30;
 export const dynamic = 'force-dynamic';
 
-import { createOrUpdateUserByEmail } from '@/lib/actions/user';
+import { User, UserSchemaProps } from '@/models/User';
 import { createErrorResponse } from '@/lib/api-response';
 import connectDB from '@/lib/connect-db';
 import { NextResponse } from 'next/server';
+
+const createOrUpdateUserByEmail = async (userData: UserSchemaProps) => {
+  try {
+    let user: any;
+    const { emailAddress } = userData;
+    if (!emailAddress) {
+      throw new Error('Email address is required');
+    }
+    user = await User.findOne({ emailAddress }).lean().exec();
+
+    if (user) {
+      const { referralCode, ...otherData } = userData;
+      user = await User.findOneAndUpdate(
+        { emailAddress },
+        { $set: otherData },
+        { new: true }
+      )
+        .lean()
+        .exec();
+    } else {
+      user = (await User.create(userData)).toObject();
+    }
+
+    return { data: JSON.parse(JSON.stringify(user)) };
+  } catch (error) {
+    console.error(error);
+    return { error };
+  }
+};
 
 export async function POST(request: Request) {
   try {
@@ -32,11 +61,13 @@ export async function POST(request: Request) {
       cups: body.cups,
       address: body.address,
       addressNo: body.addressNo,
+      nie: body.nie,
+      province: body.province,
       city: body.city,
       country: body.country,
       postcode: body.postcode,
-      referralCode: referralCode,
-      numberOfPeople: body.numberOfPeople
+      referralCode: referralCode
+      // numberOfPeople: body.numberOfPeople
     };
     // Create User
     const { data, error } = await createOrUpdateUserByEmail(requestBody);
@@ -59,4 +90,20 @@ export async function POST(request: Request) {
 
     return createErrorResponse(error.message, 500);
   }
+}
+
+export async function OPTIONS(request: Request) {
+  const allowedOrigin = request.headers.get('origin');
+  const response = new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': allowedOrigin || '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers':
+        'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version',
+      'Access-Control-Max-Age': '86400'
+    }
+  });
+
+  return response;
 }

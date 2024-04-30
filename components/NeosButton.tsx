@@ -1,9 +1,8 @@
 'use client';
-import React, { ReactNode } from 'react';
-import Button from '@mui/material/Button';
-import { styled, Theme } from '@mui/system';
 import theme from '@/styles/theme';
-import { CircularProgress } from '@mui/material';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import { styled } from '@mui/system';
 
 interface ButtonNeosProps {
   category: 'fill' | 'outline' | 'colored';
@@ -14,8 +13,8 @@ interface ButtonNeosProps {
   type?: any;
   disabled?: any;
   id?: string;
+  buttonsize?: 'sm' | 'lg';
   isLoading?: boolean;
-  loadingTitle?: string;
 }
 
 const getButtonStyles = (category: 'fill' | 'outline' | 'colored') => {
@@ -71,12 +70,20 @@ const getButtonStyles = (category: 'fill' | 'outline' | 'colored') => {
 };
 
 const DTPrimaryBtn = styled(Button)(
-  ({ category }: { category: 'fill' | 'outline' | 'colored' }) => ({
+  ({
+    category,
+    buttonsize
+  }: {
+    category: 'fill' | 'outline' | 'colored';
+    buttonsize?: 'sm' | 'lg';
+  }) => ({
     textTransform: 'uppercase',
     fontSize: '1em',
     borderRadius: '0.93em',
     textAlign: 'center',
     fontWeight: 600,
+    minWidth:
+      buttonsize === 'lg' ? '160px' : buttonsize === 'sm' ? '100px' : '140px',
     ...getButtonStyles(category),
     [theme.breakpoints.down('md')]: {
       fontSize: '.8em',
@@ -88,13 +95,21 @@ const DTPrimaryBtn = styled(Button)(
 );
 
 const NeosButton = (props: ButtonNeosProps) => {
-  const { category, title, isLoading, ...otherProps } = props;
+  const { category, buttonsize, title, isLoading, ...otherProps } = props;
 
   return (
-    <DTPrimaryBtn category={category} {...otherProps}>
-      <div className="flex items-center justify-center gap-2 w-full">
+    <DTPrimaryBtn category={category} buttonsize={buttonsize} {...otherProps}>
+      <div className="flex justify-center items-center">
         {isLoading ? (
-          <CircularProgress className="loader" color="inherit" />
+          <>
+            <CircularProgress
+              color="inherit"
+              sx={{
+                width: '24px !important',
+                height: '24px !important'
+              }}
+            />
+          </>
         ) : (
           <span>{title}</span>
         )}

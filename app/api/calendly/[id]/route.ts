@@ -1,6 +1,6 @@
 import { createErrorResponse, stringToObjectId } from '@/lib/api-response';
 import connectDB from '@/lib/connect-db';
-import { User } from '@/models/User';
+import { UserOffer } from '@/models/UsersOffers';
 import axios from 'axios';
 import { NextResponse } from 'next/server';
 
@@ -14,7 +14,7 @@ async function updateUserOfferById(id: string, obj: any) {
       return { error: 'Offer not found' };
     }
 
-    const data = await User.findByIdAndUpdate(parsedId, obj, {
+    const data = await UserOffer.findByIdAndUpdate(parsedId, obj, {
       new: true
     })
       .lean()
@@ -76,4 +76,20 @@ export async function PATCH(
 
     return createErrorResponse(error.message, 500);
   }
+}
+
+export async function OPTIONS(request: Request) {
+  const allowedOrigin = request.headers.get('origin');
+  const response = new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': allowedOrigin || '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers':
+        'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version',
+      'Access-Control-Max-Age': '86400'
+    }
+  });
+
+  return response;
 }

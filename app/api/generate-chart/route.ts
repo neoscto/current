@@ -17,7 +17,7 @@ Chart.defaults.font.size = 25;
 Chart.defaults.font.family = 'Roboto';
 export async function POST(request: Request) {
   try {
-    const { records, filterMonth, title } = await request.json();
+    const { records, filterMonth, title, maxProduction } = await request.json();
     const scale = 2.5;
     const width = 383 * scale;
     const height = 300 * scale;
@@ -30,12 +30,11 @@ export async function POST(request: Request) {
     ctx.strokeStyle = '#000000';
     ctx.lineWidth = 2;
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
-    ctx.font = '20px "Anton"';
-
+    ctx.font = '25px "Roboto"';
     const filteredRecords = records.filter(
       (record: any) => record.month === filterMonth
     );
-
+    const yAxisData = filteredRecords.map((rec: any) => rec.production);
     // Create the chart configuration
     const configuration = {
       type: 'bar',
@@ -44,7 +43,7 @@ export async function POST(request: Request) {
         datasets: [
           {
             label: 'Production',
-            data: filteredRecords.map((rec: any) => rec.production),
+            data: yAxisData,
             backgroundColor: '#002e1e',
             barThickness: 20
           }
@@ -57,8 +56,9 @@ export async function POST(request: Request) {
             grid: { display: false },
             title: {
               display: true,
-              text: 'Producción (KWh)'
-            }
+              text: 'Producción (kWh)'
+            },
+            max: maxProduction
           },
           x: {
             grid: { display: false },

@@ -1,23 +1,14 @@
 'use client';
 import NeosButton from '@/components/NeosButton';
-import { getUserOffer } from '@/lib/actions/user-offer';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 const EmailSuccess = ({ handleNext, formik }: any) => {
-  const { userData } = useSelector((state: any) => state.commonSlice);
-  const [displayValue, setDisplayValue] = useState(0);
-  const router = useRouter();
-  useEffect(() => {
-    if (!userData.offerId || !userData._id) router.push('/getoffer');
-    const getPrice = async () => {
-      const userOfferData = await getUserOffer(userData.offerId);
-      setDisplayValue(Number(userOfferData.totalPayment.toFixed(2)));
-    };
-    !!userData.offerId && getPrice();
-  }, [userData.offerId]);
+  // const displayValue =
+  //   Number(
+  //     formik?.values?.numberOfPeople
+  //       ? formik?.values?.numberOfPeople
+  //       : formik?.values?.cups
+  //   ) + 1;
   const { t } = useTranslation();
   const signContract = async () => {
     await formik.handleSubmit();
@@ -45,7 +36,7 @@ const EmailSuccess = ({ handleNext, formik }: any) => {
           <img src="description.png" alt="Description image" />
           <div className="-mt-12 text-center">
             <h1 className="text-lg md:2xl lg:text-3xl font-bold">
-              {t('Your-offer.title')}: €{displayValue}
+              {t('Your-offer.title')}: €123
             </h1>
             {/* <p className="text-sm md:text-base lg:text-base mt-1 text-[#4F4F4F] font-medium mt-0">
                             With Commercialisation Agreement
@@ -57,7 +48,7 @@ const EmailSuccess = ({ handleNext, formik }: any) => {
         <div className="flex items-center">
           <Image src="/pdfIcon.png" alt="user image" width={34} height={34} />
           <p className="text-sm font-medium text-[#171717] ms-2">
-            Solardetails.pdf
+            Contrato - Firmado.pdf
           </p>
         </div>
         <div className="w-full md:w-fit mt-4 md:mt-0">

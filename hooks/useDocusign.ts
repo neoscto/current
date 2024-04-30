@@ -32,17 +32,20 @@ const useDocusignService = (formik: any) => {
         setLoading(true);
         try {
           // setUserOffer(offerData);
-          const response = await fetch('/api/docusign/auth', {
-            method: 'POST',
-            body: JSON.stringify({ code, userData })
-          });
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/docusign/auth`,
+            {
+              method: 'POST',
+              body: JSON.stringify({ code, userData })
+            }
+          );
           const { signingUrl, envelopeId, accessToken } = await response.json();
           // offerData.envelopeId = envelopeId;
           // setUserOffer(offerData);
 
           const handleMessage = async (event: any) => {
             if (event.data === 'changeRoute') {
-              route.push('/getoffer?activeStep=2');
+              route.push('/personalizedoffer?activeStep=2');
               setSigningUrl('');
             }
             if (event.data === 'gotToHomePage') {
@@ -78,7 +81,7 @@ const useDocusignService = (formik: any) => {
         Authorization: `Bearer ${docusignAccessToken}`
       };
 
-      const url = `/api/docusign/download?envelopeId=${envelopeId}`;
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/docusign/download?envelopeId=${envelopeId}`;
 
       const response = await fetch(url, {
         method: 'GET',
@@ -92,7 +95,10 @@ const useDocusignService = (formik: any) => {
 
       const link = document.createElement('a');
 
-      link.download = 'document.pdf';
+      link.download =
+        userOffer.plan === 'neos'
+          ? 'Contrato - Instalación Neos y Suministro Neos.pdf'
+          : 'Contrato - Instalación Neos y Suministro Actual.pdf';
 
       link.href = window.URL.createObjectURL(blob);
 
@@ -104,6 +110,8 @@ const useDocusignService = (formik: any) => {
       setIsPDFLoading(false);
     } catch (error) {
       console.error('Error:', error);
+    } finally {
+      setIsPDFLoading(false);
     }
   };
 
@@ -121,10 +129,13 @@ const useDocusignService = (formik: any) => {
     setLoading(true);
     try {
       // setUserOffer(offerData);
-      const response = await fetch('/api/docusign/auth', {
-        method: 'POST',
-        body: JSON.stringify({ code: '', offerData })
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/docusign/auth`,
+        {
+          method: 'POST',
+          body: JSON.stringify({ code: '', offerData })
+        }
+      );
       const { signingUrl, envelopeId, accessToken } = await response.json();
       offerData.envelopeId = envelopeId;
       setUserOffer(offerData);

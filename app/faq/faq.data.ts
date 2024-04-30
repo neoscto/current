@@ -73,7 +73,7 @@ export const faqData = [
     question:
       "Do I make money if my installation generates more electricity than I use?",
     answer:
-      "<p>Yes. Neos takes care of feeding your excess electricity back into the grid, earning you revenue everyday. When you buy a Neos installation, there are two possible scenarios:</p> <br><ul><li><b>• Neos is your electricity provider:</b> Your monthly bills with us will further decrease thanks to your monthly revenue.</li><li><b>• Neos isn’t your electricity provider:</b> All the electricity produced by your virtual solar installation generates revenue for you, which will be deposited in your bank account on a monthly basis. Like with any income, you will be responsible for paying taxes on this amount at the end of the fiscal year.</li></ul><br>",
+      "<p>Yes. Neos takes care of feeding your excess electricity back into the grid, earning you revenue everyday. When you buy a Neos installation, there are two possible scenarios:</p> <br><ul><li><b>• Neos is your electricity provider:</b> Your monthly bills with us will further decrease thanks to your monthly revenue.</li><li><b>• Neos isn’t your electricity provider:</b> All the electricity produced by your virtual solar installation generates revenue for you, which will be deposited in your bank account on a monthly basis. Like with any income, you will be responsible for paying taxes on this amount at the end of the fiscal year.</li></ul>",
   },
   {
     question:

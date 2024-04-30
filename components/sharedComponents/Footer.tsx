@@ -26,7 +26,6 @@ const Footer = () => {
               <MailOutlineIcon />
               <span>contact@neosenergy.co</span>
             </Link>
-
             <Link
               href="tel:+34 900 732 890"
               className="flex gap-1.5 items-center invert brightness-0"
@@ -34,6 +33,28 @@ const Footer = () => {
               <CallIcon />
               <span>+34 900 732 890</span>
             </Link>
+
+            <div className="flex flex-row gap-2 md:hidden">
+              <Link
+                href="https://www.instagram.com/neos.energy/"
+                className="invert brightness-0"
+              >
+                <InstagramIcon />
+              </Link>
+
+              <Link
+                href="https://www.linkedin.com/company/neos-energy/"
+                className="invert brightness-0"
+              >
+                <LinkedInIcon />
+              </Link>
+              <Link
+                href="https://twitter.com/Neos_Energy"
+                className="invert brightness-0"
+              >
+                <XIcon />
+              </Link>
+            </div>
 
             <span className="text-white font-medium items-center md:flex hidden">
               {t('Footer.copyright')} {moment(new Date()).format('YYYY')} Neos.{' '}
@@ -75,28 +96,13 @@ const Footer = () => {
 
           {/* Right Container */}
           <div className="md:max-w-[calc(33%_-_8px)] w-full flex flex-col gap-2 md:items-end items-center">
-            {/* Social media Links */}
-            <div className="flex flex-row gap-2 md:hidden">
-              <Link
-                href="https://www.instagram.com/neos.energy/"
-                className="invert brightness-0"
-              >
-                <InstagramIcon />
-              </Link>
-
-              <Link
-                href="https://www.linkedin.com/company/neos-energy/"
-                className="invert brightness-0"
-              >
-                <LinkedInIcon />
-              </Link>
-              <Link
-                href="https://twitter.com/Neos_Energy"
-                className="invert brightness-0"
-              >
-                <XIcon />
-              </Link>
-            </div>
+            {/* Terms and Policies Links */}
+            <Link
+              href="/terms-and-conditions"
+              className="text-base text-white font-medium"
+            >
+              {t('Footer.terms')}
+            </Link>
 
             <Link
               href="/privacy-policy"
@@ -105,12 +111,6 @@ const Footer = () => {
               {t('Footer.policy')}
             </Link>
 
-            <Link
-              href="/terms-and-conditions"
-              className="text-base text-white font-medium"
-            >
-              {t('Footer.terms')}
-            </Link>
             <Link href="/cookies" className="text-base text-white font-medium">
               {t('Footer.cookies')}
             </Link>

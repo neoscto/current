@@ -15,7 +15,11 @@ import { AppDispatch, RootState } from '@/store/store';
 import { setLanguage } from '@/features/common/commonSlice';
 import NeosSelect from '../NeosSelect';
 
-const Navbar = () => {
+interface NavbarProps {
+  isHomepage?: boolean;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ isHomepage = false }) => {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const dispath = useDispatch<AppDispatch>();
@@ -28,8 +32,9 @@ const Navbar = () => {
       i18n.changeLanguage(language as string);
     }
   }, [language, i18n.language]);
+
   return (
-    <div className="xl:max-w-[1200px] px-6 md:px-10 xl:px-0 mx-auto w-full py-4 lg:py-6 flex justify-between items-center ">
+    <div className={`${isHomepage ? 'mt-9' : ''} xl:max-w-[1200px] px-6 md:px-10 xl:px-0 mx-auto w-full py-4 lg:py-6 flex justify-between items-center`}>
       <Image
         src={neoslogo}
         alt="Neos logo"
@@ -43,7 +48,9 @@ const Navbar = () => {
       <div className="items-center select-container gap-x-2 flex">
         <Link
           href="/faq"
-          className=" hover:opacity-70 font-bold border-2 border-white rounded-lg text-center text-lg md:text-xl  text-white px-4 py-1 "
+
+          className=" hover:opacity-70 font-bold border-2 border-white rounded-lg text-center text-sm md:text-base  text-white px-3"
+          style={{ paddingTop: '0.4rem', paddingBottom: '0.4rem' }}
         >
           {t('Home.nav.faq')}
         </Link>

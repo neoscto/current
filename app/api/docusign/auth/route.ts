@@ -1,68 +1,82 @@
-export const maxDuration = 30;
+export const maxDuration = 60;
 export const dynamic = 'force-dynamic';
 
-import {
-  createOrUpdateUserOffer,
-  getUserOffer
-} from '@/lib/actions/user-offer';
 import { createErrorResponse } from '@/lib/api-response';
 import connectDB from '@/lib/connect-db';
 import {
   createEnvelope,
   getEmbeddedSigningUrl
 } from '@/services/docusign.service';
-import { POWER_PRICES } from '@/utils/utils';
+import {
+  fetchData,
+  processConsumptionData
+} from '@/features/calculateSolarPaybackPeriod';
+import { createOrUpdateUserOffer } from '@/lib/actions/user-offer';
+import { formatNumber } from '@/lib/utils';
+import { PLAN_TYPE } from '@/utils/utils';
 import * as jwt from 'jsonwebtoken';
-import jsPDF from 'jspdf';
 import { NextResponse } from 'next/server';
 
-const pdfGenerate = (formData: any): string => {
-  const pdf = new jsPDF();
-  if (formData?.numberOfPeople) {
-    pdf.text(`Number of People: ${formData.numberOfPeople}`, 20, 20);
-  } else {
-    pdf.text(`Number of People: ${formData.cups}`, 20, 20);
-  }
-  pdf.text(`First Name: ${formData.firstName}`, 20, 30);
-  pdf.text(`Last Name: ${formData.lastName}`, 20, 40);
-  pdf.text(`Email Address: ${formData.emailAddress}`, 20, 50);
-  pdf.text(`Phone Number: ${formData.phoneNumber}`, 20, 60);
-  const pdfData = (pdf.output('dataurlstring') as string) || '';
-  return pdfData.split(',')[1] || '';
+type ConsumptionData = {
+  tabLabel: string;
+  value: string;
 };
 
-const generateEnvelopeData = async (offerData: any) => {
-  if (offerData.offerId && offerData._id) {
-    const paybackData = await getUserOffer(offerData.offerId);
-    const typeConsumption = paybackData.typeConsumption;
-    const powerConsumptionData = typeConsumption
-      ? [
-          {
-            tabLabel: 'p1',
-            value: POWER_PRICES[typeConsumption]['P1']
-          },
-          {
-            tabLabel: 'p2',
-            value: POWER_PRICES[typeConsumption]['P2']
-          },
-          {
-            tabLabel: 'p3',
-            value: POWER_PRICES[typeConsumption]['P3']
-          },
-          {
-            tabLabel: 'p4',
-            value: POWER_PRICES[typeConsumption]['P4']
-          },
-          {
-            tabLabel: 'p5',
-            value: POWER_PRICES[typeConsumption]['P5']
-          },
-          {
-            tabLabel: 'p6',
-            value: POWER_PRICES[typeConsumption]['P6']
-          }
-        ]
-      : [];
+interface PlanInformation {
+  typeConsumption: string;
+  powerConsumptionData: Array<ConsumptionData>;
+}
+
+const getPlanInformation = async (offerData: any): Promise<PlanInformation> => {
+  if (offerData.plan === PLAN_TYPE.Neos) {
+    const { consumption_data } = await fetchData(offerData.cups);
+    const processData: any = processConsumptionData(consumption_data);
+    const typeConsumption = offerData.typeConsumption;
+    const orderedKeys = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6'];
+    const powerConsumptionData = orderedKeys.map((key) => {
+      const sum = processData[key].reduce(
+        (val: number, acc: number) => acc + val,
+        0
+      );
+      const value = `${sum / 1000}`;
+      return { tabLabel: key.toLowerCase(), value };
+    });
+
+    return { typeConsumption, powerConsumptionData };
+  }
+  return { typeConsumption: '', powerConsumptionData: [] };
+};
+
+const getLabelInformation = (label: string, length: number, value: string) => {
+  return new Array(length).fill(value).map((_, index) => ({
+    tabLabel: `${label}${index + 1}`,
+    value
+  }));
+};
+
+const generateEnvelopeData = async (
+  offerData: any,
+  typeConsumption: string,
+  powerConsumptionData: Array<ConsumptionData>
+) => {
+  if (offerData._id) {
+    const fullNameList = getLabelInformation(
+      'fullName',
+      4,
+      `${offerData.firstName} ${offerData.lastName}`
+    );
+    const nieList = getLabelInformation('nie', 3, offerData.nie);
+    const addressList = getLabelInformation(
+      'fullAddress',
+      2,
+      `${offerData.address} ${offerData.addressNo}, ${offerData.postcode}, ${offerData.city}, ${offerData.province}, España`
+    );
+    const phoneNumberList = getLabelInformation(
+      'phoneNumber',
+      2,
+      offerData.phoneNumber
+    );
+
     const envelopeData = {
       status: 'sent',
       emailSubject: 'Please sign this document',
@@ -78,62 +92,33 @@ const generateEnvelopeData = async (offerData: any) => {
           roleName: 'Signer1',
           tabs: {
             textTabs: [
+              ...fullNameList,
+              ...nieList,
+              ...addressList,
+              ...phoneNumberList,
               {
                 tabLabel: 'lastName',
                 value: offerData.lastName
               },
-
-              {
-                tabLabel: 'nie1',
-                value: offerData.nie
-              },
-              {
-                tabLabel: 'nie2',
-                value: offerData.nie
-              },
-              {
-                tabLabel: 'nie3',
-                value: offerData.nie
-              },
-              {
-                tabLabel: 'address1',
-                value: offerData.address
-              },
-              {
-                tabLabel: 'address2',
-                value: offerData.address
-              },
-              {
-                tabLabel: 'address3',
-                value: offerData.address
-              },
-              {
-                tabLabel: 'phoneNumber1',
-                value: offerData.phoneNumber
-              },
-              {
-                tabLabel: 'phoneNumber2',
-                value: offerData.phoneNumber
-              },
               {
                 tabLabel: 'totalPanels',
-                value: paybackData.totalPanels.toFixed(2).toString()
+                value: formatNumber(offerData.totalPanels)
               },
               {
                 tabLabel: 'capacityPerPanel',
-                value: paybackData.capacityPerPanel
+                value: offerData.capacityPerPanel
               },
               {
                 tabLabel: 'totalCapacity',
-                value: `${paybackData.totalCapacity.toFixed(2).toString()} kWp`
+                value: `${formatNumber(offerData.totalCapacity)} kWp`
               },
               {
                 tabLabel: 'estimateProduction',
-                value: `${paybackData.estimateProduction.toFixed(2).toString()} kWh`
+                value: `${formatNumber(offerData.estimateProduction * 25)} kWh`
               },
               {
                 tabLabel: 'totalPayment',
-                value: paybackData.totalPayment.toFixed(2).toString()
+                value: formatNumber(offerData.totalPayment)
               },
               {
                 tabLabel: 'cups',
@@ -142,6 +127,10 @@ const generateEnvelopeData = async (offerData: any) => {
               {
                 tabLabel: 'typeConsumption',
                 value: typeConsumption
+              },
+              {
+                tabLabel: 'address',
+                value: offerData.address
               },
               {
                 tabLabel: 'addressNo',
@@ -161,79 +150,25 @@ const generateEnvelopeData = async (offerData: any) => {
               },
               {
                 tabLabel: 'country',
-                value: 'Spain'
+                value: 'España'
+              },
+              {
+                tabLabel: 'iban',
+                value: offerData.iban
+              },
+              {
+                tabLabel: 'bic',
+                value: offerData.bic
               },
               ...powerConsumptionData
             ]
           }
         }
       ]
-      // documents: [
-      //   {
-      //     documentBase64: Buffer.from(
-      //       '<html><body>Your contract content here /sn1/</body></html>'
-      //     ).toString('base64'),
-      //     name: 'Test.html',
-      //     fileExtension: 'html',
-      //     documentId: '1'
-      //   }
-      // ],
-      // recipients: {
-      //   signers: [
-      //     {
-      //       email: offerData.emailAddress,
-      //       name: offerData.firstName,
-      //       recipientId: '1',
-      //       clientUserId: '1002',
-      //       smsAuthentication: {
-      //         senderProvidedNumbers: [`${offerData.phoneNumber}`]
-      //       },
-      //       identityVerification: {
-      //         workflowId: 'c368e411-1592-4001-a3df-dca94ac539ae',
-      //         inputOptions: [
-      //           {
-      //             name: 'phone_number_list',
-      //             valueType: 'PhoneNumberList',
-      //             phoneNumberList: [
-      //               {
-      //                 countryCodeLock: false,
-      //                 countryCode: offerData.dialCode,
-      //                 number: offerData.phoneNumber,
-      //                 extension: offerData.dialCode
-      //               }
-      //             ]
-      //           }
-      //         ]
-      //       },
-      //       tabs: {
-      //         signHereTabs: [
-      //           {
-      //             anchorString: '/sn1/',
-      //             anchorXOffset: '20',
-      //             anchorYOffset: '10'
-      //           }
-      //         ]
-      //       }
-      //     }
-      //   ]
-      // }
     };
     return envelopeData;
   }
 };
-
-// const updateEnvelopeId = async (id: string, envelopeId: string) => {
-//   const parsedId = stringToObjectId(id);
-//   return await UsersOffers.findByIdAndUpdate(
-//     parsedId,
-//     { envelopeId },
-//     {
-//       new: true
-//     }
-//   )
-//     .lean()
-//     .exec();
-// };
 
 export async function POST(_request: Request, _response: Response) {
   try {
@@ -243,17 +178,30 @@ export async function POST(_request: Request, _response: Response) {
     const offerData = body.offerData;
     const accessToken: string = await getAccessToken();
     // const accessToken = process.env.NEXT_PUBLIC_DOCUSIGN_API_TOKEN || "";
-    const envelopeData = await generateEnvelopeData(offerData);
+    const { typeConsumption, powerConsumptionData } =
+      await getPlanInformation(offerData);
+
+    const envelopeData = await generateEnvelopeData(
+      offerData,
+      typeConsumption,
+      powerConsumptionData.map((item: ConsumptionData) => ({
+        ...item,
+        value: `${formatNumber(Number(item.value), 5)} kWp`
+      }))
+    );
     const envelopeId = await createEnvelope(accessToken, envelopeData);
     const signingUrl = await getEmbeddedSigningUrl(
       accessToken,
       envelopeId,
       offerData
     );
-    await createOrUpdateUserOffer(
-      { user: offerData._id, envelopeId },
-      offerData.offerId
-    );
+    await createOrUpdateUserOffer({
+      ...offerData,
+      envelopeId,
+      powerConsumptionValues: powerConsumptionData.map(
+        (item: ConsumptionData) => Number(item.value.split(' ')[0]).toFixed(1)
+      )
+    });
     return new NextResponse(
       JSON.stringify({ signingUrl, envelopeId, accessToken }),
       {
@@ -273,9 +221,7 @@ export async function POST(_request: Request, _response: Response) {
 const getAccessToken = async () => {
   const iat = Math.floor(Date.now() / 1000);
   const payload = {
-    // iss: 'cc82c409-08f6-4fe1-bdd3-03fb28efd21e',
     iss: process.env.NEXT_PUBLIC_DOCUSIGN_INTEGRATION_KEY,
-    // sub: '0d895940-2603-4e3a-94e2-e4687fcc2da0',
     sub: process.env.NEXT_PUBLIC_DOCUSIGN_USER_ID,
     aud: process.env.NEXT_PUBLIC_DOCUSIGN_ACCOUNT,
     iat: iat,
@@ -306,3 +252,19 @@ const getAccessToken = async () => {
   const token = await tokenResponse.json();
   return token.access_token;
 };
+
+export async function OPTIONS(request: Request) {
+  const allowedOrigin = request.headers.get('origin');
+  const response = new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': allowedOrigin || '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers':
+        'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version',
+      'Access-Control-Max-Age': '86400'
+    }
+  });
+
+  return response;
+}

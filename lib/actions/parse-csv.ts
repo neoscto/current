@@ -12,13 +12,19 @@ export type Record = {
 };
 
 const pvout = 2220;
-const transformRecord = (record: Omit<Record, 'production'>): Record => {
+const transformRecord = (
+  record: Omit<Record, 'production'>,
+  globalCapacity: number
+): Record => {
   const { month, hour, sum_of_percentages } = record;
-  const production = Math.round(sum_of_percentages * pvout);
+  const production = Math.round(sum_of_percentages * pvout * globalCapacity);
   return { month, hour, sum_of_percentages, production };
 };
 
-export const parseCSV = async (csvReadStream: any): Promise<Record[]> => {
+export const parseCSV = async (
+  csvReadStream: any,
+  globalCapacity: number
+): Promise<Record[]> => {
   return new Promise((resolve, reject) => {
     const records: Record[] = [];
 
@@ -29,7 +35,7 @@ export const parseCSV = async (csvReadStream: any): Promise<Record[]> => {
     csvReadStream
       .pipe(parser)
       .on('data', (data: any) => {
-        records.push(transformRecord(data));
+        records.push(transformRecord(data, globalCapacity));
       })
       .on('end', () => {
         console.log('CSV file processing complete.');

@@ -1,23 +1,22 @@
 'use server';
 
-import { PDFDocument, PDFFont, PDFPage, StandardFonts, rgb } from 'pdf-lib';
-import { parseCSV } from './parse-csv';
-import { generateChart, generatePaybackChart } from './generate-chart';
-import path from 'path';
-import * as fs from 'fs';
+import fontkit from '@pdf-lib/fontkit';
 import fetch from 'node-fetch';
-import {
-  chartPageHorizontalPositions,
-  chartPageVerticalPositions,
-  dataURLToUint8Array,
-  spanishMonths
-} from '../utils';
+import { PDFDocument, PDFFont, rgb } from 'pdf-lib';
 import {
   DrawChartProps,
   GenerateChartPageProps,
   GeneratePDFProps
 } from '../types';
-import fontkit from '@pdf-lib/fontkit';
+import {
+  chartPageHorizontalPositions,
+  chartPageVerticalPositions,
+  dataURLToUint8Array,
+  findMaxProduction,
+  formatNumber,
+  spanishMonths
+} from '../utils';
+import { parseCSV } from './parse-csv';
 
 const embedChartBackground = async (
   pdfDoc: PDFDocument,
@@ -77,7 +76,8 @@ const generateChartPage = async ({
   imageWidth,
   imageHeight,
   pageWidth,
-  pageHeight
+  pageHeight,
+  maxProduction
 }: GenerateChartPageProps) => {
   const page = await embedChartBackground(
     pdfDoc,
@@ -97,7 +97,8 @@ const generateChartPage = async ({
         body: JSON.stringify({
           records,
           filterMonth: month.index,
-          title: month.name
+          title: month.name,
+          maxProduction
         })
       }
     );
@@ -125,7 +126,7 @@ const generatePage6 = async (
   codecFont: PDFFont,
   globalPrice: number,
   globalSavings: number,
-  globalPaybackNeos: number,
+  globalPayback: number,
   globalPaybackRooftop: number,
   globalTons: number
 ) => {
@@ -142,28 +143,21 @@ const generatePage6 = async (
     height: imageDims.height
   });
   const fontSize = 11;
-  page.drawText('El precio de la Instalación Solar Virtual', {
-    x: 60,
-    y: 647,
-    size: fontSize,
-    font: codecFont,
-    color: rgb(0, 0, 0)
-  });
   page.drawText(
-    `propuesta de ${globalCapacity.toFixed(2)} KWp es de €${globalPrice.toFixed(2)}.`,
+    `El precio de la Instalación Solar Virtual de ${formatNumber(globalCapacity)} kWp es de €${formatNumber(globalPrice * 1.21)} (IVA incluido).`,
     {
       x: 60,
-      y: 632,
+      y: 647,
       size: fontSize,
       font: codecFont,
       color: rgb(0, 0, 0)
     }
   );
   page.drawText(
-    `Esto equivale a €${(globalPrice / globalCapacity).toFixed(2)} /KWp.`,
+    `Esto equivale a €${formatNumber(globalPrice / globalCapacity)}/kWp sin 21% IVA.`,
     {
       x: 60,
-      y: 601,
+      y: 617,
       size: fontSize,
       font: codecFont,
       color: rgb(0, 0, 0)
@@ -172,7 +166,7 @@ const generatePage6 = async (
   page.drawText(
     'Asumiendo una inflación del 3% anual en el precio de la energía, el ahorro total obtenido',
     {
-      x: 59,
+      x: 60,
       y: 250,
       size: fontSize,
       font: codecFont,
@@ -180,29 +174,26 @@ const generatePage6 = async (
     }
   );
   page.drawText(
-    `por la Instalación Solar Virtual será de €${globalSavings.toFixed(2)}. Esto supondrá un ahorro total`,
+    `por la Instalación Solar Virtual será de €${formatNumber(globalSavings)}. Esto supondrá un ahorro total ${formatNumber(globalSavings / (globalPrice * 1.21))} veces`,
     {
-      x: 58,
+      x: 60,
       y: 234,
       size: fontSize,
       font: codecFont,
       color: rgb(0, 0, 0)
     }
   );
-  page.drawText(
-    `${(globalSavings / globalPrice).toFixed(2)} veces mayor al coste de la inversión.`,
-    {
-      x: 58,
-      y: 217,
-      size: fontSize,
-      font: codecFont,
-      color: rgb(0, 0, 0)
-    }
-  );
+  page.drawText('mayor al coste total de la inversión.', {
+    x: 60,
+    y: 217,
+    size: fontSize,
+    font: codecFont,
+    color: rgb(0, 0, 0)
+  });
   page.drawText(
     'Gracias a la superioridad productiva de nuestros parques solares, y al menor tamaño de',
     {
-      x: 58,
+      x: 60,
       y: 172,
       size: fontSize,
       font: codecFont,
@@ -210,9 +201,9 @@ const generatePage6 = async (
     }
   );
   page.drawText(
-    `la inversión inicial, la Instalación Solar Virtual se amortizará en ${globalPaybackNeos.toFixed(2)} años. Con su curva de`,
+    `la inversión inicial, la Instalación Solar Virtual se amortizará en ${formatNumber(globalPayback)} años. Con su curva de`,
     {
-      x: 58,
+      x: 60,
       y: 157,
       size: fontSize,
       font: codecFont,
@@ -220,9 +211,9 @@ const generatePage6 = async (
     }
   );
   page.drawText(
-    `consumo, el periodo medio de amortización de autoconsumo tradicional sería ${globalPaybackRooftop.toFixed(2)} años.`,
+    `consumo, el periodo medio de amortización de autoconsumo tradicional sería ${formatNumber(globalPaybackRooftop)} años.`,
     {
-      x: 58,
+      x: 60,
       y: 142,
       size: fontSize,
       font: codecFont,
@@ -230,9 +221,9 @@ const generatePage6 = async (
     }
   );
   page.drawText(
-    `Evitará ${globalTons.toFixed(2)} toneladas de CO2 gracias a la producción de energía renovable y sostenible.`,
+    `Evitará ${formatNumber(globalTons)} toneladas de CO2 gracias a la producción de energía renovable y sostenible.`,
     {
-      x: 58,
+      x: 60,
       y: 93,
       size: fontSize,
       font: codecFont,
@@ -249,16 +240,17 @@ export const generatePDF = async ({
   chartBackground1,
   chartBackground2,
   csvPath,
-  fontPath,
+  codecRegularPath,
   globalCapacity,
   globalPanels,
-  globalPercentage,
   globalPrice,
   globalSavings,
-  globalPaybackNeos,
+  globalPayback,
   globalPaybackRooftop,
   globalTons,
-  cumulativeSavings
+  cumulativeSavings,
+  yearlyConsumption,
+  planName
 }: GeneratePDFProps) => {
   try {
     console.log('🚀 Generating');
@@ -284,7 +276,9 @@ export const generatePDF = async ({
     const pageHeight = 842; // A4 height in points
 
     // Embed the Helvetica font
-    const fontBytes = await fetch(fontPath).then((resp) => resp.arrayBuffer());
+    const fontBytes = await fetch(codecRegularPath).then((resp) =>
+      resp.arrayBuffer()
+    );
     const codecFont = await newPdfDoc.embedFont(fontBytes);
 
     // Embed the background image
@@ -313,19 +307,26 @@ export const generatePDF = async ({
     // Set the font size
     const fontSize = 11;
 
+    page.drawText(`Esta oferta refleja el plan “${planName}”.`, {
+      x: 60,
+      y: 660,
+      size: fontSize,
+      font: codecFont,
+      color: rgb(0, 0, 0)
+    });
     page.drawText(
-      `${globalCapacity.toFixed(2)} KWp (${globalPanels.toFixed(2)}) Paneles`,
+      `${formatNumber(globalCapacity)} kWp (${formatNumber(globalPanels)} Paneles)`,
       {
         x: 120,
-        y: 606,
+        y: 552,
         size: fontSize,
         font: codecFont,
         color: rgb(0, 0, 0)
       }
     );
-    page.drawText(`${(globalCapacity * 2220).toFixed(2)} KWh`, {
+    page.drawText(`${formatNumber(globalCapacity * 2220)} kWh`, {
       x: 385,
-      y: 606,
+      y: 552,
       size: fontSize,
       font: codecFont,
       color: rgb(0, 0, 0)
@@ -334,7 +335,7 @@ export const generatePDF = async ({
       'Considerando el consumo eléctrico real, así como el perfil de producción energética de',
       {
         x: 60,
-        y: 550,
+        y: 515,
         size: fontSize,
         font: codecFont,
         color: rgb(0, 0, 0)
@@ -344,7 +345,7 @@ export const generatePDF = async ({
       'nuestros parques solares, se ha realizado un estudio que calcula con exactitud el tamaño',
       {
         x: 60,
-        y: 535,
+        y: 500,
         size: fontSize,
         font: codecFont,
         color: rgb(0, 0, 0)
@@ -352,35 +353,14 @@ export const generatePDF = async ({
     );
     page.drawText('ideal de su Instalación Solar Virtual.', {
       x: 60,
-      y: 520,
+      y: 485,
       size: fontSize,
       font: codecFont,
       color: rgb(0, 0, 0)
     });
 
     page.drawText(
-      `En base a este estudio, se aconseja al cliente una Instalación Solar Virtual de ${globalCapacity.toFixed(2)} KWp,`,
-      {
-        x: 60,
-        y: 500,
-        size: fontSize,
-        font: codecFont,
-        color: rgb(0, 0, 0)
-      }
-    );
-    page.drawText(
-      `equivalente a ${globalPanels.toFixed(2)} paneles. Dicha Instalación Solar Virtual producirá ${(globalCapacity * 2220).toFixed(2)} KWh`,
-      {
-        x: 60,
-        y: 485,
-        size: fontSize,
-        font: codecFont,
-        color: rgb(0, 0, 0)
-      }
-    );
-
-    page.drawText(
-      `de electricidad al año, el equivalente a un ${globalPercentage.toFixed(2)}% del consumo total.`,
+      `En base a este estudio, se aconseja al cliente una Instalación Solar Virtual de ${formatNumber(globalCapacity)} kWp,`,
       {
         x: 60,
         y: 470,
@@ -389,10 +369,31 @@ export const generatePDF = async ({
         color: rgb(0, 0, 0)
       }
     );
+    page.drawText(
+      `equivalente a ${formatNumber(globalPanels)} paneles. Dicha Instalación Solar Virtual producirá ${formatNumber(globalCapacity * 2220)} kWh`,
+      {
+        x: 60,
+        y: 455,
+        size: fontSize,
+        font: codecFont,
+        color: rgb(0, 0, 0)
+      }
+    );
+
+    page.drawText(
+      `de electricidad al año, el equivalente a un ${(((globalCapacity * 2220) / yearlyConsumption) * 100).toFixed(2)}% del consumo total.`,
+      {
+        x: 60,
+        y: 440,
+        size: fontSize,
+        font: codecFont,
+        color: rgb(0, 0, 0)
+      }
+    );
 
     const csvReadStream = await fetch(csvPath).then((resp) => resp.body);
-    const records = await parseCSV(csvReadStream);
-
+    const records = await parseCSV(csvReadStream, globalCapacity);
+    const maxProduction = findMaxProduction(records);
     // Generate Chart Page
 
     await generateChartPage({
@@ -405,7 +406,8 @@ export const generatePDF = async ({
       imageWidth: imageDims.width,
       imageHeight: imageDims.height,
       pageWidth,
-      pageHeight
+      pageHeight,
+      maxProduction
     });
 
     await generatePage6(
@@ -417,7 +419,7 @@ export const generatePDF = async ({
       codecFont,
       globalPrice,
       globalSavings,
-      globalPaybackNeos,
+      globalPayback,
       globalPaybackRooftop,
       globalTons
     );
@@ -439,7 +441,8 @@ export const generatePDF = async ({
         method: 'POST',
         body: JSON.stringify({
           cumulativeSavings,
-          globalPrice
+          globalPrice,
+          planName
         })
       }
     );

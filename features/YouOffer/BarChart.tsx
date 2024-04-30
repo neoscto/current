@@ -43,19 +43,21 @@ const BarChartComponent: React.FC<BarChartProps> = ({
             <div className="flex gap-2">
               <NeosButton
                 category="outline"
-                className={`lg:px-3 lg:py-4 px-[14px] py-2 lg:text-sm text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] !border-2 ${userPlanBar == 'neos'
-                  ? '!border-[#66BCDA]'
-                  : '!border-[#E0E0E0]'
-                  } !normal-case h-12`}
+                className={`lg:px-3 lg:py-4 px-[14px] py-2 lg:text-sm text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] !border-2 ${
+                  userPlanBar == 'neos'
+                    ? '!border-[#66BCDA]'
+                    : '!border-[#E0E0E0]'
+                } !normal-case h-12`}
                 title={t('How-it-work.chooseNeosPartner')}
                 onClick={updateUserPlanBarSelection('neos')}
               />
               <NeosButton
                 category="outline"
-                className={` lg:px-3 lg:py-4 px-[14px] py-2 lg:text-sm text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] border-2 ${userPlanBar == 'current'
-                  ? '!border-[#66BCDA]'
-                  : '!border-[#E0E0E0]'
-                  } !normal-case h-12
+                className={` lg:px-3 lg:py-4 px-[14px] py-2 lg:text-sm text-[12px] leading-[15px] lg:leading-5 !font-medium !text-black !rounded-[24px] border-2 ${
+                  userPlanBar == 'current'
+                    ? '!border-[#66BCDA]'
+                    : '!border-[#E0E0E0]'
+                } !normal-case h-12
                   `}
                 title={t('How-it-work.keepProvider')}
                 onClick={updateUserPlanBarSelection('current')}
@@ -80,11 +82,9 @@ const BarChartComponent: React.FC<BarChartProps> = ({
         </div>
 
         {/* chart container */}
-        <div className=" h-80 ">
+        <div className=" h-80">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
-              width={150}
-              height={40}
               data={
                 userPlanBar === 'neos'
                   ? data.save_yearly_w_neos
@@ -131,13 +131,13 @@ const BarChartComponent: React.FC<BarChartProps> = ({
                 tickFormatter={(value) =>
                   value > 0
                     ? `${(
-                      (userPlanBar === 'neos'
-                        ? value * data.total_savings_w_neos
-                        : value * data.total_savings_w_neos) / 1000
-                    ).toLocaleString('en-US', {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2
-                    })}K`
+                        (userPlanBar === 'neos'
+                          ? value * data.total_savings_w_neos
+                          : value * data.total_savings_w_neos) / 1000
+                      ).toLocaleString('en-US', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                      })}K`
                     : value
                 }
                 className="lg:text-[12px] text-[6px] "

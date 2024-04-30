@@ -12,8 +12,8 @@ export const fetchPosts = createAsyncThunk('common/fetchPosts', async () => {
   return response.data;
 });
 
-export const userData = getDataFromSessionStorage('UserOffer') || {
-  numberOfPeople: null,
+const initialUserData = {
+  // numberOfPeople: null,
   firstName: '',
   lastName: '',
   emailAddress: '',
@@ -23,17 +23,27 @@ export const userData = getDataFromSessionStorage('UserOffer') || {
   referralCode: '',
   dialCode: '',
   _id: '',
-  offerId: '',
   isValidCode: false,
   plan: 'neos',
-  offerType: '',
+  // offerType: '',
   totalPanels: '',
   capacityPerPanel: '',
   totalCapacity: '',
   estimateProduction: '',
   totalPayment: '',
-  typeConsumption: ''
+  neosTotalEmissionSaved: '',
+  paybackWithNeos: '',
+  percentSavings: '',
+  totalSavingsWithNeos: '',
+  yearlyConsumption: '',
+  typeConsumption: '',
+  iban: '',
+  bic: '',
+  switching: 'C1'
 };
+
+export const userData =
+  getDataFromSessionStorage('UserOffer') || initialUserData;
 
 const initialState = {
   post: [],
@@ -50,6 +60,9 @@ const commonSlice = createSlice({
       state.userData = { ...state.userData, ...action.payload };
       saveDataToSessionStorage('UserOffer', state.userData);
     },
+    resetUserData: (state) => {
+      state.userData = initialUserData;
+    },
     setFormBack: (state, action) => {
       state.formBack = action.payload;
     },
@@ -64,5 +77,6 @@ const commonSlice = createSlice({
   }
 });
 
-export const { setUserData, setFormBack, setLanguage } = commonSlice.actions;
+export const { setUserData, resetUserData, setFormBack, setLanguage } =
+  commonSlice.actions;
 export default commonSlice.reducer;

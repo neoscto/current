@@ -1,6 +1,5 @@
-'use server';
-import axios, { AxiosResponse } from 'axios';
-import test from 'node:test';
+//@ts-nocheck
+import { cupsErrorTypes } from '@/utils/utils';
 
 // Constants
 
@@ -149,7 +148,7 @@ async function getConsumptionDataFromApi(
 ): Promise<any | null> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/enerbit/consumption_pse`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/enerbit/consumption_pse`,
       {
         method: 'POST',
         headers: {
@@ -176,7 +175,7 @@ export async function getTechnicalDataFromApi(
 ): Promise<any | null> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/enerbit/pse`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/enerbit/pse`,
       {
         method: 'POST',
         headers: {
@@ -218,9 +217,9 @@ interface ProcessedData {
   Total: number[];
 }
 
-function processConsumptionData(
+export function processConsumptionData(
   consumptionData: ConsumptionData
-): ProcessedData {
+): ProcessedData | number {
   const { cons_month } = consumptionData.summary;
   const Year: string[] = [];
   const Month: string[] = [];
@@ -232,24 +231,26 @@ function processConsumptionData(
   const P6: number[] = [];
   const Total: number[] = [];
 
-  for (const entry of cons_month) {
-    const { month_date, data } = entry;
-    const [YearVal, MonthVal] = month_date.match(/(\d{4})(\d{2})/)!.slice(1);
-    Year.push(YearVal);
-    Month.push(MonthVal);
-    P1.push(data[0]);
-    P2.push(data[1]);
-    P3.push(data[2]);
-    P4.push(data[3]);
-    P5.push(data[4]);
-    P6.push(data[5]);
-    Total.push(data.reduce((acc, val) => acc + val, 0));
+  if (cons_month.length !== 0) {
+    for (const entry of cons_month) {
+      const { month_date, data } = entry;
+      const [YearVal, MonthVal] = month_date.match(/(\d{4})(\d{2})/)!.slice(1);
+      Year.push(YearVal);
+      Month.push(MonthVal);
+      P1.push(data[0]);
+      P2.push(data[1]);
+      P3.push(data[2]);
+      P4.push(data[3]);
+      P5.push(data[4]);
+      P6.push(data[5]);
+      Total.push(data.reduce((acc, val) => acc + val, 0));
+    }
+    return { Year, Month, P1, P2, P3, P4, P5, P6, Total };
   }
-
-  return { Year, Month, P1, P2, P3, P4, P5, P6, Total };
+  return 0;
 }
 
-const fetchData = async (cups_code: string) => {
+export const fetchData = async (cups_code: string) => {
   try {
     const [consumption_data, technical_data] = await Promise.all([
       getConsumptionDataFromApi(cups_code),
@@ -262,11 +263,15 @@ const fetchData = async (cups_code: string) => {
   }
 };
 
-export const calculateSolarPaybackPeriod = async (
-  offerType: string,
-  number_of_people?: number,
-  user_cups_code?: string
-) => {
+export const calculateSolarPaybackPeriod = async ({
+  offerType,
+  number_of_people,
+  user_cups_code
+}: {
+  offerType: string;
+  number_of_people?: number;
+  user_cups_code?: string;
+}) => {
   let required_capacity: number = 0;
   let vsi_required_capacity: number = 0;
   let yearly_fixed_charge: number = 0;
@@ -304,9 +309,13 @@ export const calculateSolarPaybackPeriod = async (
       .map((cup) => cup.trim());
 
     const allData = await Promise.all(cups_codes.map(fetchData));
-
-    if (!allData) {
-      throw new Error('erorr');
+    if (!allData[0].consumption_data || !allData[0].technical_data) {
+      return {
+        error: true,
+        type: cupsErrorTypes.API_ISSUE,
+        message:
+          "Sorry, we are having an issue connecting to the electric grid's database today! Please try again in a few hours."
+      };
     }
 
     let industrial_customer = false;
@@ -314,10 +323,17 @@ export const calculateSolarPaybackPeriod = async (
     if (cups_codes.length === 1) {
       const { consumption_data, technical_data } = allData[0];
 
+      const final_df: any = processConsumptionData(consumption_data);
+      if (!final_df)
+        return {
+          error: true,
+          type: cupsErrorTypes.INSUFFICIENT_HISTORY,
+          message:
+            "Your CUPS is relatively new and doesn't hold enough consumption history. Replace it with an older CUPS or use the Standard Offer."
+        };
       if (consumption_data && technical_data) {
-        const final_df = processConsumptionData(consumption_data);
         let mean_daily_average_consumption: number =
-          final_df.Total.reduce((acc, val) => acc + val, 0) /
+          final_df.Total.reduce((acc: number, val: number) => acc + val, 0) /
           (final_df.Year.length * DAYS_IN_MONTH);
 
         required_capacity =
@@ -326,7 +342,7 @@ export const calculateSolarPaybackPeriod = async (
           required_capacity / SOLAR_PARK_PRODUCTIVITY_BOOST;
 
         yearly_consumption =
-          (final_df.Total.reduce((acc, val) => acc + val, 0) /
+          (final_df.Total.reduce((acc: number, val: number) => acc + val, 0) /
             final_df.Year.length) *
           MONTHS_IN_YEAR;
 
@@ -334,11 +350,23 @@ export const calculateSolarPaybackPeriod = async (
           ? technical_data.tipoPerfilConsumo.slice(1).toUpperCase()
           : null;
         let relevant_prices = POWER_PRICES[type_consumption_point];
+        // let contracted_powers: Record<string, number> = {};
+        // for (let i = 1; i <= 7; i++) {
+        //   const contract_value = technical_data[`potenciasContratadasEnWP${i}`];
+        //   console.log(`Value ${i}: ${contract_value}`);
+        //   contracted_powers[`P${i}`] = parseFloat(contract_value || '0');
+        // }
         let contracted_powers: Record<string, number> = {};
-        for (let i = 1; i <= 7; i++) {
-          contracted_powers[`P${i}`] = parseFloat(
-            technical_data[`potenciasContratadasEnWP${i}`] || '0'
-          );
+        for (let i = 1; i <= 6; i++) {
+          const powerKey = `potenciasContratadasEnWP${i}`;
+          let powerValue = parseFloat(technical_data[powerKey]);
+
+          // Check if the result is NaN. If so, replace with 0.
+          if (isNaN(powerValue)) {
+            powerValue = 0;
+          }
+
+          contracted_powers[`P${i}`] = powerValue;
         }
 
         let final_charges: number[] = Object.entries(relevant_prices).map(
@@ -389,10 +417,19 @@ export const calculateSolarPaybackPeriod = async (
         if (!data) return;
         const { consumption_data, technical_data } = data;
 
+        const final_df: any = processConsumptionData(consumption_data);
+        if (typeof final_df === 'number') {
+          return {
+            error: true,
+            type: cupsErrorTypes.MULTIPLE_ISSUES,
+            cupsCode: data.consumption_data.history[0].cups,
+            message:
+              "One of the CUPS used, {{cups_code}}, is relatively new and doesn't hold enough consumption history. Remove it, replace with an older CUPS, or use the Standard Offer."
+          };
+        }
         if (consumption_data && technical_data) {
-          const final_df = processConsumptionData(consumption_data);
           let mean_daily_average_consumption: number =
-            final_df.Total.reduce((acc, val) => acc + val, 0) /
+            final_df.Total.reduce((acc: number, val: number) => acc + val, 0) /
             (final_df.Year.length * DAYS_IN_MONTH);
           const individual_required_capacity: number =
             mean_daily_average_consumption / SEVILLA_HSP / SYSTEM_EFFICIENCY;
@@ -402,7 +439,7 @@ export const calculateSolarPaybackPeriod = async (
           vsi_required_capacity += vsi_individual_required_capacity;
 
           const individual_yearly_consumption: number =
-            (final_df.Total.reduce((acc, val) => acc + val, 0) /
+            (final_df.Total.reduce((acc: number, val: number) => acc + val, 0) /
               final_df.Year.length) *
             MONTHS_IN_YEAR;
           yearly_consumption += individual_yearly_consumption;
@@ -729,12 +766,21 @@ export const calculateSolarPaybackPeriod = async (
   // console.log('Your cumulative savings in:');
 
   let save_yearly_w_neos = [];
-  let cumulative_savings = [];
+  let neos_cumulative_savings = [];
+  let current_cumulative_savings = [];
 
   for (let i = 0; i < 25; i++) {
     total_savings_w_neos += savings_w_neos[i];
 
     // console.log(`- Year ${i+1}: €${total_savings_w_neos.toFixed(2)}.`);
+  }
+  if (total_savings_w_neos < 0) {
+    return {
+      error: true,
+      type: cupsErrorTypes.NEGATIVE_SAVINGS,
+      message:
+        'Your consumption is too small for you to enjoy the benefits of solar energy. Try a different CUPS or pool many CUPS together, separated by commas. You will get a more appealing offer right away!'
+    };
   }
 
   let sum = 0;
@@ -744,7 +790,7 @@ export const calculateSolarPaybackPeriod = async (
       years: i + 1,
       saving: (sum / total_savings_w_neos).toFixed(6)
     });
-    cumulative_savings.push({ years: i + 1, saving: sum });
+    neos_cumulative_savings.push({ years: i + 1, saving: sum });
   }
 
   let sum_w_neos: number = 0;
@@ -835,6 +881,14 @@ export const calculateSolarPaybackPeriod = async (
     // });
     // console.log(`- Year ${i}: €${total_savings_without_neos.toFixed(2)}.`);
   }
+  if (total_savings_without_neos < 0) {
+    return {
+      error: true,
+      type: cupsErrorTypes.NEGATIVE_SAVINGS,
+      message:
+        'Your consumption is too small for you to enjoy the benefits of solar energy. Try a different CUPS or pool many CUPS together, separated by commas. You will get a more appealing offer right away!'
+    };
+  }
   sum = 0;
   for (let i = 0; i < 25; i++) {
     sum += savings_without_neos[i];
@@ -843,6 +897,7 @@ export const calculateSolarPaybackPeriod = async (
       saving: (sum / total_savings_w_neos).toFixed(6)
     });
     // console.log(`- Year ${i}: €${total_savings_without_neos.toFixed(2)}.`);
+    current_cumulative_savings.push({ years: i + 1, saving: sum });
   }
 
   let sum_without_neos: number = 0;
@@ -1058,6 +1113,7 @@ export const calculateSolarPaybackPeriod = async (
         keepProvider: '0'
       }
     ],
+    percent_savings_w_neos,
     percent_savings_year1_w_neos,
     percent_savings_year1_without_neos,
     savings_retail_w_neos,
@@ -1073,7 +1129,9 @@ export const calculateSolarPaybackPeriod = async (
     save_yearly_without_neos,
     total_savings_w_neos,
     total_savings_without_neos,
-    cumulative_savings,
+    neos_cumulative_savings,
+    current_cumulative_savings,
+    yearly_consumption,
     type_consumption_point
   };
 };

@@ -6,7 +6,6 @@ import {
   prop
 } from '@typegoose/typegoose';
 import mongoose, { Document } from 'mongoose';
-import { UserSchema } from './User';
 import { UserOfferSchema } from './UsersOffers';
 
 enum PaymentStatus {
@@ -22,7 +21,6 @@ enum PaymentStatus {
 }
 
 export type PaymentSchemaProps = {
-  user: () => string;
   userOffer: () => string;
   status: PaymentStatus;
   amountPaid: number;
@@ -51,9 +49,6 @@ export type PaymentDocument = Document & PaymentSchemaType;
   }
 })
 class PaymentSchema {
-  @prop({ ref: () => UserSchema, required: true })
-  user: Ref<PaymentSchema>;
-
   @prop({ ref: () => UserOfferSchema, required: true, unique: true })
   userOffer: Ref<PaymentSchema>;
 
