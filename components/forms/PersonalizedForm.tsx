@@ -342,11 +342,14 @@ const PersonalizedForm = () => {
                     style={{
                       backgroundColor: '#FD7C7C',
                       borderRadius: '16px',
-                      height: '56px'
+                      height: '56px',
+                      width: '100%',
+                      maxWidth: '275px'
                     }}
                     classNames={{}}
                     onClick={() => handleyourSaving()}
                     loading={buttonLoading || isLoading}
+                    className="!text-base md:!text-[18px] !leading-[18px]"
                   >
                     {t('Calculate-saving-btn')}
                   </Button>
