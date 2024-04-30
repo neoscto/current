@@ -62,24 +62,13 @@ const HorizontalLinearStepper = () => {
 
   const [formik, isLoading]: any = useHandleForm({
     method: 'POST',
-    apiEndpoint: '/api/users',
+    apiEndpoint: '/api/users-offers',
     formikInitialValues,
     validationSchema: detailFormSchema,
     handleSuccessResponce
   });
   function handleSuccessResponce(res: any) {
-    dispatch(
-      setUserData({
-        ...res.data,
-        offerType: 'Personalized',
-        totalPanels: data.number_of_panels,
-        capacityPerPanel: '440 Wp',
-        totalCapacity: data.vsi_required_capacity,
-        estimateProduction: data.vsi_required_capacity * 2000,
-        totalPayment: data.total_price_after_tax,
-        typeConsumption: data.type_consumption_point
-      })
-    );
+    saveDataToSessionStorage('UserOffer', res.data);
     setShowForm('yourOffer');
     const arrayData = Object.keys(res.data);
     arrayData.forEach((key: any) => {
