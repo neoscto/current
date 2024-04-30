@@ -31,6 +31,7 @@ const PersonalizedForm = () => {
   const formikInitialValues = {
     // offerType: '',
     // numberOfPeople: '',
+    _id: userData._id || undefined,
     cups: userData.cups || '',
     firstName: userData.firstName || '',
     lastName: userData.lastName || '',
