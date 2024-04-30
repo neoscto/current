@@ -6,7 +6,7 @@ import { createErrorResponse } from '@/lib/api-response';
 import connectDB from '@/lib/connect-db';
 import { NextResponse } from 'next/server';
 
-export async function PATCH(request: Request) {
+export async function POST(request: Request) {
   try {
     await connectDB();
 
