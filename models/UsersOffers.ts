@@ -5,7 +5,6 @@ import {
   index,
   prop
 } from '@typegoose/typegoose';
-import type { Ref } from '@typegoose/typegoose';
 import mongoose, { Document } from 'mongoose';
 
 // enum OFFER_TYPE {
@@ -98,7 +97,7 @@ class UserOfferSchema {
   dialCode: string;
 
   @prop({ required: false })
-  totalPanels: number;
+  cups: string;
 
   // @prop({ required: false })
   // numberOfPeople: number;
@@ -125,7 +124,7 @@ class UserOfferSchema {
   province: string;
 
   @prop({ required: false })
-  typeConsumption: string;
+  postcode: string;
 
   @prop({ required: false })
   referralCode: string;
@@ -172,10 +171,10 @@ class UserOfferSchema {
   @prop({ required: false })
   envelopeId: string;
 
-  @prop({ default: false, required: false })
+  @prop({ default: false })
   termsConditionRead: boolean;
 
-  @prop({ default: false, required: false })
+  @prop({ default: false })
   contractSign: boolean;
 
   @prop()
