@@ -6,7 +6,7 @@ const WhatsappWidget = () => {
     <div className="fixed right-2 bottom-2">
       <ButtonBase
         component="a"
-        href="https://wa.me/34900732890"
+        href="https://wa.me/34637181832"
         target="_blank"
         rel="noopener noreferrer"
       >
