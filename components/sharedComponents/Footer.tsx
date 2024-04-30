@@ -38,6 +38,7 @@ const Footer = () => {
               <Link
                 href="https://www.instagram.com/neos.energy/"
                 className="invert brightness-0"
+                target="_blank"
               >
                 <InstagramIcon />
               </Link>
@@ -45,12 +46,14 @@ const Footer = () => {
               <Link
                 href="https://www.linkedin.com/company/neos-energy/"
                 className="invert brightness-0"
+                target="_blank"
               >
                 <LinkedInIcon />
               </Link>
               <Link
                 href="https://twitter.com/Neos_Energy"
                 className="invert brightness-0"
+                target="_blank"
               >
                 <XIcon />
               </Link>
@@ -75,6 +78,7 @@ const Footer = () => {
               <Link
                 href="https://www.instagram.com/neos.energy/"
                 className="invert brightness-0"
+                target="_blank"
               >
                 <InstagramIcon />
               </Link>
@@ -82,12 +86,14 @@ const Footer = () => {
               <Link
                 href="https://www.linkedin.com/company/neos-energy/"
                 className="invert brightness-0"
+                target="_blank"
               >
                 <LinkedInIcon />
               </Link>
               <Link
                 href="https://twitter.com/Neos_Energy"
                 className="invert brightness-0"
+                target="_blank"
               >
                 <XIcon />
               </Link>
