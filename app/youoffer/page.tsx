@@ -81,8 +81,6 @@ const YourOffer = ({ handleNext, data }: any) => {
   const { userData }: any = useSelector(
     (state: RootState) => state.commonSlice
   );
-  const dispatch = useDispatch<AppDispatch>();
-
   const router = useRouter();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
